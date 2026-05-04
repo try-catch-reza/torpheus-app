@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/presentation/screens/login/web/login_web_painel_esquerdo.dart';
 import 'package:torpheus/presentation/screens/login/widgets/login_form.dart';
 
 import '../bloc/login_bloc.dart';
@@ -22,10 +23,7 @@ class LoginWebBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          color: ColorConstants.chambray,
-          width: MediaQuery.of(context).size.width * 0.7,
-        ),
+        const LoginWebPainelEsquerdo(),
         Container(
           color: ColorConstants.corFundo,
           width: MediaQuery.of(context).size.width * 0.3,
