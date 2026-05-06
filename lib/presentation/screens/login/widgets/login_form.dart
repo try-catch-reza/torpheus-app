@@ -21,7 +21,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(32.0),
+      padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
       child: Form(
         key: formKey,
         child: Column(
@@ -140,6 +140,34 @@ class LoginForm extends StatelessWidget {
                         ),
                 );
               },
+            ),
+            const SizedBox(height: 20),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  // TODO: navegar para tela de recuperação de senha
+                },
+                child: RichText(
+                  text: const TextSpan(
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF6B7A99),
+                      decoration: TextDecoration.none,
+                    ),
+                    children: [
+                      TextSpan(text: 'Esqueceu a senha? '),
+                      TextSpan(
+                        text: 'Recuperar acesso',
+                        style: TextStyle(
+                          color: Color(0xFF1B2A4A),
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         ),

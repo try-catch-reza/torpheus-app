@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 
-import '../widgets/login_form.dart';
+import '../../../../core/constants/custom_colors.dart';
+import 'login_mobile_card.dart';
+import 'login_mobile_grid.dart';
+import 'login_mobile_header.dart';
 
 class LoginMobileBody extends StatelessWidget {
   const LoginMobileBody({
@@ -19,11 +22,30 @@ class LoginMobileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoginForm(
-      state: state,
-      formKey: formKey,
-      controllerSenha: controllerSenha,
-      controllerNome: controllerNome,
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: ColoredBox(color: ColorConstants.chambray),
+        ),
+        Positioned.fill(
+          child: CustomPaint(painter: LoginMobileGrid()),
+        ),
+        SafeArea(
+          child: Column(
+            children: [
+              const LoginMobileHeader(),
+              Expanded(
+                child: LoginMobileCard(
+                  state: state,
+                  formKey: formKey,
+                  controllerNome: controllerNome,
+                  controllerSenha: controllerSenha,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
