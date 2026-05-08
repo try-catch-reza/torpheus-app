@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/screens/painel/bloc/painel_bloc.dart';
 import 'package:torpheus/presentation/screens/painel/web/painel_web_content.dart';
 
+import '../../../config/responsive.dart';
 import 'mobile/painel_mobile_content.dart';
 
 class PainelScreen extends StatelessWidget {
@@ -15,7 +16,9 @@ class PainelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: painelBloc..add(const PainelCarregar()),
-      child: kIsWeb ? const PainelWebContent() : const PainelMobileContent(),
+      child: Responsive.isDesktop(context) || Responsive.isTablet(context)
+          ? const PainelWebContent()
+          : const PainelMobileContent(),
     );
   }
 }

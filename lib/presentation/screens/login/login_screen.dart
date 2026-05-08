@@ -1,9 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:torpheus/presentation/screens/login/mobile/login_mobile_content.dart';
 import 'package:torpheus/presentation/screens/login/web/login_web_content.dart';
+
+import '../../../config/responsive.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key, required this.loginBloc});
@@ -14,7 +15,9 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: loginBloc..add(const LoginCarregar()),
-      child: kIsWeb ? const LoginWebContent() : const LoginMobileContent(),
+      child: Responsive.isDesktop(context) || Responsive.isTablet(context)
+        ? const LoginWebContent()
+        : const LoginMobileContent(),
     );
   }
 }

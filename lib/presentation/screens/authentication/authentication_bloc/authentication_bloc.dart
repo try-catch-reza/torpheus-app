@@ -28,9 +28,9 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) async {
     try {
-      // final String? token = _preferencesController.getAccessToken();
-      // final String accessToken = _preferencesController.isTokenValid(token);
-      // await _authenticationController.checkTokenValidity(accessToken);
+      final String? token = _preferencesController.getAccessToken();
+      final String accessToken = _preferencesController.isTokenValid(token);
+      await _authenticationController.checkTokenValidity(accessToken);
       emit(const AuthenticationState.authenticated());
     } on UnauthenticatedException catch (_) {
       await _preferencesController.removeAccessToken();
