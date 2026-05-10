@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/presentation/components/web/web_logo_header.dart';
 import 'package:torpheus/presentation/screens/recuperar_senha/web/recupera_senha_web_dicas.dart';
 import 'package:torpheus/presentation/screens/recuperar_senha/web/recuperar_senha_web_footer.dart';
-import 'package:torpheus/presentation/screens/recuperar_senha/web/recuperar_senha_web_header.dart';
 
 import '../../../../core/constants/custom_colors.dart';
 import '../widget/recuperar_senha_form.dart';
@@ -32,7 +32,7 @@ class RecuperarSenhaWebBody extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Spacer(flex: 1),
-                    RecuperarSenhaWebHeader(),
+                    WebLogoHeader(),
                     SizedBox(height: 40),
                     RecuperarSenhaDicas(),
                     Spacer(flex: 2),

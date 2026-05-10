@@ -94,6 +94,7 @@ final class InjectorImpl extends Injector {
       AuthenticationBloc(
         getIt.get<AuthenticationController>(),
         getIt.get<PreferencesController>(),
+        getIt.get<PreferencesLocalRepository>(),
       ),
     );
 

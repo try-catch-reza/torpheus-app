@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:torpheus/presentation/screens/login/web/login_web_place.dart';
+import 'package:torpheus/core/constants/assets_contants.dart';
 
 class LoginWebImageCard extends StatelessWidget {
   const LoginWebImageCard({super.key, this.imageUrl});
 
-  /// Passe a URL ou asset da imagem da empresa quando disponível.
   final String? imageUrl;
 
   @override
@@ -20,13 +19,7 @@ class LoginWebImageCard extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
-        child: imageUrl != null
-            ? Image.network(
-                imageUrl!,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => const LoginWebPlace(),
-              )
-            : const LoginWebPlace(),
+        child: Image.asset(AssetsConstants.logoTransparente),
       ),
     );
   }

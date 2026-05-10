@@ -4,8 +4,7 @@ import '../../../../core/constants/custom_colors.dart';
 import 'login_web_features.dart';
 import 'login_web_footer.dart';
 import 'login_web_grid.dart';
-import 'login_web_header.dart';
-import 'login_web_image_card.dart';
+import '../../../components/web/web_logo_header.dart';
 
 class LoginWebPainelEsquerdo extends StatelessWidget {
   const LoginWebPainelEsquerdo({super.key});
@@ -25,15 +24,13 @@ class LoginWebPainelEsquerdo extends StatelessWidget {
           Positioned.fill(
             child: CustomPaint(painter: LoginWebGrid()),
           ),
-          const Padding(
+           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 64, vertical: 48),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Spacer(flex: 1),
-                LoginWebHeader(),
-                SizedBox(height: 40),
-                LoginWebImageCard(),
+                WebLogoHeader(),
                 SizedBox(height: 28),
                 LoginWebFeatures(),
                 Spacer(flex: 2),

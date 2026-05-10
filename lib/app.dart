@@ -38,7 +38,7 @@ class TorpheusApp extends StatelessWidget {
           title: 'Torpheus',
           debugShowCheckedModeBanner: false,
           onGenerateRoute: (settings) => Routes.router(settings, injector),
-          initialRoute: AppRoutes.root.route,
+          initialRoute: AppRoutes.login.route,
           theme: AppTheme.theme(),
         ),
       ),

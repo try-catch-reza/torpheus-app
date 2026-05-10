@@ -80,7 +80,15 @@ class _RecuperarSenhaFormState extends State<RecuperarSenhaForm> {
                   }
                   return null;
                 },
-                onFieldSubmitted: (_) => {},
+                onFieldSubmitted: (value) {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    context.read<RecuperarSenhaBloc>().add(
+                          RecuperarSenhaSolicitar(
+                            email: _emailController.text,
+                          ),
+                        );
+                  }
+                },
                 decoration: const InputDecoration(
                   hintText: 'seu@email.com',
                   prefixIcon: Icon(
@@ -97,7 +105,13 @@ class _RecuperarSenhaFormState extends State<RecuperarSenhaForm> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {}
+                  if (_formKey.currentState?.validate() ?? false) {
+                    context.read<RecuperarSenhaBloc>().add(
+                          RecuperarSenhaSolicitar(
+                            email: _emailController.text,
+                          ),
+                        );
+                  }
                 },
                 child: const Text(
                   'ENVIAR LINK',

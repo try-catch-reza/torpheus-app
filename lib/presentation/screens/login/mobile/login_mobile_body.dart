@@ -4,7 +4,7 @@ import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 import '../../../../core/constants/custom_colors.dart';
 import 'login_mobile_card.dart';
 import 'login_mobile_grid.dart';
-import 'login_mobile_header.dart';
+import '../../../components/mobile/mobile_logo_header.dart';
 
 class LoginMobileBody extends StatelessWidget {
   const LoginMobileBody({
@@ -33,7 +33,7 @@ class LoginMobileBody extends StatelessWidget {
         SafeArea(
           child: Column(
             children: [
-              const LoginMobileHeader(),
+              const MobileLogoHeader(),
               Expanded(
                 child: LoginMobileCard(
                   state: state,

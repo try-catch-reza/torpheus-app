@@ -29,12 +29,10 @@ class RecuperarSenhaLoaded extends RecuperarSenhaState {
 }
 
 class RecuperarSenhaSuccess extends RecuperarSenhaState {
-  final String message;
-
-  const RecuperarSenhaSuccess({required this.message});
+  const RecuperarSenhaSuccess();
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [];
 }
 
 class RecuperarSenhaFailure extends RecuperarSenhaState {

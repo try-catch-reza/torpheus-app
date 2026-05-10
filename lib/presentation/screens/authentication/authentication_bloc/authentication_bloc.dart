@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:torpheus/domain/repositories/preferenfeces/preferences_local_repository.dart';
 
 import '../../../../core/resources/handler_exception.dart';
 import '../../../../domain/controller/authentication_controller.dart';
 import '../../../../domain/controller/preferences_controller.dart';
 
 part 'authentication_event.dart';
+
 part 'authentication_state.dart';
 
 class AuthenticationBloc
@@ -15,6 +17,7 @@ class AuthenticationBloc
   AuthenticationBloc(
     this._authenticationController,
     this._preferencesController,
+    this._preferencesLocalRepository,
   ) : super(const AuthenticationState.authenticating()) {
     on<AuthenticationLoad>(_onAuthenticationLoad);
     on<AuthenticationStatusChange>(_onAuthenticationStatusChange);
@@ -22,15 +25,24 @@ class AuthenticationBloc
 
   final AuthenticationController _authenticationController;
   final PreferencesController _preferencesController;
+  final PreferencesLocalRepository _preferencesLocalRepository;
 
   FutureOr<void> _onAuthenticationLoad(
     AuthenticationLoad event,
     Emitter<AuthenticationState> emit,
   ) async {
     try {
-      final String? token = _preferencesController.getAccessToken();
-      final String accessToken = _preferencesController.isTokenValid(token);
-      await _authenticationController.checkTokenValidity(accessToken);
+      // final String? token = _preferencesController.getAccessToken();
+      // final String accessToken = _preferencesController.isTokenValid(token);
+      // await _authenticationController.checkTokenValidity(accessToken);
+
+      final isUsuarioLogado = _preferencesLocalRepository.getIsUsuarioLogado();
+
+      if (isUsuarioLogado == false) {
+        emit(const AuthenticationState.unauthenticated());
+        return;
+      }
+
       emit(const AuthenticationState.authenticated());
     } on UnauthenticatedException catch (_) {
       await _preferencesController.removeAccessToken();

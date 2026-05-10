@@ -28,15 +28,9 @@ class RecuperarSenhaBloc
   ) async {
     emit(const RecuperarSenhaLoading());
     try {
-      // TODO: integrar com serviço de autenticação / repositório
       await Future.delayed(const Duration(seconds: 1));
 
-      // Simulação: se o e-mail contém "@" consideramos sucesso.
-      if (event.email.contains('@')) {
-        emit(const RecuperarSenhaLoaded());
-      } else {
-        emit(const RecuperarSenhaFailure(error: 'E-mail inválido.'));
-      }
+      emit(const RecuperarSenhaSuccess());
     } catch (e) {
       emit(RecuperarSenhaFailure(error: e.toString()));
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/presentation/components/mobile/mobile_logo_header.dart';
 
 import '../../../../core/constants/custom_colors.dart';
 import '../widget/recuperar_senha_form.dart';
@@ -19,7 +20,7 @@ class RecuperarSenhaMobileBody extends StatelessWidget {
         SafeArea(
           child: Column(
             children: [
-              const _BrandHeader(),
+              const MobileLogoHeader(),
               Expanded(
                 child: Container(
                   width: double.infinity,
@@ -76,56 +77,4 @@ class _GridPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-// ── Brand header ──────────────────────────────────────────────────────────────
-
-class _BrandHeader extends StatelessWidget {
-  const _BrandHeader();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 36),
-      child: Column(
-        children: [
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: const Color(0xFF253A60),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: const Color(0xFF304D7A)),
-            ),
-            child: const Icon(
-              Icons.build_rounded,
-              color: Colors.white,
-              size: 28,
-            ),
-          ),
-          const SizedBox(height: 14),
-          const Text(
-            'TORPHÉUS',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-              color: Colors.white,
-              letterSpacing: 3,
-              decoration: TextDecoration.none,
-            ),
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            'Gestão de Oficina Mecânica',
-            style: TextStyle(
-              fontSize: 11,
-              color: Color(0xFF8FA3C0),
-              letterSpacing: 1.2,
-              decoration: TextDecoration.none,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
