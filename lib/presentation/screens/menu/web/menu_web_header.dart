@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/core/constants/assets_contants.dart';
 
 class MenuWebHeader extends StatelessWidget {
-  const MenuWebHeader({super.key, required this.nomeEmpresa});
-
-  final String nomeEmpresa;
+  const MenuWebHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,26 +11,22 @@ class MenuWebHeader extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 38,
-            height: 38,
+            width: 45,
+            height: 45,
             decoration: BoxDecoration(
               color: const Color(0xFF253A60),
               borderRadius: BorderRadius.circular(9),
               border: Border.all(color: const Color(0xFF304D7A)),
             ),
-            child: const Icon(
-              Icons.build_rounded,
-              color: Colors.white,
-              size: 18,
-            ),
+            child: Image.asset(AssetsConstants.logoMarca),
           ),
           const SizedBox(width: 12),
-          Expanded(
+          const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'TORPHÉUS',
+                Text(
+                  'TORPHEUS',
                   style: TextStyle(
                     decoration: TextDecoration.none,
                     fontSize: 13,
@@ -41,8 +36,8 @@ class MenuWebHeader extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  nomeEmpresa,
-                  style: const TextStyle(
+                  'Nome oficina',
+                  style: TextStyle(
                     decoration: TextDecoration.none,
                     fontSize: 11,
                     color: Color(0xFF8FA3C0),

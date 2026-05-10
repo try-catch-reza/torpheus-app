@@ -7,17 +7,17 @@ flutter_native_splash:
 
   # Light mode
   color: "#FFFFFF"
-  image: assets/images/launch_screen/logo_colorida_menor.png
+  image: assets/images/logo/torpheus_texto_ajustado.png
 
   # Dark mode
   color_dark: "#2E2E2E"
-  image_dark: assets/images/launch_screen/logo_colorida_menor_dark.png
+  image_dark: assets/images/logo/torpheus_texto_ajustado.png
 
   android_12:
     # Light mode
-    image: assets/images/launch_screen/auroracoop_lauch_android12.png
+    image: assets/images/logo/torpheus_texto_ajustado.png
     icon_background_color: "#FFFFFF"
 
     # Dark mode
-    image_dark: assets/images/launch_screen/auroracoop_lauch_android12_dark.png
+    image_dark: assets/images/logo/torpheus_texto_ajustado.png
     icon_background_color_dark: "#2E2E2E"

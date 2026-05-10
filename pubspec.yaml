@@ -63,8 +63,8 @@ flutter:
     - assets/fonts/
     - assets/sql/
     - assets/sql/upgrade/
-    - assets/images/logo/torpheus_texto.png
     - assets/images/logo/torpheus_texto_ajustado.png
+    - assets/images/logo/torpheus_logomarca.png
 
   # To add assets to your application, add an assets section, like this:
 

@@ -33,7 +33,7 @@ class MenuWebSidebar extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const MenuWebHeader(nomeEmpresa: 'Torpheus'),
+          const MenuWebHeader(),
           const SizedBox(height: 8),
           Expanded(
             child: ListView.builder(
