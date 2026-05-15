@@ -11,6 +11,11 @@ class AppTheme {
           backgroundColor: WidgetStatePropertyAll(ColorConstants.chambray),
         ),
       ),
+      appBarTheme: AppBarTheme(
+        iconTheme: IconThemeData(
+          color: ColorConstants.chambray,
+        ),
+      ),
     );
   }
 }

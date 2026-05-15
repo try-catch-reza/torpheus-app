@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/components/dialog/dialog_customs.dart';
 
 import '../../../../config/routes.dart';
 import '../../../components/versao_app.dart';
@@ -48,6 +49,13 @@ class _LoginMobileContentState extends State<LoginMobileContent> {
   void _listener(BuildContext context, LoginState state) {
     if (state is LoginAutenticado) {
       Navigator.of(context).pushNamed(AppRoutes.root.route);
+    }
+
+    if (state is LoginFail) {
+      StatusDialog.erro(
+        context,
+        mensagem: state.message,
+      );
     }
   }
 

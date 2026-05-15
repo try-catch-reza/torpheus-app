@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/presentation/screens/painel/mobile/painel_mobile_drawer.dart';
 
 class PainelMobileContent extends StatelessWidget {
   const PainelMobileContent({super.key});
@@ -7,6 +8,11 @@ class PainelMobileContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: TorpheusDrawer(
+        onClientesTap: () {},
+        onMecanicosTap: () {},
+        onVeiculosTap: () {},
+      ),
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: ColorConstants.corFundo,

@@ -60,9 +60,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/fonts/
     - assets/sql/
-    - assets/sql/upgrade/
     - assets/images/logo/torpheus_texto_ajustado.png
     - assets/images/logo/torpheus_logomarca.png
 

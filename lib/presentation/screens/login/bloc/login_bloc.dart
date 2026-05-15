@@ -1,5 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:torpheus/core/utils/jwt_decoder.dart';
+import 'package:torpheus/data/datasources/remote/http_client.dart';
+import 'package:torpheus/data/models/auth_model.dart';
+import 'package:torpheus/domain/repositories/remote/eapi_remote_repository.dart';
 
 import '../../../../domain/repositories/preferenfeces/preferences_local_repository.dart';
 
@@ -8,9 +12,13 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  late final EapiRemoteRepository _eapiRemoteRepository;
   late final PreferencesLocalRepository _preferencesLocalRepository;
 
-  LoginBloc(this._preferencesLocalRepository) : super(const LoginInitial()) {
+  LoginBloc(
+    this._preferencesLocalRepository,
+    this._eapiRemoteRepository,
+  ) : super(const LoginInitial()) {
     on<LoginInicializar>(_onLoginInicializar);
     on<LoginCarregar>(_onLoginCarregar);
     on<LoginMostrarSenha>(_onLoginMostrarSenha);
@@ -58,19 +66,50 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(
         LoginLoading(
           nome: event.senha,
-          senha: event.nome,
+          senha: event.email,
           isMostrarSenha: state.isMostrarSenha,
         ),
       );
 
-      await Future.delayed(const Duration(seconds: 3));
+      final AuthModel auth = AuthModel(
+        email: event.email,
+        password: event.senha,
+        slug: 'teste-huandres',
+      );
 
-      await _preferencesLocalRepository.saveIsUsuarioLogado(true);
+      final authResponse = await _eapiRemoteRepository.auth(auth);
+
+      final permissions = JwtDecoder.getPermissions(
+        authResponse.acessToken ?? '',
+      );
+
+      final nome = JwtDecoder.getNome(authResponse.acessToken ?? '');
+
+      print('nome: $nome');
+
+      await Future.wait([
+        _preferencesLocalRepository.saveAccessToken(
+          authResponse.acessToken ?? '',
+        ),
+        _preferencesLocalRepository.saveIsUsuarioLogado(true),
+        _preferencesLocalRepository.saveListPermissions(permissions),
+        _preferencesLocalRepository.saveEmail(event.email),
+        _preferencesLocalRepository.saveNome(nome),
+      ]);
 
       emit(
         LoginAutenticado(
           nome: event.senha,
-          senha: event.nome,
+          senha: event.email,
+          isMostrarSenha: state.isMostrarSenha,
+        ),
+      );
+    } on HttpRequestException catch (e) {
+      emit(
+        LoginFail(
+          message: e.message,
+          nome: event.email,
+          senha: event.senha,
           isMostrarSenha: state.isMostrarSenha,
         ),
       );
@@ -79,7 +118,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         LoginFail(
           message: 'Não foi possível se autenticar no app.\n'
               'Tente novamente caso persistir tente mais tarde\n$e',
-          nome: event.nome,
+          nome: event.email,
           senha: event.senha,
           isMostrarSenha: state.isMostrarSenha,
         ),

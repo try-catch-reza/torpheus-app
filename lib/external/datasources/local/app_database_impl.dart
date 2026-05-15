@@ -24,20 +24,26 @@ class ApplicationDatabaseImpl implements ApplicationDatabase {
   Future<String> getDbPath() async => await getDatabasesPath();
 
   static Future<Database> _initialize() async {
+    if (kIsWeb) {
+      throw UnsupportedError('SQLite não suportado no Flutter Web');
+    }
+
     late String databasesPath;
 
     if (Platform.isWindows) {
-      // sqfliteFfiInit();
-      // databaseFactory = databaseFactoryFfi;
       databasesPath = await getDatabasesPath();
     }
+
     if (Platform.isAndroid || Platform.isIOS) {
       databasesPath = await getDatabasesPath();
     }
 
-    final String path = join(databasesPath, DatabaseConstants.dbName);
+    final path = join(
+      databasesPath,
+      DatabaseConstants.dbName,
+    );
 
-    final db = await openDatabase(
+    return await openDatabase(
       path,
       version: DatabaseConstants.version,
       onCreate: _onCreate,
@@ -45,7 +51,6 @@ class ApplicationDatabaseImpl implements ApplicationDatabase {
       onConfigure: _onConfigure,
       onDowngrade: onDatabaseDowngradeDelete,
     );
-    return db;
   }
 
   static void _onCreate(Database db, int newVersion) async {

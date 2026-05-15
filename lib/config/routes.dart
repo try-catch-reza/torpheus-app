@@ -3,6 +3,7 @@ import 'package:torpheus/presentation/screens/painel/bloc/painel_bloc.dart';
 import 'package:torpheus/presentation/screens/painel/painel_screen.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:torpheus/presentation/screens/menu/bloc/menu_bloc.dart';
+import 'package:torpheus/presentation/screens/perfil/perfil_screen.dart';
 import 'package:torpheus/presentation/screens/recuperar_senha/recuperar_senha_screen.dart';
 import '../presentation/components/animation/face_page_route.dart';
 import '../presentation/screens/authentication/authentication_bloc/authentication_bloc.dart';
@@ -11,15 +12,17 @@ import '../injector.dart';
 import '../presentation/components/animation/modal_page_route.dart';
 import '../presentation/screens/authentication/authentication_screen.dart';
 import '../presentation/screens/login/login_screen.dart';
+import '../presentation/screens/perfil/bloc/perfil_bloc.dart';
 import '../presentation/screens/recuperar_senha/bloc/recuperar_senha_bloc.dart';
 
-enum NavigationFlow { simple, modalBottomUp, fade}
+enum NavigationFlow { simple, modalBottomUp, fade }
 
 enum AppRoutes {
   root('/', NavigationFlow.simple),
   login('/login', NavigationFlow.fade),
   home('/home', NavigationFlow.fade),
-  recuperarSenha('/recuperar-senha', NavigationFlow.fade);
+  recuperarSenha('/recuperar-senha', NavigationFlow.fade),
+  perfilScreen('/perfil-screen', NavigationFlow.simple);
 
   final String route;
   final NavigationFlow flow;
@@ -47,13 +50,17 @@ class Routes {
           loginBloc: injector.getIt.get<LoginBloc>(),
           menuBloc: injector.getIt.get<MenuBloc>(),
           homeBloc: injector.getIt.get<PainelBloc>(),
+          perfilBloc: injector.getIt.get<PerfilBloc>(),
         ),
       AppRoutes.home => PainelScreen(
           painelBloc: injector.getIt.get<PainelBloc>(),
         ),
       AppRoutes.recuperarSenha => RecuperarSenhaScreen(
-        recuperarSenhaBloc: injector.getIt.get<RecuperarSenhaBloc>(),
-      ),
+          recuperarSenhaBloc: injector.getIt.get<RecuperarSenhaBloc>(),
+        ),
+      AppRoutes.perfilScreen => PerfilScreen(
+          perfilBloc: injector.getIt.get<PerfilBloc>(),
+        ),
     };
 
     return switch (appRoute.flow) {
@@ -62,9 +69,9 @@ class Routes {
           modalSettings: settings,
         ),
       NavigationFlow.fade => FadePageRoute(
-        builder: (context) => screen,
-        fadeSettings: settings,
-      ),
+          builder: (context) => screen,
+          fadeSettings: settings,
+        ),
       NavigationFlow.simple => MaterialPageRoute(
           builder: (context) => screen,
           settings: settings,

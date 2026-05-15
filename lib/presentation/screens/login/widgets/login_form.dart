@@ -29,6 +29,7 @@ class LoginForm extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
+              controller: controllerNome,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Campo e-mail é obrigatório';
@@ -68,6 +69,7 @@ class LoginForm extends StatelessWidget {
             ),
             const SizedBox(height: 20.0),
             TextFormField(
+              controller: controllerSenha,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Campo senha é obrigatório';
@@ -127,7 +129,7 @@ class LoginForm extends StatelessWidget {
                     if (formKey.currentState?.validate() ?? false) {
                       context.read<LoginBloc>().add(
                             LoginEnviar(
-                              nome: controllerNome.text,
+                              email: controllerNome.text,
                               senha: controllerSenha.text,
                             ),
                           );

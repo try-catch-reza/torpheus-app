@@ -1,59 +1,33 @@
-import 'package:dio/dio.dart';
+import 'package:torpheus/data/models/auth_model.dart';
+import 'package:torpheus/data/models/auth_response_model.dart';
 
 import '../../../config/eapi_schema.dart';
 import '../../../core/resources/base_remote_data_source.dart';
 import '../../../domain/repositories/remote/eapi_remote_repository.dart';
 import '../../datasources/remote/http_client.dart';
-import '../../models/refresh_token.dart';
 
 class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
     implements EapiRemoteRepository {
-  EapiRemoteRepositoryImpl(super.httpClient);
+  EapiRemoteRepositoryImpl(super.httpClient, this._schema);
 
+  final EapiSchema _schema;
 
   @override
-  Future<RefreshToken> getNewAccessToken(String refreshToken) async {
-    const String titleMessage = 'Não foi possível atualizar a autenticação';
+  Future<AuthResponseModel> auth(AuthModel authModel) async {
+    const titleMessage = 'Não foi possível autenticar o usuário';
 
-    final rota = EapiSchema.route(EapiRoutes.refreshToken);
-
-    return await get(
-      path: rota,
+    return await post(
+      path: _schema.auth,
+      body: authModel.toJson(),
       titleMessage: titleMessage,
-      customHeader: bearerHeader(refreshToken),
-      response: (res) {
-        if (res.statusCode == 200) {
-          return RefreshToken.fromJson(res.data);
+      response: (response) {
+        if (response.statusCode == 200) {
+          return AuthResponseModel.fromJson(response.data);
         } else {
-          final title = requestErrorTitle(titleMessage, res.requestOptions);
           throw HttpRequestException(
-            response: res,
-            titleMessage: title,
-            infoMessage: statusCodeUnexpected,
-          );
-        }
-      },
-    );
-  }
-
-  @override
-  Future<void> validaToken(String accessToken) async {
-    const String titleMessage = 'Não foi possível validar a autenticação';
-
-    final rota = EapiSchema.route(EapiRoutes.validaToken);
-
-    return await get(
-      path: rota,
-      titleMessage: titleMessage,
-      customHeader: bearerHeader(accessToken),
-      responseType: ResponseType.json,
-      response: (res) {
-        if (res.statusCode != 200) {
-          final title = requestErrorTitle(titleMessage, res.requestOptions);
-          throw HttpRequestException(
-            response: res,
-            titleMessage: title,
-            infoMessage: statusCodeUnexpected,
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
           );
         }
       },

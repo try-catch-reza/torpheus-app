@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../../../injector.dart';
-import '../../../../config/eapi_schema.dart';
 import '../../../../core/resources/handler_exception.dart';
 import '../../../../domain/controller/authentication_controller.dart';
 import '../../../../domain/controller/preferences_controller.dart';
@@ -56,28 +55,28 @@ class ApiInterceptor extends Interceptor {
       }
     }
 
-    final bool isRefreshingToken = err.requestOptions.uri
-        .toString()
-        .contains(EapiSchema.route(EapiRoutes.refreshToken));
+    // final bool isRefreshingToken = err.requestOptions.uri
+    //     .toString()
+    //     .contains(EapiSchema.route(EapiRoutes.refreshToken));
 
     final bool isNotAuth = err.response?.statusCode == 401;
 
-    if (isNotAuth && !isRefreshingToken) {
-      final String? jwtToken = await _refreshToken();
-
-      if (jwtToken != null) {
-        err.requestOptions.headers[_authorization] = '$_bearer $jwtToken';
-
-        try {
-          return handler.resolve(await _client.fetch(err.requestOptions));
-        } catch (dioEx) {
-          if (dioEx is DioException) {
-            return handler.reject(dioEx);
-          }
-          return handler.next(err);
-        }
-      }
-    }
+    // if (isNotAuth && !isRefreshingToken) {
+    //   final String? jwtToken = await _refreshToken();
+    //
+    //   if (jwtToken != null) {
+    //     err.requestOptions.headers[_authorization] = '$_bearer $jwtToken';
+    //
+    //     try {
+    //       return handler.resolve(await _client.fetch(err.requestOptions));
+    //     } catch (dioEx) {
+    //       if (dioEx is DioException) {
+    //         return handler.reject(dioEx);
+    //       }
+    //       return handler.next(err);
+    //     }
+    //   }
+    // }
 
     return super.onError(err, handler);
   }
@@ -91,11 +90,11 @@ class ApiInterceptor extends Interceptor {
 
       final authenticationController = getIt<AuthenticationController>();
 
-      final refresh = await authenticationController.refreshToken(refreshToken);
+      // final refresh = await authenticationController.refreshToken(refreshToken);
 
-      preferences.saveAccessToken(refresh.accessToken);
+      // preferences.saveAccessToken(refresh.accessToken);
 
-      return refresh.accessToken;
+      // return refresh.accessToken;
     } on UnauthenticatedException catch (_) {
       getIt<AuthenticationBloc>()
           .add(const AuthenticationStatusChange(AuthStatus.unauthenticated));

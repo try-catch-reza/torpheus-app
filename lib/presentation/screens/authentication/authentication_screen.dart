@@ -5,6 +5,7 @@ import 'package:torpheus/presentation/screens/painel/bloc/painel_bloc.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:torpheus/presentation/screens/menu/bloc/menu_bloc.dart';
 import 'package:torpheus/presentation/screens/menu/menu_screen.dart';
+import 'package:torpheus/presentation/screens/perfil/bloc/perfil_bloc.dart';
 import '../login/login_screen.dart';
 
 import '../../../config/routes.dart';
@@ -17,12 +18,14 @@ class AuthenticationScreen extends StatefulWidget {
     required this.loginBloc,
     required this.menuBloc,
     required this.homeBloc,
+    required this.perfilBloc,
   });
 
   final AuthenticationBloc authenticationBloc;
   final LoginBloc loginBloc;
   final MenuBloc menuBloc;
   final PainelBloc homeBloc;
+  final PerfilBloc perfilBloc;
 
   @override
   State<AuthenticationScreen> createState() => _AuthenticationScreenState();
@@ -33,6 +36,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   late final LoginBloc _loginBloc;
   late final MenuBloc _menuBloc;
   late final PainelBloc _homeBloc;
+  late final PerfilBloc _perfilBloc;
 
   @override
   void initState() {
@@ -40,6 +44,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
     _loginBloc = widget.loginBloc;
     _menuBloc = widget.menuBloc;
     _homeBloc = widget.homeBloc;
+    _perfilBloc = widget.perfilBloc;
 
     _authenticationBloc.add(const AuthenticationLoad());
 
@@ -57,6 +62,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                 menuParametros: MenuParametros(
                   homeBloc: _homeBloc,
                   menuBloc: _menuBloc,
+                  perfilBloc: _perfilBloc,
                 ),
               )
             : LoginScreen(loginBloc: _loginBloc);

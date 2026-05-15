@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/presentation/screens/perfil/perfil_screen.dart';
 
 import '../../painel/painel_screen.dart';
 import '../bloc/menu_bloc.dart';
@@ -45,10 +46,8 @@ class MenuMobileBody extends StatelessWidget {
     return [
       PainelScreen(painelBloc: menuParametros.homeBloc),
       const Text('OS'),
-      const Text('Veículos'),
-      const Text('Mecânicos'),
-      const Text('Clientes'),
       const Text('Relatório'),
+      PerfilScreen(perfilBloc: menuParametros.perfilBloc),
     ];
   }
 
@@ -72,28 +71,19 @@ class MenuMobileBody extends StatelessWidget {
       ),
     ),
      BottomNavigationBarItem(
-      icon: const Icon(Icons.group, size: 28.0),
-      label: 'Mecânicos',
-      activeIcon: Icon(
-        Icons.group,
-        color: ColorConstants.chambray,
-        size: 28.0,
-      ),
-    ),
-     BottomNavigationBarItem(
-      icon: const Icon(Icons.person, size: 28.0),
-      label: 'Clientes',
-      activeIcon: Icon(
-        Icons.person,
-        color: ColorConstants.chambray,
-        size: 28.0,
-      ),
-    ),
-     BottomNavigationBarItem(
       icon: const Icon(Icons.add_chart_sharp, size: 28.0),
       label: 'Relatório',
       activeIcon: Icon(
         Icons.add_chart_sharp,
+        color: ColorConstants.chambray,
+        size: 28.0,
+      ),
+    ),
+    BottomNavigationBarItem(
+      icon: const Icon(Icons.person, size: 28.0),
+      label: 'Perfil',
+      activeIcon: Icon(
+        Icons.person,
         color: ColorConstants.chambray,
         size: 28.0,
       ),

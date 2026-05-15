@@ -1,61 +1,70 @@
 import '../../../core/resources/base_model.dart';
 
 class ApiErrorModel extends BaseModel {
-  double? cdErro;
-  String? json;
-  String? msgErro;
-  String? processo;
-  String? sistema;
+  String? type;
+  String? title;
+  int? status;
+  String? detail;
+  String? instance;
+  List<ApiErrorItemModel>? errors;
 
   ApiErrorModel({
-    this.cdErro,
-    this.json,
-    this.msgErro,
-    this.processo,
-    this.sistema,
+    this.type,
+    this.title,
+    this.status,
+    this.detail,
+    this.instance,
+    this.errors,
   });
 
   ApiErrorModel.fromJson(Map<String, dynamic> map) {
-    cdErro = map['cd_erro'];
-    json = map['json'].toString();
-    msgErro = map['msg_erro'];
-    processo = map['processo'];
-    sistema = map['sistema'];
-  }
-
-  String? get serverError {
-    String erro = '';
-
-    if (cdErro != null) {
-      erro = 'ERRO ${cdErro!.toInt()}';
-    }
-
-    if (processo != null) {
-      erro += '\n$processo';
-    }
-
-    return erro.isNotEmpty ? erro : null;
+    type = map['type'];
+    title = map['title'];
+    status = map['status'];
+    detail = map['detail'];
+    instance = map['instance'];
+    errors = map['errors'] != null
+        ? (map['errors'] as List)
+            .map((e) => ApiErrorItemModel.fromJson(e))
+            .toList()
+        : null;
   }
 
   @override
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['cd_erro'] = cdErro;
-    data['json'] = json?.toString();
-    data['msg_erro'] = msgErro;
-    data['processo'] = processo;
-    data['sistema'] = sistema;
+    data['type'] = type;
+    data['title'] = title;
+    data['status'] = status;
+    data['detail'] = detail;
+    data['instance'] = instance;
+    data['errors'] = errors;
     return data;
   }
 
   @override
   String toString() {
     return 'ApiErrorModel{'
-        'cdErro: $cdErro, '
-        'json: $json, '
-        'msgErro: $msgErro, '
-        'processo: $processo, '
-        'sistema: $sistema'
+        'type: $type, '
+        'title: $title, '
+        'status: $status, '
+        'detail: $detail, '
+        'instance: $instance,'
+        'errors: $errors'
         '}';
+  }
+}
+
+class ApiErrorItemModel {
+  final String? code;
+  final String? message;
+
+  ApiErrorItemModel({this.code, this.message});
+
+  factory ApiErrorItemModel.fromJson(Map<String, dynamic> map) {
+    return ApiErrorItemModel(
+      code: map['code'],
+      message: map['message'],
+    );
   }
 }

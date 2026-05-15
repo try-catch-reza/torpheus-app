@@ -1,4 +1,3 @@
-import 'eapi_schema.dart';
 
 enum Flavor { homolog, prod }
 
@@ -16,9 +15,9 @@ class FlavorConfig {
 
   static String envString() => isHomolog() ? 'HOMOLOG' : 'PROD';
 
-  static String baseUrlEapi() {
-    return isProduction() ? EapiSchema.baseUrlProd : EapiSchema.baseUrlHomolog;
-  }
+  // static String baseUrlEapi() {
+  //   return isProduction() ? EapiSchema.baseUrlProd : EapiSchema.baseUrlHomolog;
+  // }
 
   static bool isHomolog() => _instance!._flavor == Flavor.homolog;
 

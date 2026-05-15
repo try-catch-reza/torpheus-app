@@ -51,4 +51,49 @@ class PreferencesLocalRepositoryImpl extends PreferencesLocalRepository {
   Future<void> saveIsUsuarioLogado(bool value) async {
     await _sharedData.setValue(Preferences.isUsuarioLogado, value);
   }
+
+  @override
+  List<String> getListPermissions() {
+    return _sharedData.getValue(Preferences.permissions);
+  }
+
+  @override
+  Future<void> removeListPermisions() async {
+    await _sharedData.cleanValue(Preferences.permissions);
+  }
+
+  @override
+  Future<void> saveListPermissions(List<String> value) async {
+    await _sharedData.setValue(Preferences.permissions, value);
+  }
+
+  @override
+  String getEmail() {
+    return _sharedData.getValue(Preferences.email);
+  }
+
+  @override
+  String getNome() {
+    return _sharedData.getValue(Preferences.nome);
+  }
+
+  @override
+  Future<void> removeEmail() async {
+    await _sharedData.cleanValue(Preferences.email);
+  }
+
+  @override
+  Future<void> removeNome() async {
+    await _sharedData.cleanValue(Preferences.nome);
+  }
+
+  @override
+  Future<void> saveEmail(String value) async {
+    await _sharedData.setValue(Preferences.email, value);
+  }
+
+  @override
+  Future<void> saveNome(String value) async {
+    await _sharedData.setValue(Preferences.nome, value);
+  }
 }
