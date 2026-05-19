@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/core/constants/extension/string_extension.dart';
 import 'package:torpheus/presentation/screens/perfil/bloc/perfil_bloc.dart';
 import 'package:torpheus/presentation/screens/perfil/widgets/perfil_info_tile.dart';
 
@@ -16,13 +18,18 @@ class PerfilBody extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 20),
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 55,
-                backgroundColor: Color(0xffe9edf3),
-                child: Icon(
-                  Icons.person,
-                  size: 70,
-                  color: Color(0xff1c3159),
+                backgroundColor: const Color(0xffe9edf3),
+                child: Text(
+                  state.nome.iniciais,
+                  style: TextStyle(
+                    decoration: TextDecoration.none,
+                    fontSize: 40,
+                    fontWeight: FontWeight.w700,
+                    color: ColorConstants.chambray,
+                    letterSpacing: 0.5,
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -54,7 +61,7 @@ class PerfilBody extends StatelessWidget {
                     PerfilInfoTile(
                       icon: Icons.person,
                       title: "Nome",
-                      value: state.nome,
+                      value: state.nome.primeiraLetraMaiuscula,
                     ),
                     const Divider(),
                     PerfilInfoTile(

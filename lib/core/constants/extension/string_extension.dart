@@ -10,4 +10,9 @@ extension StringExtension on String {
         .substring(0, partes.first.length.clamp(0, 2))
         .toUpperCase();
   }
+
+  String get primeiraLetraMaiuscula {
+    if (isEmpty) return this;
+    return '${this[0].toUpperCase()}${substring(1)}';
+  }
 }

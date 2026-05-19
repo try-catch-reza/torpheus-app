@@ -54,7 +54,7 @@ class PreferencesLocalRepositoryImpl extends PreferencesLocalRepository {
 
   @override
   List<String> getListPermissions() {
-    return _sharedData.getValue(Preferences.permissions);
+    return _sharedData.getValue<List<String>>(Preferences.permissions) ?? [];
   }
 
   @override
@@ -69,12 +69,12 @@ class PreferencesLocalRepositoryImpl extends PreferencesLocalRepository {
 
   @override
   String getEmail() {
-    return _sharedData.getValue(Preferences.email);
+    return _sharedData.getValue<String>(Preferences.email) ?? '';
   }
 
   @override
   String getNome() {
-    return _sharedData.getValue(Preferences.nome);
+    return _sharedData.getValue<String>(Preferences.nome) ?? '';
   }
 
   @override
