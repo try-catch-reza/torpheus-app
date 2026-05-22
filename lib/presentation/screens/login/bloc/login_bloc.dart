@@ -23,6 +23,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginCarregar>(_onLoginCarregar);
     on<LoginMostrarSenha>(_onLoginMostrarSenha);
     on<LoginEnviar>(_onLoginEnviar);
+    on<LoginLogout>(_onLoginLogout);
   }
 
   void _onLoginInicializar(LoginInicializar event, Emitter<LoginState> emit) {
@@ -118,6 +119,31 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               'Tente novamente caso persistir tente mais tarde\n$e',
           nome: event.email,
           senha: event.senha,
+          isMostrarSenha: state.isMostrarSenha,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLoginLogout(
+    LoginLogout event,
+    Emitter<LoginState> emit,
+  ) async {
+    try {
+      await Future.wait([
+        _preferencesLocalRepository.removeAccessToken(),
+        _preferencesLocalRepository.removeIsUsuarioLogado(),
+        _preferencesLocalRepository.removeListPermisions(),
+        _preferencesLocalRepository.removeEmail(),
+        _preferencesLocalRepository.removeNome(),
+      ]);
+    } catch (e) {
+      emit(
+        LoginFail(
+          message: 'Não foi possível realizar logout.\n'
+              'Tente novamente caso persistir tente mais tarde\n$e',
+          nome: state.nome,
+          senha: state.senha,
           isMostrarSenha: state.isMostrarSenha,
         ),
       );

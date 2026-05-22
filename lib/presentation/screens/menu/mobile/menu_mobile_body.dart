@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/presentation/screens/ordens_servico/ordens_servico_screen.dart';
 import 'package:torpheus/presentation/screens/perfil/perfil_screen.dart';
+import 'package:torpheus/presentation/screens/relatorios/relatorios_screen.dart';
 
 import '../../painel/painel_screen.dart';
 import '../bloc/menu_bloc.dart';
@@ -45,8 +47,8 @@ class MenuMobileBody extends StatelessWidget {
   List<Widget> _widgetPages() {
     return [
       PainelScreen(painelBloc: menuParametros.homeBloc),
-      const Text('OS'),
-      const Text('Relatório'),
+      OrdensServicoScreen(ordensServicoBloc: menuParametros.ordensServicoBloc),
+      RelatoriosScreen(relatoriosBloc: menuParametros.relatoriosBloc),
       PerfilScreen(perfilBloc: menuParametros.perfilBloc),
     ];
   }

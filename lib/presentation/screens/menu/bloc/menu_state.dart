@@ -1,12 +1,13 @@
 part of 'menu_bloc.dart';
 
 sealed class MenuState extends Equatable {
-  const MenuState({this.indexScreen = 0});
+  const MenuState({this.indexScreen = 0, this.nome = ''});
 
   final int indexScreen;
+  final String nome;
 
   @override
-  List<Object?> get props => [indexScreen];
+  List<Object?> get props => [indexScreen, nome];
 }
 
 final class MenuInitial extends MenuState {
@@ -24,10 +25,10 @@ final class MenuLoading extends MenuState {
 }
 
 final class MenuLoaded extends MenuState {
-  const MenuLoaded({required super.indexScreen});
+  const MenuLoaded({required super.indexScreen, required super.nome});
 
   @override
-  List<Object?> get props => [indexScreen];
+  List<Object?> get props => [indexScreen, nome];
 }
 
 final class MenuFail extends MenuState {

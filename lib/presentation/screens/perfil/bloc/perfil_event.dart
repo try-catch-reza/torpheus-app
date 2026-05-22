@@ -13,10 +13,3 @@ final class PerfilLoad extends PerfilEvent {
   @override
   List<Object?> get props => [];
 }
-
-final class PerfilLogout extends PerfilEvent {
-  const PerfilLogout();
-
-  @override
-  List<Object?> get props => [];
-}

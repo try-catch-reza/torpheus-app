@@ -1,10 +1,15 @@
 import 'package:get_it/get_it.dart';
 import 'package:torpheus/config/eapi_schema.dart';
+import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
+import 'package:torpheus/presentation/screens/mecanicos/bloc/mecanicos_bloc.dart';
+import 'package:torpheus/presentation/screens/ordens_servico/bloc/ordens_servico_bloc.dart';
 import 'package:torpheus/presentation/screens/painel/bloc/painel_bloc.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:torpheus/presentation/screens/menu/bloc/menu_bloc.dart';
 import 'package:torpheus/presentation/screens/perfil/bloc/perfil_bloc.dart';
 import 'package:torpheus/presentation/screens/recuperar_senha/bloc/recuperar_senha_bloc.dart';
+import 'package:torpheus/presentation/screens/veiculos/bloc/veiculos_bloc.dart';
+import 'package:torpheus/presentation/screens/relatorios/bloc/relatorios_bloc.dart';
 
 import 'core/shared/app_system_info.dart';
 import 'external/plugins/android_info_impl.dart';
@@ -118,7 +123,9 @@ final class InjectorImpl extends Injector {
     );
 
     getIt.registerSingleton<MenuBloc>(
-      MenuBloc(),
+      MenuBloc(
+        getIt.get<PreferencesLocalRepository>(),
+      ),
     );
 
     getIt.registerFactory<RecuperarSenhaBloc>(() => RecuperarSenhaBloc());
@@ -127,6 +134,26 @@ final class InjectorImpl extends Injector {
       PerfilBloc(
         getIt.get<PreferencesLocalRepository>(),
       ),
+    );
+
+    getIt.registerSingleton<ClienteBloc>(
+      ClienteBloc(),
+    );
+
+    getIt.registerSingleton<MecanicosBloc>(
+      MecanicosBloc(),
+    );
+
+    getIt.registerSingleton<VeiculosBloc>(
+      VeiculosBloc(),
+    );
+
+    getIt.registerSingleton<OrdensServicoBloc>(
+      OrdensServicoBloc(),
+    );
+
+    getIt.registerSingleton<RelatoriosBloc>(
+      RelatoriosBloc(),
     );
 
     return InjectorImpl._(getIt);

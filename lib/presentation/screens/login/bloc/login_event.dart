@@ -37,3 +37,10 @@ final class LoginMostrarSenha extends LoginEvent {
   @override
   List<Object?> get props => [];
 }
+
+final class LoginLogout extends LoginEvent {
+  const LoginLogout();
+
+  @override
+  List<Object?> get props => [];
+}

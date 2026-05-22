@@ -1,12 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../../domain/repositories/preferenfeces/preferences_local_repository.dart';
+
 part 'menu_event.dart';
 
 part 'menu_state.dart';
 
 class MenuBloc extends Bloc<MenuEvent, MenuState> {
-  MenuBloc() : super(const MenuInitial()) {
+  late final PreferencesLocalRepository _preferencesLocalRepository;
+
+  MenuBloc(this._preferencesLocalRepository) : super(const MenuInitial()) {
     on<MenuCarregar>(_onMenuLoad);
     on<MenuTrocarTela>(_onMenuTrocarTela);
   }
@@ -18,7 +22,9 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     try {
       emit(const MenuLoading());
 
-      emit(MenuLoaded(indexScreen: state.indexScreen));
+      final nome = _preferencesLocalRepository.getNome();
+
+      emit(MenuLoaded(indexScreen: state.indexScreen, nome: nome));
     } catch (e) {
       emit(const MenuFail('Deu rim'));
     }
@@ -28,6 +34,6 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     MenuTrocarTela event,
     Emitter<MenuState> emit,
   ) {
-    emit(MenuLoaded(indexScreen: event.indexScreen));
+    emit(MenuLoaded(indexScreen: event.indexScreen, nome: state.nome));
   }
 }

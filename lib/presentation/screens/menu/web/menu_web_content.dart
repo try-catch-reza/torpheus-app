@@ -17,6 +17,7 @@ class MenuWebContent extends StatelessWidget {
         return MenuWebBody(
           indexScreen: state.indexScreen,
           menuParametros: menuParametros,
+          nome: state.nome,
         );
       },
     );

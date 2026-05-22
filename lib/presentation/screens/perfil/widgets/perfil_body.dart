@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/core/constants/custom_colors.dart';
 import 'package:torpheus/core/constants/extension/string_extension.dart';
+import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:torpheus/presentation/screens/perfil/bloc/perfil_bloc.dart';
 import 'package:torpheus/presentation/screens/perfil/widgets/perfil_info_tile.dart';
+
+import '../../../../config/routes.dart';
+import '../../../components/dialog/dialog_confirm.dart';
 
 class PerfilBody extends StatelessWidget {
   const PerfilBody({super.key, required this.state});
@@ -75,7 +80,19 @@ class PerfilBody extends StatelessWidget {
               const SizedBox(height: 24),
               InkWell(
                 borderRadius: BorderRadius.circular(24),
-                onTap: () => {},
+                onTap: () {
+                  ConfirmDialog.show(
+                    context,
+                    titulo: 'Fazer logout?',
+                    mensagem: 'Deseja realmente sair do aplicativo?',
+                    onConfirmar: () {
+                      context.read<LoginBloc>().add(const LoginLogout());
+                      Navigator.of(context).pushReplacementNamed(
+                        AppRoutes.root.route,
+                      );
+                    },
+                  );
+                },
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(

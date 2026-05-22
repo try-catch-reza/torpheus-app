@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/presentation/components/dialog/dialog_customs.dart';
+import 'package:torpheus/presentation/components/dialog/dialog_mobile_padrao.dart';
 
 import '../../../../config/routes.dart';
 import '../../../components/versao_app.dart';
@@ -52,9 +52,10 @@ class _LoginMobileContentState extends State<LoginMobileContent> {
     }
 
     if (state is LoginFail) {
-      StatusDialog.erro(
-        context,
-        mensagem: state.message,
+      DialogMobilePadrao.errorDialog(
+        context: context,
+        message: state.message,
+        onPress: () {},
       );
     }
   }

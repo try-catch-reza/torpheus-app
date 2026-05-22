@@ -39,7 +39,7 @@ class PreferencesLocalRepositoryImpl extends PreferencesLocalRepository {
 
   @override
   bool getIsUsuarioLogado() {
-    return _sharedData.getValue(Preferences.isUsuarioLogado);
+    return _sharedData.getValue<bool>(Preferences.isUsuarioLogado) ?? false;
   }
 
   @override

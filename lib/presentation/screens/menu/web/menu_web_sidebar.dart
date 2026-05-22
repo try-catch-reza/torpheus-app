@@ -12,9 +12,11 @@ class MenuWebSidebar extends StatelessWidget {
   const MenuWebSidebar({
     super.key,
     required this.indexScreen,
+    required this.nome,
   });
 
   final int indexScreen;
+  final String nome;
 
   static const List<MenuItem> _menuItems = [
     MenuItem(icon: Icons.dashboard_rounded, label: 'Painel'),
@@ -50,8 +52,8 @@ class MenuWebSidebar extends StatelessWidget {
               },
             ),
           ),
-          const MenuWebFooter(
-            nomeUsuario: 'Huandres Schmidt',
+          MenuWebFooter(
+            nomeUsuario: nome,
             cargoUsuario: 'Técnico',
           ),
         ],

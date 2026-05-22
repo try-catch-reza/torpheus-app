@@ -11,4 +11,7 @@ class ColorConstants {
   static Color chambray = const Color.fromRGBO(27, 47, 78, 1);
   static Color corFundo = const Color.fromRGBO(240, 242, 245, 1);
   static Color corTexto = const Color.fromRGBO(26, 35, 50, 1);
+  static Color paleGrey = const Color.fromRGBO(253, 253, 254, 1);
+  static Color morningMist = const Color.fromRGBO(229, 237, 241, 1);
+  static Color squant = const Color.fromRGBO(102, 102, 102, 1);
 }

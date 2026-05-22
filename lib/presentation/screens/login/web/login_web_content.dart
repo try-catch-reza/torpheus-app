@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/components/dialog/dialog_web_padrao.dart';
 
 import '../../../../config/routes.dart';
 import '../bloc/login_bloc.dart';
@@ -46,6 +47,14 @@ class _LoginWebContentState extends State<LoginWebContent> {
   void _listener(BuildContext context, LoginState state) {
     if (state is LoginAutenticado) {
       Navigator.of(context).pushNamed(AppRoutes.root.route);
+    }
+
+    if (state is LoginFail) {
+      DialogWebPadrao.errorDialog(
+        message: state.message,
+        context: context,
+        onPress: () {},
+      );
     }
   }
 

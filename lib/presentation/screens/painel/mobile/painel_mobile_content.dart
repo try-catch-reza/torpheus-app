@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/config/routes.dart';
 import 'package:torpheus/core/constants/custom_colors.dart';
 import 'package:torpheus/presentation/screens/painel/mobile/painel_mobile_drawer.dart';
 
@@ -9,9 +10,15 @@ class PainelMobileContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: TorpheusDrawer(
-        onClientesTap: () {},
-        onMecanicosTap: () {},
-        onVeiculosTap: () {},
+        onClientesTap: () {
+          Navigator.of(context).pushNamed(AppRoutes.cliente.route);
+        },
+        onMecanicosTap: () {
+          Navigator.of(context).pushNamed(AppRoutes.mecanicos.route);
+        },
+        onVeiculosTap: () {
+          Navigator.of(context).pushNamed(AppRoutes.veiculos.route);
+        },
       ),
       appBar: AppBar(
         elevation: 0.0,
