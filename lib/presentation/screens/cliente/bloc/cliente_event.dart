@@ -13,3 +13,30 @@ final class ClientesLoad extends ClienteEvent {
   @override
   List<Object?> get props => [];
 }
+
+final class ClienteSearch extends ClienteEvent {
+  const ClienteSearch(this.query);
+
+  final String query;
+
+  @override
+  List<Object?> get props => [query];
+}
+
+final class ClienteCadastro extends ClienteEvent {
+  const ClienteCadastro({required this.dados});
+
+  final CadastrarClienteDados dados;
+
+  @override
+  List<Object?> get props => [dados];
+}
+
+final class ClienteSelecionar extends ClienteEvent {
+  const ClienteSelecionar(this.cliente);
+
+  final ClienteModel cliente;
+
+  @override
+  List<Object?> get props => [cliente];
+}

@@ -19,6 +19,8 @@ import '../injector.dart';
 import '../presentation/components/animation/modal_page_route.dart';
 import '../presentation/screens/authentication/authentication_screen.dart';
 import '../presentation/screens/cliente/bloc/cliente_bloc.dart';
+import '../presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
+import '../presentation/screens/cliente_detalhe/cliente_detalhe_screen.dart';
 import '../presentation/screens/login/login_screen.dart';
 import '../presentation/screens/ordens_servico/bloc/ordens_servico_bloc.dart';
 import '../presentation/screens/perfil/bloc/perfil_bloc.dart';
@@ -37,7 +39,8 @@ enum AppRoutes {
   mecanicos('/mecanicos', NavigationFlow.fade),
   veiculos('/veiculos', NavigationFlow.fade),
   ordensServico('/ordens-servico', NavigationFlow.fade),
-  relatorios('/relatorios', NavigationFlow.fade);
+  relatorios('/relatorios', NavigationFlow.fade),
+  clienteDetalhe('/cliente-detalhe', NavigationFlow.modalBottomUp);
 
   final String route;
   final NavigationFlow flow;
@@ -94,8 +97,12 @@ class Routes {
           ordensServicoBloc: injector.getIt.get<OrdensServicoBloc>(),
         ),
       AppRoutes.relatorios => RelatoriosScreen(
-        relatoriosBloc: injector.getIt.get<RelatoriosBloc>(),
-      ),
+          relatoriosBloc: injector.getIt.get<RelatoriosBloc>(),
+        ),
+      AppRoutes.clienteDetalhe => ClienteDetalheScreen(
+          clienteDetalheBloc: injector.getIt.get<ClienteDetalheBloc>(),
+          arguments: settings.arguments as ClienteDetalheArguments,
+        ),
     };
 
     return switch (appRoute.flow) {
