@@ -12,8 +12,10 @@ class AppTheme {
         ),
       ),
       appBarTheme: AppBarTheme(
-        iconTheme: IconThemeData(
-          color: ColorConstants.chambray,
+        backgroundColor: ColorConstants.chambray,
+        elevation: 0.0,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
         ),
       ),
     );

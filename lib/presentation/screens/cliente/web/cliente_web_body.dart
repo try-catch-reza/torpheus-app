@@ -4,7 +4,7 @@ import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente/web/cliente_web_header.dart';
 import 'package:torpheus/presentation/screens/cliente/web/cliente_web_tabela.dart';
 import 'cliente_web_search.dart';
-import 'cliente_web_vazio.dart';
+import '../widgets/cliente_vazio.dart';
 
 class ClienteWebBody extends StatelessWidget {
   const ClienteWebBody({
@@ -28,7 +28,7 @@ class ClienteWebBody extends StatelessWidget {
           ClienteWebSearch(controller: searchController),
           const SizedBox(height: 16),
           if (state.clientes.isEmpty)
-            const ClienteWebVazio(),
+            const ClienteVazio(),
           if (state.clientes.isNotEmpty)
             ClienteWebTabela(
               clientes: state.clientes,

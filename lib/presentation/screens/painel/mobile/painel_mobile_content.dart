@@ -21,14 +21,7 @@ class PainelMobileContent extends StatelessWidget {
         },
       ),
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: ColorConstants.corFundo,
-        title: Text(
-          'Painel Geral',
-          style: TextStyle(
-            color: ColorConstants.corTexto,
-          ),
-        ),
+        title: const Text('Painel Geral'),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),

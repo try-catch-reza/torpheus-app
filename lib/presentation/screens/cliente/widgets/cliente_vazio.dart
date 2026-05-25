@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ClienteWebVazio extends StatelessWidget {
-  const ClienteWebVazio({super.key});
+class ClienteVazio extends StatelessWidget {
+  const ClienteVazio({super.key});
 
   @override
   Widget build(BuildContext context) {
