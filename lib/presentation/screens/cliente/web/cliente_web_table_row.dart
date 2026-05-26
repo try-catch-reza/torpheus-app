@@ -61,12 +61,6 @@ class ClienteWebTableRow extends StatelessWidget {
                   flex: 4,
                   child: _RowCell(cliente.email),
                 ),
-                Expanded(
-                  flex: 2,
-                  child: _VeiculosBadge(
-                    total: cliente.totalVeiculos,
-                  ),
-                ),
                 const SizedBox(
                   width: 32,
                   child: Icon(
@@ -133,34 +127,6 @@ class _RowCell extends StatelessWidget {
         decoration: TextDecoration.none,
       ),
       overflow: TextOverflow.ellipsis,
-    );
-  }
-}
-
-// ── Badge de veículos ─────────────────────────────────────────────────────────
-
-class _VeiculosBadge extends StatelessWidget {
-  const _VeiculosBadge({required this.total});
-
-  final int total;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: const Color(0xFFE8ECF4),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Text(
-        '$total veículos',
-        style: const TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w600,
-          color: Color(0xFF1B2A4A),
-          decoration: TextDecoration.none,
-        ),
-      ),
     );
   }
 }

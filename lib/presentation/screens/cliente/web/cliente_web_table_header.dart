@@ -30,10 +30,6 @@ class ClienteWebTableHeader extends StatelessWidget {
             flex: 4,
             child: ClienteWebHeaderCell('E-MAIL'),
           ),
-          Expanded(
-            flex: 2,
-            child: ClienteWebHeaderCell('VEÍCULOS'),
-          ),
           SizedBox(width: 32),
         ],
       ),

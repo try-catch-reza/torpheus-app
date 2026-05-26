@@ -32,8 +32,6 @@ class ClienteDetalheWebBody extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ClienteDetalheWebCardInfo(cliente: state.detalhe),
-                const SizedBox(height: 16),
-                ClienteDetalheWebCardVeiculo(veiculos: state.detalhe?.veiculos),
               ],
             ),
           ),

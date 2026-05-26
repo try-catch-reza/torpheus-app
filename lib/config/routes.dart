@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente/cliente_screen.dart';
 import 'package:torpheus/presentation/screens/mecanicos/bloc/mecanicos_bloc.dart';
 import 'package:torpheus/presentation/screens/mecanicos/mecanicos_screen.dart';
@@ -18,6 +19,7 @@ import '../presentation/screens/authentication/authentication_bloc/authenticatio
 import '../injector.dart';
 import '../presentation/components/animation/modal_page_route.dart';
 import '../presentation/screens/authentication/authentication_screen.dart';
+import '../presentation/screens/cadastrar_cliente/cadastrar_cliente_screen.dart';
 import '../presentation/screens/cliente/bloc/cliente_bloc.dart';
 import '../presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import '../presentation/screens/cliente_detalhe/cliente_detalhe_screen.dart';
@@ -40,7 +42,8 @@ enum AppRoutes {
   veiculos('/veiculos', NavigationFlow.fade),
   ordensServico('/ordens-servico', NavigationFlow.fade),
   relatorios('/relatorios', NavigationFlow.fade),
-  clienteDetalhe('/cliente-detalhe', NavigationFlow.modalBottomUp);
+  clienteDetalhe('/cliente-detalhe', NavigationFlow.modalBottomUp),
+  cadastrarCliente('/cadastrar-cliente', NavigationFlow.modalBottomUp);
 
   final String route;
   final NavigationFlow flow;
@@ -102,6 +105,9 @@ class Routes {
       AppRoutes.clienteDetalhe => ClienteDetalheScreen(
           clienteDetalheBloc: injector.getIt.get<ClienteDetalheBloc>(),
           arguments: settings.arguments as ClienteDetalheArguments,
+        ),
+      AppRoutes.cadastrarCliente => CadastrarClienteScreen(
+          cadastrarClienteBloc: injector.getIt.get<CadastrarClienteBloc>(),
         ),
     };
 

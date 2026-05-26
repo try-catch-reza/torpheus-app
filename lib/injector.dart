@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:torpheus/config/eapi_schema.dart';
+import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import 'package:torpheus/presentation/screens/mecanicos/bloc/mecanicos_bloc.dart';
@@ -159,6 +160,10 @@ final class InjectorImpl extends Injector {
 
     getIt.registerSingleton<ClienteDetalheBloc>(
       ClienteDetalheBloc(),
+    );
+
+    getIt.registerFactory<CadastrarClienteBloc>(
+      () => CadastrarClienteBloc(),
     );
 
     return InjectorImpl._(getIt);

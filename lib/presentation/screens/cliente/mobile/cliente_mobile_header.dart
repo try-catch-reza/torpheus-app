@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/config/routes.dart';
 
 import '../../../../core/constants/custom_colors.dart';
 
@@ -37,7 +38,11 @@ class ClienteMobileHeader extends StatelessWidget {
         SizedBox(
           height: 40,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                AppRoutes.cadastrarCliente.route,
+              );
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: ColorConstants.chambray,
               foregroundColor: Colors.white,
