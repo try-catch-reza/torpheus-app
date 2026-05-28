@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../../data/models/mecanico_model.dart';
+
 part 'mecanicos_event.dart';
 
 part 'mecanicos_state.dart';
@@ -19,7 +21,9 @@ class MecanicosBloc extends Bloc<MecanicosEvent, MecanicosState> {
     emit(const MecanicosLoading());
     try {
       await Future.delayed(const Duration(seconds: 2));
-      emit(const MecanicosLoaded());
-    } catch (e) {}
+      emit(const MecanicosLoaded(mecanicos: []));
+    } catch (e) {
+      emit(MecanicosError(e.toString()));
+    }
   }
 }

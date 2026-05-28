@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/cliente_model.dart';
+import '../../../../data/models/mecanico_model.dart';
 
-class ClienteMobileTableRow extends StatelessWidget {
-  const ClienteMobileTableRow({
+class MecanicoMobileTableRow extends StatelessWidget {
+  const MecanicoMobileTableRow({
     super.key,
-    required this.cliente,
+    required this.mecanico,
     required this.showDivider,
     required this.onTap,
   });
 
-  final ClienteModel cliente;
+  final MecanicoModel mecanico;
   final bool showDivider;
   final VoidCallback onTap;
 
@@ -33,11 +33,11 @@ class ClienteMobileTableRow extends StatelessWidget {
                   flex: 4,
                   child: Row(
                     children: [
-                      _Avatar(iniciais: cliente.iniciais),
+                      _Avatar(iniciais: mecanico.iniciais),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
-                          cliente.nome ?? '',
+                          mecanico.nome ?? '',
                           style: const TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
@@ -67,6 +67,7 @@ class ClienteMobileTableRow extends StatelessWidget {
     );
   }
 }
+
 
 // ── Avatar ────────────────────────────────────────────────────────────────────
 

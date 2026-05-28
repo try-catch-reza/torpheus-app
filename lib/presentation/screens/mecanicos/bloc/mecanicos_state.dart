@@ -1,10 +1,12 @@
 part of 'mecanicos_bloc.dart';
 
 sealed class MecanicosState extends Equatable {
-  const MecanicosState();
+  const MecanicosState({this.mecanicos = const []});
+
+  final List<MecanicoModel> mecanicos;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [mecanicos];
 }
 
 class MecanicosInitial extends MecanicosState {
@@ -22,8 +24,17 @@ class MecanicosLoading extends MecanicosState {
 }
 
 class MecanicosLoaded extends MecanicosState {
-  const MecanicosLoaded();
+  const MecanicosLoaded({required super.mecanicos});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [mecanicos];
+}
+
+class MecanicosError extends MecanicosState {
+  const MecanicosError(this.message);
+
+  final String message;
+
+  @override
+  List<Object?> get props => [message];
 }

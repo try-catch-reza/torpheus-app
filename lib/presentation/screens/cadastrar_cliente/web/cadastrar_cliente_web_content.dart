@@ -36,6 +36,13 @@ class _CadastrarClienteWebContentState
     _documentoController.dispose();
     _telefoneController.dispose();
     _emailController.dispose();
+    _cepController.dispose();
+    _logradouroController.dispose();
+    _numeroController.dispose();
+    _complementoController.dispose();
+    _bairroController.dispose();
+    _cidadeController.dispose();
+    _estadoController.dispose();
     super.dispose();
   }
 

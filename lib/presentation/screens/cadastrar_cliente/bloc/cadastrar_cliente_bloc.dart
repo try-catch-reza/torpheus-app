@@ -32,7 +32,7 @@ class CadastrarClienteBloc
   ) {
     emit(
       CadastrarClienteLoaded(
-        documentoTipo: DocumentoTipo.cpf,
+        documentoTipo: state.documentoTipo,
         endereco: state.endereco,
       ),
     );
@@ -64,6 +64,8 @@ class CadastrarClienteBloc
       );
 
       emit(CadastrarClienteSetadoCEP(endereco: endereco));
+    } on HttpRequestException catch (e) {
+      emit(CadastrarClienteError(e.title));
     } catch (e) {
       emit(CadastrarClienteError('Não foi possível buscar o endereço\n$e'));
     }
