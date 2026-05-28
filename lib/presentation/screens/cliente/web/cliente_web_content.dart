@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_cliente/cadastrar_cliente_screen.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/cliente_detalhe_screen.dart';
@@ -21,6 +23,7 @@ class _ClienteWebContentState extends State<ClienteWebContent> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<ClienteBloc, ClienteState>(
+        buildWhen: _buildWhen,
         builder: (context, state) {
           if (state is ClienteLoading) {
             return const LoadingState();
@@ -42,9 +45,19 @@ class _ClienteWebContentState extends State<ClienteWebContent> {
             );
           }
 
+          if (state is ClienteCadastrando) {
+            return CadastrarClienteScreen(
+              cadastrarClienteBloc: context.read<CadastrarClienteBloc>(),
+            );
+          }
+
           return const SizedBox.shrink();
         },
       ),
     );
+  }
+
+  bool _buildWhen(ClienteState previous, ClienteState current) {
+    return current is! ClienteCEPSetado;
   }
 }

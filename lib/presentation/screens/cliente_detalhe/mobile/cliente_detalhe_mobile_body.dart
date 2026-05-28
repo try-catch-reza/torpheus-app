@@ -16,11 +16,9 @@ class ClienteDetalheMobileBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClienteDetalheMobileCardInfo(cliente: state.detalhe),
+          ClienteDetalheMobileCardInfo(cliente: state.cliente),
           const SizedBox(height: 24),
-          ClienteDetalheMobileEstatisticas(
-            estatisticas: state.detalhe?.estatisticas,
-          ),
+          const ClienteDetalheMobileEstatisticas(),
         ],
       ),
     );

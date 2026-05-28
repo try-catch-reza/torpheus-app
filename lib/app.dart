@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:torpheus/config/theme.dart';
+import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 
@@ -26,6 +27,11 @@ class TorpheusApp extends StatelessWidget {
         BlocProvider<ClienteDetalheBloc>(
           create: (_) {
             return injector.getIt.get<ClienteDetalheBloc>();
+          },
+        ),
+        BlocProvider<CadastrarClienteBloc>(
+          create: (_) {
+            return injector.getIt.get<CadastrarClienteBloc>();
           },
         ),
       ],

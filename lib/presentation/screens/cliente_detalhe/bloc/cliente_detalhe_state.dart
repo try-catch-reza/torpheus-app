@@ -1,12 +1,12 @@
 part of 'cliente_detalhe_bloc.dart';
 
 sealed class ClienteDetalheState extends Equatable {
-  const ClienteDetalheState({this.detalhe});
+  const ClienteDetalheState({this.cliente});
 
-  final ClienteDetalheModel? detalhe;
+  final ClienteModel? cliente;
 
   @override
-  List<Object?> get props => [detalhe];
+  List<Object?> get props => [cliente];
 }
 
 final class ClienteDetalheInitial extends ClienteDetalheState {
@@ -18,10 +18,10 @@ final class ClienteDetalheLoading extends ClienteDetalheState {
 }
 
 final class ClienteDetalheLoaded extends ClienteDetalheState {
-  const ClienteDetalheLoaded({required super.detalhe});
+  const ClienteDetalheLoaded({required super.cliente});
 
   @override
-  List<Object?> get props => [detalhe];
+  List<Object?> get props => [cliente];
 }
 
 final class ClienteDetalheError extends ClienteDetalheState {

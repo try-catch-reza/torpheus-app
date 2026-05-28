@@ -139,7 +139,9 @@ final class InjectorImpl extends Injector {
     );
 
     getIt.registerSingleton<ClienteBloc>(
-      ClienteBloc(),
+      ClienteBloc(
+        getIt.get<EapiRemoteRepository>(),
+      ),
     );
 
     getIt.registerSingleton<MecanicosBloc>(
@@ -162,8 +164,10 @@ final class InjectorImpl extends Injector {
       ClienteDetalheBloc(),
     );
 
-    getIt.registerFactory<CadastrarClienteBloc>(
-      () => CadastrarClienteBloc(),
+    getIt.registerSingleton<CadastrarClienteBloc>(
+      CadastrarClienteBloc(
+        getIt.get<EapiRemoteRepository>(),
+      ),
     );
 
     return InjectorImpl._(getIt);

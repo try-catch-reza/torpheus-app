@@ -1,12 +1,16 @@
 part of 'cliente_bloc.dart';
 
 sealed class ClienteState extends Equatable {
-  const ClienteState({this.clientes = const []});
+  const ClienteState({
+    this.clientes = const [],
+    this.endereco = const EnderecoModel(),
+  });
 
   final List<ClienteModel> clientes;
+  final EnderecoModel endereco;
 
   @override
-  List<Object?> get props => [clientes];
+  List<Object?> get props => [clientes, endereco];
 }
 
 final class ClienteInitial extends ClienteState {
@@ -24,10 +28,10 @@ final class ClienteLoading extends ClienteState {
 }
 
 final class ClienteLoaded extends ClienteState {
-  const ClienteLoaded({required super.clientes});
+  const ClienteLoaded({required super.clientes, super.endereco});
 
   @override
-  List<Object?> get props => [clientes];
+  List<Object?> get props => [clientes, endereco];
 }
 
 final class ClienteError extends ClienteState {
@@ -49,4 +53,18 @@ final class ClienteSelecionado extends ClienteState {
 
   @override
   List<Object?> get props => [clientes, clienteSelecionado];
+}
+
+final class ClienteCadastrando extends ClienteState {
+  const ClienteCadastrando();
+
+  @override
+  List<Object?> get props => [];
+}
+
+final class ClienteCEPSetado extends ClienteState {
+  const ClienteCEPSetado({required super.clientes, required super.endereco});
+
+  @override
+  List<Object?> get props => [clientes, endereco];
 }

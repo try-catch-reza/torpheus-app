@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 
 import '../../../../core/constants/custom_colors.dart';
-import 'cliente_web_dialog.dart';
 
 class ClienteWebHeader extends StatelessWidget {
   const ClienteWebHeader({super.key});
@@ -41,14 +40,7 @@ class ClienteWebHeader extends StatelessWidget {
           height: 40,
           child: ElevatedButton.icon(
             onPressed: () {
-              CadastrarClienteDialog.show(
-                context,
-                onCadastrar: (dados) {
-                  context
-                      .read<ClienteBloc>()
-                      .add(ClienteCadastro(dados: dados));
-                },
-              );
+              context.read<ClienteBloc>().add(const ClienteCadastrar());
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: ColorConstants.chambray,

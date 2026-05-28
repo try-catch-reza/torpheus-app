@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:torpheus/data/models/cliente_detalhe_model.dart';
+import 'package:torpheus/data/models/cliente_model.dart';
 
 /// Card com informações do cliente (avatar, nome, status, contato)
 class ClienteDetalheWebCardInfo extends StatelessWidget {
   const ClienteDetalheWebCardInfo({required this.cliente, super.key});
 
-  final ClienteDetalheModel? cliente;
+  final ClienteModel? cliente;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class ClienteDetalheWebCardInfo extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    cliente?.status ?? '',
+                    cliente?.isActive == true ? 'Ativo' : 'Inativo',
                     style: const TextStyle(
                       fontSize: 12,
                       color: Color(0xFF6B7A99),
@@ -68,22 +68,28 @@ class ClienteDetalheWebCardInfo extends StatelessWidget {
               ),
             ],
           ),
-
           const SizedBox(height: 24),
           const Divider(height: 1, color: Color(0xFFF0F2F5)),
           const SizedBox(height: 20),
-
-          // CPF + Telefone + E-mail
           Row(
             children: [
               Expanded(
-                child: _InfoField(label: 'CPF', value: cliente?.cpf ?? ''),
+                child: _InfoField(
+                  label: 'CPF',
+                  value: cliente?.documento ?? '',
+                ),
               ),
               Expanded(
-                child: _InfoField(label: 'Telefone', value: cliente?.telefone ?? ''),
+                child: _InfoField(
+                  label: 'Telefone',
+                  value: cliente?.telefone ?? '',
+                ),
               ),
               Expanded(
-                child: _InfoField(label: 'E-mail', value: cliente?.email ?? ''),
+                child: _InfoField(
+                  label: 'E-mail',
+                  value: cliente?.email ?? '',
+                ),
               ),
             ],
           ),

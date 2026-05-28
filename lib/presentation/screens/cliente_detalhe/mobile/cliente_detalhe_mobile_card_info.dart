@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../../../../data/models/cliente_detalhe_model.dart';
+import 'package:torpheus/data/models/cliente_model.dart';
 
 class ClienteDetalheMobileCardInfo extends StatelessWidget {
   const ClienteDetalheMobileCardInfo({super.key, required this.cliente});
 
-  final ClienteDetalheModel? cliente;
+  final ClienteModel? cliente;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,7 @@ class ClienteDetalheMobileCardInfo extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    cliente?.status ?? '',
+                    cliente?.isActive == true ? 'Ativo' : 'Inativo',
                     style: const TextStyle(
                       fontSize: 12,
                       color: Color(0xFF6B7A99),
@@ -70,7 +69,7 @@ class ClienteDetalheMobileCardInfo extends StatelessWidget {
           const SizedBox(height: 10),
           const Divider(height: 1, color: Color(0xFFF0F2F5)),
           const SizedBox(height: 20),
-          _InfoField(label: 'CPF', value: cliente?.cpf ?? ''),
+          _InfoField(label: 'CPF', value: cliente?.documento ?? ''),
           const SizedBox(height: 20),
           _InfoField(
             label: 'Telefone',

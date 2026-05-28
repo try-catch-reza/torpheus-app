@@ -38,7 +38,7 @@ class ClienteMobileTableRow extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
-                          cliente.nome,
+                          cliente.nome ?? '',
                           style: const TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,

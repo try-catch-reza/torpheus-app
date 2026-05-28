@@ -36,7 +36,7 @@ class ClienteWebTableRow extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
-                          cliente.nome,
+                          cliente.nome ?? '',
                           style: const TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
@@ -51,15 +51,15 @@ class ClienteWebTableRow extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 3,
-                  child: _RowCell(cliente.cpf),
+                  child: _RowCell(cliente.documento ?? ''),
                 ),
                 Expanded(
                   flex: 3,
-                  child: _RowCell(cliente.telefone),
+                  child: _RowCell(cliente.telefone ?? '') ,
                 ),
                 Expanded(
                   flex: 4,
-                  child: _RowCell(cliente.email),
+                  child: _RowCell(cliente.email ?? ''),
                 ),
                 const SizedBox(
                   width: 32,

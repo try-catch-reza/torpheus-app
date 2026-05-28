@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/cliente_estatisticas.dart';
-
 class ClienteDetalheMobileEstatisticas extends StatelessWidget {
-  const ClienteDetalheMobileEstatisticas({super.key, required this.estatisticas});
-
-  final ClienteEstatisticas? estatisticas;
+  const ClienteDetalheMobileEstatisticas({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +29,19 @@ class ClienteDetalheMobileEstatisticas extends StatelessWidget {
           const SizedBox(height: 16),
           _StatRow(
             label: 'Veículos atendidos',
-            value: '${estatisticas?.veiculosAtendidos}',
+            value: '',
             valueColor: const Color(0xFF1B2A4A),
           ),
           const SizedBox(height: 14),
           _StatRow(
             label: 'OS deste cliente',
-            value: '${estatisticas?.osDoCliente}',
+            value: '',
             valueColor: const Color(0xFF1B4FA8),
           ),
           const SizedBox(height: 14),
           _StatRow(
             label: 'Concluídas',
-            value: '${estatisticas?.osConcluidas}',
+            value: '',
             valueColor: const Color(0xFF16A34A),
           ),
         ],

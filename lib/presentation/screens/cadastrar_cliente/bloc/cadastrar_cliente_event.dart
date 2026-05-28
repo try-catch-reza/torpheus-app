@@ -15,18 +15,28 @@ final class CadastrarClienteLoad extends CadastrarClienteEvent {
 }
 
 final class CadastrarClienteSubmit extends CadastrarClienteEvent {
-  const CadastrarClienteSubmit({
-    required this.nome,
-    required this.email,
-    required this.cpf,
-    required this.telefone,
-  });
+  const CadastrarClienteSubmit({required this.cliente});
 
-  final String nome;
-  final String email;
-  final String cpf;
-  final String telefone;
+  final ClienteModel cliente;
 
   @override
-  List<Object?> get props => [nome, email, cpf, telefone];
+  List<Object?> get props => [cliente];
+}
+
+final class CadastrarClienteSetCEP extends CadastrarClienteEvent {
+  const CadastrarClienteSetCEP(this.cep);
+
+  final String cep;
+
+  @override
+  List<Object?> get props => [cep];
+}
+
+final class CadastrarClienteSelecionarDocumento extends CadastrarClienteEvent {
+  const CadastrarClienteSelecionarDocumento(this.documentoTipo);
+
+  final DocumentoTipo documentoTipo;
+
+  @override
+  List<Object?> get props => [documentoTipo];
 }

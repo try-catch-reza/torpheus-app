@@ -1,10 +1,16 @@
 part of 'cadastrar_cliente_bloc.dart';
 
 sealed class CadastrarClienteState extends Equatable {
-  const CadastrarClienteState();
+  const CadastrarClienteState({
+    this.endereco = const EnderecoModel(),
+    this.documentoTipo = DocumentoTipo.cpf,
+  });
+
+  final EnderecoModel endereco;
+  final DocumentoTipo documentoTipo;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [endereco, documentoTipo];
 }
 
 final class CadastrarClienteInitial extends CadastrarClienteState {
@@ -22,10 +28,13 @@ final class CadastrarClienteLoading extends CadastrarClienteState {
 }
 
 final class CadastrarClienteLoaded extends CadastrarClienteState {
-  const CadastrarClienteLoaded();
+  const CadastrarClienteLoaded({
+    required super.endereco,
+    required super.documentoTipo,
+  });
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [endereco, documentoTipo];
 }
 
 final class CadastrarClienteSuccess extends CadastrarClienteState {
@@ -42,4 +51,18 @@ final class CadastrarClienteError extends CadastrarClienteState {
 
   @override
   List<Object?> get props => [message];
+}
+
+final class CadastrarClienteSetandoCEP extends CadastrarClienteState {
+  const CadastrarClienteSetandoCEP();
+
+  @override
+  List<Object?> get props => [];
+}
+
+final class CadastrarClienteSetadoCEP extends CadastrarClienteState {
+  const CadastrarClienteSetadoCEP({required super.endereco});
+
+  @override
+  List<Object?> get props => [endereco];
 }

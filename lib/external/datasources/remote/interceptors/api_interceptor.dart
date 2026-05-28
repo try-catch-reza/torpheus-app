@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:torpheus/domain/repositories/preferenfeces/preferences_local_repository.dart';
 
 import '../../../../../injector.dart';
 import '../../../../core/resources/handler_exception.dart';
@@ -20,7 +21,9 @@ class ApiInterceptor extends Interceptor {
 
   @override
   void onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     if (options.headers.isEmpty ||
         !options.headers.containsKey('Authorization')) {
       options.headers = await _getHeader();
@@ -30,7 +33,10 @@ class ApiInterceptor extends Interceptor {
   }
 
   Future<Map<String, String>> _getHeader() async {
-    return {'Authorization': 'Basic '};
+    return {
+      'Authorization':
+          'Bearer ${getIt.get<PreferencesLocalRepository>().getAccessToken()}'
+    };
   }
 
   @override
@@ -79,27 +85,5 @@ class ApiInterceptor extends Interceptor {
     // }
 
     return super.onError(err, handler);
-  }
-
-  Future<String?> _refreshToken() async {
-    try {
-      final preferences = getIt<PreferencesController>();
-
-      final String? token = preferences.getRefreshToken();
-      final String refreshToken = preferences.isTokenValid(token);
-
-      final authenticationController = getIt<AuthenticationController>();
-
-      // final refresh = await authenticationController.refreshToken(refreshToken);
-
-      // preferences.saveAccessToken(refresh.accessToken);
-
-      // return refresh.accessToken;
-    } on UnauthenticatedException catch (_) {
-      getIt<AuthenticationBloc>()
-          .add(const AuthenticationStatusChange(AuthStatus.unauthenticated));
-    }
-
-    return null;
   }
 }

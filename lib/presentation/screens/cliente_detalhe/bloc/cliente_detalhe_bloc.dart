@@ -2,10 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:torpheus/data/models/cliente_detalhe_model.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
-
-import '../../../../data/models/cliente_estatisticas.dart';
 
 part 'cliente_detalhe_event.dart';
 
@@ -23,24 +20,7 @@ class ClienteDetalheBloc
   ) async {
     emit(const ClienteDetalheLoading());
     try {
-      await Future.delayed(const Duration(seconds: 1));
-
-      const detalhe = ClienteDetalheModel(
-        id: '1',
-        nome: 'Rafael Mendes',
-        cpf: '012.345.678-90',
-        telefone: '(49) 99111-2233',
-        email: 'rafael@email.com',
-        status: 'Ativo',
-        veiculos: [],
-        estatisticas: ClienteEstatisticas(
-          osConcluidas: 10,
-          osDoCliente: 10,
-          veiculosAtendidos: 10,
-        ),
-      );
-
-      emit(const ClienteDetalheLoaded(detalhe: detalhe));
+      emit(ClienteDetalheLoaded(cliente: event.cliente));
     } catch (e) {
       emit(
         const ClienteDetalheError(

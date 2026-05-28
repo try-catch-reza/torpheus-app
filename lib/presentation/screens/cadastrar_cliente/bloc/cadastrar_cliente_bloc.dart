@@ -1,5 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:torpheus/core/constants/enum/documento_tipo.dart';
+import 'package:torpheus/data/models/cliente_model.dart';
+import 'package:torpheus/data/models/endereco_model.dart';
+
+import '../../../../data/datasources/remote/http_client.dart';
+import '../../../../domain/repositories/remote/eapi_remote_repository.dart';
 
 part 'cadastrar_cliente_event.dart';
 
@@ -7,16 +13,29 @@ part 'cadastrar_cliente_state.dart';
 
 class CadastrarClienteBloc
     extends Bloc<CadastrarClienteEvent, CadastrarClienteState> {
-  CadastrarClienteBloc() : super(const CadastrarClienteInitial()) {
+  late final EapiRemoteRepository _eapiRemoteRepository;
+
+  CadastrarClienteBloc(
+    this._eapiRemoteRepository,
+  ) : super(const CadastrarClienteInitial()) {
     on<CadastrarClienteLoad>(_onCadastrarClienteLoad);
     on<CadastrarClienteSubmit>(_onCadastrarClienteSubmit);
+    on<CadastrarClienteSetCEP>(_onCadastrarClienteSetCEP);
+    on<CadastrarClienteSelecionarDocumento>(
+      _onCadastrarClienteSelecionarDocumento,
+    );
   }
 
   void _onCadastrarClienteLoad(
     CadastrarClienteLoad event,
     Emitter<CadastrarClienteState> emit,
   ) {
-    emit(const CadastrarClienteLoaded());
+    emit(
+      CadastrarClienteLoaded(
+        documentoTipo: DocumentoTipo.cpf,
+        endereco: state.endereco,
+      ),
+    );
   }
 
   Future<void> _onCadastrarClienteSubmit(
@@ -25,13 +44,40 @@ class CadastrarClienteBloc
   ) async {
     emit(const CadastrarClienteLoading());
     try {
-      // Aqui você chamaria o repositório para cadastrar o cliente.
-      // No padrão do projeto, usamos um mock/espera curta.
-      await Future.delayed(const Duration(milliseconds: 800));
-
+      await _eapiRemoteRepository.cadastrarCliente(event.cliente);
       emit(const CadastrarClienteSuccess());
+    } on HttpRequestException catch (e) {
+      emit(CadastrarClienteError(e.title));
     } catch (e) {
       emit(CadastrarClienteError('Não foi possível cadastrar o cliente.\n$e'));
     }
+  }
+
+  Future<void> _onCadastrarClienteSetCEP(
+    CadastrarClienteSetCEP event,
+    Emitter<CadastrarClienteState> emit,
+  ) async {
+    emit(const CadastrarClienteSetandoCEP());
+    try {
+      final endereco = await _eapiRemoteRepository.buscarEnderecoViaCep(
+        event.cep,
+      );
+
+      emit(CadastrarClienteSetadoCEP(endereco: endereco));
+    } catch (e) {
+      emit(CadastrarClienteError('Não foi possível buscar o endereço\n$e'));
+    }
+  }
+
+  void _onCadastrarClienteSelecionarDocumento(
+    CadastrarClienteSelecionarDocumento event,
+    Emitter<CadastrarClienteState> emit,
+  ) {
+    emit(
+      CadastrarClienteLoaded(
+        documentoTipo: event.documentoTipo,
+        endereco: state.endereco,
+      ),
+    );
   }
 }

@@ -4,8 +4,8 @@ import 'package:torpheus/core/constants/custom_colors.dart';
 
 enum TipoPessoa { fisica, juridica }
 
-class CadastrarClienteBody extends StatefulWidget {
-  const CadastrarClienteBody({
+class CadastrarClienteMobileBody extends StatefulWidget {
+  const CadastrarClienteMobileBody({
     super.key,
     required this.onCadastrar,
   });
@@ -13,10 +13,12 @@ class CadastrarClienteBody extends StatefulWidget {
   final void Function(CadastrarClienteDados dados) onCadastrar;
 
   @override
-  State<CadastrarClienteBody> createState() => _CadastrarClienteBodyState();
+  State<CadastrarClienteMobileBody> createState() =>
+      _CadastrarClienteMobileBodyState();
 }
 
-class _CadastrarClienteBodyState extends State<CadastrarClienteBody> {
+class _CadastrarClienteMobileBodyState
+    extends State<CadastrarClienteMobileBody> {
   final _formKey = GlobalKey<FormState>();
   final _nomeController = TextEditingController();
   final _documentoController = TextEditingController();
