@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:torpheus/config/routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/core/constants/custom_colors.dart';
 import 'package:torpheus/presentation/screens/painel/mobile/painel_mobile_drawer.dart';
+
+import '../../../../config/routes.dart';
+import '../../../components/dialog/dialog_confirm.dart';
+import '../../login/bloc/login_bloc.dart';
 
 class PainelMobileContent extends StatelessWidget {
   const PainelMobileContent({super.key});
@@ -10,14 +14,19 @@ class PainelMobileContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: TorpheusDrawer(
-        onClientesTap: () {
-          Navigator.of(context).pushNamed(AppRoutes.cliente.route);
-        },
-        onMecanicosTap: () {
-          Navigator.of(context).pushNamed(AppRoutes.mecanicos.route);
-        },
-        onVeiculosTap: () {
-          Navigator.of(context).pushNamed(AppRoutes.veiculos.route);
+        nomeUsuario: 'Huandres Schmidt',
+        cargoUsuario: 'Administrador',
+        emailUsuario: 'huandreschmidt@gmail.com',
+        onSairTap: () {
+          ConfirmDialog.show(
+            context,
+            titulo: 'Sair do Aplicativo',
+            mensagem: 'Tem certeza que deseja sair do aplicativo?',
+            onConfirmar: () {
+              context.read<LoginBloc>().add(const LoginLogout());
+              Navigator.of(context).pushReplacementNamed(AppRoutes.root.route);
+            },
+          );
         },
       ),
       appBar: AppBar(

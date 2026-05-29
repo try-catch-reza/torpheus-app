@@ -5,7 +5,11 @@ class EapiSchema {
 
   String get buscarCliente => '$_apiUtils/v1/client';
 
+  String get buscarFuncionario => '$_apiUtils/v1/employee';
+
   String buscarEndereco(String cep) => '$_apiUtils/v1/address/$cep';
 
   String get cadastrarCliente => '$_apiUtils/v1/client';
+
+  String get cadastrarFuncionario => '$_apiUtils/v1/employee';
 }

@@ -1,4 +1,5 @@
 import 'package:torpheus/data/models/cliente_model.dart';
+import 'package:torpheus/data/models/mecanico_model.dart';
 
 import '../../../data/models/auth_model.dart';
 import '../../../data/models/auth_response_model.dart';
@@ -15,4 +16,9 @@ abstract class EapiRemoteRepository {
 
   /// VIA CEP ------------------------------------------------------------------
   Future<EnderecoModel> buscarEnderecoViaCep(String cep);
+
+  /// Funcionários -------------------------------------------------------------
+  Future<List<FuncionarioModel>> getFuncionarios();
+
+  Future<void> cadastrarFuncionario(FuncionarioModel funcionario);
 }

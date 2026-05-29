@@ -37,7 +37,7 @@ class AuthenticationScreen extends StatefulWidget {
   final PainelBloc homeBloc;
   final PerfilBloc perfilBloc;
   final ClienteBloc clienteBloc;
-  final MecanicosBloc mecanicosBloc;
+  final FuncionarioBloc mecanicosBloc;
   final VeiculosBloc veiculosBloc;
   final OrdensServicoBloc ordensServicoBloc;
   final RelatoriosBloc relatoriosBloc;
@@ -53,7 +53,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   late final PainelBloc _homeBloc;
   late final PerfilBloc _perfilBloc;
   late final ClienteBloc _clienteBloc;
-  late final MecanicosBloc _mecanicosBloc;
+  late final FuncionarioBloc _mecanicosBloc;
   late final VeiculosBloc _veiculosBloc;
   late final OrdensServicoBloc _ordensServicoBloc;
   late final RelatoriosBloc _relatoriosBloc;

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/presentation/screens/menu/web/menu_web_footer.dart';
 import 'package:torpheus/presentation/screens/menu/web/menu_web_item.dart';
 
 import '../../../../core/constants/custom_colors.dart';
 import '../../../../data/models/menu_item.dart';
+import '../../../components/header_usuario.dart';
 import '../bloc/menu_bloc.dart';
-import 'menu_web_header.dart';
 
 class MenuWebSidebar extends StatelessWidget {
   const MenuWebSidebar({
@@ -24,7 +23,7 @@ class MenuWebSidebar extends StatelessWidget {
     MenuItem(icon: Icons.directions_car_rounded, label: 'Veículos'),
     MenuItem(icon: Icons.engineering_rounded, label: 'Mecânicos'),
     MenuItem(icon: Icons.person_rounded, label: 'Clientes'),
-    MenuItem(icon: Icons.bar_chart_rounded, label: 'Relatórios'),
+    MenuItem(icon: Icons.logout, label: 'Sair'),
   ];
 
   @override
@@ -35,7 +34,11 @@ class MenuWebSidebar extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const MenuWebHeader(),
+          const HeaderUsuario(
+            nomeUsuario: 'Huandres Schmidt',
+            cargoUsuario: 'Administrador',
+            emailUsuario: 'huandreschmidt@gmail.com',
+          ),
           const SizedBox(height: 8),
           Expanded(
             child: ListView.builder(
@@ -51,10 +54,6 @@ class MenuWebSidebar extends StatelessWidget {
                 );
               },
             ),
-          ),
-          MenuWebFooter(
-            nomeUsuario: nome,
-            cargoUsuario: 'Técnico',
           ),
         ],
       ),

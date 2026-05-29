@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/cliente_model.dart';
+import '../../../components/avatar.dart';
 
 class ClienteMobileTableRow extends StatelessWidget {
   const ClienteMobileTableRow({
@@ -33,7 +34,7 @@ class ClienteMobileTableRow extends StatelessWidget {
                   flex: 4,
                   child: Row(
                     children: [
-                      _Avatar(iniciais: cliente.iniciais),
+                      Avatar(iniciais: cliente.iniciais),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
@@ -64,58 +65,6 @@ class ClienteMobileTableRow extends StatelessWidget {
         ),
         if (showDivider) const Divider(height: 1, color: Color(0xFFF0F2F5)),
       ],
-    );
-  }
-}
-
-// ── Avatar ────────────────────────────────────────────────────────────────────
-
-class _Avatar extends StatelessWidget {
-  const _Avatar({required this.iniciais});
-
-  final String iniciais;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 32,
-      height: 32,
-      decoration: BoxDecoration(
-        color: const Color(0xFFE8ECF4),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Center(
-        child: Text(
-          iniciais,
-          style: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF1B2A4A),
-            decoration: TextDecoration.none,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// ── Célula de texto ───────────────────────────────────────────────────────────
-
-class _RowCell extends StatelessWidget {
-  const _RowCell(this.value);
-
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      value,
-      style: const TextStyle(
-        fontSize: 13,
-        color: Color(0xFF6B7A99),
-        decoration: TextDecoration.none,
-      ),
-      overflow: TextOverflow.ellipsis,
     );
   }
 }

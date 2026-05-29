@@ -13,3 +13,10 @@ class MecanicosLoad extends MecanicosEvent {
   @override
   List<Object?> get props => [];
 }
+
+final class MecanicosCadastrar extends MecanicosEvent {
+  const MecanicosCadastrar();
+
+  @override
+  List<Object?> get props => [];
+}

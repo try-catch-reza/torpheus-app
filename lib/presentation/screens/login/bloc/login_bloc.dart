@@ -106,7 +106,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } on HttpRequestException catch (e) {
       emit(
         LoginFail(
-          message: '',
+          message: e.title,
           nome: event.email,
           senha: event.senha,
           isMostrarSenha: state.isMostrarSenha,

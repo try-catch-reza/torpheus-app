@@ -5,19 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:torpheus/domain/repositories/preferenfeces/preferences_local_repository.dart';
 
 import '../../../../../injector.dart';
-import '../../../../core/resources/handler_exception.dart';
-import '../../../../domain/controller/authentication_controller.dart';
-import '../../../../domain/controller/preferences_controller.dart';
-import '../../../../presentation/screens/authentication/authentication_bloc/authentication_bloc.dart';
 
 class ApiInterceptor extends Interceptor {
   late final Dio _client;
 
   ApiInterceptor(this._client);
-
-  String get _authorization => 'Authorization';
-
-  String get _bearer => 'Bearer';
 
   @override
   void onRequest(

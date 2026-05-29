@@ -7,7 +7,6 @@ import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_c
 import 'package:torpheus/presentation/screens/cadastrar_cliente/mobile/cadastrar_cliente_mobile_body.dart';
 
 import '../../../components/app_bar_padrao.dart';
-import '../../../components/dialog/dialog_web_padrao.dart';
 import 'cadastrar_cliente_mobile_botoes.dart';
 
 class CadastrarClienteMobileContent extends StatefulWidget {

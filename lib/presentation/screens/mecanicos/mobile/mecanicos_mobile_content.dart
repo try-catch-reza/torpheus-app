@@ -20,7 +20,7 @@ class _MecanicosMobileContentState extends State<MecanicosMobileContent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarPadrao(title: 'Mecânicos'),
-      body: BlocBuilder<MecanicosBloc, MecanicosState>(
+      body: BlocBuilder<FuncionarioBloc, MecanicosState>(
         builder: (context, state) {
           if (state is MecanicosLoading) {
             return const LoadingState();

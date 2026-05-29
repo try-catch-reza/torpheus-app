@@ -9,7 +9,7 @@ import 'mobile/mecanicos_mobile_content.dart';
 class MecanicosScreen extends StatelessWidget {
   const MecanicosScreen({super.key, required this.mecanicosBloc});
 
-  final MecanicosBloc mecanicosBloc;
+  final FuncionarioBloc mecanicosBloc;
 
   @override
   Widget build(BuildContext context) {

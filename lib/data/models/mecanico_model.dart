@@ -1,50 +1,75 @@
 import 'package:equatable/equatable.dart';
 
-class MecanicoModel extends Equatable {
-  const MecanicoModel({
+class FuncionarioModel extends Equatable {
+  const FuncionarioModel({
     this.id,
+    this.userId,
     this.nome,
     this.telefone,
-    this.email,
+    this.documento,
+    this.funcao,
     this.isActive,
-    this.createdAt,
+    this.hiredAt,
   });
 
   final String? id;
+  final String? userId;
   final String? nome;
   final String? telefone;
-  final String? email;
+  final String? documento;
+  final String? funcao;
   final bool? isActive;
-  final DateTime? createdAt;
+  final DateTime? hiredAt;
 
-  String get iniciais {
-    if (nome == null || nome!.trim().isEmpty) return '';
-    final partes = nome!.trim().split(' ');
-    if (partes.length >= 2) {
-      return '${partes.first[0]}${partes.last[0]}'.toUpperCase();
-    }
-    return partes.first.substring(0, partes.first.length >= 2 ? 2 : partes.first.length).toUpperCase();
-  }
-
-  factory MecanicoModel.fromJson(Map<String, dynamic> json) {
-    return MecanicoModel(
+  factory FuncionarioModel.fromJson(Map<String, dynamic> json) {
+    return FuncionarioModel(
       id: json['id'] as String?,
       nome: json['name'] as String?,
       telefone: json['phone'] as String?,
-      email: json['email'] as String?,
+      documento: json['document'] as String?,
+      funcao: json['function'] as String?,
       isActive: json['isActive'] as bool?,
-      createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt'] as String) : null,
+      hiredAt: json['hiredAt'] != null
+          ? DateTime.parse(json['hiredAt'] as String)
+          : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': nome,
       'phone': telefone,
-      'email': email,
+      'document': documento,
+      'function': funcao,
+      'isActive': isActive,
+      'hiredAt': hiredAt?.toIso8601String(),
     };
   }
 
   @override
-  List<Object?> get props => [id, nome, telefone, email, isActive, createdAt];
+  String toString() {
+    return 'MecanicoModel{'
+        'id: $id, '
+        'userId: $userId,'
+        ' nome: $nome, '
+        'telefone: $telefone,'
+        ' documento: $documento, '
+        'funcao: $funcao, '
+        'isActive: $isActive, '
+        'hiredAt: $hiredAt'
+        '}';
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        userId,
+        nome,
+        telefone,
+        documento,
+        funcao,
+        isActive,
+        hiredAt,
+      ];
 }

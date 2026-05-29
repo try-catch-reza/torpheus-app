@@ -23,32 +23,6 @@ class MenuWebFooter extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Divider(color: Color(0xFF304D7A), height: 1),
-        GestureDetector(
-          onTap: () {},
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.settings_outlined,
-                  size: 17,
-                  color: Color(0xFF8FA3C0),
-                ),
-                SizedBox(width: 14),
-                Text(
-                  'Configurações',
-                  style: TextStyle(
-                    fontSize: 13,
-                    decoration: TextDecoration.none,
-                    color: Color(0xFF8FA3C0),
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        const Divider(color: Color(0xFF304D7A), height: 1),
         Material(
           color: ColorConstants.chambray,
           child: PopupMenuButton<String>(
@@ -60,7 +34,6 @@ class MenuWebFooter extends StatelessWidget {
             color: const Color(0xFF1E3456),
             elevation: 8,
             onSelected: (value) {
-              if (value == 'perfil') _onTapVerPerfil(context);
               if (value == 'sair') _onTapLogout(context);
             },
             itemBuilder: (context) {
@@ -131,32 +104,6 @@ class MenuWebFooter extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Opção: Ver Perfil
-                const PopupMenuItem<String>(
-                  value: 'perfil',
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.person_outline_rounded,
-                        size: 16,
-                        color: Color(0xFF8FA3C0),
-                      ),
-                      SizedBox(width: 12),
-                      Text(
-                        'Ver perfil',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Color(0xFFCDD8E8),
-                          decoration: TextDecoration.none,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Divisor
-                const PopupMenuDivider(height: 1),
                 const PopupMenuItem<String>(
                   value: 'sair',
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -247,15 +194,11 @@ class MenuWebFooter extends StatelessWidget {
     );
   }
 
-  void _onTapVerPerfil(BuildContext context) {
-    /// Cria dialog com as informações do perfil do usuário
-  }
-
   void _onTapLogout(BuildContext context) {
     ConfirmDialog.show(
       context,
-      titulo: 'Fazer logout?',
-      mensagem: 'Deseja realmente sair do aplicativo?',
+      titulo: 'Sair do Aplicativo',
+      mensagem: 'Tem certeza que deseja sair do aplicativo?',
       onConfirmar: () {
         context.read<LoginBloc>().add(const LoginLogout());
         Navigator.of(context).pushReplacementNamed(AppRoutes.root.route);

@@ -4,14 +4,18 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../data/models/mecanico_model.dart';
+import '../../../../domain/repositories/remote/eapi_remote_repository.dart';
 
 part 'mecanicos_event.dart';
 
 part 'mecanicos_state.dart';
 
-class MecanicosBloc extends Bloc<MecanicosEvent, MecanicosState> {
-  MecanicosBloc() : super(const MecanicosInitial()) {
+class FuncionarioBloc extends Bloc<MecanicosEvent, MecanicosState> {
+  late final EapiRemoteRepository _eapiRemoteRepository;
+
+  FuncionarioBloc(this._eapiRemoteRepository) : super(const MecanicosInitial()) {
     on<MecanicosLoad>(_onMecanicosLoad);
+    on<MecanicosCadastrar>(_onMecanicosCadastrar);
   }
 
   Future<void> _onMecanicosLoad(
@@ -20,10 +24,19 @@ class MecanicosBloc extends Bloc<MecanicosEvent, MecanicosState> {
   ) async {
     emit(const MecanicosLoading());
     try {
-      await Future.delayed(const Duration(seconds: 2));
-      emit(const MecanicosLoaded(mecanicos: []));
+
+      final funcionarios = await _eapiRemoteRepository.getFuncionarios();
+
+      emit(MecanicosLoaded(funcionarios: funcionarios));
     } catch (e) {
       emit(MecanicosError(e.toString()));
     }
+  }
+
+  void _onMecanicosCadastrar(
+    MecanicosCadastrar event,
+    Emitter<MecanicosState> emit,
+  ) {
+    emit(const MecanicoCadastrando());
   }
 }

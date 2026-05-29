@@ -34,6 +34,10 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     MenuTrocarTela event,
     Emitter<MenuState> emit,
   ) {
+    if (event.indexScreen == 5) {
+      emit(MenuLoaded(indexScreen: 0, nome: state.nome));
+    }
+
     emit(MenuLoaded(indexScreen: event.indexScreen, nome: state.nome));
   }
 }

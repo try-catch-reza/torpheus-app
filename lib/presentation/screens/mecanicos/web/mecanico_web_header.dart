@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:torpheus/config/routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/screens/mecanicos/bloc/mecanicos_bloc.dart';
 
 import '../../../../core/constants/custom_colors.dart';
 
-class MecanicoMobileHeader extends StatelessWidget {
-  const MecanicoMobileHeader({super.key});
+class MecanicoWebHeader extends StatelessWidget {
+  const MecanicoWebHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +38,9 @@ class MecanicoMobileHeader extends StatelessWidget {
         const Spacer(),
         SizedBox(
           height: 40,
-          child: ElevatedButton(
+          child: ElevatedButton.icon(
             onPressed: () {
-              Navigator.of(context).pushNamed(
-                AppRoutes.cadastrarMecanico.route,
-              );
+              context.read<FuncionarioBloc>().add(const MecanicosCadastrar());
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: ColorConstants.chambray,
@@ -52,7 +51,15 @@ class MecanicoMobileHeader extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            child: const Icon(Icons.add_rounded, size: 18),
+            icon: const Icon(Icons.add_rounded, size: 18),
+            label: const Text(
+              'Cadastrar mecânico',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                decoration: TextDecoration.none,
+              ),
+            ),
           ),
         ),
       ],

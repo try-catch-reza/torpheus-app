@@ -2,6 +2,7 @@ import 'package:torpheus/data/models/auth_model.dart';
 import 'package:torpheus/data/models/auth_response_model.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
 import 'package:torpheus/data/models/endereco_model.dart';
+import 'package:torpheus/data/models/mecanico_model.dart';
 
 import '../../../config/eapi_schema.dart';
 import '../../../core/resources/base_remote_data_source.dart';
@@ -92,6 +93,52 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       response: (response) {
         if (response.statusCode == 200) {
           return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<void> cadastrarFuncionario(FuncionarioModel funcionario) async {
+    const titleMessage = 'Não foi possível cadastrar o funcionário';
+
+    return await post(
+      path: _schema.cadastrarFuncionario,
+      body: funcionario.toJson(),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<List<FuncionarioModel>> getFuncionarios() async {
+    const titleMessage = 'Não foi possível carregar os funcionários';
+
+    return await get(
+      path: _schema.buscarFuncionario,
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> data = response.data;
+          final List<dynamic> items = data['items'] ?? [];
+
+          return items.map((item) => FuncionarioModel.fromJson(item)).toList();
         } else {
           throw HttpRequestException(
             titleMessage: titleMessage,

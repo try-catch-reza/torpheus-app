@@ -23,4 +23,12 @@ abstract class Responsive {
     if (!kIsWeb) return false;
     return MediaQuery.sizeOf(context).width >= _tabletBreakpoint;
   }
+
+  static bool isMobileInitial() {
+    if (!kIsWeb) return true;
+    final width = WidgetsBinding
+            .instance.platformDispatcher.views.first.physicalSize.width /
+        WidgetsBinding.instance.platformDispatcher.views.first.devicePixelRatio;
+    return width < 768;
+  }
 }

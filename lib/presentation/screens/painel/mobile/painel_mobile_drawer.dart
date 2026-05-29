@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/core/constants/extension/string_extension.dart';
 
-/// Drawer lateral padrão Torphéus.
-///
-/// Uso:
-/// ```dart
-/// Scaffold(
-///   drawer: TorpheusDrawer(
-///     onClientesTap: () => Navigator.pushNamed(context, '/clientes'),
-///     onMecanicosTap: () => Navigator.pushNamed(context, '/mecanicos'),
-///     onVeiculosTap: () => Navigator.pushNamed(context, '/veiculos'),
-///   ),
-/// )
-/// ```
+import '../../../components/header_usuario.dart';
+
 class TorpheusDrawer extends StatelessWidget {
   const TorpheusDrawer({
     super.key,
-    required this.onClientesTap,
-    required this.onMecanicosTap,
-    required this.onVeiculosTap,
+    required this.nomeUsuario,
+    required this.cargoUsuario,
+    required this.emailUsuario,
+    required this.onSairTap,
   });
 
-  final VoidCallback onClientesTap;
-  final VoidCallback onMecanicosTap;
-  final VoidCallback onVeiculosTap;
+  final String nomeUsuario;
+  final String cargoUsuario;
+  final String emailUsuario;
+  final VoidCallback onSairTap;
 
   @override
   Widget build(BuildContext context) {
@@ -33,45 +26,21 @@ class TorpheusDrawer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const _DrawerHeader(),
-
-            const SizedBox(height: 8),
-
+            HeaderUsuario(
+              nomeUsuario: nomeUsuario,
+              cargoUsuario: cargoUsuario,
+              emailUsuario: emailUsuario,
+            ),
             const Divider(color: Color(0xFF304D7A), height: 1),
-
             const SizedBox(height: 8),
-
-            // ── Itens ─────────────────────────────────────────────────────
-            _DrawerItem(
-              icon: Icons.person_rounded,
-              label: 'Clientes',
+            _DrawerItemDanger(
               onTap: () {
                 Navigator.of(context).pop();
-                onClientesTap();
+                onSairTap();
               },
             ),
-            _DrawerItem(
-              icon: Icons.engineering_rounded,
-              label: 'Mecânicos',
-              onTap: () {
-                Navigator.of(context).pop();
-                onMecanicosTap();
-              },
-            ),
-            _DrawerItem(
-              icon: Icons.directions_car_rounded,
-              label: 'Veículos',
-              onTap: () {
-                Navigator.of(context).pop();
-                onVeiculosTap();
-              },
-            ),
-
             const Spacer(),
-
             const Divider(color: Color(0xFF304D7A), height: 1),
-
-            // ── Rodapé ────────────────────────────────────────────────────
             const _DrawerFooter(),
           ],
         ),
@@ -80,62 +49,7 @@ class TorpheusDrawer extends StatelessWidget {
   }
 }
 
-// ── Header ────────────────────────────────────────────────────────────────────
-
-class _DrawerHeader extends StatelessWidget {
-  const _DrawerHeader();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
-      child: Row(
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: const Color(0xFF253A60),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: const Color(0xFF304D7A)),
-            ),
-            child: const Icon(
-              Icons.build_rounded,
-              color: Colors.white,
-              size: 20,
-            ),
-          ),
-          const SizedBox(width: 12),
-          const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'TORPHÉUS',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white,
-                  letterSpacing: 1.5,
-                  decoration: TextDecoration.none,
-                ),
-              ),
-              Text(
-                'Gestão de Oficina Mecânica',
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Color(0xFF8FA3C0),
-                  decoration: TextDecoration.none,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ── Item ──────────────────────────────────────────────────────────────────────
+// ── Item padrão ───────────────────────────────────────────────────────────────
 
 class _DrawerItem extends StatelessWidget {
   const _DrawerItem({
@@ -184,6 +98,65 @@ class _DrawerItem extends StatelessWidget {
               const Icon(
                 Icons.chevron_right_rounded,
                 color: Color(0xFF8FA3C0),
+                size: 18,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ── Item Sair (vermelho) ──────────────────────────────────────────────────────
+
+class _DrawerItemDanger extends StatelessWidget {
+  const _DrawerItemDanger({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        splashColor: const Color(0xFFFEE2E2).withOpacity(0.2),
+        highlightColor: const Color(0xFFFEE2E2).withOpacity(0.1),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          child: Row(
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFC0392B).withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(9),
+                  border: Border.all(
+                    color: const Color(0xFFC0392B).withOpacity(0.3),
+                  ),
+                ),
+                child: const Icon(
+                  Icons.logout_rounded,
+                  color: Color(0xFFC0392B),
+                  size: 18,
+                ),
+              ),
+              const SizedBox(width: 14),
+              const Text(
+                'Sair da conta',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFFC0392B),
+                  decoration: TextDecoration.none,
+                ),
+              ),
+              const Spacer(),
+              const Icon(
+                Icons.chevron_right_rounded,
+                color: Color(0xFFC0392B),
                 size: 18,
               ),
             ],

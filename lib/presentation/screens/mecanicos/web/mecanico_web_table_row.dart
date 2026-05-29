@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/extension/string_extension.dart';
-
 import '../../../../data/models/mecanico_model.dart';
 
-class MecanicoMobileTableRow extends StatelessWidget {
-  const MecanicoMobileTableRow({
+class MecanicoWebTableRow extends StatelessWidget {
+  const MecanicoWebTableRow({
     super.key,
     required this.mecanico,
     required this.showDivider,
@@ -51,6 +50,18 @@ class MecanicoMobileTableRow extends StatelessWidget {
                     ],
                   ),
                 ),
+                Expanded(
+                  flex: 3,
+                  child: _RowCell((mecanico.toJson()['documentNumber'] as String?) ?? ''),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: _RowCell(mecanico.telefone ?? ''),
+                ),
+                Expanded(
+                  flex: 4,
+                  child: _RowCell(''),
+                ),
                 const SizedBox(
                   width: 32,
                   child: Icon(
@@ -68,9 +79,6 @@ class MecanicoMobileTableRow extends StatelessWidget {
     );
   }
 }
-
-
-// ── Avatar ────────────────────────────────────────────────────────────────────
 
 class _Avatar extends StatelessWidget {
   const _Avatar({required this.iniciais});
@@ -97,6 +105,25 @@ class _Avatar extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _RowCell extends StatelessWidget {
+  const _RowCell(this.value);
+
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      value,
+      style: const TextStyle(
+        fontSize: 13,
+        color: Color(0xFF6B7A99),
+        decoration: TextDecoration.none,
+      ),
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

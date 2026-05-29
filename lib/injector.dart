@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:torpheus/config/eapi_schema.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_mecanico/bloc/cadastrar_mecanico_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import 'package:torpheus/presentation/screens/mecanicos/bloc/mecanicos_bloc.dart';
@@ -24,7 +25,6 @@ import 'data/datasources/local/shared_data.dart';
 import 'data/datasources/remote/http_client.dart';
 import 'data/repositories/preferences/preferences_local_repository_impl.dart';
 import 'data/repositories/remote/eapi_remote_repository_impl.dart';
-import 'domain/controller/authentication_controller.dart';
 import 'domain/controller/preferences_controller.dart';
 import 'domain/repositories/preferenfeces/preferences_local_repository.dart';
 import 'domain/repositories/remote/eapi_remote_repository.dart';
@@ -97,17 +97,10 @@ final class InjectorImpl extends Injector {
       PreferencesController(getIt<PreferencesLocalRepository>()),
     );
 
-    getIt.registerSingleton<AuthenticationController>(
-      AuthenticationController(
-        getIt<EapiRemoteRepository>(),
-      ),
-    );
-
     /// BLoC--------------------------------------------------------------------
 
     getIt.registerSingleton<AuthenticationBloc>(
       AuthenticationBloc(
-        getIt.get<AuthenticationController>(),
         getIt.get<PreferencesController>(),
         getIt.get<PreferencesLocalRepository>(),
       ),
@@ -144,8 +137,10 @@ final class InjectorImpl extends Injector {
       ),
     );
 
-    getIt.registerSingleton<MecanicosBloc>(
-      MecanicosBloc(),
+    getIt.registerSingleton<FuncionarioBloc>(
+      FuncionarioBloc(
+        getIt.get<EapiRemoteRepository>(),
+      ),
     );
 
     getIt.registerSingleton<VeiculosBloc>(
@@ -166,6 +161,12 @@ final class InjectorImpl extends Injector {
 
     getIt.registerSingleton<CadastrarClienteBloc>(
       CadastrarClienteBloc(
+        getIt.get<EapiRemoteRepository>(),
+      ),
+    );
+
+    getIt.registerSingleton<CadastrarMecanicoBloc>(
+      CadastrarMecanicoBloc(
         getIt.get<EapiRemoteRepository>(),
       ),
     );

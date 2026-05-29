@@ -28,11 +28,13 @@ import '../presentation/screens/ordens_servico/bloc/ordens_servico_bloc.dart';
 import '../presentation/screens/perfil/bloc/perfil_bloc.dart';
 import '../presentation/screens/recuperar_senha/bloc/recuperar_senha_bloc.dart';
 import '../presentation/screens/relatorios/bloc/relatorios_bloc.dart';
+import '../presentation/screens/cadastrar_mecanico/cadastrar_mecanico_screen.dart';
+import '../presentation/screens/cadastrar_mecanico/bloc/cadastrar_mecanico_bloc.dart';
 
 enum NavigationFlow { simple, modalBottomUp, fade }
 
 enum AppRoutes {
-  root('/', NavigationFlow.simple),
+  root('/', NavigationFlow.fade),
   login('/login', NavigationFlow.fade),
   home('/home', NavigationFlow.fade),
   recuperarSenha('/recuperar-senha', NavigationFlow.fade),
@@ -43,7 +45,8 @@ enum AppRoutes {
   ordensServico('/ordens-servico', NavigationFlow.fade),
   relatorios('/relatorios', NavigationFlow.fade),
   clienteDetalhe('/cliente-detalhe', NavigationFlow.modalBottomUp),
-  cadastrarCliente('/cadastrar-cliente', NavigationFlow.modalBottomUp);
+  cadastrarCliente('/cadastrar-cliente', NavigationFlow.modalBottomUp),
+  cadastrarMecanico('/cadastrar-mecanico', NavigationFlow.modalBottomUp);
 
   final String route;
   final NavigationFlow flow;
@@ -73,7 +76,7 @@ class Routes {
           homeBloc: injector.getIt.get<PainelBloc>(),
           perfilBloc: injector.getIt.get<PerfilBloc>(),
           clienteBloc: injector.getIt.get<ClienteBloc>(),
-          mecanicosBloc: injector.getIt.get<MecanicosBloc>(),
+          mecanicosBloc: injector.getIt.get<FuncionarioBloc>(),
           veiculosBloc: injector.getIt.get<VeiculosBloc>(),
           ordensServicoBloc: injector.getIt.get<OrdensServicoBloc>(),
           relatoriosBloc: injector.getIt.get<RelatoriosBloc>(),
@@ -91,7 +94,7 @@ class Routes {
           clienteBloc: injector.getIt.get<ClienteBloc>(),
         ),
       AppRoutes.mecanicos => MecanicosScreen(
-          mecanicosBloc: injector.getIt.get<MecanicosBloc>(),
+          mecanicosBloc: injector.getIt.get<FuncionarioBloc>(),
         ),
       AppRoutes.veiculos => VeiculosScreen(
           veiculosBloc: injector.getIt.get<VeiculosBloc>(),
@@ -108,6 +111,9 @@ class Routes {
         ),
       AppRoutes.cadastrarCliente => CadastrarClienteScreen(
           cadastrarClienteBloc: injector.getIt.get<CadastrarClienteBloc>(),
+        ),
+      AppRoutes.cadastrarMecanico => CadastrarMecanicoScreen(
+          cadastrarMecanicoBloc: injector.getIt.get<CadastrarMecanicoBloc>(),
         ),
     };
 

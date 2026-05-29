@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 import 'package:torpheus/domain/repositories/preferenfeces/preferences_local_repository.dart';
 
 import '../../../../core/resources/handler_exception.dart';
-import '../../../../domain/controller/authentication_controller.dart';
 import '../../../../domain/controller/preferences_controller.dart';
 
 part 'authentication_event.dart';
@@ -15,7 +14,6 @@ part 'authentication_state.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc(
-    this._authenticationController,
     this._preferencesController,
     this._preferencesLocalRepository,
   ) : super(const AuthenticationState.authenticating()) {
@@ -23,7 +21,6 @@ class AuthenticationBloc
     on<AuthenticationStatusChange>(_onAuthenticationStatusChange);
   }
 
-  final AuthenticationController _authenticationController;
   final PreferencesController _preferencesController;
   final PreferencesLocalRepository _preferencesLocalRepository;
 
@@ -32,10 +29,6 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) async {
     try {
-      // final String? token = _preferencesController.getAccessToken();
-      // final String accessToken = _preferencesController.isTokenValid(token);
-      // await _authenticationController.checkTokenValidity(accessToken);
-
       final isUsuarioLogado = _preferencesLocalRepository.getIsUsuarioLogado();
 
       if (isUsuarioLogado == false) {

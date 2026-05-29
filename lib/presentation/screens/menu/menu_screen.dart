@@ -13,18 +13,32 @@ import '../../../config/responsive.dart';
 import '../veiculos/bloc/veiculos_bloc.dart';
 import 'mobile/menu_mobile_content.dart';
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key, required this.menuParametros});
 
   final MenuParametros menuParametros;
 
   @override
+  State<MenuScreen> createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> {
+  @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: menuParametros.menuBloc..add(const MenuCarregar()),
-      child: Responsive.isDesktop(context) || Responsive.isTablet(context)
-          ? MenuWebContent(menuParametros: menuParametros)
-          : MenuMobileContent(menuParametros: menuParametros),
+      value: widget.menuParametros.menuBloc..add(const MenuCarregar()),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          if (Responsive.isMobile(context)) {
+            return MenuMobileContent(
+              menuParametros: widget.menuParametros,
+            );
+          }
+          return MenuWebContent(
+            menuParametros: widget.menuParametros,
+          );
+        },
+      ),
     );
   }
 }
@@ -45,7 +59,7 @@ class MenuParametros {
   final MenuBloc menuBloc;
   final PerfilBloc perfilBloc;
   final ClienteBloc clienteBloc;
-  final MecanicosBloc mecanicosBloc;
+  final FuncionarioBloc mecanicosBloc;
   final VeiculosBloc veiculosBloc;
   final OrdensServicoBloc ordensServicoBloc;
   final RelatoriosBloc relatoriosBloc;

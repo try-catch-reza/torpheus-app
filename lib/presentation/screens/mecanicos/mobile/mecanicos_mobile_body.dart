@@ -24,10 +24,10 @@ class MecanicosMobileBody extends StatelessWidget {
           const SizedBox(height: 24),
           MecanicoMobileSearch(controller: controller),
           const SizedBox(height: 16),
-          if (state.mecanicos.isEmpty) const MecanicoVazio(),
-          if (state.mecanicos.isNotEmpty)
+          if (state.funcionarios.isEmpty) const MecanicoVazio(),
+          if (state.funcionarios.isNotEmpty)
             MecanicoMobileTabela(
-              mecanicos: state.mecanicos,
+              mecanicos: state.funcionarios,
               onMecanicoTap: (value) {},
             ),
         ],
