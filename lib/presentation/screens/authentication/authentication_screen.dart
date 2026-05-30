@@ -7,10 +7,10 @@ import 'package:torpheus/presentation/screens/menu/bloc/menu_bloc.dart';
 import 'package:torpheus/presentation/screens/menu/menu_screen.dart';
 import 'package:torpheus/presentation/screens/perfil/bloc/perfil_bloc.dart';
 import '../cliente/bloc/cliente_bloc.dart';
+import '../funcionario/bloc/funcionario_bloc.dart';
 import '../login/login_screen.dart';
 
 import '../../../config/routes.dart';
-import '../mecanicos/bloc/mecanicos_bloc.dart';
 import '../ordens_servico/bloc/ordens_servico_bloc.dart';
 import '../relatorios/bloc/relatorios_bloc.dart';
 import '../veiculos/bloc/veiculos_bloc.dart';

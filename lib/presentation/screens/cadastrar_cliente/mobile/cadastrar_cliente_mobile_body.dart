@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/enum/documento_tipo.dart';
 import '../../../components/formatadores.dart';
 import '../bloc/cadastrar_cliente_bloc.dart';
-import '../web/cadastrar_cliente_web_campo.dart';
+import '../../../components/input_custom.dart';
 import '../web/cadastrar_cliente_web_endereco.dart';
 import '../web/cadastrar_cliente_web_tipo_documento.dart';
 
@@ -69,7 +69,7 @@ class CadastrarClienteMobileBody extends StatelessWidget {
                         },
                       ),
                       const SizedBox(height: 24),
-                      CadastrarClienteWebCampo(
+                      InputCustom(
                         label: state.documentoTipo == DocumentoTipo.cpf
                             ? 'Nome completo'
                             : 'Razão social',
@@ -87,7 +87,7 @@ class CadastrarClienteMobileBody extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
-                            child: CadastrarClienteWebCampo(
+                            child: InputCustom(
                               label: state.documentoTipo == DocumentoTipo.cpf
                                   ? 'CPF'
                                   : 'CNPJ',
@@ -110,7 +110,7 @@ class CadastrarClienteMobileBody extends StatelessWidget {
                           ),
                           const SizedBox(width: 16),
                           Expanded(
-                            child: CadastrarClienteWebCampo(
+                            child: InputCustom(
                               label: 'Telefone',
                               controller: telefoneController,
                               hint: '(49) 99999-9999',
@@ -128,7 +128,7 @@ class CadastrarClienteMobileBody extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      CadastrarClienteWebCampo(
+                      InputCustom(
                         label: 'E-mail',
                         controller: emailController,
                         hint: 'cliente@email.com',

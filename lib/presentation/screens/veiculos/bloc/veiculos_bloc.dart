@@ -1,11 +1,12 @@
-// Arquivo placeholder para o BLoC de veículos
 
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:torpheus/data/models/veiculo_model.dart';
 
 part 'veiculos_event.dart';
+
 part 'veiculos_state.dart';
 
 class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
@@ -19,8 +20,22 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
   ) async {
     emit(const VeiculosLoading());
     try {
-      await Future.delayed(const Duration(seconds: 2));
-      emit(const VeiculosLoaded());
+      final veiculos = [
+        const VeiculoModel(
+          placa: 'ABC-1234',
+          modelo: 'Fiat Uno',
+          ano: '2010',
+          cor: 'Preto',
+        ),
+        const VeiculoModel(
+          placa: 'DEF-5678',
+          modelo: 'Volkswagen Gol',
+          ano: '2015',
+          cor: 'Branco',
+        ),
+      ];
+
+      emit(VeiculosLoaded(veiculos: veiculos));
     } catch (e) {}
   }
 }

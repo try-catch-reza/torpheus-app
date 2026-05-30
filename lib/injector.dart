@@ -1,10 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:torpheus/config/eapi_schema.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
-import 'package:torpheus/presentation/screens/cadastrar_mecanico/bloc/cadastrar_mecanico_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_funcionario/bloc/cadastrar_funcionario_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
-import 'package:torpheus/presentation/screens/mecanicos/bloc/mecanicos_bloc.dart';
+import 'package:torpheus/presentation/screens/funcionario/bloc/funcionario_bloc.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/bloc/ordens_servico_bloc.dart';
 import 'package:torpheus/presentation/screens/painel/bloc/painel_bloc.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
@@ -165,8 +165,8 @@ final class InjectorImpl extends Injector {
       ),
     );
 
-    getIt.registerSingleton<CadastrarMecanicoBloc>(
-      CadastrarMecanicoBloc(
+    getIt.registerSingleton<CadastrarFuncionarioBloc>(
+      CadastrarFuncionarioBloc(
         getIt.get<EapiRemoteRepository>(),
       ),
     );

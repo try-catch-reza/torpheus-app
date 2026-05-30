@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/core/constants/custom_colors.dart';
 import 'package:torpheus/presentation/screens/cliente/cliente_screen.dart';
-import 'package:torpheus/presentation/screens/mecanicos/mecanicos_screen.dart';
+import 'package:torpheus/presentation/screens/funcionario/funcionario_screen.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/ordens_servico_screen.dart';
 import 'package:torpheus/presentation/screens/veiculos/veiculos_screen.dart';
 
@@ -34,7 +34,7 @@ class MenuMobileBody extends StatelessWidget {
           selectedItemColor: ColorConstants.chambray,
           unselectedIconTheme: const IconThemeData(color: Colors.grey),
           elevation: 5.0,
-          backgroundColor: Colors.white,
+          backgroundColor: ColorConstants.corFundo,
           items: items,
           currentIndex: indexScreen,
           onTap: (value) {
@@ -50,7 +50,7 @@ class MenuMobileBody extends StatelessWidget {
       PainelScreen(painelBloc: menuParametros.homeBloc),
       OrdensServicoScreen(ordensServicoBloc: menuParametros.ordensServicoBloc),
       VeiculosScreen(veiculosBloc: menuParametros.veiculosBloc),
-      MecanicosScreen(mecanicosBloc: menuParametros.mecanicosBloc),
+      FuncionarioScreen(funcionarioBloc: menuParametros.mecanicosBloc),
       ClienteScreen(clienteBloc: menuParametros.clienteBloc),
     ];
   }
@@ -76,7 +76,7 @@ class MenuMobileBody extends StatelessWidget {
     ),
     BottomNavigationBarItem(
       icon: const Icon(Icons.car_repair_sharp, size: 28.0),
-      label: 'OS',
+      label: 'Veículos',
       activeIcon: Icon(
         Icons.car_repair_sharp,
         color: ColorConstants.chambray,
@@ -85,7 +85,7 @@ class MenuMobileBody extends StatelessWidget {
     ),
      BottomNavigationBarItem(
       icon: const Icon(Icons.group, size: 28.0),
-      label: 'Mecânicos',
+      label: 'Funcionários',
       activeIcon: Icon(
         Icons.group,
         color: ColorConstants.chambray,

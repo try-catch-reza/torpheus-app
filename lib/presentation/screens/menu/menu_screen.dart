@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
-import 'package:torpheus/presentation/screens/mecanicos/bloc/mecanicos_bloc.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/bloc/ordens_servico_bloc.dart';
 import 'package:torpheus/presentation/screens/painel/bloc/painel_bloc.dart';
 import 'package:torpheus/presentation/screens/menu/bloc/menu_bloc.dart';
@@ -10,6 +9,7 @@ import 'package:torpheus/presentation/screens/perfil/bloc/perfil_bloc.dart';
 import 'package:torpheus/presentation/screens/relatorios/bloc/relatorios_bloc.dart';
 
 import '../../../config/responsive.dart';
+import '../funcionario/bloc/funcionario_bloc.dart';
 import '../veiculos/bloc/veiculos_bloc.dart';
 import 'mobile/menu_mobile_content.dart';
 

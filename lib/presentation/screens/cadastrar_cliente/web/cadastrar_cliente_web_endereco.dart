@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../components/formatadores.dart';
 import '../bloc/cadastrar_cliente_bloc.dart';
-import 'cadastrar_cliente_web_campo.dart';
+import '../../../components/input_custom.dart';
 
 class CadastrarClienteWebEndereco extends StatelessWidget {
   const CadastrarClienteWebEndereco({
@@ -38,7 +38,7 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
           children: [
             SizedBox(
               width: 180,
-              child: CadastrarClienteWebCampo(
+              child: InputCustom(
                 textInputAction: TextInputAction.done,
                 label: 'CEP',
                 controller: cepController,
@@ -74,7 +74,7 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 16),
-        CadastrarClienteWebCampo(
+        InputCustom(
           textInputAction: TextInputAction.done,
           label: 'Logradouro',
           controller: logradouroController,
@@ -88,7 +88,7 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
           children: [
             SizedBox(
               width: 180,
-              child: CadastrarClienteWebCampo(
+              child: InputCustom(
                 textInputAction: TextInputAction.done,
                 label: 'Número',
                 controller: numeroController,
@@ -111,7 +111,7 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: CadastrarClienteWebCampo(
+              child: InputCustom(
                 textInputAction: TextInputAction.done,
                 label: 'Complemento',
                 controller: complementoController,
@@ -120,7 +120,7 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: CadastrarClienteWebCampo(
+              child: InputCustom(
                 textInputAction: TextInputAction.done,
                 label: 'Bairro',
                 controller: bairroController,
@@ -136,7 +136,7 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: CadastrarClienteWebCampo(
+              child: InputCustom(
                 textInputAction: TextInputAction.done,
                 label: 'Cidade',
                 controller: cidadeController,
@@ -147,7 +147,7 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: CadastrarClienteWebCampo(
+              child: InputCustom(
                 textInputAction: TextInputAction.done,
                 label: 'Estado',
                 controller: estadoController,

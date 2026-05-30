@@ -7,7 +7,6 @@ import 'package:torpheus/presentation/screens/veiculos/mobile/veiculos_mobile_co
 
 import '../../../config/responsive.dart';
 
-// Tela de entrada para Veículos. Decide entre versão web e mobile.
 class VeiculosScreen extends StatelessWidget {
   const VeiculosScreen({super.key, required this.veiculosBloc});
 

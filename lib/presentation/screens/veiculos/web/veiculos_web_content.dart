@@ -1,13 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/components/loading_state.dart';
+import 'package:torpheus/presentation/screens/veiculos/bloc/veiculos_bloc.dart';
+import 'package:torpheus/presentation/screens/veiculos/web/veiculos_web_body.dart';
 
-class VeiculosWebContent extends StatelessWidget {
+class VeiculosWebContent extends StatefulWidget {
   const VeiculosWebContent({super.key});
+
+  @override
+  State<VeiculosWebContent> createState() => _VeiculosWebContentState();
+}
+
+class _VeiculosWebContentState extends State<VeiculosWebContent> {
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Veículos - Web')),
-      body: const Center(child: Text('Conteúdo Web de Veículos')),
+      body: BlocBuilder<VeiculosBloc, VeiculosState>(
+        builder: (context, state) {
+          if (state is VeiculosLoading) {
+            return const LoadingState();
+          }
+
+          if (state is VeiculosLoaded) {
+            return VeiculosWebBody(
+              state: state,
+              searchController: _searchController,
+            );
+          }
+
+          return const SizedBox.shrink();
+        },
+      ),
     );
   }
 }

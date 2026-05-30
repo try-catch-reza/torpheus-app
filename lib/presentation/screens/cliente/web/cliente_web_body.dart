@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/components/lista_vazia_custom.dart';
+import 'package:torpheus/presentation/components/search_custom.dart';
+import 'package:torpheus/presentation/components/web/header_web_custom.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
-import 'package:torpheus/presentation/screens/cliente/web/cliente_web_header.dart';
-import 'package:torpheus/presentation/screens/cliente/web/cliente_web_tabela.dart';
-import 'cliente_web_search.dart';
-import '../widgets/cliente_vazio.dart';
+import 'package:torpheus/presentation/screens/cliente/widgets/cliente_lista.dart';
 
 class ClienteWebBody extends StatelessWidget {
   const ClienteWebBody({
@@ -18,26 +18,31 @@ class ClienteWebBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(32.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const ClienteWebHeader(),
-          const SizedBox(height: 24),
-          ClienteWebSearch(controller: searchController),
-          const SizedBox(height: 16),
-          if (state.clientes.isEmpty)
-            const ClienteVazio(),
-          if (state.clientes.isNotEmpty)
-            ClienteWebTabela(
-              clientes: state.clientes,
-              onClienteTap: (value) {
-                context.read<ClienteBloc>().add(ClienteSelecionar(value));
-              },
-            ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        HeaderWebCustom(
+          title: 'Clientes',
+          subtitle: 'Cadastro e histórico de clientes',
+          buttonText: 'Cadastrar cliente',
+          onPressed: () {
+            context.read<ClienteBloc>().add(const ClienteCadastrar());
+          },
+        ),
+        SearchCustom(controller: searchController),
+        if (state.clientes.isEmpty)
+          const ListaVaziaCustom(
+            message: 'Nenhum cliente encontrado ',
+            subMessage: 'Cadastre um novo cliente',
+          ),
+        if (state.clientes.isNotEmpty)
+          ClienteLista(
+            clientes: state.clientes,
+            onClienteTap: (value) {
+              context.read<ClienteBloc>().add(ClienteSelecionar(value));
+            },
+          ),
+      ],
     );
   }
 }

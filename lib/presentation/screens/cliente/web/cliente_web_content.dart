@@ -21,38 +21,41 @@ class _ClienteWebContentState extends State<ClienteWebContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<ClienteBloc, ClienteState>(
-        buildWhen: _buildWhen,
-        builder: (context, state) {
-          if (state is ClienteLoading) {
-            return const LoadingState();
-          }
+    return Padding(
+      padding: const EdgeInsets.all(32.0),
+      child: Scaffold(
+        body: BlocBuilder<ClienteBloc, ClienteState>(
+          buildWhen: _buildWhen,
+          builder: (context, state) {
+            if (state is ClienteLoading) {
+              return const LoadingState();
+            }
 
-          if (state is ClienteLoaded) {
-            return ClienteWebBody(
-              state: state,
-              searchController: _searchController,
-            );
-          }
+            if (state is ClienteLoaded) {
+              return ClienteWebBody(
+                state: state,
+                searchController: _searchController,
+              );
+            }
 
-          if (state is ClienteSelecionado) {
-            return ClienteDetalheScreen(
-              clienteDetalheBloc: context.read<ClienteDetalheBloc>(),
-              arguments: ClienteDetalheArguments(
-                cliente: state.clienteSelecionado,
-              ),
-            );
-          }
+            if (state is ClienteSelecionado) {
+              return ClienteDetalheScreen(
+                clienteDetalheBloc: context.read<ClienteDetalheBloc>(),
+                arguments: ClienteDetalheArguments(
+                  cliente: state.clienteSelecionado,
+                ),
+              );
+            }
 
-          if (state is ClienteCadastrando) {
-            return CadastrarClienteScreen(
-              cadastrarClienteBloc: context.read<CadastrarClienteBloc>(),
-            );
-          }
+            if (state is ClienteCadastrando) {
+              return CadastrarClienteScreen(
+                cadastrarClienteBloc: context.read<CadastrarClienteBloc>(),
+              );
+            }
 
-          return const SizedBox.shrink();
-        },
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
   }

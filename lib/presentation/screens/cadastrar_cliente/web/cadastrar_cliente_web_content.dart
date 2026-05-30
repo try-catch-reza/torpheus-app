@@ -48,34 +48,36 @@ class _CadastrarClienteWebContentState
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CadastrarClienteBloc, CadastrarClienteState>(
-      buildWhen: _buildWhen,
-      listener: _listener,
-      builder: (context, state) {
-        if (state is CadastrarClienteLoading) {
-          return const LoadingState();
-        }
+    return Scaffold(
+      body: BlocConsumer<CadastrarClienteBloc, CadastrarClienteState>(
+        buildWhen: _buildWhen,
+        listener: _listener,
+        builder: (context, state) {
+          if (state is CadastrarClienteLoading) {
+            return const LoadingState();
+          }
 
-        if (state is CadastrarClienteLoaded) {
-          return CadastrarClienteWebBody(
-            formKey: _formKey,
-            nomeController: _nomeController,
-            documentoController: _documentoController,
-            telefoneController: _telefoneController,
-            emailController: _emailController,
-            state: state,
-            cepController: _cepController,
-            logradouroController: _logradouroController,
-            numeroController: _numeroController,
-            complementoController: _complementoController,
-            bairroController: _bairroController,
-            cidadeController: _cidadeController,
-            estadoController: _estadoController,
-          );
-        }
+          if (state is CadastrarClienteLoaded) {
+            return CadastrarClienteWebBody(
+              formKey: _formKey,
+              nomeController: _nomeController,
+              documentoController: _documentoController,
+              telefoneController: _telefoneController,
+              emailController: _emailController,
+              state: state,
+              cepController: _cepController,
+              logradouroController: _logradouroController,
+              numeroController: _numeroController,
+              complementoController: _complementoController,
+              bairroController: _bairroController,
+              cidadeController: _cidadeController,
+              estadoController: _estadoController,
+            );
+          }
 
-        return const SizedBox.shrink();
-      },
+          return const SizedBox.shrink();
+        },
+      ),
     );
   }
 

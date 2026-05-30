@@ -3,10 +3,10 @@ import 'package:torpheus/config/routes.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/cliente_detalhe_screen.dart';
 
-import '../widgets/cliente_vazio.dart';
-import 'cliente_mobile_header.dart';
-import 'cliente_mobile_search.dart';
-import 'cliente_mobile_tabela.dart';
+import '../../../components/lista_vazia_custom.dart';
+import '../../../components/mobile/header_mobile_custom.dart';
+import '../../../components/search_custom.dart';
+import '../widgets/cliente_lista.dart';
 
 class ClienteMobileBody extends StatelessWidget {
   const ClienteMobileBody({
@@ -20,31 +20,35 @@ class ClienteMobileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const ClienteMobileHeader(),
-          const SizedBox(height: 24),
-          ClienteMobileSearch(controller: controller),
-          const SizedBox(height: 16),
-          if (state.clientes.isEmpty)
-            const ClienteVazio(),
-          if (state.clientes.isNotEmpty)
-            ClienteMobileTabela(
-              clientes: state.clientes,
-              onClienteTap: (value) {
-                Navigator.of(context).pushNamed(
-                  AppRoutes.clienteDetalhe.route,
-                  arguments: ClienteDetalheArguments(
-                    cliente: value,
-                  ),
-                );
-              },
-            ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        HeaderMobileCustom(
+          title: 'Clientes',
+          subtitle: 'Cadastro e histórico de clientes',
+          onPressed: () {
+            Navigator.of(context).pushNamed(AppRoutes.cadastrarCliente.route);
+          },
+        ),
+        SearchCustom(controller: controller),
+        if (state.clientes.isEmpty)
+          const ListaVaziaCustom(
+            message: 'Nenhum cliente encontrado ',
+            subMessage: 'Cadastre um novo cliente',
+          ),
+        if (state.clientes.isNotEmpty)
+          ClienteLista(
+            clientes: state.clientes,
+            onClienteTap: (value) {
+              Navigator.of(context).pushNamed(
+                AppRoutes.clienteDetalhe.route,
+                arguments: ClienteDetalheArguments(
+                  cliente: value,
+                ),
+              );
+            },
+          ),
+      ],
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/presentation/screens/cliente/cliente_screen.dart';
-import 'package:torpheus/presentation/screens/mecanicos/mecanicos_screen.dart';
+import 'package:torpheus/presentation/screens/funcionario/funcionario_screen.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/ordens_servico_screen.dart';
 import 'package:torpheus/presentation/screens/veiculos/veiculos_screen.dart';
 
@@ -35,9 +35,9 @@ class MenuWebBody extends StatelessWidget {
       PainelScreen(painelBloc: menuParametros.homeBloc),
       OrdensServicoScreen(ordensServicoBloc: menuParametros.ordensServicoBloc),
       VeiculosScreen(veiculosBloc: menuParametros.veiculosBloc),
-      MecanicosScreen(mecanicosBloc: menuParametros.mecanicosBloc),
+      FuncionarioScreen(funcionarioBloc: menuParametros.mecanicosBloc),
       ClienteScreen(clienteBloc: menuParametros.clienteBloc),
-      const Text('Sair'),
+      const Text(''),
     ];
   }
 }

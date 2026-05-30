@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente/cliente_screen.dart';
-import 'package:torpheus/presentation/screens/mecanicos/bloc/mecanicos_bloc.dart';
-import 'package:torpheus/presentation/screens/mecanicos/mecanicos_screen.dart';
+import 'package:torpheus/presentation/screens/funcionario/funcionario_screen.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/ordens_servico_screen.dart';
 import 'package:torpheus/presentation/screens/painel/bloc/painel_bloc.dart';
 import 'package:torpheus/presentation/screens/painel/painel_screen.dart';
@@ -20,16 +19,17 @@ import '../injector.dart';
 import '../presentation/components/animation/modal_page_route.dart';
 import '../presentation/screens/authentication/authentication_screen.dart';
 import '../presentation/screens/cadastrar_cliente/cadastrar_cliente_screen.dart';
+import '../presentation/screens/cadastrar_funcionario/bloc/cadastrar_funcionario_bloc.dart';
 import '../presentation/screens/cliente/bloc/cliente_bloc.dart';
 import '../presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import '../presentation/screens/cliente_detalhe/cliente_detalhe_screen.dart';
+import '../presentation/screens/funcionario/bloc/funcionario_bloc.dart';
 import '../presentation/screens/login/login_screen.dart';
 import '../presentation/screens/ordens_servico/bloc/ordens_servico_bloc.dart';
 import '../presentation/screens/perfil/bloc/perfil_bloc.dart';
 import '../presentation/screens/recuperar_senha/bloc/recuperar_senha_bloc.dart';
 import '../presentation/screens/relatorios/bloc/relatorios_bloc.dart';
-import '../presentation/screens/cadastrar_mecanico/cadastrar_mecanico_screen.dart';
-import '../presentation/screens/cadastrar_mecanico/bloc/cadastrar_mecanico_bloc.dart';
+import '../presentation/screens/cadastrar_funcionario/cadastrar_funcionario_screen.dart';
 
 enum NavigationFlow { simple, modalBottomUp, fade }
 
@@ -40,13 +40,13 @@ enum AppRoutes {
   recuperarSenha('/recuperar-senha', NavigationFlow.fade),
   perfil('/perfil', NavigationFlow.simple),
   cliente('/cliente', NavigationFlow.fade),
-  mecanicos('/mecanicos', NavigationFlow.fade),
+  funcionario('/mecanicos', NavigationFlow.fade),
   veiculos('/veiculos', NavigationFlow.fade),
   ordensServico('/ordens-servico', NavigationFlow.fade),
   relatorios('/relatorios', NavigationFlow.fade),
   clienteDetalhe('/cliente-detalhe', NavigationFlow.modalBottomUp),
   cadastrarCliente('/cadastrar-cliente', NavigationFlow.modalBottomUp),
-  cadastrarMecanico('/cadastrar-mecanico', NavigationFlow.modalBottomUp);
+  cadastrarFuncionario('/cadastrar-mecanico', NavigationFlow.modalBottomUp);
 
   final String route;
   final NavigationFlow flow;
@@ -93,8 +93,8 @@ class Routes {
       AppRoutes.cliente => ClienteScreen(
           clienteBloc: injector.getIt.get<ClienteBloc>(),
         ),
-      AppRoutes.mecanicos => MecanicosScreen(
-          mecanicosBloc: injector.getIt.get<FuncionarioBloc>(),
+      AppRoutes.funcionario => FuncionarioScreen(
+          funcionarioBloc: injector.getIt.get<FuncionarioBloc>(),
         ),
       AppRoutes.veiculos => VeiculosScreen(
           veiculosBloc: injector.getIt.get<VeiculosBloc>(),
@@ -112,8 +112,8 @@ class Routes {
       AppRoutes.cadastrarCliente => CadastrarClienteScreen(
           cadastrarClienteBloc: injector.getIt.get<CadastrarClienteBloc>(),
         ),
-      AppRoutes.cadastrarMecanico => CadastrarMecanicoScreen(
-          cadastrarMecanicoBloc: injector.getIt.get<CadastrarMecanicoBloc>(),
+      AppRoutes.cadastrarFuncionario => CadastrarFuncionarioScreen(
+          cadastrarFuncionarioBloc: injector.getIt.get<CadastrarFuncionarioBloc>(),
         ),
     };
 

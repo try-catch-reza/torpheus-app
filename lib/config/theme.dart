@@ -5,7 +5,7 @@ class AppTheme {
   static ThemeData theme() {
     return ThemeData(
       useMaterial3: false,
-      scaffoldBackgroundColor: ColorConstants.corFundo,
+      scaffoldBackgroundColor: Colors.white,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(ColorConstants.chambray),
