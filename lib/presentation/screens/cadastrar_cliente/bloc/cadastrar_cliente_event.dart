@@ -52,3 +52,12 @@ final class CadastrarClienteUpdate extends CadastrarClienteEvent {
   @override
   List<Object?> get props => [cliente];
 }
+
+final class CadastrarClienteSetAtivo extends CadastrarClienteEvent {
+  const CadastrarClienteSetAtivo(this.isActive);
+
+  final bool isActive;
+
+  @override
+  List<Object?> get props => [isActive];
+}

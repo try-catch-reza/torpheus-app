@@ -42,7 +42,7 @@ class ClienteWebBody extends StatelessWidget {
               context.read<ClienteBloc>().add(ClienteSelecionar(value));
             },
             onEditTap: (value) {
-
+              context.read<ClienteBloc>().add(ClienteAtualizar(value));
             },
           ),
       ],

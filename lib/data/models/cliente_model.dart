@@ -25,16 +25,28 @@ class ClienteModel extends Equatable {
   final DateTime? createdAt;
   final EnderecoModel endereco;
 
-  String get iniciais {
-    if (nome == null || nome!.trim().isEmpty) {
-      return '';
-    }
-
-    final partes = nome!.trim().split(' ');
-    if (partes.length >= 2) {
-      return '${partes.first[0]}${partes.last[0]}'.toUpperCase();
-    }
-    return partes.first.substring(0, 2).toUpperCase();
+  ClienteModel copyWith({
+    String? id,
+    String? nome,
+    String? telefone,
+    String? documento,
+    DocumentoTipo? documentoTipo,
+    String? email,
+    bool? isActive,
+    DateTime? createdAt,
+    EnderecoModel? endereco,
+  }) {
+    return ClienteModel(
+      id: id ?? this.id,
+      nome: nome ?? this.nome,
+      telefone: telefone ?? this.telefone,
+      documento: documento ?? this.documento,
+      documentoTipo: documentoTipo ?? this.documentoTipo,
+      email: email ?? this.email,
+      isActive: isActive ?? this.isActive,
+      createdAt: createdAt ?? this.createdAt,
+      endereco: endereco ?? this.endereco,
+    );
   }
 
   factory ClienteModel.fromJson(Map<String, dynamic> json) {

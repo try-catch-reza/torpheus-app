@@ -88,7 +88,8 @@ class _CadastrarClienteWebContentState
     return current is! CadastrarClienteSetandoCEP &&
         current is! CadastrarClienteSetadoCEP &&
         current is! CadastrarClienteError &&
-        current is! CadastrarClienteSuccess;
+        current is! CadastrarClienteSuccess &&
+        current is! CadastrarClienteAtualizado;
   }
 
   void _listener(BuildContext context, CadastrarClienteState state) {
@@ -113,7 +114,39 @@ class _CadastrarClienteWebContentState
       DialogWebPadrao.errorDialog(
         context: context,
         message: state.message,
-        onPress: () {},
+        onPress: () {
+          context.read<CadastrarClienteBloc>().add(
+                CadastrarClienteLoad(
+                  clienteId: state.clienteId,
+                  isEdit: state.isEdit,
+                ),
+              );
+        },
+      );
+    }
+
+    if (state is CadastrarClienteEditando) {
+      _nomeController.text = state.clienteEditar.nome ?? '';
+      _documentoController.text = state.clienteEditar.documento ?? '';
+      _telefoneController.text = state.clienteEditar.telefone ?? '';
+      _emailController.text = state.clienteEditar.email ?? '';
+      _cepController.text = state.clienteEditar.endereco.cep ?? '';
+      _logradouroController.text = state.clienteEditar.endereco.rua ?? '';
+      _numeroController.text = state.clienteEditar.endereco.numero ?? '';
+      _complementoController.text =
+          state.clienteEditar.endereco.complemento ?? '';
+      _bairroController.text = state.clienteEditar.endereco.bairro ?? '';
+      _cidadeController.text = state.clienteEditar.endereco.cidade ?? '';
+      _estadoController.text = state.clienteEditar.endereco.estado ?? '';
+    }
+
+    if (state is CadastrarClienteAtualizado) {
+      DialogWebPadrao.successDialog(
+        context: context,
+        message: 'Cliente atualizado com sucesso!',
+        onPress: () {
+          context.read<ClienteBloc>().add(const ClientesLoad());
+        },
       );
     }
   }

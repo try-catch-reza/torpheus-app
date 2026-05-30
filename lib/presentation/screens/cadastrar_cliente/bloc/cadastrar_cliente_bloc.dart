@@ -25,6 +25,7 @@ class CadastrarClienteBloc
       _onCadastrarClienteSelecionarDocumento,
     );
     on<CadastrarClienteUpdate>(_onCadastrarClienteUpdate);
+    on<CadastrarClienteSetAtivo>(_onCadastrarClienteSetAtivo);
   }
 
   Future<void> _onCadastrarClienteLoad(
@@ -46,7 +47,7 @@ class CadastrarClienteBloc
 
       emit(
         CadastrarClienteLoaded(
-          documentoTipo: state.documentoTipo,
+          documentoTipo: cliente.documentoTipo!,
           endereco: state.endereco,
           clienteEditar: cliente,
           clienteId: event.clienteId,
@@ -140,6 +141,7 @@ class CadastrarClienteBloc
       CadastrarClienteLoaded(
         documentoTipo: event.documentoTipo,
         endereco: state.endereco,
+        clienteEditar: state.clienteEditar,
       ),
     );
   }
@@ -155,9 +157,10 @@ class CadastrarClienteBloc
         clienteEditar: state.clienteEditar,
       ),
     );
+
     try {
       await _eapiRemoteRepository.updateCliente(event.cliente, state.clienteId);
-      emit(const CadastrarClienteSuccess());
+      emit(const CadastrarClienteAtualizado());
     } on HttpRequestException catch (e) {
       emit(
         CadastrarClienteError(
@@ -175,5 +178,24 @@ class CadastrarClienteBloc
         ),
       );
     }
+  }
+
+  void _onCadastrarClienteSetAtivo(
+    CadastrarClienteSetAtivo event,
+    Emitter<CadastrarClienteState> emit,
+  ) {
+    final clienteAtualizado = state.clienteEditar.copyWith(
+      isActive: event.isActive,
+    );
+
+    emit(
+      CadastrarClienteLoaded(
+        documentoTipo: state.documentoTipo,
+        endereco: state.endereco,
+        clienteEditar: clienteAtualizado,
+        isEdit: state.isEdit,
+        clienteId: state.clienteId,
+      ),
+    );
   }
 }

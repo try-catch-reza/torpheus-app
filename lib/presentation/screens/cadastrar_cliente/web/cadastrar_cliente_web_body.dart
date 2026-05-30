@@ -11,6 +11,7 @@ import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import '../../../components/formatadores.dart';
 import '../../../components/web/cadastro_header_web_custom.dart';
 import '../../../components/input_custom.dart';
+import 'atualizar_cliente_web_footer.dart';
 import 'cadastrar_cliente_web_endereco.dart';
 import 'cadastrar_cliente_web_footer.dart';
 
@@ -55,6 +56,8 @@ class CadastrarClienteWebBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CadastroHeaderWebCustom(
+            isActive: state.clienteEditar.isActive ?? false,
+            isEdit: state.isEdit,
             title: 'Cadastrar Cliente',
             subTitle: 'Preencha os dados para cadastrar um novo cliente',
             onPressed: () {
@@ -168,38 +171,18 @@ class CadastrarClienteWebBody extends StatelessWidget {
                       estadoController: estadoController,
                     ),
                     const SizedBox(height: 28),
-                    CadastrarClienteWebFooter(
-                      isLoading: state is CadastrarClienteLoading,
-                      onCancelar: () {
-                        context.read<ClienteBloc>().add(const ClientesLoad());
-                      },
-                      onCadastrar: () {
-                        if (formKey.currentState?.validate() ?? false) {
-                          EnderecoModel endereco = EnderecoModel(
-                            rua: logradouroController.text.trim(),
-                            numero: numeroController.text.trim(),
-                            complemento: complementoController.text.trim(),
-                            bairro: bairroController.text.trim(),
-                            cidade: cidadeController.text.trim(),
-                            estado: estadoController.text.trim(),
-                            cep: cepController.text.trim(),
-                          );
-
-                          ClienteModel cliente = ClienteModel(
-                            endereco: endereco,
-                            nome: nomeController.text.trim(),
-                            documento: documentoController.text.trim(),
-                            telefone: telefoneController.text.trim(),
-                            email: emailController.text.trim(),
-                            documentoTipo: state.documentoTipo,
-                          );
-
-                          context.read<CadastrarClienteBloc>().add(
-                                CadastrarClienteSubmit(cliente: cliente),
-                              );
-                        }
-                      },
-                    ),
+                    if (state.isEdit)
+                      AtualizarClienteWebFooter(
+                        isLoading: state is CadastrarClienteLoading,
+                        onCancelar: () => _onCancelar(context),
+                        onAtualizar: () => _onAtualizar(context),
+                      ),
+                    if (!state.isEdit)
+                      CadastrarClienteWebFooter(
+                        isLoading: state is CadastrarClienteLoading,
+                        onCancelar: () => _onCancelar(context),
+                        onCadastrar: () => _onCadastrar(context),
+                      ),
                   ],
                 ),
               ),
@@ -208,5 +191,64 @@ class CadastrarClienteWebBody extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onCancelar(BuildContext context) {
+    context.read<ClienteBloc>().add(const ClientesLoad());
+  }
+
+  void _onAtualizar(BuildContext context) {
+    if (formKey.currentState?.validate() ?? false) {
+      EnderecoModel endereco = EnderecoModel(
+        rua: logradouroController.text.trim(),
+        numero: numeroController.text.trim(),
+        complemento: complementoController.text.trim(),
+        bairro: bairroController.text.trim(),
+        cidade: cidadeController.text.trim(),
+        estado: estadoController.text.trim(),
+        cep: cepController.text.trim(),
+      );
+
+      ClienteModel cliente = ClienteModel(
+        endereco: endereco,
+        nome: nomeController.text.trim(),
+        documento: documentoController.text.trim(),
+        telefone: telefoneController.text.trim(),
+        email: emailController.text.trim(),
+        documentoTipo: state.documentoTipo,
+        isActive: state.clienteEditar.isActive,
+      );
+
+      context.read<CadastrarClienteBloc>().add(
+            CadastrarClienteUpdate(cliente: cliente),
+          );
+    }
+  }
+
+  void _onCadastrar(BuildContext context) {
+    if (formKey.currentState?.validate() ?? false) {
+      EnderecoModel endereco = EnderecoModel(
+        rua: logradouroController.text.trim(),
+        numero: numeroController.text.trim(),
+        complemento: complementoController.text.trim(),
+        bairro: bairroController.text.trim(),
+        cidade: cidadeController.text.trim(),
+        estado: estadoController.text.trim(),
+        cep: cepController.text.trim(),
+      );
+
+      ClienteModel cliente = ClienteModel(
+        endereco: endereco,
+        nome: nomeController.text.trim(),
+        documento: documentoController.text.trim(),
+        telefone: telefoneController.text.trim(),
+        email: emailController.text.trim(),
+        documentoTipo: state.documentoTipo,
+      );
+
+      context.read<CadastrarClienteBloc>().add(
+            CadastrarClienteSubmit(cliente: cliente),
+          );
+    }
   }
 }

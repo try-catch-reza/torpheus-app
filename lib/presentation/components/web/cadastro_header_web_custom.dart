@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
 
 import '../../../core/constants/custom_colors.dart';
+import '../status_toggle.dart';
 
 class CadastroHeaderWebCustom extends StatelessWidget {
   const CadastroHeaderWebCustom({
@@ -8,11 +11,15 @@ class CadastroHeaderWebCustom extends StatelessWidget {
     required this.onPressed,
     required this.title,
     required this.subTitle,
+    required this.isEdit,
+    required this.isActive,
   });
 
   final VoidCallback onPressed;
   final String title;
   final String subTitle;
+  final bool isEdit;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +61,15 @@ class CadastroHeaderWebCustom extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          const Spacer(),
+          StatusToggle(
+            isActive: isActive,
+            onChanged: (value) {
+              context.read<CadastrarClienteBloc>().add(
+                    CadastrarClienteSetAtivo(value),
+                  );
+            },
           ),
         ],
       ),

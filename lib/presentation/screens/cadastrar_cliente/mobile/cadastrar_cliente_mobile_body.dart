@@ -61,8 +61,14 @@ class CadastrarClienteMobileBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CadastrarClienteWebTipoDocumento(
-                        selected: state.documentoTipo,
+                        // selected: state.documentoTipo,
+                        selected: state.isEdit
+                            ? state.clienteEditar.documentoTipo!
+                            : state.documentoTipo,
                         onChanged: (tipo) {
+                          documentoController.clear();
+                          nomeController.clear();
+
                           context.read<CadastrarClienteBloc>().add(
                                 CadastrarClienteSelecionarDocumento(tipo),
                               );

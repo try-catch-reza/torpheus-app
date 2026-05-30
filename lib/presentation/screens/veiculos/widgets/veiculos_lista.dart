@@ -19,7 +19,7 @@ class VeiculosLista extends StatelessWidget {
     return Expanded(
       child: ListView.separated(
         padding: const EdgeInsets.only(top: 12),
-        separatorBuilder: (context, index) => DividerCustom.dividerListMobile,
+        separatorBuilder: (context, index) => DividerCustom.dividerList,
         itemCount: veiculos.length,
         itemBuilder: (context, index) {
           final veiculo = veiculos[index];

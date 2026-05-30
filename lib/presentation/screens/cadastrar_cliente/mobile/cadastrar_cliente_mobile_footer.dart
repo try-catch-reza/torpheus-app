@@ -5,11 +5,13 @@ import '../../../../core/constants/custom_colors.dart';
 class CadastrarClienteMobileFooter extends StatelessWidget {
   const CadastrarClienteMobileFooter({
     super.key,
+    required this.isEdit,
     required this.isLoading,
     required this.onCancelar,
     required this.onCadastrar,
   });
 
+  final bool isEdit;
   final bool isLoading;
   final VoidCallback onCancelar;
   final VoidCallback onCadastrar;
@@ -44,12 +46,11 @@ class CadastrarClienteMobileFooter extends StatelessWidget {
                   color: Colors.white,
                 ),
               )
-            : const Text(
-                'Cadastrar cliente',
-                style: TextStyle(
-                  fontSize: 17,
+            : Text(
+                isEdit ? 'Atualizar os dados do cliente' : 'Cadastrar cliente',
+                style: const TextStyle(
+                  fontSize: 20,
                   fontWeight: FontWeight.w600,
-                  decoration: TextDecoration.none,
                 ),
               ),
       ),

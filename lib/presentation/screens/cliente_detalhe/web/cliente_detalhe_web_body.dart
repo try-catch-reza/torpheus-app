@@ -14,30 +14,27 @@ class ClienteDetalheWebBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(32),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClienteDetalheWebHeader(
-                  nomeCliente: state.cliente?.nome ?? '',
-                  onVoltar: () {
-                    context.read<ClienteBloc>().add(const ClientesLoad());
-                  },
-                ),
-                const SizedBox(height: 20),
-                ClienteDetalheWebCardInfo(cliente: state.cliente),
-              ],
-            ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClienteDetalheWebHeader(
+                nomeCliente: state.cliente?.nome ?? '',
+                onVoltar: () {
+                  context.read<ClienteBloc>().add(const ClientesLoad());
+                },
+              ),
+              const SizedBox(height: 20),
+              ClienteDetalheWebCardInfo(cliente: state.cliente),
+            ],
           ),
-          const SizedBox(width: 16),
-          const ClienteDetalheWebCardEstatisticas(),
-        ],
-      ),
+        ),
+        const SizedBox(width: 16),
+        const ClienteDetalheWebCardEstatisticas(),
+      ],
     );
   }
 }

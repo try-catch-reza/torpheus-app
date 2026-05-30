@@ -54,6 +54,16 @@ class _ClienteWebContentState extends State<ClienteWebContent> {
               );
             }
 
+            if (state is ClienteAtualizando) {
+              return CadastrarClienteScreen(
+                cadastrarClienteBloc: context.read<CadastrarClienteBloc>(),
+                arguments: CadastrarClienteArguments(
+                  isEdit: true,
+                  clienteId: state.clienteSelecionado?.id ?? '',
+                ),
+              );
+            }
+
             return const SizedBox.shrink();
           },
         ),

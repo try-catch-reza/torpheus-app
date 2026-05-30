@@ -40,45 +40,77 @@ class CadastrarClienteMobileBotoes extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CadastrarClienteBloc, CadastrarClienteState>(
       builder: (context, state) {
-        return CadastrarClienteMobileFooter(
-          isLoading: state is CadastrarClienteLoading,
-          onCancelar: () {
-            Navigator.of(context).pop();
-          },
-          onCadastrar: () {
-            if (formKey.currentState?.validate() ?? false) {
-              EnderecoModel endereco = EnderecoModel(
-                rua: logradouroController.text.trim(),
-                numero: numeroController.text.trim(),
-                complemento: complementoController.text.trim(),
-                bairro: bairroController.text.trim(),
-                cidade: cidadeController.text.trim(),
-                estado: estadoController.text.trim(),
-                cep: cepController.text.trim(),
-              );
+        if (state.isEdit) {
+          return CadastrarClienteMobileFooter(
+            isEdit: true,
+            isLoading: state is CadastrarClienteLoading,
+            onCancelar: () {
+              Navigator.of(context).pop();
+            },
+            onCadastrar: () {
+              if (formKey.currentState?.validate() ?? false) {
+                EnderecoModel endereco = EnderecoModel(
+                  rua: logradouroController.text.trim(),
+                  numero: numeroController.text.trim(),
+                  complemento: complementoController.text.trim(),
+                  bairro: bairroController.text.trim(),
+                  cidade: cidadeController.text.trim(),
+                  estado: estadoController.text.trim(),
+                  cep: cepController.text.trim(),
+                );
 
-              ClienteModel cliente = ClienteModel(
-                endereco: endereco,
-                nome: nomeController.text.trim(),
-                documento: documentoController.text.trim(),
-                telefone: telefoneController.text.trim(),
-                email: emailController.text.trim(),
-                documentoTipo: state.documentoTipo,
-                isActive: true,
-              );
+                ClienteModel cliente = ClienteModel(
+                  endereco: endereco,
+                  nome: nomeController.text.trim(),
+                  documento: documentoController.text.trim(),
+                  telefone: telefoneController.text.trim(),
+                  email: emailController.text.trim(),
+                  documentoTipo: state.documentoTipo,
+                  isActive: state.clienteEditar.isActive,
+                );
 
-              if (state.isEdit) {
                 context.read<CadastrarClienteBloc>().add(
                       CadastrarClienteUpdate(cliente: cliente),
                     );
-              } else {
+              }
+            },
+          );
+        } else {
+          return CadastrarClienteMobileFooter(
+            isEdit: false,
+            isLoading: state is CadastrarClienteLoading,
+            onCancelar: () {
+              Navigator.of(context).pop();
+            },
+            onCadastrar: () {
+              if (formKey.currentState?.validate() ?? false) {
+                EnderecoModel endereco = EnderecoModel(
+                  rua: logradouroController.text.trim(),
+                  numero: numeroController.text.trim(),
+                  complemento: complementoController.text.trim(),
+                  bairro: bairroController.text.trim(),
+                  cidade: cidadeController.text.trim(),
+                  estado: estadoController.text.trim(),
+                  cep: cepController.text.trim(),
+                );
+
+                ClienteModel cliente = ClienteModel(
+                  endereco: endereco,
+                  nome: nomeController.text.trim(),
+                  documento: documentoController.text.trim(),
+                  telefone: telefoneController.text.trim(),
+                  email: emailController.text.trim(),
+                  documentoTipo: state.documentoTipo,
+                  isActive: true,
+                );
+
                 context.read<CadastrarClienteBloc>().add(
                       CadastrarClienteSubmit(cliente: cliente),
                     );
               }
-            }
-          },
-        );
+            },
+          );
+        }
       },
     );
   }

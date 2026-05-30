@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/core/constants/extension/string_extension.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
 
 class ClienteDetalheMobileCardInfo extends StatelessWidget {
@@ -30,7 +31,7 @@ class ClienteDetalheMobileCardInfo extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    cliente?.iniciais ?? '',
+                    cliente?.nome?.iniciais ?? '',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,

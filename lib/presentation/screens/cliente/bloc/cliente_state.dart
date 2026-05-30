@@ -4,13 +4,15 @@ sealed class ClienteState extends Equatable {
   const ClienteState({
     this.clientes = const [],
     this.endereco = const EnderecoModel(),
+    this.clienteSelecionado,
   });
 
   final List<ClienteModel> clientes;
   final EnderecoModel endereco;
+  final ClienteModel? clienteSelecionado;
 
   @override
-  List<Object?> get props => [clientes, endereco];
+  List<Object?> get props => [clientes, endereco, clienteSelecionado];
 }
 
 final class ClienteInitial extends ClienteState {
@@ -46,10 +48,8 @@ final class ClienteError extends ClienteState {
 final class ClienteSelecionado extends ClienteState {
   const ClienteSelecionado({
     required super.clientes,
-    required this.clienteSelecionado,
+    required super.clienteSelecionado,
   });
-
-  final ClienteModel clienteSelecionado;
 
   @override
   List<Object?> get props => [clientes, clienteSelecionado];
@@ -67,4 +67,13 @@ final class ClienteCEPSetado extends ClienteState {
 
   @override
   List<Object?> get props => [clientes, endereco];
+}
+
+final class ClienteAtualizando extends ClienteState {
+  const ClienteAtualizando({
+    required super.clienteSelecionado,
+  });
+
+  @override
+  List<Object?> get props => [clienteSelecionado];
 }

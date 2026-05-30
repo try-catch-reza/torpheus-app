@@ -16,6 +16,7 @@ class ClienteBloc extends Bloc<ClienteEvent, ClienteState> {
     on<ClientesLoad>(_onClientesLoad);
     on<ClienteSelecionar>(_onClienteSelecionar);
     on<ClienteCadastrar>(_onClienteCadastrar);
+    on<ClienteAtualizar>(_onClienteAtualizar);
   }
 
   Future<void> _onClientesLoad(
@@ -49,5 +50,12 @@ class ClienteBloc extends Bloc<ClienteEvent, ClienteState> {
     Emitter<ClienteState> emit,
   ) {
     emit(const ClienteCadastrando());
+  }
+
+  void _onClienteAtualizar(
+    ClienteAtualizar event,
+    Emitter<ClienteState> emit,
+  ) {
+    emit(ClienteAtualizando(clienteSelecionado: event.cliente));
   }
 }

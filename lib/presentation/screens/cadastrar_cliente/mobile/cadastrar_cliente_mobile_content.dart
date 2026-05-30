@@ -4,9 +4,9 @@ import 'package:torpheus/config/routes.dart';
 import 'package:torpheus/presentation/components/dialog/dialog_mobile_padrao.dart';
 import 'package:torpheus/presentation/components/loading_state.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_cliente/mobile/cadastrar_cliente_mobile_app_bar.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/mobile/cadastrar_cliente_mobile_body.dart';
 
-import '../../../components/app_bar_padrao.dart';
 import 'cadastrar_cliente_mobile_botoes.dart';
 
 class CadastrarClienteMobileContent extends StatefulWidget {
@@ -51,12 +51,13 @@ class _CadastrarClienteMobileContentState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPadrao(title: "Cadastrar Cliente"),
+      appBar: const CadastrarClienteMobileAppBar(),
       body: BlocConsumer<CadastrarClienteBloc, CadastrarClienteState>(
         buildWhen: _buildWhen,
         listener: _listener,
         builder: (context, state) {
-          if (state is CadastrarClienteLoading) {
+          if (state is CadastrarClienteLoading ||
+              state is CadastrarClienteEditando) {
             return const LoadingState();
           }
 
@@ -154,6 +155,16 @@ class _CadastrarClienteMobileContentState
       _bairroController.text = state.clienteEditar.endereco.bairro ?? '';
       _cidadeController.text = state.clienteEditar.endereco.cidade ?? '';
       _estadoController.text = state.clienteEditar.endereco.estado ?? '';
+    }
+
+    if (state is CadastrarClienteAtualizado) {
+      DialogMobilePadrao.successDialog(
+        context: context,
+        message: 'Cliente atualizado com sucesso!',
+        onPress: () {
+          Navigator.of(context).pushNamed(AppRoutes.cliente.route);
+        },
+      );
     }
   }
 }

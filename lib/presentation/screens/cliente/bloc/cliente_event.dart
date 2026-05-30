@@ -47,3 +47,12 @@ final class ClienteCadastrar extends ClienteEvent {
   @override
   List<Object?> get props => [];
 }
+
+final class ClienteAtualizar extends ClienteEvent {
+  const ClienteAtualizar(this.cliente);
+
+  final ClienteModel cliente;
+
+  @override
+  List<Object?> get props => [cliente];
+}
