@@ -8,10 +8,13 @@ sealed class CadastrarClienteEvent extends Equatable {
 }
 
 final class CadastrarClienteLoad extends CadastrarClienteEvent {
-  const CadastrarClienteLoad();
+  const CadastrarClienteLoad({required this.isEdit, required this.clienteId});
+
+  final bool isEdit;
+  final String clienteId;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [isEdit, clienteId];
 }
 
 final class CadastrarClienteSubmit extends CadastrarClienteEvent {
@@ -39,4 +42,13 @@ final class CadastrarClienteSelecionarDocumento extends CadastrarClienteEvent {
 
   @override
   List<Object?> get props => [documentoTipo];
+}
+
+final class CadastrarClienteUpdate extends CadastrarClienteEvent {
+  const CadastrarClienteUpdate({required this.cliente});
+
+  final ClienteModel cliente;
+
+  @override
+  List<Object?> get props => [cliente];
 }

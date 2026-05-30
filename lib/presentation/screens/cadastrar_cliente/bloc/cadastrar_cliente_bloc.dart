@@ -24,12 +24,39 @@ class CadastrarClienteBloc
     on<CadastrarClienteSelecionarDocumento>(
       _onCadastrarClienteSelecionarDocumento,
     );
+    on<CadastrarClienteUpdate>(_onCadastrarClienteUpdate);
   }
 
-  void _onCadastrarClienteLoad(
+  Future<void> _onCadastrarClienteLoad(
     CadastrarClienteLoad event,
     Emitter<CadastrarClienteState> emit,
-  ) {
+  ) async {
+    if (event.isEdit) {
+      final cliente = await _eapiRemoteRepository.getClienteById(
+        event.clienteId,
+      );
+
+      emit(
+        CadastrarClienteEditando(
+          clienteEditar: cliente,
+          isEdit: event.isEdit,
+          clienteId: event.clienteId,
+        ),
+      );
+
+      emit(
+        CadastrarClienteLoaded(
+          documentoTipo: state.documentoTipo,
+          endereco: state.endereco,
+          clienteEditar: cliente,
+          clienteId: event.clienteId,
+          isEdit: event.isEdit,
+        ),
+      );
+
+      return;
+    }
+
     emit(
       CadastrarClienteLoaded(
         documentoTipo: state.documentoTipo,
@@ -47,9 +74,21 @@ class CadastrarClienteBloc
       await _eapiRemoteRepository.cadastrarCliente(event.cliente);
       emit(const CadastrarClienteSuccess());
     } on HttpRequestException catch (e) {
-      emit(CadastrarClienteError(e.title));
+      emit(
+        CadastrarClienteError(
+          message: e.title,
+          isEdit: state.isEdit,
+          clienteId: state.clienteId,
+        ),
+      );
     } catch (e) {
-      emit(CadastrarClienteError('Não foi possível cadastrar o cliente.\n$e'));
+      emit(
+        CadastrarClienteError(
+          message: 'Não foi possível cadastrar o cliente.\n$e',
+          clienteId: state.clienteId,
+          isEdit: state.isEdit,
+        ),
+      );
     }
   }
 
@@ -57,17 +96,39 @@ class CadastrarClienteBloc
     CadastrarClienteSetCEP event,
     Emitter<CadastrarClienteState> emit,
   ) async {
-    emit(const CadastrarClienteSetandoCEP());
+    emit(
+      CadastrarClienteSetandoCEP(
+        isEdit: state.isEdit,
+        clienteId: state.clienteId,
+      ),
+    );
+
     try {
       final endereco = await _eapiRemoteRepository.buscarEnderecoViaCep(
         event.cep,
       );
 
-      emit(CadastrarClienteSetadoCEP(endereco: endereco));
+      emit(
+        CadastrarClienteSetadoCEP(
+          endereco: endereco,
+          isEdit: state.isEdit,
+          clienteId: state.clienteId,
+        ),
+      );
     } on HttpRequestException catch (e) {
-      emit(CadastrarClienteError(e.title));
+      emit(CadastrarClienteError(
+        message: e.title,
+        isEdit: state.isEdit,
+        clienteId: state.clienteId,
+      ));
     } catch (e) {
-      emit(CadastrarClienteError('Não foi possível buscar o endereço\n$e'));
+      emit(
+        CadastrarClienteError(
+          message: 'Não foi possível buscar o endereço\n$e',
+          clienteId: state.clienteId,
+          isEdit: state.isEdit,
+        ),
+      );
     }
   }
 
@@ -81,5 +142,38 @@ class CadastrarClienteBloc
         endereco: state.endereco,
       ),
     );
+  }
+
+  Future<void> _onCadastrarClienteUpdate(
+    CadastrarClienteUpdate event,
+    Emitter<CadastrarClienteState> emit,
+  ) async {
+    emit(
+      CadastrarClienteLoading(
+        clienteId: state.clienteId,
+        isEdit: state.isEdit,
+        clienteEditar: state.clienteEditar,
+      ),
+    );
+    try {
+      await _eapiRemoteRepository.updateCliente(event.cliente, state.clienteId);
+      emit(const CadastrarClienteSuccess());
+    } on HttpRequestException catch (e) {
+      emit(
+        CadastrarClienteError(
+          message: e.title,
+          isEdit: state.isEdit,
+          clienteId: state.clienteId,
+        ),
+      );
+    } catch (e) {
+      emit(
+        CadastrarClienteError(
+          message: 'Não foi possível cadastrar o cliente.\n$e',
+          clienteId: state.clienteId,
+          isEdit: state.isEdit,
+        ),
+      );
+    }
   }
 }

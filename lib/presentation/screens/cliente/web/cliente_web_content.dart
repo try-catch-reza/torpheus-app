@@ -50,6 +50,7 @@ class _ClienteWebContentState extends State<ClienteWebContent> {
             if (state is ClienteCadastrando) {
               return CadastrarClienteScreen(
                 cadastrarClienteBloc: context.read<CadastrarClienteBloc>(),
+                arguments: CadastrarClienteArguments(),
               );
             }
 

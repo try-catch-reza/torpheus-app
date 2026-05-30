@@ -41,6 +41,7 @@ class CadastrarClienteMobileBotoes extends StatelessWidget {
     return BlocBuilder<CadastrarClienteBloc, CadastrarClienteState>(
       builder: (context, state) {
         return CadastrarClienteMobileFooter(
+          isLoading: state is CadastrarClienteLoading,
           onCancelar: () {
             Navigator.of(context).pop();
           },
@@ -63,14 +64,20 @@ class CadastrarClienteMobileBotoes extends StatelessWidget {
                 telefone: telefoneController.text.trim(),
                 email: emailController.text.trim(),
                 documentoTipo: state.documentoTipo,
+                isActive: true,
               );
 
-              context.read<CadastrarClienteBloc>().add(
-                    CadastrarClienteSubmit(cliente: cliente),
-                  );
+              if (state.isEdit) {
+                context.read<CadastrarClienteBloc>().add(
+                      CadastrarClienteUpdate(cliente: cliente),
+                    );
+              } else {
+                context.read<CadastrarClienteBloc>().add(
+                      CadastrarClienteSubmit(cliente: cliente),
+                    );
+              }
             }
           },
-          isLoading: state is CadastrarClienteLoading,
         );
       },
     );

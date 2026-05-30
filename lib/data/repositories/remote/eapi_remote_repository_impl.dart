@@ -71,6 +71,13 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       response: (response) {
         if (response.statusCode == 200) {
           return EnderecoModel.fromJson(response.data);
+        }
+        if (response.statusCode == 404) {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'CEP não encontrado.',
+            response: response,
+          );
         } else {
           throw HttpRequestException(
             titleMessage: titleMessage,
@@ -139,6 +146,49 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
           final List<dynamic> items = data['items'] ?? [];
 
           return items.map((item) => FuncionarioModel.fromJson(item)).toList();
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<ClienteModel> getClienteById(String id) async {
+    const titleMessage = 'Não foi possível carregar os dados do cliente';
+
+    return await get(
+      path: _schema.buscarClienteById(id),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return ClienteModel.fromJson(response.data);
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<void> updateCliente(ClienteModel cliente, String id) async {
+    const titleMessage = 'Não foi possível atualizar os dados do cliente';
+
+    return await put(
+      path: _schema.updateCliente(id),
+      body: cliente.toJsonUpdate(),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
         } else {
           throw HttpRequestException(
             titleMessage: titleMessage,

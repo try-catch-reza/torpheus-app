@@ -14,6 +14,10 @@ abstract class EapiRemoteRepository {
 
   Future<void> cadastrarCliente(ClienteModel cliente);
 
+  Future<ClienteModel> getClienteById(String id);
+
+  Future<void> updateCliente(ClienteModel cliente, String id);
+
   /// VIA CEP ------------------------------------------------------------------
   Future<EnderecoModel> buscarEnderecoViaCep(String cep);
 

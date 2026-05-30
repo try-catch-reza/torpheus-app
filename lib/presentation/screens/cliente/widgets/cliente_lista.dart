@@ -7,10 +7,12 @@ class ClienteLista extends StatelessWidget {
     super.key,
     required this.clientes,
     required this.onClienteTap,
+    required this.onEditTap,
   });
 
   final List<ClienteModel> clientes;
   final ValueChanged<ClienteModel> onClienteTap;
+  final ValueChanged<ClienteModel> onEditTap;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class ClienteLista extends StatelessWidget {
           return ClienteCard(
             cliente: cliente,
             onTap: () => onClienteTap(cliente),
+            onEdit: () => onEditTap(cliente),
           );
         },
       ),

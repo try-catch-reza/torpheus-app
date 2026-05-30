@@ -29,7 +29,7 @@ class FuncionarioMobileBody extends StatelessWidget {
             context.read<FuncionarioBloc>().add(const FuncionarioCadastrar());
           },
         ),
-        SearchCustom(controller: controller),
+        SearchCustom(controller: controller, width: double.infinity),
         if (state.funcionarios.isEmpty)
           const ListaVaziaCustom(
             message: 'Nenhum funcionário encontrado.',

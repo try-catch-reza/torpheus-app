@@ -111,9 +111,11 @@ class Routes {
         ),
       AppRoutes.cadastrarCliente => CadastrarClienteScreen(
           cadastrarClienteBloc: injector.getIt.get<CadastrarClienteBloc>(),
+          arguments: settings.arguments as CadastrarClienteArguments,
         ),
       AppRoutes.cadastrarFuncionario => CadastrarFuncionarioScreen(
-          cadastrarFuncionarioBloc: injector.getIt.get<CadastrarFuncionarioBloc>(),
+          cadastrarFuncionarioBloc:
+              injector.getIt.get<CadastrarFuncionarioBloc>(),
         ),
     };
 

@@ -73,6 +73,18 @@ class ClienteModel extends Equatable {
     };
   }
 
+  Map<String, dynamic> toJsonUpdate() {
+    return {
+      'name': nome,
+      'phone': telefone,
+      'documentNumber': documento,
+      'documentType': documentoTipo?.value,
+      'email': email,
+      'isActive': isActive,
+      'address': endereco.toJson(),
+    };
+  }
+
   @override
   toString() {
     return 'ClienteModel('

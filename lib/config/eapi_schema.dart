@@ -5,6 +5,8 @@ class EapiSchema {
 
   String get buscarCliente => '$_apiUtils/v1/client';
 
+  String buscarClienteById(String id) => '$_apiUtils/v1/client/$id';
+
   String get buscarFuncionario => '$_apiUtils/v1/employee';
 
   String buscarEndereco(String cep) => '$_apiUtils/v1/address/$cep';
@@ -12,4 +14,6 @@ class EapiSchema {
   String get cadastrarCliente => '$_apiUtils/v1/client';
 
   String get cadastrarFuncionario => '$_apiUtils/v1/employee';
+
+  String updateCliente(String id) => '$_apiUtils/v1/client/$id';
 }

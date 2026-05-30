@@ -304,41 +304,6 @@ abstract class BaseRemoteDataSource<T> {
     };
   }
 
-  // Response? _dioResponseStatusCode(DioException dioEx, String titleMessage) {
-  //   return switch (dioEx.response?.statusCode) {
-  //     404 => _dioResponseProcesso(
-  //         dioEx.requestOptions,
-  //         statusCode: 404,
-  //         message: '$titleMessage\n'
-  //             'Conteúdo não encontrado. Parece que o recurso que você está '
-  //             'buscando não está disponível.',
-  //       ),
-  //     500 => _dioResponseProcesso(
-  //         dioEx.requestOptions,
-  //         statusCode: 500,
-  //         message: '$titleMessage\n'
-  //             'Ocorreu um erro no servidor. '
-  //             'Tente novamente mais tarde.',
-  //       ),
-  //     400 => dioEx.response ??
-  //         _dioResponseProcesso(
-  //           dioEx.requestOptions,
-  //           statusCode: 400,
-  //           message: '$titleMessage\n'
-  //               'Algo deu errado na consulta dos dados. '
-  //               'Tente novamente em instantes.',
-  //         ),
-  //     401 => _dioResponseProcesso(
-  //         dioEx.requestOptions,
-  //         statusCode: 401,
-  //         message: '$titleMessage\n'
-  //             'Ops! Sua sessão expirou. '
-  //             'Por favor, faça login novamente para continuar.',
-  //       ),
-  //     _ => dioEx.response,
-  //   };
-  // }
-
   String requestErrorTitle(String title, RequestOptions requestOptions) {
     final baseUrl = requestOptions.baseUrl;
     return "$title\nRequisição realizada para $baseUrl";

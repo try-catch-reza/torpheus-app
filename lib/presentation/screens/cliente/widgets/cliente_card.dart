@@ -4,10 +4,16 @@ import 'package:torpheus/data/models/cliente_model.dart';
 import '../../../../core/constants/custom_colors.dart';
 
 class ClienteCard extends StatelessWidget {
-  const ClienteCard({super.key, required this.cliente, required this.onTap});
+  const ClienteCard({
+    super.key,
+    required this.cliente,
+    required this.onTap,
+    required this.onEdit,
+  });
 
   final ClienteModel cliente;
   final VoidCallback onTap;
+  final VoidCallback onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,26 @@ class ClienteCard extends StatelessWidget {
             ),
           ),
         ),
-        trailing: const Icon(Icons.arrow_forward_ios_outlined),
+        trailing: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.24,
+          child: Row(
+            children: [
+              const Spacer(),
+              IconButton(
+                onPressed: onEdit,
+                icon: Icon(
+                  Icons.edit_outlined,
+                  color: ColorConstants.squant,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Icon(
+                Icons.arrow_forward_ios_outlined,
+                color: ColorConstants.chambray,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

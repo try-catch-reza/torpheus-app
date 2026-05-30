@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/config/routes.dart';
+import 'package:torpheus/presentation/screens/cadastrar_cliente/cadastrar_cliente_screen.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/cliente_detalhe_screen.dart';
 
@@ -30,7 +31,7 @@ class ClienteMobileBody extends StatelessWidget {
             Navigator.of(context).pushNamed(AppRoutes.cadastrarCliente.route);
           },
         ),
-        SearchCustom(controller: controller),
+        SearchCustom(controller: controller, width: double.infinity),
         if (state.clientes.isEmpty)
           const ListaVaziaCustom(
             message: 'Nenhum cliente encontrado ',
@@ -44,6 +45,15 @@ class ClienteMobileBody extends StatelessWidget {
                 AppRoutes.clienteDetalhe.route,
                 arguments: ClienteDetalheArguments(
                   cliente: value,
+                ),
+              );
+            },
+            onEditTap: (value) {
+              Navigator.of(context).pushNamed(
+                AppRoutes.cadastrarCliente.route,
+                arguments: CadastrarClienteArguments(
+                  isEdit: true,
+                  clienteId: value.id ?? '',
                 ),
               );
             },
