@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 
 class AppBarPadrao extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarPadrao({super.key, required this.title});
+  const AppBarPadrao({
+    super.key,
+    required this.title,
+    this.hasLeading = false,
+  });
 
   final String title;
+  final bool hasLeading;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(title),
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_rounded, size: 18),
-        onPressed: () => Navigator.of(context).pop(),
+      centerTitle: !hasLeading,
+      automaticallyImplyLeading: hasLeading,
+      leading: Visibility(
+        visible: hasLeading,
+        child: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_rounded, size: 18),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
     );
   }

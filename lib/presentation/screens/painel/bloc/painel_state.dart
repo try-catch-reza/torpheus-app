@@ -1,10 +1,12 @@
 part of 'painel_bloc.dart';
 
 sealed class PainelState extends Equatable {
-  const PainelState();
+  const PainelState({this.image});
+
+  final File? image;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [image];
 }
 
 final class PainelInitial extends PainelState {
@@ -22,10 +24,10 @@ final class PainelLoading extends PainelState {
 }
 
 final class PainelLoaded extends PainelState {
-  const PainelLoaded();
+  const PainelLoaded({super.image});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [image];
 }
 
 final class PainelFail extends PainelState {

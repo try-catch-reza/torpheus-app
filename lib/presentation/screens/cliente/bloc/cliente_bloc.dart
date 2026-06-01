@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:torpheus/core/constants/enum/documento_tipo.dart';
 import 'package:torpheus/data/models/endereco_model.dart';
 
 import '../../../../data/models/cliente_model.dart';
@@ -25,7 +26,30 @@ class ClienteBloc extends Bloc<ClienteEvent, ClienteState> {
   ) async {
     emit(const ClienteLoading());
     try {
-      final clientes = await _eapiRemoteRepository.getClientes();
+      // final clientes = await _eapiRemoteRepository.getClientes();
+
+      final endereco = EnderecoModel(
+        cep: '12345-678',
+        rua: 'Rua Exemplo',
+        numero: '123',
+        complemento: 'Apto 456',
+        bairro: 'Bairro Exemplo',
+        cidade: 'Cidade Exemplo',
+        estado: 'Estado Exemplo',
+      );
+
+      final clientes = [
+        ClienteModel(
+          nome: 'Huandres Schmidt',
+          createdAt: DateTime.now(),
+          documento: '123.456.789-00',
+          email: 'huandreschmidt@gmail.com',
+          documentoTipo: DocumentoTipo.cpf,
+          endereco: endereco,
+          isActive: true,
+          telefone: '(11) 98765-4321',
+        ),
+      ];
 
       emit(ClienteLoaded(clientes: clientes));
     } catch (e) {

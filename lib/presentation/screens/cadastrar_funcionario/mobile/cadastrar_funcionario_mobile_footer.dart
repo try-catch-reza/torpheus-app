@@ -6,12 +6,10 @@ class CadastrarFuncionarioMobileFooter extends StatelessWidget {
   const CadastrarFuncionarioMobileFooter({
     super.key,
     required this.isLoading,
-    required this.onCancelar,
     required this.onCadastrar,
   });
 
   final bool isLoading;
-  final VoidCallback onCancelar;
   final VoidCallback onCadastrar;
 
   @override
@@ -45,7 +43,7 @@ class CadastrarFuncionarioMobileFooter extends StatelessWidget {
                 ),
               )
             : const Text(
-                'Cadastrar Funcionário',
+                'Adicionar novo funcionário',
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,

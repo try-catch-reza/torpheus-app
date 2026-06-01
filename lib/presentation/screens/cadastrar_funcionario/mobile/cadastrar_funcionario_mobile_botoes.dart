@@ -24,26 +24,25 @@ class CadastrarFuncionarioMobileBotoes extends StatelessWidget {
     return BlocBuilder<CadastrarFuncionarioBloc, CadastrarFuncionarioState>(
       builder: (context, state) {
         return CadastrarFuncionarioMobileFooter(
-          onCancelar: () {
-            Navigator.of(context).pop();
-          },
-          onCadastrar: () {
-            if (formKey.currentState?.validate() ?? false) {
-              FuncionarioModel mecanico = FuncionarioModel(
-                nome: nomeController.text.trim(),
-                documento: documentoController.text.trim(),
-                telefone: telefoneController.text.trim(),
-                funcao: '',
-              );
-
-              context.read<CadastrarFuncionarioBloc>().add(
-                    CadastrarFuncionarioSubmit(funcionario: mecanico),
-                  );
-            }
-          },
+          onCadastrar: () => _onCadastrar(context),
           isLoading: state is CadastrarFuncionarioLoading,
         );
       },
     );
+  }
+
+  void _onCadastrar(BuildContext context) {
+    if (formKey.currentState?.validate() ?? false) {
+      FuncionarioModel mecanico = FuncionarioModel(
+        nome: nomeController.text.trim(),
+        documento: documentoController.text.trim(),
+        telefone: telefoneController.text.trim(),
+        funcao: '',
+      );
+
+      context.read<CadastrarFuncionarioBloc>().add(
+            CadastrarFuncionarioSubmit(funcionario: mecanico),
+          );
+    }
   }
 }

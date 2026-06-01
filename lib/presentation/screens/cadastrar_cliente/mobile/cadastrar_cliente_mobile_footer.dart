@@ -7,13 +7,11 @@ class CadastrarClienteMobileFooter extends StatelessWidget {
     super.key,
     required this.isEdit,
     required this.isLoading,
-    required this.onCancelar,
     required this.onCadastrar,
   });
 
   final bool isEdit;
   final bool isLoading;
-  final VoidCallback onCancelar;
   final VoidCallback onCadastrar;
 
   @override
@@ -47,9 +45,11 @@ class CadastrarClienteMobileFooter extends StatelessWidget {
                 ),
               )
             : Text(
-                isEdit ? 'Atualizar os dados do cliente' : 'Cadastrar cliente',
+                isEdit
+                    ? 'Atualizar os dados do cliente'
+                    : 'Adicionar novo cliente',
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 17,
                   fontWeight: FontWeight.w600,
                 ),
               ),

@@ -66,19 +66,19 @@ class MenuMobileBody extends StatelessWidget {
       ),
     ),
      BottomNavigationBarItem(
-      icon: const Icon(Icons.folder, size: 28.0),
+      icon: const Icon(Icons.receipt_long_rounded, size: 28.0),
       label: 'OS',
       activeIcon: Icon(
-        Icons.folder,
+        Icons.receipt_long_rounded,
         color: ColorConstants.chambray,
         size: 28.0,
       ),
     ),
     BottomNavigationBarItem(
-      icon: const Icon(Icons.car_repair_sharp, size: 28.0),
+      icon: const Icon(Icons.directions_car_rounded, size: 28.0),
       label: 'Veículos',
       activeIcon: Icon(
-        Icons.car_repair_sharp,
+        Icons.directions_car_rounded,
         color: ColorConstants.chambray,
         size: 28.0,
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/config/routes.dart';
 import 'package:torpheus/presentation/screens/funcionario/widgets/funcionario_lista.dart';
 
 import '../../../components/lista_vazia_custom.dart';
@@ -26,7 +26,9 @@ class FuncionarioMobileBody extends StatelessWidget {
           title: 'Funcionários',
           subtitle: 'Cadastro e histórico de funcionários',
           onPressed: () {
-            context.read<FuncionarioBloc>().add(const FuncionarioCadastrar());
+            Navigator.of(context).pushNamed(
+              AppRoutes.cadastrarFuncionario.route,
+            );
           },
         ),
         SearchCustom(controller: controller, width: double.infinity),

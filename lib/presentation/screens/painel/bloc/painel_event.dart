@@ -13,3 +13,17 @@ final class PainelCarregar extends PainelEvent {
   @override
   List<Object?> get props => [];
 }
+
+final class PainelAbrirCamera extends PainelEvent {
+  const PainelAbrirCamera();
+
+  @override
+  List<Object?> get props => [];
+}
+
+final class PainelAbrirGaleria extends PainelEvent {
+  const PainelAbrirGaleria();
+
+  @override
+  List<Object?> get props => [];
+}

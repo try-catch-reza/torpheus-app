@@ -1,7 +1,11 @@
 import 'package:get_it/get_it.dart';
 import 'package:torpheus/config/eapi_schema.dart';
+import 'package:torpheus/data/plugins/image_service.dart';
+import 'package:torpheus/external/plugins/image_service_impl.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cadastrar_funcionario/bloc/cadastrar_funcionario_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_usuario/bloc/cadastrar_usuario_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_veiculo/bloc/cadastrar_veiculo_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import 'package:torpheus/presentation/screens/funcionario/bloc/funcionario_bloc.dart';
@@ -54,6 +58,8 @@ final class InjectorImpl extends Injector {
       appPackageInfo: AppPackageInfoImpl(),
       androidInfo: AndroidInfoImpl(),
     );
+
+    getIt.registerSingleton<ImageService>(ImageServiceImpl());
 
     /// Database----------------------------------------------------------------
     getIt.registerSingletonAsync<ApplicationDatabase>(
@@ -114,7 +120,7 @@ final class InjectorImpl extends Injector {
     );
 
     getIt.registerSingleton<PainelBloc>(
-      PainelBloc(),
+      PainelBloc(getIt.get<ImageService>()),
     );
 
     getIt.registerSingleton<MenuBloc>(
@@ -167,6 +173,18 @@ final class InjectorImpl extends Injector {
 
     getIt.registerSingleton<CadastrarFuncionarioBloc>(
       CadastrarFuncionarioBloc(
+        getIt.get<EapiRemoteRepository>(),
+      ),
+    );
+
+    getIt.registerSingleton<CadastrarVeiculoBloc>(
+      CadastrarVeiculoBloc(
+        getIt.get<EapiRemoteRepository>(),
+      ),
+    );
+
+    getIt.registerSingleton<CadastrarUsuarioBloc>(
+      CadastrarUsuarioBloc(
         getIt.get<EapiRemoteRepository>(),
       ),
     );

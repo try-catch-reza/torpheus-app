@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/presentation/screens/painel/bloc/painel_bloc.dart';
 import 'package:torpheus/presentation/screens/painel/mobile/painel_mobile_drawer.dart';
 
 import '../../../../config/routes.dart';
@@ -42,6 +43,28 @@ class PainelMobileContent extends StatelessWidget {
             ),
           )
         ],
+      ),
+      body: BlocBuilder<PainelBloc, PainelState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              if (state.image != null)
+                Image.file(state.image!),
+              TextButton(
+                onPressed: () {
+                  context.read<PainelBloc>().add(const PainelAbrirCamera());
+                },
+                child: const Text('Abrir camera'),
+              ),
+              TextButton(
+                onPressed: () {
+                  context.read<PainelBloc>().add(const PainelAbrirGaleria());
+                },
+                child: const Text('Abrir galeira'),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

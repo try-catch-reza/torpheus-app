@@ -44,74 +44,72 @@ class CadastrarClienteMobileBotoes extends StatelessWidget {
           return CadastrarClienteMobileFooter(
             isEdit: true,
             isLoading: state is CadastrarClienteLoading,
-            onCancelar: () {
-              Navigator.of(context).pop();
-            },
-            onCadastrar: () {
-              if (formKey.currentState?.validate() ?? false) {
-                EnderecoModel endereco = EnderecoModel(
-                  rua: logradouroController.text.trim(),
-                  numero: numeroController.text.trim(),
-                  complemento: complementoController.text.trim(),
-                  bairro: bairroController.text.trim(),
-                  cidade: cidadeController.text.trim(),
-                  estado: estadoController.text.trim(),
-                  cep: cepController.text.trim(),
-                );
-
-                ClienteModel cliente = ClienteModel(
-                  endereco: endereco,
-                  nome: nomeController.text.trim(),
-                  documento: documentoController.text.trim(),
-                  telefone: telefoneController.text.trim(),
-                  email: emailController.text.trim(),
-                  documentoTipo: state.documentoTipo,
-                  isActive: state.clienteEditar.isActive,
-                );
-
-                context.read<CadastrarClienteBloc>().add(
-                      CadastrarClienteUpdate(cliente: cliente),
-                    );
-              }
-            },
+            onCadastrar: () => _onUpdate(context, state),
           );
         } else {
           return CadastrarClienteMobileFooter(
             isEdit: false,
             isLoading: state is CadastrarClienteLoading,
-            onCancelar: () {
-              Navigator.of(context).pop();
-            },
-            onCadastrar: () {
-              if (formKey.currentState?.validate() ?? false) {
-                EnderecoModel endereco = EnderecoModel(
-                  rua: logradouroController.text.trim(),
-                  numero: numeroController.text.trim(),
-                  complemento: complementoController.text.trim(),
-                  bairro: bairroController.text.trim(),
-                  cidade: cidadeController.text.trim(),
-                  estado: estadoController.text.trim(),
-                  cep: cepController.text.trim(),
-                );
-
-                ClienteModel cliente = ClienteModel(
-                  endereco: endereco,
-                  nome: nomeController.text.trim(),
-                  documento: documentoController.text.trim(),
-                  telefone: telefoneController.text.trim(),
-                  email: emailController.text.trim(),
-                  documentoTipo: state.documentoTipo,
-                  isActive: true,
-                );
-
-                context.read<CadastrarClienteBloc>().add(
-                      CadastrarClienteSubmit(cliente: cliente),
-                    );
-              }
-            },
+            onCadastrar: () => _onCadastrar(context, state),
           );
         }
       },
     );
+  }
+
+  void _onUpdate(BuildContext context, CadastrarClienteState state) {
+    if (formKey.currentState?.validate() ?? false) {
+      EnderecoModel endereco = EnderecoModel(
+        rua: logradouroController.text.trim(),
+        numero: numeroController.text.trim(),
+        complemento: complementoController.text.trim(),
+        bairro: bairroController.text.trim(),
+        cidade: cidadeController.text.trim(),
+        estado: estadoController.text.trim(),
+        cep: cepController.text.trim(),
+      );
+
+      ClienteModel cliente = ClienteModel(
+        endereco: endereco,
+        nome: nomeController.text.trim(),
+        documento: documentoController.text.trim(),
+        telefone: telefoneController.text.trim(),
+        email: emailController.text.trim(),
+        documentoTipo: state.documentoTipo,
+        isActive: state.clienteEditar.isActive,
+      );
+
+      context.read<CadastrarClienteBloc>().add(
+            CadastrarClienteUpdate(cliente: cliente),
+          );
+    }
+  }
+
+  void _onCadastrar(BuildContext context, CadastrarClienteState state) {
+    if (formKey.currentState?.validate() ?? false) {
+      EnderecoModel endereco = EnderecoModel(
+        rua: logradouroController.text.trim(),
+        numero: numeroController.text.trim(),
+        complemento: complementoController.text.trim(),
+        bairro: bairroController.text.trim(),
+        cidade: cidadeController.text.trim(),
+        estado: estadoController.text.trim(),
+        cep: cepController.text.trim(),
+      );
+
+      ClienteModel cliente = ClienteModel(
+        endereco: endereco,
+        nome: nomeController.text.trim(),
+        documento: documentoController.text.trim(),
+        telefone: telefoneController.text.trim(),
+        email: emailController.text.trim(),
+        documentoTipo: state.documentoTipo,
+        isActive: true,
+      );
+
+      context.read<CadastrarClienteBloc>().add(
+            CadastrarClienteSubmit(cliente: cliente),
+          );
+    }
   }
 }

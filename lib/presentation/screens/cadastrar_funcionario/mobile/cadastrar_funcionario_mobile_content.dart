@@ -35,7 +35,10 @@ class _CadastrarFuncionarioMobileContentState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPadrao(title: "Cadastrar Funcionário"),
+      appBar: const AppBarPadrao(
+        title: "Cadastrar Funcionário",
+        hasLeading: true,
+      ),
       body: BlocConsumer<CadastrarFuncionarioBloc, CadastrarFuncionarioState>(
         buildWhen: _buildWhen,
         listener: _listener,
@@ -62,7 +65,6 @@ class _CadastrarFuncionarioMobileContentState
         nomeController: _nomeController,
         documentoController: _documentoController,
         telefoneController: _telefoneController,
-
       ),
     );
   }

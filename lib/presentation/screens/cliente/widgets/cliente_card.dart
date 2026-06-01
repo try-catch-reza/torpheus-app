@@ -100,7 +100,7 @@ class ClienteCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    cliente.createdAt?.toIso8601String() ?? '',
+                    cliente.createdAt?.toString().formataData ?? '',
                     style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
@@ -113,15 +113,16 @@ class ClienteCard extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: Icon(
+                      size: 20,
                       Icons.edit_outlined,
                       color: ColorConstants.chambray,
                     ),
                     onPressed: onEdit,
                   ),
-                  const SizedBox(width: 6),
                   IconButton(
                     icon: Icon(
-                      Icons.chevron_right,
+                      size: 20,
+                      Icons.arrow_forward_ios,
                       color: ColorConstants.chambray,
                     ),
                     onPressed: onTap,

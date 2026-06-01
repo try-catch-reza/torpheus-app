@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/components/app_bar_padrao.dart';
 import 'package:torpheus/presentation/screens/perfil/bloc/perfil_bloc.dart';
 import 'package:torpheus/presentation/screens/perfil/widgets/perfil_body.dart';
 
@@ -9,6 +10,7 @@ class PerfilContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const AppBarPadrao(title: 'Perfil', hasLeading: true),
       backgroundColor: const Color(0xfff5f5f5),
       body: BlocBuilder<PerfilBloc, PerfilState>(
         builder: (context, state) {

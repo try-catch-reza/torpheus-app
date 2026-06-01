@@ -24,6 +24,7 @@ class FuncionarioLista extends StatelessWidget {
 
           return FuncionarioCard(
             funcionario: funcionario,
+            onEdit: () {},
             onTap: () => onFuncionarioTap(funcionario),
           );
         },

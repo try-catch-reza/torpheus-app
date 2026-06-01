@@ -12,7 +12,7 @@ class ClienteDetalheMobileContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPadrao(title: 'Detalhes'),
+      appBar: const AppBarPadrao(title: 'Detalhes', hasLeading: true),
       body: BlocBuilder<ClienteDetalheBloc, ClienteDetalheState>(
         builder: (context, state) {
           if (state is ClienteDetalheLoading) {

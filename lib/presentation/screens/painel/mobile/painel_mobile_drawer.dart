@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/config/routes.dart';
 import 'package:torpheus/core/constants/custom_colors.dart';
 
 import '../../../components/header_usuario.dart';
@@ -32,15 +33,36 @@ class TorpheusDrawer extends StatelessWidget {
             ),
             const Divider(color: Color(0xFF304D7A), height: 1),
             const SizedBox(height: 8),
+            _DrawerItem(
+              icon: Icons.account_circle,
+              label: 'Perfil',
+              onTap: () {
+                Navigator.of(context).pushNamed(AppRoutes.perfil.route);
+              },
+            ),
+            const SizedBox(height: 8),
+            _DrawerItem(
+              icon: Icons.bar_chart,
+              label: 'Relatório',
+              onTap: () {
+                Navigator.of(context).pushNamed(AppRoutes.relatorios.route);
+              },
+            ),
+            const SizedBox(height: 8),
+            _DrawerItem(
+              icon: Icons.person_add_alt_1,
+              label: 'Cadastrar usuário',
+              onTap: () {
+                ///
+              },
+            ),
+            const SizedBox(height: 8),
             _DrawerItemDanger(
               onTap: () {
                 Navigator.of(context).pop();
                 onSairTap();
               },
             ),
-            const Spacer(),
-            const Divider(color: Color(0xFF304D7A), height: 1),
-            const _DrawerFooter(),
           ],
         ),
       ),
@@ -161,51 +183,6 @@ class _DrawerItemDanger extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-// ── Footer ────────────────────────────────────────────────────────────────────
-
-class _DrawerFooter extends StatelessWidget {
-  const _DrawerFooter();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(20, 14, 20, 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'v1.0.0',
-            style: TextStyle(
-              fontSize: 10,
-              color: Color(0xFF8FA3C0),
-              decoration: TextDecoration.none,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6),
-            child: Text(
-              '·',
-              style: TextStyle(
-                fontSize: 10,
-                color: Color(0xFF4A5E7A),
-                decoration: TextDecoration.none,
-              ),
-            ),
-          ),
-          Text(
-            'UniSenai Chapecó',
-            style: TextStyle(
-              fontSize: 10,
-              color: Color(0xFF8FA3C0),
-              decoration: TextDecoration.none,
-            ),
-          ),
-        ],
       ),
     );
   }

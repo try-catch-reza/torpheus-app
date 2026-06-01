@@ -28,7 +28,10 @@ class ClienteMobileBody extends StatelessWidget {
           title: 'Clientes',
           subtitle: 'Cadastro e histórico de clientes',
           onPressed: () {
-            Navigator.of(context).pushNamed(AppRoutes.cadastrarCliente.route);
+            Navigator.of(context).pushNamed(
+              AppRoutes.cadastrarCliente.route,
+              arguments: CadastrarClienteArguments(),
+            );
           },
         ),
         SearchCustom(controller: controller, width: double.infinity),

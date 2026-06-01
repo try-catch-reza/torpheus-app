@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_veiculo/bloc/cadastrar_veiculo_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_usuario/bloc/cadastrar_usuario_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_usuario/cadastrar_usuario_screen.dart';
+import 'package:torpheus/presentation/screens/cadastrar_veiculo/cadastrar_veiculo_screen.dart';
 import 'package:torpheus/presentation/screens/cliente/cliente_screen.dart';
 import 'package:torpheus/presentation/screens/funcionario/funcionario_screen.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/ordens_servico_screen.dart';
@@ -46,7 +50,9 @@ enum AppRoutes {
   relatorios('/relatorios', NavigationFlow.fade),
   clienteDetalhe('/cliente-detalhe', NavigationFlow.modalBottomUp),
   cadastrarCliente('/cadastrar-cliente', NavigationFlow.modalBottomUp),
-  cadastrarFuncionario('/cadastrar-mecanico', NavigationFlow.modalBottomUp);
+  cadastrarFuncionario('/cadastrar-mecanico', NavigationFlow.modalBottomUp),
+  cadastrarVeiculo('/cadastrar-veiculo', NavigationFlow.modalBottomUp),
+  cadastrarUsuario('/cadastrar-usuario', NavigationFlow.modalBottomUp);
 
   final String route;
   final NavigationFlow flow;
@@ -116,6 +122,14 @@ class Routes {
       AppRoutes.cadastrarFuncionario => CadastrarFuncionarioScreen(
           cadastrarFuncionarioBloc:
               injector.getIt.get<CadastrarFuncionarioBloc>(),
+        ),
+      AppRoutes.cadastrarVeiculo => CadastrarVeiculoScreen(
+          cadastrarVeiculoBloc: injector.getIt.get<CadastrarVeiculoBloc>(),
+          arguments: settings.arguments as CadastrarVeiculoArguments,
+        ),
+      AppRoutes.cadastrarUsuario => CadastrarUsuarioScreen(
+          cadastrarUsuarioBloc: injector.getIt.get<CadastrarUsuarioBloc>(),
+          arguments: settings.arguments as CadastrarUsuarioArguments,
         ),
     };
 

@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:torpheus/core/utils/jwt_decoder.dart';
 import 'package:torpheus/data/datasources/remote/http_client.dart';
 import 'package:torpheus/data/models/auth_model.dart';
+import 'package:torpheus/data/models/auth_response_model.dart';
 import 'package:torpheus/domain/repositories/remote/eapi_remote_repository.dart';
 
 import '../../../../domain/repositories/preferenfeces/preferences_local_repository.dart';
@@ -78,22 +79,28 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         slug: 'teste-huandres',
       );
 
-      final authResponse = await _eapiRemoteRepository.auth(auth);
+      // final authResponse = await _eapiRemoteRepository.auth(auth);
 
-      final permissions = JwtDecoder.getPermissions(
-        authResponse.acessToken ?? '',
+      AuthResponseModel authResponse = AuthResponseModel(
+        acessToken: '',
+        tokenType: 'Bearer',
+        expiresIn: 3600,
       );
 
-      final nome = JwtDecoder.getNome(authResponse.acessToken ?? '');
+      // final permissions = JwtDecoder.getPermissions(
+      //   authResponse.acessToken ?? '',
+      // );
+
+      // final nome = JwtDecoder.getNome(authResponse.acessToken ?? '');
 
       await Future.wait([
         _preferencesLocalRepository.saveAccessToken(
           authResponse.acessToken ?? '',
         ),
         _preferencesLocalRepository.saveIsUsuarioLogado(true),
-        _preferencesLocalRepository.saveListPermissions(permissions),
+        _preferencesLocalRepository.saveListPermissions([]),
         _preferencesLocalRepository.saveEmail(event.email),
-        _preferencesLocalRepository.saveNome(nome),
+        _preferencesLocalRepository.saveNome('nome'),
       ]);
 
       emit(
