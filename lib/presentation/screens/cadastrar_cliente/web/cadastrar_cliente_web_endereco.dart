@@ -3,8 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/cep_input_formatter.dart';
+import '../../../components/app_text_field.dart';
+import '../../../components/section_label.dart';
 import '../bloc/cadastrar_cliente_bloc.dart';
-import '../../../components/input_custom.dart';
 
 class CadastrarClienteWebEndereco extends StatelessWidget {
   const CadastrarClienteWebEndereco({
@@ -31,15 +32,14 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const _SectionLabel('ENDEREÇO'),
+        const SectionLabel('ENDEREÇO'),
         const SizedBox(height: 16),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               width: 180,
-              child: InputCustom(
-                textInputAction: TextInputAction.done,
+              child: AppTextField(
                 label: 'CEP',
                 controller: cepController,
                 hint: '00000-000',
@@ -74,8 +74,7 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 16),
-        InputCustom(
-          textInputAction: TextInputAction.done,
+        AppTextField(
           label: 'Logradouro',
           controller: logradouroController,
           hint: 'Rua, avenida, rodovia...',
@@ -88,8 +87,7 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
           children: [
             SizedBox(
               width: 180,
-              child: InputCustom(
-                textInputAction: TextInputAction.done,
+              child: AppTextField(
                 label: 'Número',
                 controller: numeroController,
                 hint: '123',
@@ -111,8 +109,7 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: InputCustom(
-                textInputAction: TextInputAction.done,
+              child: AppTextField(
                 label: 'Complemento',
                 controller: complementoController,
                 hint: 'Apto, sala, bloco (opcional)',
@@ -120,8 +117,7 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: InputCustom(
-                textInputAction: TextInputAction.done,
+              child: AppTextField(
                 label: 'Bairro',
                 controller: bairroController,
                 hint: 'Centro',
@@ -136,8 +132,7 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: InputCustom(
-                textInputAction: TextInputAction.done,
+              child: AppTextField(
                 label: 'Cidade',
                 controller: cidadeController,
                 hint: 'Chapecó',
@@ -147,11 +142,10 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: InputCustom(
-                textInputAction: TextInputAction.done,
+              child: AppTextField(
                 label: 'Estado',
                 controller: estadoController,
-                hint: 'Santa Catarina',
+                hint: 'SC',
                 validator: (v) =>
                     v == null || v.trim().isEmpty ? 'Campo obrigatório' : null,
               ),
@@ -159,26 +153,6 @@ class CadastrarClienteWebEndereco extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-class _SectionLabel extends StatelessWidget {
-  const _SectionLabel(this.label);
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label,
-      style: const TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        color: Color(0xFF9BAABB),
-        letterSpacing: 1,
-        decoration: TextDecoration.none,
-      ),
     );
   }
 }

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/components/app_text_field.dart';
+import 'package:torpheus/presentation/components/section_label.dart';
 
 import '../../../../core/constants/enum/documento_tipo.dart';
 import '../../../../core/utils/cnpj_input_formatter.dart';
 import '../../../../core/utils/cpf_input_formatter.dart';
 import '../../../../core/utils/telefone_input_formatter.dart';
 import '../bloc/cadastrar_cliente_bloc.dart';
-import '../../../components/input_custom.dart';
 import '../web/cadastrar_cliente_web_endereco.dart';
 import '../web/cadastrar_cliente_web_tipo_documento.dart';
 
@@ -63,7 +64,6 @@ class CadastrarClienteMobileBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CadastrarClienteWebTipoDocumento(
-                        // selected: state.documentoTipo,
                         selected: state.isEdit
                             ? state.clienteEditar.documentoTipo!
                             : state.documentoTipo,
@@ -77,25 +77,26 @@ class CadastrarClienteMobileBody extends StatelessWidget {
                         },
                       ),
                       const SizedBox(height: 24),
-                      InputCustom(
+                      const SectionLabel('IDENTIFICAÇÃO'),
+                      const SizedBox(height: 16),
+                      AppTextField(
+                        controller: nomeController,
                         label: state.documentoTipo == DocumentoTipo.cpf
                             ? 'Nome completo'
                             : 'Razão social',
-                        controller: nomeController,
                         hint: state.documentoTipo == DocumentoTipo.cpf
                             ? 'João da Silva'
                             : 'Empresa Ltda.',
                         validator: (v) => v == null || v.trim().isEmpty
                             ? 'Campo obrigatório'
                             : null,
-                        textInputAction: TextInputAction.next,
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 16),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
-                            child: InputCustom(
+                            child: AppTextField(
                               label: state.documentoTipo == DocumentoTipo.cpf
                                   ? 'CPF'
                                   : 'CNPJ',
@@ -113,12 +114,11 @@ class CadastrarClienteMobileBody extends StatelessWidget {
                               validator: (v) => v == null || v.trim().isEmpty
                                   ? 'Campo obrigatório'
                                   : null,
-                              textInputAction: TextInputAction.done,
                             ),
                           ),
                           const SizedBox(width: 16),
                           Expanded(
-                            child: InputCustom(
+                            child: AppTextField(
                               label: 'Telefone',
                               controller: telefoneController,
                               hint: '(49) 99999-9999',
@@ -130,18 +130,16 @@ class CadastrarClienteMobileBody extends StatelessWidget {
                               validator: (v) => v == null || v.trim().isEmpty
                                   ? 'Campo obrigatório'
                                   : null,
-                              textInputAction: TextInputAction.done,
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 20),
-                      InputCustom(
+                      AppTextField(
                         label: 'E-mail',
                         controller: emailController,
                         hint: 'cliente@email.com',
                         keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.done,
                         validator: (v) {
                           if (v == null || v.trim().isEmpty) {
                             return 'Campo obrigatório';
@@ -154,7 +152,6 @@ class CadastrarClienteMobileBody extends StatelessWidget {
                         },
                       ),
                       const SizedBox(height: 28),
-                      const Divider(height: 1, color: Color(0xFFF0F2F5)),
                       CadastrarClienteWebEndereco(
                         cepController: cepController,
                         logradouroController: logradouroController,

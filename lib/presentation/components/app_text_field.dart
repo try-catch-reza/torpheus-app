@@ -13,6 +13,7 @@ class AppTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool enabled;
   final List<TextInputFormatter>? inputFormatters;
+  final void Function(String)? onChange;
 
   const AppTextField({
     super.key,
@@ -25,11 +26,13 @@ class AppTextField extends StatelessWidget {
     this.suffixIcon,
     this.enabled = true,
     this.inputFormatters,
+    this.onChange,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChange,
       controller: controller,
       validator: validator,
       keyboardType: keyboardType,
