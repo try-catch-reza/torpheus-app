@@ -21,6 +21,19 @@ class VeiculoModel extends Equatable {
   final String? cambio;
   final String? combustivel;
 
+  @override
+  String toString() {
+    return 'VeiculoModel{'
+        'tipo: $tipo, '
+        'placa: $placa, '
+        'marca: $marca, '
+        'modelo: $modelo, '
+        'motor: $motor, '
+        'ano: $ano, '
+        'cambio: $cambio, '
+        'combustivel: $combustivel,'
+        '}';
+  }
 
   @override
   List<Object?> get props => throw UnimplementedError();

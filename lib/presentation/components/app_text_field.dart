@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../core/constants/custom_colors.dart';
 
@@ -11,6 +12,7 @@ class AppTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool enabled;
+  final List<TextInputFormatter>? inputFormatters;
 
   const AppTextField({
     super.key,
@@ -22,6 +24,7 @@ class AppTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.enabled = true,
+    this.inputFormatters,
   });
 
   @override
@@ -31,6 +34,7 @@ class AppTextField extends StatelessWidget {
       validator: validator,
       keyboardType: keyboardType,
       enabled: enabled,
+      inputFormatters: inputFormatters,
       cursorColor: ColorConstants.chambray,
       decoration: InputDecoration(
         labelStyle: TextStyle(

@@ -20,6 +20,11 @@ class CadastrarVeiculoBloc
     on<CadastrarVeiculoSubmit>(_onCadastrarVeiculoSubmit);
     on<CadastrarVeiculoUpdate>(_onCadastrarVeiculoUpdate);
     on<CadastrarVeiculoSetAtivo>(_onCadastrarVeiculoSetAtivo);
+    on<CadastrarVeiculoSetTipo>(_onCadastrarVeiculoSetTipo);
+    on<CadastrarVeiculoSetMarca>(_onCadastrarVeiculoSetMarca);
+    on<CadastrarVeiculoSetCambio>(_onCadastrarVeiculoSetCambio);
+    on<CadastrarVeiculoSetCombustivel>(_onCadastrarVeiculoSetCombustivel);
+    on<CadastrarVeiculoLimparCampos>(_onCadastrarVeiculoLimparCampos);
   }
 
   Future<void> _onCadastrarVeiculoLoad(
@@ -61,8 +66,28 @@ class CadastrarVeiculoBloc
     CadastrarVeiculoSubmit event,
     Emitter<CadastrarVeiculoState> emit,
   ) async {
-    emit(const CadastrarVeiculoLoading());
+    emit(
+      CadastrarVeiculoLoading(
+        cambio: state.cambio,
+        combustivel: state.combustivel,
+        marca: state.marca,
+        tipo: state.tipo,
+      ),
+    );
     try {
+      final veiculo = VeiculoModel(
+        cambio: state.cambio,
+        combustivel: state.combustivel,
+        marca: state.marca,
+        tipo: state.tipo,
+        modelo: event.modelo,
+        placa: event.placa,
+        ano: event.ano,
+        motor: event.motor,
+      );
+
+      print('Veiculo: $veiculo');
+
       // await _eapiRemoteRepository.cadastrarVeiculo(event.veiculo);
       emit(const CadastrarVeiculoSuccess());
     } on HttpRequestException catch (e) {
@@ -131,5 +156,90 @@ class CadastrarVeiculoBloc
       ),
     );
   }
-}
 
+  void _onCadastrarVeiculoSetTipo(
+    CadastrarVeiculoSetTipo event,
+    Emitter<CadastrarVeiculoState> emit,
+  ) {
+    emit(
+      CadastrarVeiculoLoaded(
+        veiculoEditar: state.veiculoEditar,
+        isEdit: state.isEdit,
+        veiculoId: state.veiculoId,
+        tipo: event.tipo,
+        isAtivo: state.isAtivo,
+        cambio: state.cambio,
+        combustivel: state.combustivel,
+        marca: state.marca,
+      ),
+    );
+  }
+
+  void _onCadastrarVeiculoSetMarca(
+    CadastrarVeiculoSetMarca event,
+    Emitter<CadastrarVeiculoState> emit,
+  ) {
+    emit(
+      CadastrarVeiculoLoaded(
+        veiculoEditar: state.veiculoEditar,
+        isEdit: state.isEdit,
+        veiculoId: state.veiculoId,
+        marca: event.marca,
+        combustivel: state.combustivel,
+        cambio: state.cambio,
+        tipo: state.tipo,
+      ),
+    );
+  }
+
+  void _onCadastrarVeiculoSetCambio(
+    CadastrarVeiculoSetCambio event,
+    Emitter<CadastrarVeiculoState> emit,
+  ) {
+    emit(
+      CadastrarVeiculoLoaded(
+        veiculoEditar: state.veiculoEditar,
+        isEdit: state.isEdit,
+        veiculoId: state.veiculoId,
+        cambio: event.cambio,
+        combustivel: state.combustivel,
+        marca: state.marca,
+        tipo: state.tipo,
+      ),
+    );
+  }
+
+  void _onCadastrarVeiculoSetCombustivel(
+    CadastrarVeiculoSetCombustivel event,
+    Emitter<CadastrarVeiculoState> emit,
+  ) {
+    emit(
+      CadastrarVeiculoLoaded(
+        veiculoEditar: state.veiculoEditar,
+        isEdit: state.isEdit,
+        veiculoId: state.veiculoId,
+        cambio: state.cambio,
+        combustivel: event.combustivel,
+        marca: state.marca,
+        tipo: state.tipo,
+      ),
+    );
+  }
+
+  void _onCadastrarVeiculoLimparCampos(
+    CadastrarVeiculoLimparCampos event,
+    Emitter<CadastrarVeiculoState> emit,
+  ) {
+    emit(
+      CadastrarVeiculoLoaded(
+        veiculoEditar: state.veiculoEditar,
+        isEdit: state.isEdit,
+        veiculoId: state.veiculoId,
+        cambio: '',
+        combustivel: '',
+        marca: '',
+        tipo: '',
+      ),
+    );
+  }
+}

@@ -6,6 +6,10 @@ sealed class CadastrarVeiculoState extends Equatable {
     this.veiculoId = '',
     this.isEdit = false,
     this.isAtivo = true,
+    this.cambio = '',
+    this.marca = '',
+    this.combustivel = '',
+    this.tipo = '',
   });
 
   final VeiculoModel veiculoEditar;
@@ -13,12 +17,21 @@ sealed class CadastrarVeiculoState extends Equatable {
   final String veiculoId;
   final bool isAtivo;
 
+  final String cambio;
+  final String marca;
+  final String combustivel;
+  final String tipo;
+
   @override
   List<Object?> get props => [
         veiculoEditar,
         isEdit,
         veiculoId,
         isAtivo,
+        cambio,
+        marca,
+        combustivel,
+        tipo,
       ];
 }
 
@@ -34,10 +47,22 @@ final class CadastrarVeiculoLoading extends CadastrarVeiculoState {
     super.veiculoEditar,
     super.veiculoId,
     super.isEdit,
+    super.cambio,
+    super.marca,
+    super.combustivel,
+    super.tipo,
   });
 
   @override
-  List<Object?> get props => [veiculoEditar, veiculoId, isEdit];
+  List<Object?> get props => [
+        veiculoEditar,
+        veiculoId,
+        isEdit,
+        cambio,
+        marca,
+        combustivel,
+        tipo,
+      ];
 }
 
 final class CadastrarVeiculoLoaded extends CadastrarVeiculoState {
@@ -46,10 +71,23 @@ final class CadastrarVeiculoLoaded extends CadastrarVeiculoState {
     super.veiculoId,
     super.isEdit,
     super.isAtivo,
+    super.cambio,
+    super.marca,
+    super.combustivel,
+    super.tipo,
   });
 
   @override
-  List<Object?> get props => [veiculoEditar, veiculoId, isEdit, isAtivo];
+  List<Object?> get props => [
+        veiculoEditar,
+        veiculoId,
+        isEdit,
+        isAtivo,
+        cambio,
+        marca,
+        combustivel,
+        tipo,
+      ];
 }
 
 final class CadastrarVeiculoSuccess extends CadastrarVeiculoState {
@@ -89,4 +127,3 @@ final class CadastrarVeiculoAtualizado extends CadastrarVeiculoState {
   @override
   List<Object?> get props => [];
 }
-

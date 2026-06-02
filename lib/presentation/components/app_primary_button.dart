@@ -12,14 +12,20 @@ class AppPrimaryButton extends StatelessWidget {
     required this.text,
     this.onPressed,
     this.icon,
+    this.fontSize = 16,
   });
+
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: onPressed,
       icon: icon != null ? Icon(icon, size: 18) : const SizedBox(),
-      label: Text(text),
+      label: Text(
+        text,
+        style: TextStyle(fontSize: fontSize),
+      ),
       style: ElevatedButton.styleFrom(
         backgroundColor: ColorConstants.chambray,
         foregroundColor: Colors.white,
