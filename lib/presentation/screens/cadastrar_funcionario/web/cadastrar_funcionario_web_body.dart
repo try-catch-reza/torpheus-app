@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/utils/cpf_input_formatter.dart';
+import '../../../../core/utils/telefone_input_formatter.dart';
 import '../../../../data/models/mecanico_model.dart';
-import '../../../components/formatadores.dart';
 import '../bloc/cadastrar_funcionario_bloc.dart';
 import 'cadastrar_funcionario_web_campo.dart';
 import 'cadastrar_funcionario_web_dropdown.dart';

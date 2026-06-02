@@ -34,6 +34,8 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
       ];
 
       emit(VeiculosLoaded(veiculos: veiculos));
-    } catch (e) {}
+    } catch (e) {
+      emit(VeiculosError('Não foi possível carregar os veículos\n$e'));
+    }
   }
 }

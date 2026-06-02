@@ -86,8 +86,6 @@ class CadastrarVeiculoBloc
         motor: event.motor,
       );
 
-      print('Veiculo: $veiculo');
-
       // await _eapiRemoteRepository.cadastrarVeiculo(event.veiculo);
       emit(const CadastrarVeiculoSuccess());
     } on HttpRequestException catch (e) {

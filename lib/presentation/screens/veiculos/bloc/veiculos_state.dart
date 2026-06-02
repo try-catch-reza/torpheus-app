@@ -29,3 +29,12 @@ final class VeiculosLoaded extends VeiculosState {
   @override
   List<Object?> get props => [veiculos];
 }
+
+final class VeiculosError extends VeiculosState {
+  const VeiculosError(this.message);
+
+  final String message;
+
+  @override
+  List<Object?> get props => [message];
+}

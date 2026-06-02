@@ -3,8 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:torpheus/core/constants/lista_dropdown.dart';
 import 'package:torpheus/presentation/components/app_dropdown_field.dart';
 import 'package:torpheus/presentation/components/app_text_field.dart';
-import 'package:torpheus/presentation/components/formatadores.dart';
 
+import '../../../../core/utils/cpf_input_formatter.dart';
+import '../../../../core/utils/telefone_input_formatter.dart';
 import '../bloc/cadastrar_funcionario_bloc.dart';
 
 class CadastrarFuncionarioMobileBody extends StatefulWidget {

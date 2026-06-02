@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/enum/documento_tipo.dart';
-import '../../../components/formatadores.dart';
+import '../../../../core/utils/cnpj_input_formatter.dart';
+import '../../../../core/utils/cpf_input_formatter.dart';
+import '../../../../core/utils/telefone_input_formatter.dart';
 import '../bloc/cadastrar_cliente_bloc.dart';
 import '../../../components/input_custom.dart';
 import '../web/cadastrar_cliente_web_endereco.dart';

@@ -8,7 +8,9 @@ import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_c
 import 'package:torpheus/presentation/screens/cadastrar_cliente/web/cadastrar_cliente_web_tipo_documento.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 
-import '../../../components/formatadores.dart';
+import '../../../../core/utils/cnpj_input_formatter.dart';
+import '../../../../core/utils/cpf_input_formatter.dart';
+import '../../../../core/utils/telefone_input_formatter.dart';
 import '../../../components/web/cadastro_header_web_custom.dart';
 import '../../../components/input_custom.dart';
 import 'atualizar_cliente_web_footer.dart';
