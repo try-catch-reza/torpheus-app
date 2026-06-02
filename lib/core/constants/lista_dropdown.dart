@@ -73,4 +73,11 @@ class ListaDropdown {
     'CVT',
     'Semi-automático',
   ];
+
+  static List<String> funcao = [
+    'Mecânico',
+    'Eletricista',
+    'Pintor',
+    'Funileiro',
+  ];
 }

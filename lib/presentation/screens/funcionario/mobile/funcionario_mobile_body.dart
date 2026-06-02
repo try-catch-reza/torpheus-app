@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/config/routes.dart';
-import 'package:torpheus/presentation/screens/funcionario/widgets/funcionario_lista.dart';
+import 'package:torpheus/presentation/screens/funcionario/mobile/funcionario_mobile_lista.dart';
 
 import '../../../components/lista_vazia_custom.dart';
 import '../../../components/mobile/header_mobile_custom.dart';
@@ -38,7 +38,7 @@ class FuncionarioMobileBody extends StatelessWidget {
             subMessage: 'Cadastre um novo funcionário',
           ),
         if (state.funcionarios.isNotEmpty)
-          FuncionarioLista(
+          FuncionarioMobileLista(
             funcionarios: state.funcionarios,
             onFuncionarioTap: (value) {},
           ),

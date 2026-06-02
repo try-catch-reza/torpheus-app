@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/config/routes.dart';
 import 'package:torpheus/presentation/components/dialog/dialog_mobile_padrao.dart';
 import 'package:torpheus/presentation/components/loading_state.dart';
 import 'package:torpheus/presentation/screens/cadastrar_funcionario/mobile/cadastrar_funcionario_mobile_body.dart';
 
+import '../../../../core/constants/custom_colors.dart';
+import '../../../../data/models/mecanico_model.dart';
 import '../../../components/app_bar_padrao.dart';
+import '../../../components/app_primary_button.dart';
 import '../bloc/cadastrar_funcionario_bloc.dart';
-import 'cadastrar_funcionario_mobile_botoes.dart';
 
 class CadastrarFuncionarioMobileContent extends StatefulWidget {
   const CadastrarFuncionarioMobileContent({super.key});
@@ -60,13 +61,30 @@ class _CadastrarFuncionarioMobileContentState
           return const SizedBox.shrink();
         },
       ),
-      bottomNavigationBar: CadastrarFuncionarioMobileBotoes(
-        formKey: _formKey,
-        nomeController: _nomeController,
-        documentoController: _documentoController,
-        telefoneController: _telefoneController,
+      bottomNavigationBar: Container(
+        color: ColorConstants.chambray,
+        child: AppPrimaryButton(
+          fontSize: 17,
+          text: 'Salvar funcionário',
+          icon: Icons.check,
+          onPressed: () => _onCadastrarFuncionario(context),
+        ),
       ),
     );
+  }
+
+  void _onCadastrarFuncionario(BuildContext context) {
+    if (_formKey.currentState?.validate() ?? false) {
+      FuncionarioModel mecanico = FuncionarioModel(
+        nome: _nomeController.text.trim(),
+        documento: _documentoController.text.trim(),
+        telefone: _telefoneController.text.trim(),
+      );
+
+      context.read<CadastrarFuncionarioBloc>().add(
+            CadastrarFuncionarioSubmit(funcionario: mecanico),
+          );
+    }
   }
 
   bool _buildWhen(
@@ -83,7 +101,7 @@ class _CadastrarFuncionarioMobileContentState
         context: context,
         message: 'Mecânico cadastrado com sucesso!',
         onPress: () {
-          Navigator.of(context).pushNamed(AppRoutes.funcionario.route);
+          Navigator.of(context).pop();
         },
       );
     }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:torpheus/core/constants/lista_dropdown.dart';
+import 'package:torpheus/presentation/components/app_dropdown_field.dart';
+import 'package:torpheus/presentation/components/app_text_field.dart';
 import 'package:torpheus/presentation/components/formatadores.dart';
-import 'package:torpheus/presentation/screens/cadastrar_funcionario/web/cadastrar_funcionario_web_campo.dart';
 
-import '../../../../core/constants/enum/funcao.dart';
 import '../bloc/cadastrar_funcionario_bloc.dart';
-import '../web/cadastrar_funcionario_web_dropdown.dart';
 
 class CadastrarFuncionarioMobileBody extends StatefulWidget {
   const CadastrarFuncionarioMobileBody({
@@ -31,7 +31,6 @@ class CadastrarFuncionarioMobileBody extends StatefulWidget {
 
 class _CadastrarFuncionarioMobileBodyState
     extends State<CadastrarFuncionarioMobileBody> {
-  Funcao _selectedFuncao = Funcao.mecanico;
 
   @override
   Widget build(BuildContext context) {
@@ -51,60 +50,68 @@ class _CadastrarFuncionarioMobileBodyState
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CadastrarFuncionarioWebCampo(
+                      AppTextField(
                         label: 'Nome completo',
                         controller: widget.nomeController,
                         hint: 'João da Silva',
-                        textInputAction: TextInputAction.next,
+                        validator: (p0) {
+                          if (p0 == null || p0.isEmpty) {
+                            return 'Campo obrigatório';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.text,
                       ),
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: CadastrarFuncionarioWebCampo(
-                              label: 'CPF',
-                              controller: widget.documentoController,
-                              hint: '000.000.000-00',
-                              textInputAction: TextInputAction.next,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly,
-                                CpfInputFormatter()
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: CadastrarFuncionarioWebCampo(
-                              label: 'Telefone',
-                              controller: widget.telefoneController,
-                              hint: '(49) 99999-9999',
-                              textInputAction: TextInputAction.next,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly,
-                                TelefoneInputFormatter()
-                              ],
-                            ),
-                          ),
+                      const SizedBox(height: 16),
+                      AppTextField(
+                        label: 'CPF',
+                        controller: widget.documentoController,
+                        hint: '000.000.000-00',
+                        validator: (p0) {
+                          if (p0 == null || p0.isEmpty) {
+                            return 'Campo obrigatório';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          CpfInputFormatter()
                         ],
                       ),
-                      const SizedBox(height: 20),
-                      CadastrarFuncionarioWebDropdown<Funcao>(
+                      const SizedBox(height: 16),
+                      AppTextField(
+                        label: 'Telefone',
+                        controller: widget.documentoController,
+                        hint: '(00) 00000-0000',
+                        validator: (p0) {
+                          if (p0 == null || p0.isEmpty) {
+                            return 'Campo telefone é obrigatório';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          TelefoneInputFormatter(),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      AppDropdownField<String>(
                         label: 'Função',
-                        value: _selectedFuncao,
-                        items: Funcao.values.map(
-                          (f) {
-                            return DropdownMenuItem(
-                              value: f,
-                              child: Text(f.label),
-                            );
-                          },
-                        ).toList(),
-                        onChanged: (Funcao? v) {
-                          setState(() => _selectedFuncao = v!);
+                        validator: (p0) {
+                          if (p0 == null || p0.isEmpty) {
+                            return 'Selecione a função do funcionário';
+                          }
+                          return null;
                         },
-                        validator: (v) {
-                          return v == null ? 'Campo obrigatório' : null;
-                        },
+                        items: ListaDropdown.funcao.map((funcao) {
+                          return DropdownMenuItem(
+                            value: funcao,
+                            child: Text(funcao),
+                          );
+                        }).toList(),
+                        onChanged: (value) {},
                       ),
                     ],
                   ),

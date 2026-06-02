@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:torpheus/presentation/screens/funcionario/widgets/funcionario_card.dart';
+import 'package:torpheus/presentation/screens/funcionario/mobile/funcionario_mobile_card.dart';
 
 import '../../../../data/models/mecanico_model.dart';
 
-class FuncionarioLista extends StatelessWidget {
-  const FuncionarioLista({
+class FuncionarioMobileLista extends StatelessWidget {
+  const FuncionarioMobileLista({
     super.key,
     required this.funcionarios,
     required this.onFuncionarioTap,
@@ -22,7 +22,7 @@ class FuncionarioLista extends StatelessWidget {
         itemBuilder: (context, index) {
           final funcionario = funcionarios[index];
 
-          return FuncionarioCard(
+          return FuncionarioMobileCard(
             funcionario: funcionario,
             onEdit: () {},
             onTap: () => onFuncionarioTap(funcionario),
