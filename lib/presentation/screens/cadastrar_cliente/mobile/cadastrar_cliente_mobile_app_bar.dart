@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
 
-import '../../../components/toggle_fall.dart';
-
 class CadastrarClienteMobileAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   const CadastrarClienteMobileAppBar({super.key});

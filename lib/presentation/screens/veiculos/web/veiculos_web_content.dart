@@ -13,6 +13,7 @@ class VeiculosWebContent extends StatefulWidget {
 
 class _VeiculosWebContentState extends State<VeiculosWebContent> {
   final TextEditingController _searchController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class _VeiculosWebContentState extends State<VeiculosWebContent> {
             return VeiculosWebBody(
               state: state,
               searchController: _searchController,
+              formKey: _formKey,
             );
           }
 

@@ -25,13 +25,11 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
           placa: 'ABC-1234',
           modelo: 'Fiat Uno',
           ano: '2010',
-          cor: 'Preto',
         ),
         const VeiculoModel(
           placa: 'DEF-5678',
           modelo: 'Volkswagen Gol',
           ano: '2015',
-          cor: 'Branco',
         ),
       ];
 
