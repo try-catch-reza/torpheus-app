@@ -4,7 +4,7 @@ import 'package:torpheus/presentation/components/lista_vazia_custom.dart';
 import 'package:torpheus/presentation/components/search_custom.dart';
 import 'package:torpheus/presentation/components/web/header_web_custom.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
-import 'package:torpheus/presentation/screens/cliente/widgets/cliente_lista.dart';
+import 'package:torpheus/presentation/screens/cliente/web/cliente_web_lista.dart';
 
 class ClienteWebBody extends StatelessWidget {
   const ClienteWebBody({
@@ -36,7 +36,7 @@ class ClienteWebBody extends StatelessWidget {
             subMessage: 'Cadastre um novo cliente',
           ),
         if (state.clientes.isNotEmpty)
-          ClienteLista(
+          ClienteWebLista(
             clientes: state.clientes,
             onClienteTap: (value) {
               context.read<ClienteBloc>().add(ClienteSelecionar(value));

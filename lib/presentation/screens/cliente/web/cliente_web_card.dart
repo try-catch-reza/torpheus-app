@@ -4,8 +4,8 @@ import 'package:torpheus/data/models/cliente_model.dart';
 
 import '../../../../core/constants/custom_colors.dart';
 
-class ClienteCard extends StatelessWidget {
-  const ClienteCard({
+class ClienteWebCard extends StatelessWidget {
+  const ClienteWebCard({
     super.key,
     required this.cliente,
     required this.onTap,

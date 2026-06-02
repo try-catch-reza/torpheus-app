@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
-import 'package:torpheus/presentation/screens/cliente/widgets/cliente_card.dart';
 
-class ClienteLista extends StatelessWidget {
-  const ClienteLista({
+import 'cliente_web_card.dart';
+
+class ClienteWebLista extends StatelessWidget {
+  const ClienteWebLista({
     super.key,
     required this.clientes,
     required this.onClienteTap,
@@ -19,11 +20,11 @@ class ClienteLista extends StatelessWidget {
     return Expanded(
       child: ListView.builder(
         padding: const EdgeInsets.only(top: 12),
-        itemCount: clientes.length,
+        itemCount: 10,
         itemBuilder: (context, index) {
-          final cliente = clientes[index];
+          final cliente = clientes[0];
 
-          return ClienteCard(
+          return ClienteWebCard(
             cliente: cliente,
             onTap: () => onClienteTap(cliente),
             onEdit: () => onEditTap(cliente),

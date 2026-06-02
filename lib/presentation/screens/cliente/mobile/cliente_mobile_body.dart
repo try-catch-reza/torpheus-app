@@ -7,7 +7,7 @@ import 'package:torpheus/presentation/screens/cliente_detalhe/cliente_detalhe_sc
 import '../../../components/lista_vazia_custom.dart';
 import '../../../components/mobile/header_mobile_custom.dart';
 import '../../../components/search_custom.dart';
-import '../widgets/cliente_lista.dart';
+import 'cliente_mobile_lista.dart';
 
 class ClienteMobileBody extends StatelessWidget {
   const ClienteMobileBody({
@@ -41,7 +41,7 @@ class ClienteMobileBody extends StatelessWidget {
             subMessage: 'Cadastre um novo cliente',
           ),
         if (state.clientes.isNotEmpty)
-          ClienteLista(
+          ClienteMobileLista(
             clientes: state.clientes,
             onClienteTap: (value) {
               Navigator.of(context).pushNamed(
