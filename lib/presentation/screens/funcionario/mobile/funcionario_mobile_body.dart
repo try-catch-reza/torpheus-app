@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/presentation/components/mobile/app_bar_mobile_search.dart';
 import 'package:torpheus/presentation/screens/funcionario/mobile/funcionario_mobile_lista.dart';
+import 'package:torpheus/presentation/screens/funcionario_detalhe/funcionario_detalhe_screen.dart';
 
 import '../../../../config/routes.dart';
 import '../../../components/lista_vazia_custom.dart';
@@ -39,7 +40,12 @@ class FuncionarioMobileBody extends StatelessWidget {
         if (state.funcionarios.isNotEmpty)
           FuncionarioMobileLista(
             funcionarios: state.funcionarios,
-            onFuncionarioTap: (value) {},
+            onFuncionarioTap: (value) {
+              Navigator.of(context).pushNamed(
+                AppRoutes.funcionarioDetalhe.route,
+                arguments: FuncionarioDetalheArguments(funcionario: value),
+              );
+            },
           ),
       ],
     );

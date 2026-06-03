@@ -8,6 +8,8 @@ import 'package:torpheus/presentation/screens/cadastrar_usuario/bloc/cadastrar_u
 import 'package:torpheus/presentation/screens/cadastrar_veiculo/bloc/cadastrar_veiculo_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
+import 'package:torpheus/presentation/screens/veiculo_detalhe/bloc/veiculo_detalhe_bloc.dart';
+import 'package:torpheus/presentation/screens/funcionario_detalhe/bloc/funcionario_detalhe_bloc.dart';
 import 'package:torpheus/presentation/screens/funcionario/bloc/funcionario_bloc.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/bloc/ordens_servico_bloc.dart';
 import 'package:torpheus/presentation/screens/painel/bloc/painel_bloc.dart';
@@ -163,6 +165,14 @@ final class InjectorImpl extends Injector {
 
     getIt.registerSingleton<ClienteDetalheBloc>(
       ClienteDetalheBloc(),
+    );
+
+    getIt.registerSingleton<VeiculoDetalheBloc>(
+      VeiculoDetalheBloc(),
+    );
+
+    getIt.registerSingleton<FuncionarioDetalheBloc>(
+      FuncionarioDetalheBloc(),
     );
 
     getIt.registerSingleton<CadastrarClienteBloc>(

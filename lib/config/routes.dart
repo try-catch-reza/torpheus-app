@@ -27,6 +27,10 @@ import '../presentation/screens/cadastrar_funcionario/bloc/cadastrar_funcionario
 import '../presentation/screens/cliente/bloc/cliente_bloc.dart';
 import '../presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import '../presentation/screens/cliente_detalhe/cliente_detalhe_screen.dart';
+import '../presentation/screens/veiculo_detalhe/bloc/veiculo_detalhe_bloc.dart';
+import '../presentation/screens/veiculo_detalhe/veiculo_detalhe_screen.dart';
+import '../presentation/screens/funcionario_detalhe/bloc/funcionario_detalhe_bloc.dart';
+import '../presentation/screens/funcionario_detalhe/funcionario_detalhe_screen.dart';
 import '../presentation/screens/funcionario/bloc/funcionario_bloc.dart';
 import '../presentation/screens/login/login_screen.dart';
 import '../presentation/screens/ordens_servico/bloc/ordens_servico_bloc.dart';
@@ -49,6 +53,8 @@ enum AppRoutes {
   ordensServico('/ordens-servico', NavigationFlow.fade),
   relatorios('/relatorios', NavigationFlow.fade),
   clienteDetalhe('/cliente-detalhe', NavigationFlow.modalBottomUp),
+  veiculoDetalhe('/veiculo-detalhe', NavigationFlow.modalBottomUp),
+  funcionarioDetalhe('/funcionario-detalhe', NavigationFlow.modalBottomUp),
   cadastrarCliente('/cadastrar-cliente', NavigationFlow.modalBottomUp),
   cadastrarFuncionario('/cadastrar-mecanico', NavigationFlow.modalBottomUp),
   cadastrarVeiculo('/cadastrar-veiculo', NavigationFlow.modalBottomUp),
@@ -114,6 +120,14 @@ class Routes {
       AppRoutes.clienteDetalhe => ClienteDetalheScreen(
           clienteDetalheBloc: injector.getIt.get<ClienteDetalheBloc>(),
           arguments: settings.arguments as ClienteDetalheArguments,
+        ),
+      AppRoutes.veiculoDetalhe => VeiculoDetalheScreen(
+          veiculoDetalheBloc: injector.getIt.get<VeiculoDetalheBloc>(),
+          arguments: settings.arguments as VeiculoDetalheArguments,
+        ),
+      AppRoutes.funcionarioDetalhe => FuncionarioDetalheScreen(
+          funcionarioDetalheBloc: injector.getIt.get<FuncionarioDetalheBloc>(),
+          arguments: settings.arguments as FuncionarioDetalheArguments,
         ),
       AppRoutes.cadastrarCliente => CadastrarClienteScreen(
           cadastrarClienteBloc: injector.getIt.get<CadastrarClienteBloc>(),

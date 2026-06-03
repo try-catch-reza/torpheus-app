@@ -6,6 +6,7 @@ import 'package:torpheus/presentation/screens/veiculos/bloc/veiculos_bloc.dart';
 import 'package:torpheus/presentation/screens/veiculos/mobile/veiculos_mobile_lista.dart';
 
 import '../../../components/lista_vazia_custom.dart';
+import '../../veiculo_detalhe/veiculo_detalhe_screen.dart';
 
 class VeiculosMobileBody extends StatelessWidget {
   const VeiculosMobileBody({
@@ -42,7 +43,12 @@ class VeiculosMobileBody extends StatelessWidget {
         if (state.veiculos.isNotEmpty)
           VeiculosMobileLista(
             veiculos: state.veiculos,
-            onVeiculoTap: (value) {},
+            onVeiculoTap: (value) {
+              Navigator.of(context).pushNamed(
+                AppRoutes.veiculoDetalhe.route,
+                arguments: VeiculoDetalheArguments(veiculo: value),
+              );
+            },
           )
       ],
     );
