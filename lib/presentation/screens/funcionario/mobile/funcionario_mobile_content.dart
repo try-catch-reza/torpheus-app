@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/presentation/components/app_bar_padrao.dart';
 import 'package:torpheus/presentation/components/loading_state.dart';
 
 import '../bloc/funcionario_bloc.dart';
@@ -19,7 +18,7 @@ class _FuncionarioMobileContentState extends State<FuncionarioMobileContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPadrao(title: 'Funcionários'),
+      backgroundColor: Colors.white,
       body: BlocBuilder<FuncionarioBloc, FuncionarioState>(
         builder: (context, state) {
           if (state is FuncionarioLoading) {

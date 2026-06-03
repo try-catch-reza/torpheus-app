@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../components/app_bar_padrao.dart';
 import '../../../components/loading_state.dart';
 import '../bloc/cliente_bloc.dart';
 import 'cliente_mobile_body.dart';
@@ -19,7 +18,7 @@ class _ClienteMobileContentState extends State<ClienteMobileContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPadrao(title: 'Clientes'),
+      backgroundColor: Colors.white,
       body: BlocBuilder<ClienteBloc, ClienteState>(
         builder: (context, state) {
           if (state is ClienteLoading) {

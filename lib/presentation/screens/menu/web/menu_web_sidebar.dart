@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/config/routes.dart';
 import 'package:torpheus/presentation/screens/menu/web/menu_web_item.dart';
 
-import '../../../../core/constants/custom_colors.dart';
+import '../../../../core/constants/color_constants.dart';
 import '../../../../data/models/menu_item.dart';
 import '../../../components/header_usuario.dart';
 import '../bloc/menu_bloc.dart';

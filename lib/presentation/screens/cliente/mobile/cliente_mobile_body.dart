@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/config/routes.dart';
+import 'package:torpheus/presentation/components/mobile/app_bar_mobile_search.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/cadastrar_cliente_screen.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/cliente_detalhe_screen.dart';
 
 import '../../../components/lista_vazia_custom.dart';
-import '../../../components/mobile/header_mobile_custom.dart';
-import '../../../components/search_custom.dart';
 import 'cliente_mobile_lista.dart';
 
 class ClienteMobileBody extends StatelessWidget {
@@ -24,17 +23,17 @@ class ClienteMobileBody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HeaderMobileCustom(
-          title: 'Clientes',
-          subtitle: 'Cadastro e histórico de clientes',
+        AppBarMobileSearch(
           onPressed: () {
             Navigator.of(context).pushNamed(
               AppRoutes.cadastrarCliente.route,
               arguments: CadastrarClienteArguments(),
             );
           },
+          title: 'Clientes',
+          subtitle: 'Cadastro e histórico de clientes',
+          controller: controller,
         ),
-        SearchCustom(controller: controller, width: double.infinity),
         if (state.clientes.isEmpty)
           const ListaVaziaCustom(
             message: 'Nenhum cliente encontrado ',

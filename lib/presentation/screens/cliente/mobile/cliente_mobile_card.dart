@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/extension/string_extension.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
 
-import '../../../../core/constants/custom_colors.dart';
+import '../../../../core/constants/color_constants.dart';
 
 class ClienteMobileCard extends StatelessWidget {
   const ClienteMobileCard({

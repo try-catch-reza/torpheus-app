@@ -21,6 +21,10 @@ class VeiculoModel extends Equatable {
   final String? cambio;
   final String? combustivel;
 
+  String get subTitle {
+    return '$modelo $ano';
+  }
+
   @override
   String toString() {
     return 'VeiculoModel{'

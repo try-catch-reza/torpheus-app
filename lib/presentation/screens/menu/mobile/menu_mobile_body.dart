@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/core/constants/color_constants.dart';
 import 'package:torpheus/presentation/screens/cliente/cliente_screen.dart';
 import 'package:torpheus/presentation/screens/funcionario/funcionario_screen.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/ordens_servico_screen.dart';

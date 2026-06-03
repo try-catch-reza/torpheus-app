@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/presentation/components/app_bar_padrao.dart';
 import 'package:torpheus/presentation/screens/veiculos/mobile/veiculos_mobile_body.dart';
 
 import '../../../components/loading_state.dart';
@@ -19,7 +18,7 @@ class _VeiculosMobileContentState extends State<VeiculosMobileContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPadrao(title: 'Veículos'),
+      backgroundColor: Colors.white,
       body: BlocBuilder<VeiculosBloc, VeiculosState>(
         builder: (context, state) {
           if (state is VeiculosLoading) {

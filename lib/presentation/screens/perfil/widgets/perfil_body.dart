@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/core/constants/color_constants.dart';
 import 'package:torpheus/core/constants/extension/string_extension.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:torpheus/presentation/screens/perfil/bloc/perfil_bloc.dart';

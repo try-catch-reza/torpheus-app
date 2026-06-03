@@ -17,7 +17,7 @@ class FuncionarioMobileLista extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        padding: const EdgeInsets.only(top: 12),
+        padding: EdgeInsets.zero,
         itemCount: funcionarios.length,
         itemBuilder: (context, index) {
           final funcionario = funcionarios[index];

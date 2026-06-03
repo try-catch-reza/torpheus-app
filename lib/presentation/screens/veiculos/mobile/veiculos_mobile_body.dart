@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/config/routes.dart';
+import 'package:torpheus/presentation/components/mobile/app_bar_mobile_search.dart';
 import 'package:torpheus/presentation/screens/cadastrar_veiculo/cadastrar_veiculo_screen.dart';
 import 'package:torpheus/presentation/screens/veiculos/bloc/veiculos_bloc.dart';
+import 'package:torpheus/presentation/screens/veiculos/mobile/veiculos_mobile_lista.dart';
 
-import '../../../components/mobile/header_mobile_custom.dart';
 import '../../../components/lista_vazia_custom.dart';
-import '../../../components/search_custom.dart';
-import '../widgets/veiculos_lista.dart';
 
 class VeiculosMobileBody extends StatelessWidget {
   const VeiculosMobileBody({
@@ -23,18 +22,15 @@ class VeiculosMobileBody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HeaderMobileCustom(
-          title: 'Veículos',
-          subtitle: 'Cadastro e histórico de veículos',
+        AppBarMobileSearch(
           onPressed: () {
             Navigator.of(context).pushNamed(
               AppRoutes.cadastrarVeiculo.route,
               arguments: CadastrarVeiculoArguments(),
             );
           },
-        ),
-        SearchCustom(
-          width: double.infinity,
+          title: 'Veículos',
+          subtitle: 'Cadastro e histórico de veículos',
           controller: controller,
           hintText: 'Pesquisar por placa',
         ),
@@ -44,7 +40,7 @@ class VeiculosMobileBody extends StatelessWidget {
             subMessage: 'Cadastre um novo veículo para começar a gerenciar',
           ),
         if (state.veiculos.isNotEmpty)
-          VeiculosLista(
+          VeiculosMobileLista(
             veiculos: state.veiculos,
             onVeiculoTap: (value) {},
           )

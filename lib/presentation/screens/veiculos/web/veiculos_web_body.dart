@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/core/constants/color_constants.dart';
 import 'package:torpheus/core/constants/lista_dropdown.dart';
 import 'package:torpheus/presentation/components/web/header_web_custom.dart';
 import 'package:torpheus/presentation/screens/veiculos/bloc/veiculos_bloc.dart';

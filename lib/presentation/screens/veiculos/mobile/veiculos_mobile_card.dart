@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:torpheus/core/constants/color_constants.dart';
-import 'package:torpheus/data/models/veiculo_model.dart';
 
-class VeiculosCard extends StatelessWidget {
-  const VeiculosCard({
-    super.key,
-    required this.veiculo,
-    required this.onTap,
-  });
+import '../../../../core/constants/color_constants.dart';
+import '../../../../data/models/veiculo_model.dart';
+
+class VeiculosMobileCard extends StatelessWidget {
+  const VeiculosMobileCard({super.key, required this.veiculo, required this.onTap});
 
   final VeiculoModel veiculo;
   final VoidCallback onTap;
@@ -32,7 +29,7 @@ class VeiculosCard extends StatelessWidget {
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 5.0),
           child: Text(
-            veiculo.modelo ?? '',
+            veiculo.subTitle,
             style: TextStyle(
               fontSize: 15,
               color: ColorConstants.squant,

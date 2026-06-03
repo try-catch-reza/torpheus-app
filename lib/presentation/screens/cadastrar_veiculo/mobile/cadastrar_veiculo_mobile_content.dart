@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/core/constants/color_constants.dart';
 import 'package:torpheus/presentation/components/app_bar_padrao.dart';
 import 'package:torpheus/presentation/components/dialog/dialog_mobile_padrao.dart';
 import 'package:torpheus/presentation/screens/cadastrar_veiculo/bloc/cadastrar_veiculo_bloc.dart';

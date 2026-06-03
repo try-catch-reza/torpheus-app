@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/extension/string_extension.dart';
 
-import '../../../../core/constants/custom_colors.dart';
+import '../../../../core/constants/color_constants.dart';
 import '../../../../data/models/mecanico_model.dart';
 
 class FuncionarioWebCard extends StatelessWidget {

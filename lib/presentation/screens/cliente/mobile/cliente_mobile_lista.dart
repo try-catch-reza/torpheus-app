@@ -19,7 +19,7 @@ class ClienteMobileLista extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        padding: const EdgeInsets.only(top: 12),
+        padding: EdgeInsets.zero,
         itemCount: clientes.length,
         itemBuilder: (context, index) {
           final cliente = clientes[index];

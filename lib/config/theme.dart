@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/core/constants/color_constants.dart';
 
 class AppTheme {
   static ThemeData theme() {
     return ThemeData(
       useMaterial3: false,
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: ColorConstants.zhenZhuBaiPearl,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(ColorConstants.chambray),

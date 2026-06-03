@@ -1,6 +1,6 @@
 // dart
 import 'package:flutter/material.dart';
-import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/core/constants/color_constants.dart';
 
 class DialogMobilePadrao extends StatefulWidget {
   const DialogMobilePadrao({

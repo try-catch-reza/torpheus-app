@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/config/routes.dart';
-import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/core/constants/color_constants.dart';
 import 'package:torpheus/core/constants/extension/string_extension.dart';
 import 'package:torpheus/presentation/components/dialog/dialog_confirm.dart';
 

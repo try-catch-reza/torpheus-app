@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/extension/string_extension.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
 
-import '../../../../core/constants/custom_colors.dart';
+import '../../../../core/constants/color_constants.dart';
 
 class ClienteWebCard extends StatelessWidget {
   const ClienteWebCard({
@@ -18,120 +18,111 @@ class ClienteWebCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 22),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: const Color(0xFFE5E7EB),
-          width: 0.5,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 22),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: const Color(0xFFE5E7EB),
+            width: 0.5,
+          ),
         ),
-      ),
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 21,
-                backgroundColor: ColorConstants.chambray,
-                child: Text(
-                  cliente.nome?.iniciais ?? '',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 21,
+                  backgroundColor: ColorConstants.chambray,
+                  child: Text(
+                    cliente.nome?.iniciais ?? '',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        cliente.nome ?? '',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF111827),
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        cliente.email ?? '',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF6B7280),
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
+            _Badge(
+              label: cliente.isActive ?? false ? 'Ativo' : 'Inativo',
+              background: cliente.isActive ?? false
+                  ? const Color(0xFFD1FAE5)
+                  : const Color(0xFFFEE2E2),
+              textColor: cliente.isActive ?? false
+                  ? const Color(0xFF065F46)
+                  : const Color(0xFF991B1B),
+              dot: cliente.isActive ?? false ? true : false,
+            ),
+            const SizedBox(height: 14),
+            const Divider(height: 1, thickness: 0.5, color: Color(0xFFE5E7EB)),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      cliente.nome ?? '',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF111827),
-                      ),
-                      overflow: TextOverflow.ellipsis,
+                    const Text(
+                      'Data de cadatro',
+                      style: TextStyle(fontSize: 11, color: Color(0xFF6B7280)),
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      cliente.email ?? '',
+                      cliente.createdAt?.toString().formataData ?? '',
                       style: const TextStyle(
-                        fontSize: 12,
-                        color: Color(0xFF6B7280),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF111827),
                       ),
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          _Badge(
-            label: cliente.isActive ?? false ? 'Ativo' : 'Inativo',
-            background: cliente.isActive ?? false
-                ? const Color(0xFFD1FAE5)
-                : const Color(0xFFFEE2E2),
-            textColor: cliente.isActive ?? false
-                ? const Color(0xFF065F46)
-                : const Color(0xFF991B1B),
-            dot: cliente.isActive ?? false ? true : false,
-          ),
-          const SizedBox(height: 14),
-          const Divider(height: 1, thickness: 0.5, color: Color(0xFFE5E7EB)),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Data de cadatro',
-                    style: TextStyle(fontSize: 11, color: Color(0xFF6B7280)),
+                IconButton(
+                  icon: Icon(
+                    size: 20,
+                    Icons.edit_outlined,
+                    color: ColorConstants.chambray,
                   ),
-                  const SizedBox(height: 2),
-                  Text(
-                    cliente.createdAt?.toString().formataData ?? '',
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF111827),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      size: 20,
-                      Icons.edit_outlined,
-                      color: ColorConstants.chambray,
-                    ),
-                    onPressed: onEdit,
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      size: 20,
-                      Icons.arrow_forward_ios,
-                      color: ColorConstants.chambray,
-                    ),
-                    onPressed: onTap,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+                  onPressed: onEdit,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

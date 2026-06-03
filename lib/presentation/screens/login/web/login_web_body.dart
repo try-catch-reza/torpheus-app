@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/core/constants/color_constants.dart';
 import 'package:torpheus/presentation/screens/login/web/login_web_painel_esquerdo.dart';
 import 'package:torpheus/presentation/screens/login/widgets/login_form.dart';
 

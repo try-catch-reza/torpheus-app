@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/custom_colors.dart';
+import '../../../../core/constants/color_constants.dart';
 
 class CadastrarClienteWebFooter extends StatelessWidget {
   const CadastrarClienteWebFooter({

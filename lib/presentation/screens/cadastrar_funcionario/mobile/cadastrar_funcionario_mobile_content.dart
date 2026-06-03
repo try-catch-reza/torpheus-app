@@ -4,7 +4,7 @@ import 'package:torpheus/presentation/components/dialog/dialog_mobile_padrao.dar
 import 'package:torpheus/presentation/components/loading_state.dart';
 import 'package:torpheus/presentation/screens/cadastrar_funcionario/mobile/cadastrar_funcionario_mobile_body.dart';
 
-import '../../../../core/constants/custom_colors.dart';
+import '../../../../core/constants/color_constants.dart';
 import '../../../../data/models/mecanico_model.dart';
 import '../../../components/app_bar_padrao.dart';
 import '../../../components/app_primary_button.dart';

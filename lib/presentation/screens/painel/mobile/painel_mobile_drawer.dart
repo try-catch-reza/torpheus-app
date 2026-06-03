@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/config/routes.dart';
-import 'package:torpheus/core/constants/custom_colors.dart';
+import 'package:torpheus/core/constants/color_constants.dart';
 
 import '../../../components/header_usuario.dart';
 

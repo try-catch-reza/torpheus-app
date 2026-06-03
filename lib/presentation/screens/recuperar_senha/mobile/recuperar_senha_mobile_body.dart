@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/presentation/components/mobile/mobile_logo_header.dart';
 
-import '../../../../core/constants/custom_colors.dart';
+import '../../../../core/constants/color_constants.dart';
 import '../widget/recuperar_senha_form.dart';
 
 class RecuperarSenhaMobileBody extends StatelessWidget {

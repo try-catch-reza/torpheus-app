@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 
-import '../../../../core/constants/custom_colors.dart';
+import '../../../../core/constants/color_constants.dart';
 import 'login_mobile_card.dart';
 import 'login_mobile_grid.dart';
 import '../../../components/mobile/mobile_logo_header.dart';

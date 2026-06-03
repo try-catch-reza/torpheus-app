@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
 
-import '../../../core/constants/custom_colors.dart';
+import '../../../core/constants/color_constants.dart';
 import '../status_toggle.dart';
 
 class CadastroHeaderWebCustom extends StatelessWidget {

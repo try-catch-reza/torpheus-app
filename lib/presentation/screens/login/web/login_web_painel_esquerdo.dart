@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/custom_colors.dart';
+import '../../../../core/constants/color_constants.dart';
 import 'login_web_features.dart';
 import 'login_web_footer.dart';
 import 'login_web_grid.dart';

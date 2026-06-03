@@ -6,11 +6,13 @@ class SearchCustom extends StatelessWidget {
     required this.controller,
     this.hintText = 'Buscar por nome',
     this.width = 340,
+    this.onChanged,
   });
 
   final TextEditingController controller;
   final String hintText;
   final double width;
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class SearchCustom extends StatelessWidget {
         height: 40,
         width: width,
         child: TextField(
+          onChanged: onChanged,
           controller: controller,
           style: const TextStyle(
             fontSize: 13,
