@@ -43,15 +43,6 @@ final class CadastrarVeiculoUpdate extends CadastrarVeiculoEvent {
   List<Object?> get props => [veiculo];
 }
 
-final class CadastrarVeiculoSetAtivo extends CadastrarVeiculoEvent {
-  const CadastrarVeiculoSetAtivo(this.isAtivo);
-
-  final bool isAtivo;
-
-  @override
-  List<Object?> get props => [isAtivo];
-}
-
 final class CadastrarVeiculoSetTipo extends CadastrarVeiculoEvent {
   const CadastrarVeiculoSetTipo(this.tipo);
 
@@ -88,10 +79,4 @@ final class CadastrarVeiculoSetCombustivel extends CadastrarVeiculoEvent {
   List<Object?> get props => [combustivel];
 }
 
-final class CadastrarVeiculoLimparCampos extends CadastrarVeiculoEvent {
-  const CadastrarVeiculoLimparCampos();
-
-  @override
-  List<Object?> get props => [];
-}
 

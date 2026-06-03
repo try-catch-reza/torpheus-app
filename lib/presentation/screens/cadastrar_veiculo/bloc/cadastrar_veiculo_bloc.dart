@@ -19,12 +19,10 @@ class CadastrarVeiculoBloc
     on<CadastrarVeiculoLoad>(_onCadastrarVeiculoLoad);
     on<CadastrarVeiculoSubmit>(_onCadastrarVeiculoSubmit);
     on<CadastrarVeiculoUpdate>(_onCadastrarVeiculoUpdate);
-    on<CadastrarVeiculoSetAtivo>(_onCadastrarVeiculoSetAtivo);
     on<CadastrarVeiculoSetTipo>(_onCadastrarVeiculoSetTipo);
     on<CadastrarVeiculoSetMarca>(_onCadastrarVeiculoSetMarca);
     on<CadastrarVeiculoSetCambio>(_onCadastrarVeiculoSetCambio);
     on<CadastrarVeiculoSetCombustivel>(_onCadastrarVeiculoSetCombustivel);
-    on<CadastrarVeiculoLimparCampos>(_onCadastrarVeiculoLimparCampos);
   }
 
   Future<void> _onCadastrarVeiculoLoad(
@@ -141,20 +139,6 @@ class CadastrarVeiculoBloc
     }
   }
 
-  void _onCadastrarVeiculoSetAtivo(
-    CadastrarVeiculoSetAtivo event,
-    Emitter<CadastrarVeiculoState> emit,
-  ) {
-    emit(
-      CadastrarVeiculoLoaded(
-        veiculoEditar: state.veiculoEditar,
-        isEdit: state.isEdit,
-        veiculoId: state.veiculoId,
-        isAtivo: event.isAtivo,
-      ),
-    );
-  }
-
   void _onCadastrarVeiculoSetTipo(
     CadastrarVeiculoSetTipo event,
     Emitter<CadastrarVeiculoState> emit,
@@ -220,23 +204,6 @@ class CadastrarVeiculoBloc
         combustivel: event.combustivel,
         marca: state.marca,
         tipo: state.tipo,
-      ),
-    );
-  }
-
-  void _onCadastrarVeiculoLimparCampos(
-    CadastrarVeiculoLimparCampos event,
-    Emitter<CadastrarVeiculoState> emit,
-  ) {
-    emit(
-      CadastrarVeiculoLoaded(
-        veiculoEditar: state.veiculoEditar,
-        isEdit: state.isEdit,
-        veiculoId: state.veiculoId,
-        cambio: '',
-        combustivel: '',
-        marca: '',
-        tipo: '',
       ),
     );
   }

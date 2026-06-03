@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/config/routes.dart';
 import 'package:torpheus/presentation/screens/menu/web/menu_web_item.dart';
 
 import '../../../../core/constants/custom_colors.dart';
@@ -34,10 +35,13 @@ class MenuWebSidebar extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const HeaderUsuario(
+          HeaderUsuario(
             nomeUsuario: 'Huandres Schmidt',
             cargoUsuario: 'Administrador',
             emailUsuario: 'huandreschmidt@gmail.com',
+            onTap: () {
+              Navigator.of(context).pushNamed(AppRoutes.perfil.route);
+            },
           ),
           const SizedBox(height: 8),
           Expanded(

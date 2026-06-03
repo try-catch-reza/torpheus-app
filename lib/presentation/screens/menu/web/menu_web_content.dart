@@ -15,15 +15,17 @@ class MenuWebContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MenuBloc, MenuState>(
-      listener: _listener,
-      builder: (context, state) {
-        return MenuWebBody(
-          indexScreen: state.indexScreen,
-          menuParametros: menuParametros,
-          nome: state.nome,
-        );
-      },
+    return Material(
+      child: BlocConsumer<MenuBloc, MenuState>(
+        listener: _listener,
+        builder: (context, state) {
+          return MenuWebBody(
+            indexScreen: state.indexScreen,
+            menuParametros: menuParametros,
+            nome: state.nome,
+          );
+        },
+      ),
     );
   }
 

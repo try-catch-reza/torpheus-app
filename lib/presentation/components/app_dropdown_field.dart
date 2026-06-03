@@ -26,6 +26,7 @@ class AppDropdownField<T> extends StatelessWidget {
       value: value,
       validator: validator,
       onChanged: onChanged,
+      isExpanded: true,
       icon: const Icon(Icons.keyboard_arrow_down),
       decoration: InputDecoration(
         labelText: label,
