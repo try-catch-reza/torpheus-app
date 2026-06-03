@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/components/app_bar_padrao.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
+import 'package:torpheus/presentation/screens/cliente_detalhe/mobile/cliente_detalhe_mobile_atualizar.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/mobile/cliente_detalhe_mobile_body.dart';
 
 import '../../../components/loading_state.dart';
@@ -12,7 +13,7 @@ class ClienteDetalheMobileContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPadrao(title: 'Detalhes', hasLeading: true),
+      appBar: const AppBarPadrao(title: 'Dados do cliente', hasLeading: true),
       body: BlocBuilder<ClienteDetalheBloc, ClienteDetalheState>(
         builder: (context, state) {
           if (state is ClienteDetalheLoading) {
@@ -26,6 +27,7 @@ class ClienteDetalheMobileContent extends StatelessWidget {
           return const SizedBox.shrink();
         },
       ),
+      bottomNavigationBar: const ClienteDetalheMobileAtualizar(),
     );
   }
 }

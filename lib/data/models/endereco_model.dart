@@ -19,6 +19,18 @@ class EnderecoModel extends Equatable {
   final String? estado;
   final String? cep;
 
+  String get labelRuaNumero {
+    if (rua != null && numero != null) {
+      return '$rua, $numero';
+    } else if (rua != null) {
+      return rua!;
+    } else if (numero != null) {
+      return numero!;
+    } else {
+      return '';
+    }
+  }
+
   factory EnderecoModel.fromJson(Map<String, dynamic> json) {
     return EnderecoModel(
       rua: json['street'] as String?,

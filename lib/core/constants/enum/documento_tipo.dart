@@ -1,10 +1,11 @@
 enum DocumentoTipo {
-  cpf(1),
-  cpnj(2);
+  cpf(1, 'CPF'),
+  cpnj(2, 'CNPJ');
 
   final int value;
+  final String label;
 
-  const DocumentoTipo(this.value);
+  const DocumentoTipo(this.value, this.label);
 
   DocumentoTipo fromValue(int value) {
     return DocumentoTipo.values.firstWhere((e) => e.value == value, orElse: () {

@@ -18,11 +18,12 @@ class FuncionarioMobileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(padding: const EdgeInsets.only(bottom: 10, top: 10),
+    return Container(
+      padding: const EdgeInsets.only(bottom: 10, top: 10),
       decoration: BoxDecoration(
         border: Border.all(
-          color: ColorConstants.morningMist,
-          width: .5,
+          color: ColorConstants.mercury,
+          width: 1.0,
         ),
       ),
       child: Padding(
@@ -70,116 +71,15 @@ class FuncionarioMobileCard extends StatelessWidget {
                     ],
                   ),
                 ),
-              ],
-            ),
-            const SizedBox(height: 14),
-            _Badge(
-              label: funcionario.isActive ?? false ? 'Ativo' : 'Inativo',
-              background: funcionario.isActive ?? false
-                  ? const Color(0xFFD1FAE5)
-                  : const Color(0xFFFEE2E2),
-              textColor: funcionario.isActive ?? false
-                  ? const Color(0xFF065F46)
-                  : const Color(0xFF991B1B),
-              dot: funcionario.isActive ?? false ? true : false,
-            ),
-            const SizedBox(height: 14),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Data de cadatro',
-                      style: TextStyle(fontSize: 11, color: Color(0xFF6B7280)),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      funcionario.hiredAt
-                          ?.toString()
-                          .formataData ?? '',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF111827),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        size: 20,
-                        Icons.edit_outlined,
-                        color: ColorConstants.chambray,
-                      ),
-                      onPressed: onEdit,
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        size: 20,
-                        Icons.arrow_forward_ios,
-                        color: ColorConstants.chambray,
-                      ),
-                      onPressed: onTap,
-                    ),
-                  ],
+                Icon(
+                  size: 20,
+                  Icons.arrow_forward_ios,
+                  color: ColorConstants.chambray,
                 ),
               ],
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _Badge extends StatelessWidget {
-  final String label;
-  final Color background;
-  final Color textColor;
-  final bool dot;
-
-  const _Badge({
-    required this.label,
-    required this.background,
-    required this.textColor,
-    this.dot = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      decoration: BoxDecoration(
-        color: background,
-        borderRadius: BorderRadius.circular(999),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (dot) ...[
-            Container(
-              width: 6,
-              height: 6,
-              margin: const EdgeInsets.only(right: 4),
-              decoration: BoxDecoration(
-                color: textColor,
-                shape: BoxShape.circle,
-              ),
-            ),
-          ],
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-              color: textColor,
-            ),
-          ),
-        ],
       ),
     );
   }
