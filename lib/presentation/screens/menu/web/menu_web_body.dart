@@ -15,17 +15,23 @@ class MenuWebBody extends StatelessWidget {
     required this.indexScreen,
     required this.menuParametros,
     required this.nome,
+    required this.permissoesUsuarios,
   });
 
   final int indexScreen;
   final MenuParametros menuParametros;
   final String nome;
+  final List<String> permissoesUsuarios;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        MenuWebSidebar(indexScreen: indexScreen, nome: nome),
+        MenuWebSidebar(
+          indexScreen: indexScreen,
+          nome: nome,
+          permissoesUsuario: permissoesUsuarios,
+        ),
         Expanded(child: Center(child: _widgetPages().elementAt(indexScreen))),
       ],
     );

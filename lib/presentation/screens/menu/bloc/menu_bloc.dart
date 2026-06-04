@@ -23,8 +23,15 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       emit(const MenuLoading());
 
       final nome = _preferencesLocalRepository.getNome();
+      final permissoes = _preferencesLocalRepository.getListPermissions();
 
-      emit(MenuLoaded(indexScreen: state.indexScreen, nome: nome));
+      emit(
+        MenuLoaded(
+          indexScreen: state.indexScreen,
+          nome: nome,
+          permissoesUsuarios: permissoes,
+        ),
+      );
     } catch (e) {
       emit(const MenuFail('Deu rim'));
     }
@@ -34,6 +41,12 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     MenuTrocarTela event,
     Emitter<MenuState> emit,
   ) {
-    emit(MenuLoaded(indexScreen: event.indexScreen, nome: state.nome));
+    emit(
+      MenuLoaded(
+        indexScreen: event.indexScreen,
+        nome: state.nome,
+        permissoesUsuarios: state.permissoesUsuarios,
+      ),
+    );
   }
 }

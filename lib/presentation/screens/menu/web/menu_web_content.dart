@@ -23,6 +23,7 @@ class MenuWebContent extends StatelessWidget {
             indexScreen: state.indexScreen,
             menuParametros: menuParametros,
             nome: state.nome,
+            permissoesUsuarios: state.permissoesUsuarios,
           );
         },
       ),

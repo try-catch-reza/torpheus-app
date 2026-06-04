@@ -17,6 +17,7 @@ class MenuMobileContent extends StatelessWidget {
         return MenuMobileBody(
           indexScreen: state.indexScreen,
           menuParametros: menuParametros,
+          permissoesUsuario: state.permissoesUsuarios,
         );
       },
     );

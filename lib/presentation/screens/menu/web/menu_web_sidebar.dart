@@ -13,23 +13,57 @@ class MenuWebSidebar extends StatelessWidget {
     super.key,
     required this.indexScreen,
     required this.nome,
+    required this.permissoesUsuario,
   });
 
   final int indexScreen;
   final String nome;
+  final List<String> permissoesUsuario;
+
+  List<({MenuItem item, int originalIndex})> _itensFiltrados() {
+    return _menuItems
+        .asMap()
+        .entries
+        .where((entry) {
+          final permissao = entry.value.permissaoNecessaria;
+          // sem permissão exigida = sempre mostra
+          if (permissao == null) return true;
+          return permissoesUsuario.contains(permissao);
+        })
+        .map((entry) => (item: entry.value, originalIndex: entry.key))
+        .toList();
+  }
 
   static const List<MenuItem> _menuItems = [
     MenuItem(icon: Icons.dashboard_rounded, label: 'Painel'),
     MenuItem(icon: Icons.receipt_long_rounded, label: 'Ordens de Serviço'),
-    MenuItem(icon: Icons.directions_car_rounded, label: 'Veículos'),
-    MenuItem(icon: Icons.group, label: 'Funcionários'),
-    MenuItem(icon: Icons.person_rounded, label: 'Clientes'),
-    MenuItem(icon: Icons.security, label: 'Perfis de Acesso'),
+    MenuItem(
+      icon: Icons.directions_car_rounded,
+      label: 'Veículos',
+      permissaoNecessaria: 'vehicle.read',
+    ),
+    MenuItem(
+      icon: Icons.group,
+      label: 'Funcionários',
+      permissaoNecessaria: 'employees.read',
+    ),
+    MenuItem(
+      icon: Icons.person_rounded,
+      label: 'Clientes',
+      permissaoNecessaria: 'clients.read',
+    ),
+    MenuItem(
+      icon: Icons.security,
+      label: 'Perfis de Acesso',
+      permissaoNecessaria: 'roles.read',
+    ),
     MenuItem(icon: Icons.logout, label: 'Sair'),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final itensFiltrados = _itensFiltrados();
+
     return Container(
       width: 220,
       color: ColorConstants.chambray,
@@ -48,13 +82,17 @@ class MenuWebSidebar extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.zero,
-              itemCount: _menuItems.length,
+              itemCount: itensFiltrados.length,
               itemBuilder: (context, index) {
+                final entrada = itensFiltrados[index];
+
                 return MenuWebItem(
-                  item: _menuItems[index],
-                  isSelected: indexScreen == index,
+                  item: entrada.item,
+                  isSelected: indexScreen == entrada.originalIndex,
                   onTap: () {
-                    context.read<MenuBloc>().add(MenuTrocarTela(index));
+                    context.read<MenuBloc>().add(
+                          MenuTrocarTela(entrada.originalIndex),
+                        );
                   },
                 );
               },
