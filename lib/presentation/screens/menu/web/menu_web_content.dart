@@ -30,7 +30,7 @@ class MenuWebContent extends StatelessWidget {
   }
 
   void _listener(BuildContext context, MenuState state) {
-    if (state.indexScreen == 5) {
+    if (state.indexScreen == 6) {
       ConfirmDialog.show(
         context,
         titulo: 'Sair do aplicativo',

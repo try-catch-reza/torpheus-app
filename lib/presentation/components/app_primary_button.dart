@@ -21,10 +21,12 @@ class AppPrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: onPressed,
-      icon: icon != null ? Icon(icon, size: 18) : const SizedBox(),
+      icon: icon != null
+          ? Icon(icon, size: 18, color: Colors.white)
+          : const SizedBox(),
       label: Text(
         text,
-        style: TextStyle(fontSize: fontSize),
+        style: TextStyle(fontSize: fontSize, color: Colors.white),
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: ColorConstants.chambray,

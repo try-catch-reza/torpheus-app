@@ -24,6 +24,7 @@ class MenuWebSidebar extends StatelessWidget {
     MenuItem(icon: Icons.directions_car_rounded, label: 'Veículos'),
     MenuItem(icon: Icons.group, label: 'Funcionários'),
     MenuItem(icon: Icons.person_rounded, label: 'Clientes'),
+    MenuItem(icon: Icons.security, label: 'Perfis de Acesso'),
     MenuItem(icon: Icons.logout, label: 'Sair'),
   ];
 

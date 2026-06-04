@@ -4,6 +4,8 @@ import 'package:torpheus/data/models/mecanico_model.dart';
 import '../../../data/models/auth_model.dart';
 import '../../../data/models/auth_response_model.dart';
 import '../../../data/models/endereco_model.dart';
+import '../../../data/models/perfis_model.dart';
+import '../../../data/models/veiculo_model.dart';
 
 abstract class EapiRemoteRepository {
   /// Autenticação -------------------------------------------------------------
@@ -25,4 +27,19 @@ abstract class EapiRemoteRepository {
   Future<List<FuncionarioModel>> getFuncionarios();
 
   Future<void> cadastrarFuncionario(FuncionarioModel funcionario);
+
+  /// Veículos -----------------------------------------------------------------
+  Future<List<VeiculoModel>> getVeiculos();
+
+  Future<void> cadastrarVeiculo(VeiculoModel veiculo);
+
+  /// Catálogo Permissões ------------------------------------------------------
+  Future<List<String>> getCatalogoPermissoes();
+
+  /// Perfis -------------------------------------------------------------------
+  Future<List<PerfisModel>> getPerfis();
+
+  Future<void> cadastrarPerfil(PerfisModel perfil);
+
+  Future<PerfisModel> getPerfilById(String id);
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:torpheus/presentation/screens/cliente/cliente_screen.dart';
 import 'package:torpheus/presentation/screens/funcionario/funcionario_screen.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/ordens_servico_screen.dart';
+import 'package:torpheus/presentation/screens/perfis/perfis_screen.dart';
 import 'package:torpheus/presentation/screens/veiculos/veiculos_screen.dart';
 
 import '../../painel/painel_screen.dart';
@@ -37,6 +38,7 @@ class MenuWebBody extends StatelessWidget {
       VeiculosScreen(veiculosBloc: menuParametros.veiculosBloc),
       FuncionarioScreen(funcionarioBloc: menuParametros.mecanicosBloc),
       ClienteScreen(clienteBloc: menuParametros.clienteBloc),
+      PerfisScreen(perfisBloc: menuParametros.perfisBloc),
       const Text(''),
     ];
   }

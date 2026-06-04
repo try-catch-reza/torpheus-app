@@ -27,6 +27,7 @@ import '../presentation/screens/cadastrar_funcionario/bloc/cadastrar_funcionario
 import '../presentation/screens/cliente/bloc/cliente_bloc.dart';
 import '../presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import '../presentation/screens/cliente_detalhe/cliente_detalhe_screen.dart';
+import '../presentation/screens/perfis/bloc/perfis_bloc.dart';
 import '../presentation/screens/veiculo_detalhe/bloc/veiculo_detalhe_bloc.dart';
 import '../presentation/screens/veiculo_detalhe/veiculo_detalhe_screen.dart';
 import '../presentation/screens/funcionario_detalhe/bloc/funcionario_detalhe_bloc.dart';
@@ -92,6 +93,7 @@ class Routes {
           veiculosBloc: injector.getIt.get<VeiculosBloc>(),
           ordensServicoBloc: injector.getIt.get<OrdensServicoBloc>(),
           relatoriosBloc: injector.getIt.get<RelatoriosBloc>(),
+          perfisBloc: injector.getIt.get<PerfisBloc>(),
         ),
       AppRoutes.home => PainelScreen(
           painelBloc: injector.getIt.get<PainelBloc>(),

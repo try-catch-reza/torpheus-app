@@ -24,18 +24,7 @@ class FuncionarioBloc extends Bloc<FuncionarioEvent, FuncionarioState> {
     emit(const FuncionarioLoading());
     try {
 
-      // final funcionarios = await _eapiRemoteRepository.getFuncionarios();
-
-      final funcionarios = [
-        FuncionarioModel(
-          telefone: '(11) 99999-9999',
-          isActive: true,
-          documento: '123.456.789-00',
-          nome: 'João Silva',
-          funcao: 'Mecânico',
-          hiredAt: DateTime.now(),
-        ),
-      ];
+      final funcionarios = await _eapiRemoteRepository.getFuncionarios();
 
       emit(FuncionarioLoaded(funcionarios: funcionarios));
     } catch (e) {

@@ -10,6 +10,7 @@ import 'package:torpheus/presentation/screens/relatorios/bloc/relatorios_bloc.da
 
 import '../../../config/responsive.dart';
 import '../funcionario/bloc/funcionario_bloc.dart';
+import '../perfis/bloc/perfis_bloc.dart';
 import '../veiculos/bloc/veiculos_bloc.dart';
 import 'mobile/menu_mobile_content.dart';
 
@@ -53,6 +54,7 @@ class MenuParametros {
     required this.veiculosBloc,
     required this.ordensServicoBloc,
     required this.relatoriosBloc,
+    required this.perfisBloc,
   });
 
   final PainelBloc homeBloc;
@@ -63,4 +65,5 @@ class MenuParametros {
   final VeiculosBloc veiculosBloc;
   final OrdensServicoBloc ordensServicoBloc;
   final RelatoriosBloc relatoriosBloc;
+  final PerfisBloc perfisBloc;
 }

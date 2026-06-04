@@ -59,19 +59,20 @@ class ListaDropdown {
     'Diesel',
     'GNV',
     'Elétrico',
+    'Híbrido',
+    'Flex',
   ];
 
   static const List<String> tipoVeiculo = [
     'Carro',
     'Moto',
-    'Caminhão',
   ];
 
   static List<String> cambio = [
     'Manual',
     'Automático',
     'CVT',
-    'Semi-automático',
+    'Automatizado',
   ];
 
   static List<String> funcao = [

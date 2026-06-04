@@ -12,6 +12,7 @@ import '../login/login_screen.dart';
 
 import '../../../config/routes.dart';
 import '../ordens_servico/bloc/ordens_servico_bloc.dart';
+import '../perfis/bloc/perfis_bloc.dart';
 import '../relatorios/bloc/relatorios_bloc.dart';
 import '../veiculos/bloc/veiculos_bloc.dart';
 import 'authentication_bloc/authentication_bloc.dart';
@@ -29,6 +30,7 @@ class AuthenticationScreen extends StatefulWidget {
     required this.veiculosBloc,
     required this.ordensServicoBloc,
     required this.relatoriosBloc,
+    required this.perfisBloc,
   });
 
   final AuthenticationBloc authenticationBloc;
@@ -41,6 +43,7 @@ class AuthenticationScreen extends StatefulWidget {
   final VeiculosBloc veiculosBloc;
   final OrdensServicoBloc ordensServicoBloc;
   final RelatoriosBloc relatoriosBloc;
+  final PerfisBloc perfisBloc;
 
   @override
   State<AuthenticationScreen> createState() => _AuthenticationScreenState();
@@ -57,6 +60,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   late final VeiculosBloc _veiculosBloc;
   late final OrdensServicoBloc _ordensServicoBloc;
   late final RelatoriosBloc _relatoriosBloc;
+  late final PerfisBloc _perfisBloc;
 
   @override
   void initState() {
@@ -70,6 +74,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
     _veiculosBloc = widget.veiculosBloc;
     _ordensServicoBloc = widget.ordensServicoBloc;
     _relatoriosBloc = widget.relatoriosBloc;
+    _perfisBloc = widget.perfisBloc;
 
     _authenticationBloc.add(const AuthenticationLoad());
 
@@ -93,6 +98,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   veiculosBloc: _veiculosBloc,
                   ordensServicoBloc: _ordensServicoBloc,
                   relatoriosBloc: _relatoriosBloc,
+                  perfisBloc: _perfisBloc,
                 ),
               )
             : LoginScreen(loginBloc: _loginBloc);

@@ -3,6 +3,8 @@ import 'package:torpheus/data/models/auth_response_model.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
 import 'package:torpheus/data/models/endereco_model.dart';
 import 'package:torpheus/data/models/mecanico_model.dart';
+import 'package:torpheus/data/models/perfis_model.dart';
+import 'package:torpheus/data/models/veiculo_model.dart';
 
 import '../../../config/eapi_schema.dart';
 import '../../../core/resources/base_remote_data_source.dart';
@@ -189,6 +191,105 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       response: (response) {
         if (response.statusCode == 200) {
           return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<void> cadastrarVeiculo(VeiculoModel veiculo) async {
+    const titleMessage = 'Não foi possível cadastrar o veículo';
+  }
+
+  @override
+  Future<List<VeiculoModel>> getVeiculos() {
+    // TODO: implement getVeiculos
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> cadastrarPerfil(PerfisModel perfil) async {
+    const titleMessage = 'Não foi possível criar novo perfil';
+
+    await post(
+      path: _schema.cadastrarPerfil,
+      body: perfil.toJsonAPI(),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<List<String>> getCatalogoPermissoes() async {
+    const titleMessage = 'Não foi possível carregar o catálogo de permissões';
+
+    return await get(
+      path: _schema.catalogoPermissoes,
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return List<String>.from(response.data);
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<List<PerfisModel>> getPerfis() async {
+    const titleMessage = 'Não foi possível carregar os perfis';
+
+    return await get(
+      path: _schema.buscarPerfis,
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> data = response.data;
+          final List<dynamic> items = data['roles'] ?? [];
+
+          return items.map((item) => PerfisModel.fromJson(item)).toList();
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<PerfisModel> getPerfilById(String id) async {
+    const titleMessage = 'Não foi possível carregar os detalhes do perfil';
+
+    return await get(
+      path: _schema.buscarPerfilById(id),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return PerfisModel.fromJson(response.data);
         } else {
           throw HttpRequestException(
             titleMessage: titleMessage,

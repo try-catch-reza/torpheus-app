@@ -17,9 +17,16 @@ class AppCancelButton extends StatelessWidget {
     return OutlinedButton.icon(
       onPressed: onPressed,
       icon: icon != null
-          ? Icon(icon, size: 18)
+          ? Icon(
+              icon,
+              size: 18,
+              color: Colors.red.shade700,
+            )
           : const SizedBox(),
-      label: Text(text),
+      label: Text(
+        text,
+        style: TextStyle(color: Colors.red.shade700),
+      ),
       style: OutlinedButton.styleFrom(
         backgroundColor: Colors.grey.shade100,
         foregroundColor: Colors.red.shade700,
