@@ -145,7 +145,6 @@ class Routes {
         ),
       AppRoutes.cadastrarUsuario => CadastrarUsuarioScreen(
           cadastrarUsuarioBloc: injector.getIt.get<CadastrarUsuarioBloc>(),
-          arguments: settings.arguments as CadastrarUsuarioArguments,
         ),
     };
 

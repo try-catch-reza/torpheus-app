@@ -25,6 +25,8 @@ class EapiSchema {
 
   String get cadastrarPerfil => '$_apiUtils/v1/roles';
 
+  String get cadastrarUsuario => '$_apiUtils/v1/user';
+
   String get catalogoPermissoes => '$_apiUtils/v1/roles/permissions/catalog';
 
   String updateCliente(String id) => '$_apiUtils/v1/client/$id';

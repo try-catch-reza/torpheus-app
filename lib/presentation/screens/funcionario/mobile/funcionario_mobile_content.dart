@@ -17,23 +17,25 @@ class _FuncionarioMobileContentState extends State<FuncionarioMobileContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: BlocBuilder<FuncionarioBloc, FuncionarioState>(
-        builder: (context, state) {
-          if (state is FuncionarioLoading) {
-            return const LoadingState();
-          }
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: BlocBuilder<FuncionarioBloc, FuncionarioState>(
+          builder: (context, state) {
+            if (state is FuncionarioLoading) {
+              return const LoadingState();
+            }
 
-          if (state is FuncionarioLoaded) {
-            return FuncionarioMobileBody(
-              state: state,
-              controller: _searchController,
-            );
-          }
+            if (state is FuncionarioLoaded) {
+              return FuncionarioMobileBody(
+                state: state,
+                controller: _searchController,
+              );
+            }
 
-          return const SizedBox.shrink();
-        },
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
   }

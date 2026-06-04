@@ -16,9 +16,6 @@ class PainelMobileContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: TorpheusDrawer(
-        nomeUsuario: 'Huandres Schmidt',
-        cargoUsuario: 'Administrador',
-        emailUsuario: 'huandreschmidt@gmail.com',
         onSairTap: () {
           ConfirmDialog.show(
             context,

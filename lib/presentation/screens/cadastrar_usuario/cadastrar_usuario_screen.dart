@@ -8,33 +8,18 @@ class CadastrarUsuarioScreen extends StatelessWidget {
   const CadastrarUsuarioScreen({
     super.key,
     required this.cadastrarUsuarioBloc,
-    required this.arguments,
   });
 
   final CadastrarUsuarioBloc cadastrarUsuarioBloc;
-  final CadastrarUsuarioArguments arguments;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: cadastrarUsuarioBloc
-        ..add(
-          CadastrarUsuarioLoad(
-            isEdit: arguments.isEdit,
-            usuarioId: arguments.usuarioId,
-          ),
-        ),
+      value: cadastrarUsuarioBloc..add(const CadastrarUsuarioLoad()),
       child: Responsive.isDesktop(context) || Responsive.isTablet(context)
           ? const CadastrarUsuarioMobileContent()
           : const CadastrarUsuarioMobileContent(),
     );
   }
-}
-
-class CadastrarUsuarioArguments {
-  final bool isEdit;
-  final String usuarioId;
-
-  CadastrarUsuarioArguments({this.isEdit = false, this.usuarioId = ''});
 }
 

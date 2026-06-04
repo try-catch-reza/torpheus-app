@@ -1,71 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/config/routes.dart';
 import 'package:torpheus/core/constants/color_constants.dart';
+import 'package:torpheus/presentation/screens/painel/bloc/painel_bloc.dart';
 
 import '../../../components/header_usuario.dart';
 
 class TorpheusDrawer extends StatelessWidget {
   const TorpheusDrawer({
     super.key,
-    required this.nomeUsuario,
-    required this.cargoUsuario,
-    required this.emailUsuario,
     required this.onSairTap,
   });
 
-  final String nomeUsuario;
-  final String cargoUsuario;
-  final String emailUsuario;
   final VoidCallback onSairTap;
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      backgroundColor: ColorConstants.chambray,
-      child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            HeaderUsuario(
-              nomeUsuario: nomeUsuario,
-              cargoUsuario: cargoUsuario,
-              emailUsuario: emailUsuario,
+    return BlocBuilder<PainelBloc, PainelState>(
+      builder: (context, state) {
+        return Drawer(
+          backgroundColor: ColorConstants.chambray,
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                HeaderUsuario(
+                  nomeUsuario: state.nome,
+                  cargoUsuario: state.cargo,
+                  emailUsuario: state.email,
+                ),
+                const Divider(color: Color(0xFF304D7A), height: 1),
+                const SizedBox(height: 8),
+                _DrawerItem(
+                  icon: Icons.account_circle,
+                  label: 'Perfil',
+                  onTap: () {
+                    Navigator.of(context).pushNamed(AppRoutes.perfil.route);
+                  },
+                ),
+                const SizedBox(height: 8),
+                _DrawerItem(
+                  icon: Icons.bar_chart,
+                  label: 'Relatório',
+                  onTap: () {
+                    Navigator.of(context).pushNamed(AppRoutes.relatorios.route);
+                  },
+                ),
+                const SizedBox(height: 8),
+                _DrawerItem(
+                  icon: Icons.person_add_alt_1,
+                  label: 'Cadastrar usuário',
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      AppRoutes.cadastrarUsuario.route,
+                    );
+                  },
+                ),
+                const SizedBox(height: 8),
+                _DrawerItemDanger(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    onSairTap();
+                  },
+                ),
+              ],
             ),
-            const Divider(color: Color(0xFF304D7A), height: 1),
-            const SizedBox(height: 8),
-            _DrawerItem(
-              icon: Icons.account_circle,
-              label: 'Perfil',
-              onTap: () {
-                Navigator.of(context).pushNamed(AppRoutes.perfil.route);
-              },
-            ),
-            const SizedBox(height: 8),
-            _DrawerItem(
-              icon: Icons.bar_chart,
-              label: 'Relatório',
-              onTap: () {
-                Navigator.of(context).pushNamed(AppRoutes.relatorios.route);
-              },
-            ),
-            const SizedBox(height: 8),
-            _DrawerItem(
-              icon: Icons.person_add_alt_1,
-              label: 'Cadastrar usuário',
-              onTap: () {
-                ///
-              },
-            ),
-            const SizedBox(height: 8),
-            _DrawerItemDanger(
-              onTap: () {
-                Navigator.of(context).pop();
-                onSairTap();
-              },
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

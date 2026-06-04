@@ -96,4 +96,19 @@ class PreferencesLocalRepositoryImpl extends PreferencesLocalRepository {
   Future<void> saveNome(String value) async {
     await _sharedData.setValue(Preferences.nome, value);
   }
+
+  @override
+  String getCargo() {
+    return _sharedData.getValue<String>(Preferences.cargo) ?? '';
+  }
+
+  @override
+  Future<void> removeCargo() async {
+    await _sharedData.cleanValue(Preferences.cargo);
+  }
+
+  @override
+  Future<void> saveCargo(String value) async {
+    await _sharedData.setValue(Preferences.cargo, value);
+  }
 }

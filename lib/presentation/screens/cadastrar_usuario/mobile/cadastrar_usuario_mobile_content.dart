@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/components/app_bar_padrao.dart';
+import 'package:torpheus/presentation/components/app_button_bottom_navigation.dart';
 import 'package:torpheus/presentation/components/dialog/dialog_mobile_padrao.dart';
 import 'package:torpheus/presentation/components/loading_state.dart';
 import 'package:torpheus/presentation/screens/cadastrar_usuario/bloc/cadastrar_usuario_bloc.dart';
@@ -19,17 +20,13 @@ class _CadastrarUsuarioMobileContentState
   final _formKey = GlobalKey<FormState>();
   final _nomeController = TextEditingController();
   final _emailController = TextEditingController();
-  final _telefoneController = TextEditingController();
-  final _documentoController = TextEditingController();
-  final _cargoController = TextEditingController();
+  final _senhaController = TextEditingController();
 
   @override
   void dispose() {
     _nomeController.dispose();
     _emailController.dispose();
-    _telefoneController.dispose();
-    _documentoController.dispose();
-    _cargoController.dispose();
+    _senhaController.dispose();
     super.dispose();
   }
 
@@ -44,8 +41,7 @@ class _CadastrarUsuarioMobileContentState
         buildWhen: _buildWhen,
         listener: _listener,
         builder: (context, state) {
-          if (state is CadastrarUsuarioLoading ||
-              state is CadastrarUsuarioEditando) {
+          if (state is CadastrarUsuarioLoading) {
             return const LoadingState();
           }
 
@@ -54,15 +50,18 @@ class _CadastrarUsuarioMobileContentState
               formKey: _formKey,
               nomeController: _nomeController,
               emailController: _emailController,
-              telefoneController: _telefoneController,
-              documentoController: _documentoController,
-              cargoController: _cargoController,
+              senhaController: _senhaController,
               state: state,
             );
           }
 
           return const SizedBox.shrink();
         },
+      ),
+      bottomNavigationBar: AppButtonBottomNavigation(
+        onPressed: () => _onSalvarUsuario(context),
+        text: 'Salvar novo usuário',
+        icon: Icons.check,
       ),
     );
   }
@@ -72,8 +71,7 @@ class _CadastrarUsuarioMobileContentState
     CadastrarUsuarioState current,
   ) {
     return current is! CadastrarUsuarioError &&
-        current is! CadastrarUsuarioSuccess &&
-        current is! CadastrarUsuarioAtualizado;
+        current is! CadastrarUsuarioSuccess;
   }
 
   void _listener(BuildContext context, CadastrarUsuarioState state) {
@@ -83,15 +81,6 @@ class _CadastrarUsuarioMobileContentState
         message: 'Usuário cadastrado com sucesso!',
         onPress: () {
           Navigator.of(context).pop();
-        },
-      );
-    }
-
-    if (state is CadastrarUsuarioAtualizado) {
-      DialogMobilePadrao.successDialog(
-        context: context,
-        message: 'Usuário atualizado com sucesso!',
-        onPress: () {
           Navigator.of(context).pop();
         },
       );
@@ -101,16 +90,20 @@ class _CadastrarUsuarioMobileContentState
       DialogMobilePadrao.errorDialog(
         context: context,
         message: state.message,
-        onPress: () {
-          context.read<CadastrarUsuarioBloc>().add(
-                CadastrarUsuarioLoad(
-                  isEdit: state.isEdit,
-                  usuarioId: state.usuarioId,
-                ),
-              );
-        },
+        onPress: () {},
       );
     }
   }
-}
 
+  void _onSalvarUsuario(BuildContext context) {
+    if (_formKey.currentState?.validate() ?? false) {
+      context.read<CadastrarUsuarioBloc>().add(
+            CadastrarUsuarioSubmit(
+              senha: _senhaController.text,
+              nome: _nomeController.text,
+              email: _emailController.text,
+            ),
+          );
+    }
+  }
+}

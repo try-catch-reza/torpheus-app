@@ -4,7 +4,8 @@ enum Preferences {
   isUsuarioLogado('is_usuario_logado'),
   permissions('permissions'),
   email('email'),
-  nome('nome');
+  nome('nome'),
+  cargo('cargo');
 
   final String key;
 

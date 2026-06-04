@@ -4,20 +4,18 @@ class UsuarioModel extends Equatable {
   const UsuarioModel({
     this.id,
     this.nome,
+    this.senha,
     this.email,
-    this.telefone,
-    this.documento,
-    this.cargo,
+    this.roleId,
     this.isActive,
     this.createdAt,
   });
 
   final String? id;
   final String? nome;
+  final String? senha;
   final String? email;
-  final String? telefone;
-  final String? documento;
-  final String? cargo;
+  final String? roleId;
   final bool? isActive;
   final DateTime? createdAt;
 
@@ -25,10 +23,9 @@ class UsuarioModel extends Equatable {
     return UsuarioModel(
       id: json['id'] as String?,
       nome: json['name'] as String?,
+      senha: json['password'] as String?,
       email: json['email'] as String?,
-      telefone: json['phone'] as String?,
-      documento: json['document'] as String?,
-      cargo: json['role'] as String?,
+      roleId: json['roleId'] as String?,
       isActive: json['isActive'] as bool?,
       createdAt: json['createdAt'] != null
           ? DateTime.parse(json['createdAt'] as String)
@@ -36,16 +33,12 @@ class UsuarioModel extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toAPI() {
     return {
-      'id': id,
       'name': nome,
       'email': email,
-      'phone': telefone,
-      'document': documento,
-      'role': cargo,
-      'isActive': isActive,
-      'createdAt': createdAt?.toIso8601String(),
+      'password': senha,
+      'roleId': roleId,
     };
   }
 
@@ -63,9 +56,6 @@ class UsuarioModel extends Equatable {
       id: id ?? this.id,
       nome: nome ?? this.nome,
       email: email ?? this.email,
-      telefone: telefone ?? this.telefone,
-      documento: documento ?? this.documento,
-      cargo: cargo ?? this.cargo,
       isActive: isActive ?? this.isActive,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -77,9 +67,6 @@ class UsuarioModel extends Equatable {
         'id: $id, '
         'nome: $nome, '
         'email: $email, '
-        'telefone: $telefone, '
-        'documento: $documento, '
-        'cargo: $cargo, '
         'isActive: $isActive, '
         'createdAt: $createdAt'
         '}';
@@ -90,11 +77,7 @@ class UsuarioModel extends Equatable {
         id,
         nome,
         email,
-        telefone,
-        documento,
-        cargo,
         isActive,
         createdAt,
       ];
 }
-

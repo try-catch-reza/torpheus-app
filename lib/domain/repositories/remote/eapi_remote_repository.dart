@@ -1,5 +1,6 @@
 import 'package:torpheus/data/models/cliente_model.dart';
 import 'package:torpheus/data/models/mecanico_model.dart';
+import 'package:torpheus/data/models/usuario_model.dart';
 
 import '../../../data/models/auth_model.dart';
 import '../../../data/models/auth_response_model.dart';
@@ -44,4 +45,7 @@ abstract class EapiRemoteRepository {
   Future<PerfisModel> getPerfilById(String id);
 
   Future<void> adicionarPermissao(PerfisModel perfil);
+
+  /// Usuário ------------------------------------------------------------------
+  Future<void> cadastrarUsuario(UsuarioModel usuario);
 }

@@ -123,7 +123,10 @@ final class InjectorImpl extends Injector {
     );
 
     getIt.registerSingleton<PainelBloc>(
-      PainelBloc(getIt.get<ImageService>()),
+      PainelBloc(
+        getIt.get<ImageService>(),
+        getIt.get<PreferencesLocalRepository>(),
+      ),
     );
 
     getIt.registerSingleton<MenuBloc>(

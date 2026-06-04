@@ -24,28 +24,25 @@ class AppBarMobileSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: ColorConstants.zhenZhuBaiPearl,
-          border: Border.all(color: ColorConstants.mercury, width: 2.0),
-        ),
-        child: Column(
-          children: [
-            HeaderMobileCustom(
-              title: title,
-              subtitle: subtitle,
-              onPressed: onPressed,
-            ),
-            SearchCustom(
-              controller: controller,
-              width: double.infinity,
-              onChanged: onChanged,
-              hintText: hintText,
-            ),
-          ],
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        color: ColorConstants.zhenZhuBaiPearl,
+        border: Border.all(color: ColorConstants.mercury, width: 2.0),
+      ),
+      child: Column(
+        children: [
+          HeaderMobileCustom(
+            title: title,
+            subtitle: subtitle,
+            onPressed: onPressed,
+          ),
+          SearchCustom(
+            controller: controller,
+            width: double.infinity,
+            onChanged: onChanged,
+            hintText: hintText,
+          ),
+        ],
       ),
     );
   }

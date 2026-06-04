@@ -48,4 +48,13 @@ abstract class JwtDecoder {
     }
     return '';
   }
+
+  static String getRoleId(String token) {
+    final payload = decode(token);
+    final nome = payload['role_id'];
+    if (nome is String) {
+      return nome;
+    }
+    return '';
+  }
 }

@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../data/plugins/image_service.dart';
+import '../../../../domain/repositories/preferenfeces/preferences_local_repository.dart';
+import '../../../../domain/repositories/remote/eapi_remote_repository.dart';
 
 part 'painel_event.dart';
 
@@ -11,8 +13,12 @@ part 'painel_state.dart';
 
 class PainelBloc extends Bloc<PainelEvent, PainelState> {
   late final ImageService _imageService;
+  late final PreferencesLocalRepository _preferencesLocalRepository;
 
-  PainelBloc(this._imageService) : super(const PainelInitial()) {
+  PainelBloc(
+    this._imageService,
+    this._preferencesLocalRepository,
+  ) : super(const PainelInitial()) {
     on<PainelCarregar>(_onPainelLoad);
     on<PainelAbrirCamera>(_onPainelAbrirCamera);
     on<PainelAbrirGaleria>(_onPainelAbrirGaleria);
@@ -25,7 +31,13 @@ class PainelBloc extends Bloc<PainelEvent, PainelState> {
     try {
       emit(const PainelLoading());
 
-      emit(const PainelLoaded());
+      final nome = _preferencesLocalRepository.getNome();
+      final email = _preferencesLocalRepository.getEmail();
+      final cargo = _preferencesLocalRepository.getCargo();
+
+      emit(
+        PainelLoaded(nome: nome, email: email, cargo: cargo),
+      );
     } catch (e) {
       emit(const PainelFail('Deu rim'));
     }
@@ -37,11 +49,6 @@ class PainelBloc extends Bloc<PainelEvent, PainelState> {
   ) async {
     try {
       final image = await _imageService.pickFromCamera();
-
-      if (image != null) {
-        emit(PainelLoaded(image: image));
-        // Faça algo com a imagem selecionada
-      }
     } catch (e) {
       emit(const PainelFail('Erro ao abrir a câmera'));
     }
@@ -53,11 +60,6 @@ class PainelBloc extends Bloc<PainelEvent, PainelState> {
   ) async {
     try {
       final image = await _imageService.pickFromGallery();
-
-      if (image != null) {
-        emit(PainelLoaded(image: image));
-        // Faça algo com a imagem selecionada
-      }
     } catch (e) {
       emit(const PainelFail('Erro ao abrir a galeria'));
     }

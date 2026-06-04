@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:torpheus/core/utils/jwt_decoder.dart';
 import 'package:torpheus/data/datasources/remote/http_client.dart';
 import 'package:torpheus/data/models/auth_model.dart';
@@ -86,6 +87,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       final nome = JwtDecoder.getNome(authResponse.acessToken ?? '');
 
+      final roleId = JwtDecoder.getRoleId(authResponse.acessToken ?? '');
+
       await Future.wait([
         _preferencesLocalRepository.saveAccessToken(
           authResponse.acessToken ?? '',
@@ -95,6 +98,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         _preferencesLocalRepository.saveEmail(event.email),
         _preferencesLocalRepository.saveNome(nome),
       ]);
+
+      final perfil = await _eapiRemoteRepository.getPerfilById(roleId);
+
+      await _preferencesLocalRepository.saveCargo(perfil.nome ?? '');
 
       emit(
         LoginAutenticado(

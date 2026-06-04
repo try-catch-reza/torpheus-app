@@ -4,6 +4,7 @@ import 'package:torpheus/data/models/cliente_model.dart';
 import 'package:torpheus/data/models/endereco_model.dart';
 import 'package:torpheus/data/models/mecanico_model.dart';
 import 'package:torpheus/data/models/perfis_model.dart';
+import 'package:torpheus/data/models/usuario_model.dart';
 import 'package:torpheus/data/models/veiculo_model.dart';
 
 import '../../../config/eapi_schema.dart';
@@ -312,6 +313,28 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       response: (response) {
         if (response.statusCode == 200) {
           return PerfisModel.fromJson(response.data);
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<void> cadastrarUsuario(UsuarioModel usuario) async {
+    const titleMessage = 'Não foi possível salvar novo usuário';
+
+    await post(
+      path: _schema.cadastrarUsuario,
+      body: usuario.toAPI(),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
         } else {
           throw HttpRequestException(
             titleMessage: titleMessage,

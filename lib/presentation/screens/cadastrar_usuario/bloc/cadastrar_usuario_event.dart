@@ -8,22 +8,25 @@ sealed class CadastrarUsuarioEvent extends Equatable {
 }
 
 final class CadastrarUsuarioLoad extends CadastrarUsuarioEvent {
-  const CadastrarUsuarioLoad({required this.isEdit, required this.usuarioId});
-
-  final bool isEdit;
-  final String usuarioId;
+  const CadastrarUsuarioLoad();
 
   @override
-  List<Object?> get props => [isEdit, usuarioId];
+  List<Object?> get props => [];
 }
 
 final class CadastrarUsuarioSubmit extends CadastrarUsuarioEvent {
-  const CadastrarUsuarioSubmit({required this.usuario});
+  const CadastrarUsuarioSubmit({
+    required this.senha,
+    required this.nome,
+    required this.email,
+  });
 
-  final UsuarioModel usuario;
+  final String nome;
+  final String email;
+  final String senha;
 
   @override
-  List<Object?> get props => [usuario];
+  List<Object?> get props => [nome, email, senha];
 }
 
 final class CadastrarUsuarioUpdate extends CadastrarUsuarioEvent {
@@ -35,12 +38,11 @@ final class CadastrarUsuarioUpdate extends CadastrarUsuarioEvent {
   List<Object?> get props => [usuario];
 }
 
-final class CadastrarUsuarioSetAtivo extends CadastrarUsuarioEvent {
-  const CadastrarUsuarioSetAtivo(this.isAtivo);
+final class CadastrarUsuarioSetPerfil extends CadastrarUsuarioEvent {
+  const CadastrarUsuarioSetPerfil(this.perfil);
 
-  final bool isAtivo;
+  final PerfisModel perfil;
 
   @override
-  List<Object?> get props => [isAtivo];
+  List<Object?> get props => [perfil];
 }
-

@@ -26,4 +26,8 @@ abstract class PreferencesLocalRepository {
   String getEmail();
   Future<void> saveEmail(String value);
   Future<void> removeEmail();
+
+  String getCargo();
+  Future<void> saveCargo(String value);
+  Future<void> removeCargo();
 }

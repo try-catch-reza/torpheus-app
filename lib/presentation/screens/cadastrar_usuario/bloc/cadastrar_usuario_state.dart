@@ -2,21 +2,15 @@ part of 'cadastrar_usuario_bloc.dart';
 
 sealed class CadastrarUsuarioState extends Equatable {
   const CadastrarUsuarioState({
-    this.usuarioEditar = const UsuarioModel(),
-    this.usuarioId = '',
-    this.isEdit = false,
+    this.perfis = const [],
+    this.perfilSelecionado,
   });
 
-  final UsuarioModel usuarioEditar;
-  final bool isEdit;
-  final String usuarioId;
+  final List<PerfisModel> perfis;
+  final PerfisModel? perfilSelecionado;
 
   @override
-  List<Object?> get props => [
-        usuarioEditar,
-        isEdit,
-        usuarioId,
-      ];
+  List<Object?> get props => [perfis, perfilSelecionado];
 }
 
 final class CadastrarUsuarioInitial extends CadastrarUsuarioState {
@@ -27,25 +21,20 @@ final class CadastrarUsuarioInitial extends CadastrarUsuarioState {
 }
 
 final class CadastrarUsuarioLoading extends CadastrarUsuarioState {
-  const CadastrarUsuarioLoading({
-    super.usuarioEditar,
-    super.usuarioId,
-    super.isEdit,
-  });
+  const CadastrarUsuarioLoading({super.perfilSelecionado});
 
   @override
-  List<Object?> get props => [usuarioEditar, usuarioId, isEdit];
+  List<Object?> get props => [perfilSelecionado];
 }
 
 final class CadastrarUsuarioLoaded extends CadastrarUsuarioState {
   const CadastrarUsuarioLoaded({
-    super.usuarioEditar,
-    super.usuarioId,
-    super.isEdit,
+    super.perfis,
+    super.perfilSelecionado,
   });
 
   @override
-  List<Object?> get props => [usuarioEditar, usuarioId, isEdit];
+  List<Object?> get props => [perfis, perfilSelecionado];
 }
 
 final class CadastrarUsuarioSuccess extends CadastrarUsuarioState {
@@ -58,31 +47,10 @@ final class CadastrarUsuarioSuccess extends CadastrarUsuarioState {
 final class CadastrarUsuarioError extends CadastrarUsuarioState {
   const CadastrarUsuarioError({
     required this.message,
-    required super.usuarioId,
-    required super.isEdit,
   });
 
   final String message;
 
   @override
-  List<Object?> get props => [message, usuarioId, isEdit];
+  List<Object?> get props => [message];
 }
-
-final class CadastrarUsuarioEditando extends CadastrarUsuarioState {
-  const CadastrarUsuarioEditando({
-    required super.usuarioEditar,
-    required super.usuarioId,
-    required super.isEdit,
-  });
-
-  @override
-  List<Object?> get props => [usuarioEditar, usuarioId, isEdit];
-}
-
-final class CadastrarUsuarioAtualizado extends CadastrarUsuarioState {
-  const CadastrarUsuarioAtualizado();
-
-  @override
-  List<Object?> get props => [];
-}
-

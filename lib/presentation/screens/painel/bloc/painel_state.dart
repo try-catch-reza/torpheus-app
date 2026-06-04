@@ -1,9 +1,17 @@
 part of 'painel_bloc.dart';
 
 sealed class PainelState extends Equatable {
-  const PainelState({this.image});
+  const PainelState({
+    this.image,
+    this.email = '',
+    this.nome = '',
+    this.cargo = '',
+  });
 
   final File? image;
+  final String nome;
+  final String email;
+  final String cargo;
 
   @override
   List<Object?> get props => [image];
@@ -24,10 +32,10 @@ final class PainelLoading extends PainelState {
 }
 
 final class PainelLoaded extends PainelState {
-  const PainelLoaded({super.image});
+  const PainelLoaded({required super.email, required super.nome, required super.cargo});
 
   @override
-  List<Object?> get props => [image];
+  List<Object?> get props => [email, nome];
 }
 
 final class PainelFail extends PainelState {
