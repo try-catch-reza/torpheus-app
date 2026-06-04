@@ -55,19 +55,19 @@ class PerfisWebSidebar extends StatelessWidget {
                     ),
                     FilledButton.icon(
                       onPressed: onNewProfile,
-                      icon: const Icon(Icons.add, size: 14),
+                      icon: const Icon(Icons.add, size: 16),
                       label: const Text('Novo'),
                       style: FilledButton.styleFrom(
                         backgroundColor: ColorConstants.chambray,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 12,
-                          vertical: 6,
+                          vertical: 12,
                         ),
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         textStyle: const TextStyle(
-                          fontSize: 12,
+                          fontSize: 13,
                           fontWeight: FontWeight.w500,
                         ),
                         shape: RoundedRectangleBorder(

@@ -3,6 +3,8 @@ class EapiSchema {
 
   String get auth => '$_apiUtils/v1/auth/login';
 
+  String adicionarPermissao(String id) => '$_apiUtils/v1/roles/$id';
+
   String get buscarCliente => '$_apiUtils/v1/client';
 
   String buscarClienteById(String id) => '$_apiUtils/v1/client/$id';

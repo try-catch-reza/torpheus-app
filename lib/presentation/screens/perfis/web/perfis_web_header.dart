@@ -15,33 +15,23 @@ class PerfisWebHeader extends StatelessWidget {
         color: ColorConstants.zhenZhuBaiPearl,
         border: Border(bottom: BorderSide(color: ColorConstants.mercury)),
       ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.shield_outlined,
-                size: 20,
-                color: ColorConstants.chambray,
-              ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.person,
+            size: 24,
+            color: ColorConstants.chambray,
+          ),
+          const SizedBox(width: 12),
+          Text(
+            perfis?.nome ?? '',
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
             ),
-            const SizedBox(width: 12),
-            Text(
-              perfis?.nome ?? '',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-      ]),
+          ),
+        ],
+      ),
     );
   }
 }

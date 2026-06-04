@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:torpheus/data/models/permissao_model.dart';
 
 sealed class PerfisEvent extends Equatable {
   const PerfisEvent();
@@ -30,4 +31,13 @@ final class PerfisCriar extends PerfisEvent {
 
   @override
   List<Object?> get props => [nome];
+}
+
+final class PerfisAdicionarPermissao extends PerfisEvent {
+  const PerfisAdicionarPermissao(this.permissao);
+
+  final PermissaoModel permissao;
+
+  @override
+  List<Object?> get props => [permissao];
 }

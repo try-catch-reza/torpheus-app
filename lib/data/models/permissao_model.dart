@@ -1,8 +1,8 @@
 class PermissaoModel {
-  final String recurso;   // ex: "users"
-  final String acao;      // ex: "create"
-  final String valor;     // ex: "users.create"
-  final String titulo;    // ex: "Criar usuário"
+  final String recurso; // ex: "users"
+  final String acao; // ex: "create"
+  final String valor; // ex: "users.create"
+  final String titulo; // ex: "Criar usuário"
   final bool isSelected;
 
   const PermissaoModel({
@@ -64,5 +64,16 @@ class PermissaoModel {
   static String _capitalizar(String texto) {
     if (texto.isEmpty) return texto;
     return texto[0].toUpperCase() + texto.substring(1);
+  }
+
+  @override
+  String toString() {
+    return '{'
+        'recurso: $recurso, '
+        'acao: $acao, '
+        'valor: $valor, '
+        'titulo: $titulo, '
+        'isSelected: $isSelected, '
+        '}';
   }
 }

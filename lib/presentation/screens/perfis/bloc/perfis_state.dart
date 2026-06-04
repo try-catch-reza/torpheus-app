@@ -8,11 +8,13 @@ sealed class PerfisState extends Equatable {
     this.perfis = const [],
     this.perfilSelecionado,
     this.permissaoGrupo = const [],
+    this.catalogoPermissoes = const [],
   });
 
   final List<PerfisModel> perfis;
   final PerfisModel? perfilSelecionado;
   final List<PermissaoGrupoModel> permissaoGrupo;
+  final List<String> catalogoPermissoes;
 
   @override
   List<Object?> get props => [];
@@ -31,6 +33,7 @@ final class PerfisLoaded extends PerfisState {
     required super.perfis,
     super.perfilSelecionado,
     super.permissaoGrupo,
+    super.catalogoPermissoes,
   });
 
   @override
@@ -38,16 +41,27 @@ final class PerfisLoaded extends PerfisState {
         perfis,
         perfilSelecionado,
         permissaoGrupo,
+        catalogoPermissoes,
       ];
 }
 
 final class PerfisError extends PerfisState {
-  const PerfisError({required this.message});
+  const PerfisError({
+    required this.message,
+    super.perfis,
+    super.perfilSelecionado,
+    super.permissaoGrupo,
+  });
 
   final String message;
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [
+        message,
+        perfis,
+        perfilSelecionado,
+        permissaoGrupo,
+      ];
 }
 
 final class PerfisCriado extends PerfisState {

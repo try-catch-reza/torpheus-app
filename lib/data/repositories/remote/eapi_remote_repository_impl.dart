@@ -300,4 +300,26 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       },
     );
   }
+
+  @override
+  Future<void> adicionarPermissao(PerfisModel perfil) async {
+    const titleMessage = 'Não foi possível adicionar essa permissão';
+
+    await put(
+      path: _schema.adicionarPermissao(perfil.id ?? ''),
+      body: perfil.toJsonPUT(),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return PerfisModel.fromJson(response.data);
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
 }

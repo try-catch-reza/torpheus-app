@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/color_constants.dart';
 import 'package:torpheus/data/models/permissao_grupo_model.dart';
-import 'package:torpheus/presentation/screens/perfis/web/perfis_item_permissao.dart';
+import 'package:torpheus/presentation/screens/perfis/web/perfis_web_item_permissao.dart';
 
 class PerfisWebPermissionCard extends StatelessWidget {
   const PerfisWebPermissionCard({
@@ -55,7 +55,7 @@ class PerfisWebPermissionCard extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final permission = grupo.itens[index];
 
-                    return PerfisItemPermissao(permissao: permission);
+                    return PerfisWebItemPermissao(permissao: permission);
                   },
                 );
               },

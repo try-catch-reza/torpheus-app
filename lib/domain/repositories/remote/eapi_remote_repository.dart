@@ -42,4 +42,6 @@ abstract class EapiRemoteRepository {
   Future<void> cadastrarPerfil(PerfisModel perfil);
 
   Future<PerfisModel> getPerfilById(String id);
+
+  Future<void> adicionarPermissao(PerfisModel perfil);
 }

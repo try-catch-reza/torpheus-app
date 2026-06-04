@@ -16,6 +16,7 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
     on<PerfisLoad>(_onPerfisLoad);
     on<PerfisSelect>(_onPerfisSelect);
     on<PerfisCriar>(_onPerfisCriar);
+    on<PerfisAdicionarPermissao>(_onPerfisAdicionarPermissao);
   }
 
   Future<void> _onPerfisLoad(
@@ -62,6 +63,7 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
           perfis: state.perfis,
           perfilSelecionado: perfilSelecionado,
           permissaoGrupo: permissionGroup,
+          catalogoPermissoes: allPermissoes,
         ),
       );
     } catch (e) {
@@ -90,12 +92,80 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
       emit(
         PerfisError(
           message: e.message,
+          permissaoGrupo: state.permissaoGrupo,
+          perfilSelecionado: state.perfilSelecionado,
+          perfis: state.perfis,
         ),
       );
     } catch (e) {
       emit(
         PerfisError(
           message: 'Não foi possível criar o perfil.\n$e',
+          permissaoGrupo: state.permissaoGrupo,
+          perfilSelecionado: state.perfilSelecionado,
+          perfis: state.perfis,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onPerfisAdicionarPermissao(
+    PerfisAdicionarPermissao event,
+    Emitter<PerfisState> emit,
+  ) async {
+    try {
+      final perfilSelecionado = await _eapiRemoteRepository.getPerfilById(
+        state.perfilSelecionado?.id ?? '',
+      );
+
+      if (perfilSelecionado.permissoes!.contains(event.permissao.valor)) {
+        perfilSelecionado.permissoes?.remove(event.permissao.valor);
+      } else {
+        perfilSelecionado.permissoes?.add(event.permissao.valor);
+      }
+
+      await _eapiRemoteRepository.adicionarPermissao(perfilSelecionado);
+
+      final perfilAtualizado = await _eapiRemoteRepository.getPerfilById(
+        state.perfilSelecionado?.id ?? '',
+      );
+
+      final userPermissoes = perfilAtualizado.permissoes;
+
+      // Monta a lista de PermissaoModel marcando as que o perfil já tem
+      final permissions = state.catalogoPermissoes.map((valor) {
+        return PermissaoModel.fromString(valor).copyWith(
+          isSelected: userPermissoes?.contains(valor),
+        );
+      }).toList();
+
+      // Agrupa por recurso para exibir na UI
+      final permissionGroup = _agruparPermissoes(permissions);
+
+      emit(
+        PerfisLoaded(
+          perfis: state.perfis,
+          perfilSelecionado: perfilAtualizado,
+          permissaoGrupo: permissionGroup,
+          catalogoPermissoes: state.catalogoPermissoes,
+        ),
+      );
+    } on HttpRequestException catch (e) {
+      emit(
+        PerfisError(
+          message: e.message,
+          permissaoGrupo: state.permissaoGrupo,
+          perfilSelecionado: state.perfilSelecionado,
+          perfis: state.perfis,
+        ),
+      );
+    } catch (e) {
+      emit(
+        PerfisError(
+          message: 'Não foi possível criar o perfil.\n$e',
+          permissaoGrupo: state.permissaoGrupo,
+          perfilSelecionado: state.perfilSelecionado,
+          perfis: state.perfis,
         ),
       );
     }

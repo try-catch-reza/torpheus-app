@@ -3,8 +3,8 @@ import 'package:torpheus/presentation/screens/perfis/bloc/perfis_state.dart';
 import 'package:torpheus/presentation/screens/perfis/web/perfis_web_header.dart';
 import 'package:torpheus/presentation/screens/perfis/web/perfis_web_permission_card.dart';
 
-class PerfisDetalhes extends StatelessWidget {
-  const PerfisDetalhes({super.key, required this.state});
+class PerfisWebDetalhes extends StatelessWidget {
+  const PerfisWebDetalhes({super.key, required this.state});
 
   final PerfisState state;
 

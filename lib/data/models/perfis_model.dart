@@ -44,6 +44,14 @@ class PerfisModel extends Equatable {
     };
   }
 
+  Map<String, dynamic> toJsonPUT() {
+    return {
+      'roleId': id,
+      'name': nome,
+      'permissions': permissoes,
+    };
+  }
+
   @override
   String toString() {
     return 'PerfilModel{'

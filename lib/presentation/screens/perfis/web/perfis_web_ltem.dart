@@ -40,19 +40,10 @@ class PerfisWebItem extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  width: 32,
-                  height: 32,
-                  margin: const EdgeInsets.only(top: 2),
-                  decoration: const BoxDecoration(
-                    color: ColorConstants.zhenZhuBaiPearl,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.shield_outlined,
-                    size: 20,
-                    color: ColorConstants.chambray,
-                  ),
+                Icon(
+                  Icons.person,
+                  size: 24,
+                  color: ColorConstants.chambray,
                 ),
                 const SizedBox(width: 10),
                 Expanded(

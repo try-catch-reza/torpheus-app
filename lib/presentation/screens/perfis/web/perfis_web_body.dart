@@ -7,7 +7,7 @@ import 'package:torpheus/presentation/components/app_text_field.dart';
 import 'package:torpheus/presentation/screens/perfis/bloc/perfis_bloc.dart';
 import 'package:torpheus/presentation/screens/perfis/bloc/perfis_event.dart';
 import 'package:torpheus/presentation/screens/perfis/bloc/perfis_state.dart';
-import 'package:torpheus/presentation/screens/perfis/web/perfis_detalhes.dart';
+import 'package:torpheus/presentation/screens/perfis/web/perfis_web_detalhes.dart';
 import 'package:torpheus/presentation/screens/perfis/web/perfis_web_sidebar.dart';
 
 class PerfisWebBody extends StatelessWidget {
@@ -33,7 +33,7 @@ class PerfisWebBody extends StatelessWidget {
           onNewProfile: () => _openNewPerfisDialog(context),
         ),
         Expanded(
-          child: PerfisDetalhes(state: state),
+          child: PerfisWebDetalhes(state: state),
         ),
       ],
     );
