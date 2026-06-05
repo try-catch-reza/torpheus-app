@@ -71,7 +71,7 @@ class _CadastrarVeiculoMobileContentState
               placa: _placaController.text,
               modelo: _modeloController.text,
               motor: _motorController.text,
-              ano: _anoController.text,
+              ano: int.tryParse(_anoController.text) ?? 0,
             ),
           );
     }

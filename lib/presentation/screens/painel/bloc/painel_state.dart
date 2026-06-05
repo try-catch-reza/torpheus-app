@@ -6,6 +6,10 @@ sealed class PainelState extends Equatable {
     this.email = '',
     this.nome = '',
     this.cargo = '',
+    this.hasAccessUsuario = false,
+    this.hasAccessFuncionario = false,
+    this.hasAccessCliente = false,
+    this.hasAccessVeiculo = false,
   });
 
   final File? image;
@@ -13,8 +17,13 @@ sealed class PainelState extends Equatable {
   final String email;
   final String cargo;
 
+  final bool hasAccessUsuario;
+  final bool hasAccessFuncionario;
+  final bool hasAccessCliente;
+  final bool hasAccessVeiculo;
+
   @override
-  List<Object?> get props => [image];
+  List<Object?> get props => [image, hasAccessUsuario];
 }
 
 final class PainelInitial extends PainelState {
@@ -32,7 +41,15 @@ final class PainelLoading extends PainelState {
 }
 
 final class PainelLoaded extends PainelState {
-  const PainelLoaded({required super.email, required super.nome, required super.cargo});
+  const PainelLoaded({
+    required super.email,
+    required super.nome,
+    required super.cargo,
+    required super.hasAccessUsuario,
+    required super.hasAccessCliente,
+    required super.hasAccessFuncionario,
+    required super.hasAccessVeiculo,
+  });
 
   @override
   List<Object?> get props => [email, nome];

@@ -6,7 +6,7 @@ enum Funcao {
 
   const Funcao(this.value, this.label);
 
-  Funcao fromValue(int value) {
+  static Funcao fromValue(int value) {
     return Funcao.values.firstWhere((e) => e.value == value, orElse: () {
       throw ArgumentError('Valor inválido para Funcao: $value');
     });

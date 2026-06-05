@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:torpheus/data/models/mecanico_model.dart';
+import 'package:torpheus/data/models/funcionario_model.dart';
 
 part 'funcionario_detalhe_event.dart';
 

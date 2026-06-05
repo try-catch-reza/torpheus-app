@@ -7,7 +7,7 @@ enum DocumentoTipo {
 
   const DocumentoTipo(this.value, this.label);
 
-  DocumentoTipo fromValue(int value) {
+  static DocumentoTipo fromValue(int value) {
     return DocumentoTipo.values.firstWhere((e) => e.value == value, orElse: () {
       throw ArgumentError('Valor inválido para DocumentoTipo: $value');
     });

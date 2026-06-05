@@ -33,6 +33,7 @@ class ClienteMobileBody extends StatelessWidget {
           title: 'Clientes',
           subtitle: 'Cadastro e histórico de clientes',
           controller: controller,
+          hasPodeCriar: state.hasCriarCliente,
         ),
         if (state.clientes.isEmpty)
           const ListaVaziaCustom(

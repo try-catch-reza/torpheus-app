@@ -2,7 +2,7 @@ import 'package:torpheus/data/models/auth_model.dart';
 import 'package:torpheus/data/models/auth_response_model.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
 import 'package:torpheus/data/models/endereco_model.dart';
-import 'package:torpheus/data/models/mecanico_model.dart';
+import 'package:torpheus/data/models/funcionario_model.dart';
 import 'package:torpheus/data/models/perfis_model.dart';
 import 'package:torpheus/data/models/usuario_model.dart';
 import 'package:torpheus/data/models/veiculo_model.dart';
@@ -45,7 +45,7 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
     const titleMessage = 'Não foi possível carregar os clientes';
 
     return await get(
-      path: _schema.buscarCliente,
+      path: _schema.buscarClientes,
       titleMessage: titleMessage,
       response: (response) {
         if (response.statusCode == 200) {
@@ -141,7 +141,7 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
     const titleMessage = 'Não foi possível carregar os funcionários';
 
     return await get(
-      path: _schema.buscarFuncionario,
+      path: _schema.buscarFuncionarios,
       titleMessage: titleMessage,
       response: (response) {
         if (response.statusCode == 200) {
@@ -205,13 +205,48 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
 
   @override
   Future<void> cadastrarVeiculo(VeiculoModel veiculo) async {
-    const titleMessage = 'Não foi possível cadastrar o veículo';
+    const titleMessage = 'Não foi possível buscar os veículos';
+
+    await post(
+      path: _schema.cadastrarVeiculo,
+      body: veiculo.toJson(),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
   }
 
   @override
-  Future<List<VeiculoModel>> getVeiculos() {
-    // TODO: implement getVeiculos
-    throw UnimplementedError();
+  Future<List<VeiculoModel>> getVeiculos() async {
+    const titleMessage = 'Não foi possível carregar os dados do cliente';
+
+    return await get(
+      path: _schema.buscarVeiculos,
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> data = response.data;
+          final List<dynamic> items = data['items'] ?? [];
+
+          return items.map((item) => VeiculoModel.fromJson(item)).toList();
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
   }
 
   @override
@@ -335,6 +370,51 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       response: (response) {
         if (response.statusCode == 200) {
           return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<List<UsuarioModel>> getUsuarios() async {
+    const titleMessage = 'Não foi possível carregar os usuários';
+
+    return await get(
+      path: _schema.buscarUsuarios,
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> data = response.data;
+          final List<dynamic> items = data['users'] ?? [];
+
+          return items.map((item) => UsuarioModel.fromJson(item)).toList();
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<VeiculoModel> getVeiculoById(String id) async {
+    const titleMessage = 'Não foi possível carregar os detalhes do veículo';
+
+    return await get(
+      path: _schema.buscarVeiculolById(id),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return VeiculoModel.fromJson(response.data);
         } else {
           throw HttpRequestException(
             titleMessage: titleMessage,

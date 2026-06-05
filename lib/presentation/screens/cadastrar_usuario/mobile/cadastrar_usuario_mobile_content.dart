@@ -81,7 +81,6 @@ class _CadastrarUsuarioMobileContentState
         message: 'Usuário cadastrado com sucesso!',
         onPress: () {
           Navigator.of(context).pop();
-          Navigator.of(context).pop();
         },
       );
     }

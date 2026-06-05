@@ -13,18 +13,21 @@ class ClienteDetalheMobileAtualizar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ClienteDetalheBloc, ClienteDetalheState>(
       builder: (context, state) {
-        return AppButtonBottomNavigation(
-          icon: Icons.edit,
-          text: 'Editar dados do cliente',
-          onPressed: () {
-            Navigator.of(context).pushNamed(
-              AppRoutes.cadastrarCliente.route,
-              arguments: CadastrarClienteArguments(
-                clienteId: state.cliente?.id ?? '',
-                isEdit: true,
-              ),
-            );
-          },
+        return Visibility(
+          visible: state.hasAtualizarCliente,
+          child: AppButtonBottomNavigation(
+            icon: Icons.edit,
+            text: 'Editar dados do cliente',
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                AppRoutes.cadastrarCliente.route,
+                arguments: CadastrarClienteArguments(
+                  clienteId: state.cliente?.id ?? '',
+                  isEdit: true,
+                ),
+              );
+            },
+          ),
         );
       },
     );

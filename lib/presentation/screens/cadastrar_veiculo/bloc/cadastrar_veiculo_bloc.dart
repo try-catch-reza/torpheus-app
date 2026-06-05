@@ -1,8 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:torpheus/core/constants/enum/cambio_veiculo.dart';
+import 'package:torpheus/core/constants/enum/combustivel_veiculo.dart';
+import 'package:torpheus/core/constants/enum/marca_veiculo.dart';
+import 'package:torpheus/core/constants/enum/tipo_veiculo.dart';
 import 'package:torpheus/data/models/veiculo_model.dart';
 
 import '../../../../data/datasources/remote/http_client.dart';
+import '../../../../domain/controller/permissao_controller.dart';
 import '../../../../domain/repositories/remote/eapi_remote_repository.dart';
 
 part 'cadastrar_veiculo_event.dart';
@@ -12,9 +17,11 @@ part 'cadastrar_veiculo_state.dart';
 class CadastrarVeiculoBloc
     extends Bloc<CadastrarVeiculoEvent, CadastrarVeiculoState> {
   late final EapiRemoteRepository _eapiRemoteRepository;
+  late final PermissaoController _permissaoController;
 
   CadastrarVeiculoBloc(
     this._eapiRemoteRepository,
+    this._permissaoController,
   ) : super(const CadastrarVeiculoInitial()) {
     on<CadastrarVeiculoLoad>(_onCadastrarVeiculoLoad);
     on<CadastrarVeiculoSubmit>(_onCadastrarVeiculoSubmit);
@@ -30,32 +37,35 @@ class CadastrarVeiculoBloc
     Emitter<CadastrarVeiculoState> emit,
   ) async {
     if (event.isEdit) {
-      // final veiculo = await _eapiRemoteRepository.getVeiculoById(
-      //   event.veiculoId,
-      // );
+      final veiculo = await _eapiRemoteRepository.getVeiculoById(
+        event.veiculoId,
+      );
 
-      // emit(
-      //   CadastrarVeiculoEditando(
-      //     veiculoEditar: veiculo,
-      //     isEdit: event.isEdit,
-      //     veiculoId: event.veiculoId,
-      //   ),
-      // );
-      //
-      // emit(
-      //   CadastrarVeiculoLoaded(
-      //     veiculoEditar: veiculo,
-      //     veiculoId: event.veiculoId,
-      //     isEdit: event.isEdit,
-      //   ),
-      // );
+      emit(
+        CadastrarVeiculoEditando(
+          veiculoEditar: veiculo,
+          isEdit: event.isEdit,
+          veiculoId: event.veiculoId,
+        ),
+      );
+
+      emit(
+        CadastrarVeiculoLoaded(
+          veiculoEditar: veiculo,
+          veiculoId: event.veiculoId,
+          isEdit: event.isEdit,
+        ),
+      );
 
       return;
     }
 
+    final hasAtualizarCliente = _permissaoController.podeAtualizarVeiculo;
+
     emit(
       CadastrarVeiculoLoaded(
         veiculoEditar: state.veiculoEditar,
+        hasAtualizarVeiculo: hasAtualizarCliente,
       ),
     );
   }

@@ -31,6 +31,7 @@ class FuncionarioMobileBody extends StatelessWidget {
           title: 'Funcionários',
           subtitle: 'Cadastro e histórico de funcionários',
           controller: controller,
+          hasPodeCriar: state.hasCriarFuncionario,
         ),
         if (state.funcionarios.isEmpty)
           const ListaVaziaCustom(

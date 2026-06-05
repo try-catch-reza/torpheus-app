@@ -7,6 +7,7 @@ sealed class CadastrarClienteState extends Equatable {
     this.clienteEditar = const ClienteModel(),
     this.clienteId = '',
     this.isEdit = false,
+    this.hasAtualizarCliente = false,
   });
 
   final EnderecoModel endereco;
@@ -15,6 +16,8 @@ sealed class CadastrarClienteState extends Equatable {
   final bool isEdit;
   final String clienteId;
 
+  final bool hasAtualizarCliente;
+
   @override
   List<Object?> get props => [
         endereco,
@@ -22,6 +25,7 @@ sealed class CadastrarClienteState extends Equatable {
         clienteEditar,
         isEdit,
         clienteId,
+        hasAtualizarCliente,
       ];
 }
 
@@ -50,10 +54,16 @@ final class CadastrarClienteLoaded extends CadastrarClienteState {
     super.clienteEditar,
     super.clienteId,
     super.isEdit,
+    super.hasAtualizarCliente,
   });
 
   @override
-  List<Object?> get props => [endereco, documentoTipo, clienteEditar];
+  List<Object?> get props => [
+        endereco,
+        documentoTipo,
+        clienteEditar,
+        hasAtualizarCliente,
+      ];
 }
 
 final class CadastrarClienteSuccess extends CadastrarClienteState {

@@ -17,23 +17,25 @@ class _VeiculosMobileContentState extends State<VeiculosMobileContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: BlocBuilder<VeiculosBloc, VeiculosState>(
-        builder: (context, state) {
-          if (state is VeiculosLoading) {
-            return const LoadingState();
-          }
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: BlocBuilder<VeiculosBloc, VeiculosState>(
+          builder: (context, state) {
+            if (state is VeiculosLoading) {
+              return const LoadingState();
+            }
 
-          if (state is VeiculosLoaded) {
-            return VeiculosMobileBody(
-              state: state,
-              controller: _searchController,
-            );
-          }
+            if (state is VeiculosLoaded) {
+              return VeiculosMobileBody(
+                state: state,
+                controller: _searchController,
+              );
+            }
 
-          return const SizedBox.shrink();
-        },
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
   }

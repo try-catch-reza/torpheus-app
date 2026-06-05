@@ -3,18 +3,21 @@ part of 'veiculos_bloc.dart';
 sealed class VeiculosState extends Equatable {
   const VeiculosState({
     this.veiculos = const [],
-    this.cambio = '',
-    this.marca = '',
-    this.combustivel = '',
-    this.tipo = '',
+    this.cambio,
+    this.marca,
+    this.combustivel,
+    this.tipo,
+    this.hasCriarVeiculo = false,
   });
 
   final List<VeiculoModel> veiculos;
 
-  final String cambio;
-  final String marca;
-  final String combustivel;
-  final String tipo;
+  final CambioVeiculo? cambio;
+  final MarcaVeiculo? marca;
+  final CombustivelVeiculo? combustivel;
+  final TipoVeiculo? tipo;
+
+  final bool hasCriarVeiculo;
 
   @override
   List<Object?> get props => [
@@ -23,6 +26,7 @@ sealed class VeiculosState extends Equatable {
         marca,
         combustivel,
         tipo,
+        hasCriarVeiculo,
       ];
 }
 
@@ -53,10 +57,18 @@ final class VeiculosLoaded extends VeiculosState {
     super.marca,
     super.combustivel,
     super.tipo,
+    super.hasCriarVeiculo,
   });
 
   @override
-  List<Object?> get props => [veiculos, cambio, marca, combustivel, tipo];
+  List<Object?> get props => [
+        veiculos,
+        cambio,
+        marca,
+        combustivel,
+        tipo,
+        hasCriarVeiculo,
+      ];
 }
 
 final class VeiculosError extends VeiculosState {
@@ -74,7 +86,6 @@ final class VeiculoSuccess extends VeiculosState {
   @override
   List<Object?> get props => [];
 }
-
 
 final class VeiculosSalvando extends VeiculosState {
   const VeiculosSalvando({

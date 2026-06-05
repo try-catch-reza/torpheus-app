@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:torpheus/data/models/mecanico_model.dart';
+import 'package:torpheus/core/constants/enum/documento_tipo.dart';
+import 'package:torpheus/core/constants/enum/funcao.dart';
+import 'package:torpheus/data/models/funcionario_model.dart';
+import 'package:torpheus/data/models/usuario_model.dart';
 
 import '../../../../domain/repositories/remote/eapi_remote_repository.dart';
 
@@ -17,15 +20,19 @@ class CadastrarFuncionarioBloc
   ) : super(const CadastrarFuncionarioInitial()) {
     on<CadastrarFuncionarioLoad>(_onCadastrarFuncionarioLoad);
     on<CadastrarFuncionarioSubmit>(_onCadastrarFuncionarioSubmit);
+    on<CadastrarFuncionarioSetFuncao>(_onCadastrarFuncionarioSetFuncao);
+    on<CadastrarFuncionarioSetUsuario>(_onCadastrarFuncionarioSetUsuario);
   }
 
-  void _onCadastrarFuncionarioLoad(
+  Future<void> _onCadastrarFuncionarioLoad(
     CadastrarFuncionarioLoad event,
     Emitter<CadastrarFuncionarioState> emit,
-  ) {
-    emit(
-      const CadastrarFuncionarioLoaded(),
-    );
+  ) async {
+    emit(const CadastrarFuncionarioLoading());
+
+    final usuarios = await _eapiRemoteRepository.getUsuarios();
+
+    emit(CadastrarFuncionarioLoaded(usuarios: usuarios));
   }
 
   Future<void> _onCadastrarFuncionarioSubmit(
@@ -33,9 +40,23 @@ class CadastrarFuncionarioBloc
     Emitter<CadastrarFuncionarioState> emit,
   ) async {
     try {
-      emit(const CadastrarFuncionarioLoading());
+      emit(
+        CadastrarFuncionarioLoading(
+          usuarioSelecionado: state.usuarioSelecionado,
+          funcaoSelecionada: state.funcaoSelecionada,
+        ),
+      );
 
-      await _eapiRemoteRepository.cadastrarFuncionario(event.funcionario);
+      final funcionario = FuncionarioModel(
+        nome: event.nome,
+        funcao: state.funcaoSelecionada?.label,
+        documento: event.documento,
+        telefone: event.telefone,
+        userId: state.usuarioSelecionado?.id,
+        documentType: DocumentoTipo.cpf,
+      );
+
+      await _eapiRemoteRepository.cadastrarFuncionario(funcionario);
 
       emit(const CadastrarFuncionarioSuccess());
     } catch (e) {
@@ -45,5 +66,31 @@ class CadastrarFuncionarioBloc
         ),
       );
     }
+  }
+
+  void _onCadastrarFuncionarioSetFuncao(
+    CadastrarFuncionarioSetFuncao event,
+    Emitter<CadastrarFuncionarioState> emit,
+  ) {
+    emit(
+      CadastrarFuncionarioLoaded(
+        funcaoSelecionada: event.funcao,
+        usuarios: state.usuarios,
+        usuarioSelecionado: state.usuarioSelecionado,
+      ),
+    );
+  }
+
+  void _onCadastrarFuncionarioSetUsuario(
+    CadastrarFuncionarioSetUsuario event,
+    Emitter<CadastrarFuncionarioState> emit,
+  ) {
+    emit(
+      CadastrarFuncionarioLoaded(
+        funcaoSelecionada: state.funcaoSelecionada,
+        usuarios: state.usuarios,
+        usuarioSelecionado: event.usuario,
+      ),
+    );
   }
 }

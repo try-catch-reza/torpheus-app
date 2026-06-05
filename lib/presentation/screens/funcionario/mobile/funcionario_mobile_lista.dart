@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/presentation/screens/funcionario/mobile/funcionario_mobile_card.dart';
 
-import '../../../../data/models/mecanico_model.dart';
+import '../../../../data/models/funcionario_model.dart';
 
 class FuncionarioMobileLista extends StatelessWidget {
   const FuncionarioMobileLista({

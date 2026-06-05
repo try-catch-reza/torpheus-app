@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:torpheus/data/models/mecanico_model.dart';
+import 'package:torpheus/data/models/funcionario_model.dart';
 
 import '../../../../core/constants/color_constants.dart';
 import '../../../components/status_ativo.dart';

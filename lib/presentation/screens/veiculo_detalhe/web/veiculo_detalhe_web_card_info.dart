@@ -72,19 +72,19 @@ class VeiculoDetalheWebCardInfo extends StatelessWidget {
               Expanded(
                 child: _InfoField(
                   label: 'Tipo',
-                  value: veiculo?.tipo ?? '',
+                  value: veiculo?.tipo?.label ?? '',
                 ),
               ),
               Expanded(
                 child: _InfoField(
                   label: 'Marca',
-                  value: veiculo?.marca ?? '',
+                  value: veiculo?.marca?.label ?? '',
                 ),
               ),
               Expanded(
                 child: _InfoField(
                   label: 'Ano',
-                  value: veiculo?.ano ?? '',
+                  value: veiculo?.ano.toString() ?? '',
                 ),
               ),
             ],
@@ -101,13 +101,13 @@ class VeiculoDetalheWebCardInfo extends StatelessWidget {
               Expanded(
                 child: _InfoField(
                   label: 'Câmbio',
-                  value: veiculo?.cambio ?? '',
+                  value: veiculo?.cambio?.label ?? '',
                 ),
               ),
               Expanded(
                 child: _InfoField(
                   label: 'Combustível',
-                  value: veiculo?.combustivel ?? '',
+                  value: veiculo?.combustivel?.label ?? '',
                 ),
               ),
             ],

@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:torpheus/data/models/endereco_model.dart';
 
 import '../../../../data/models/cliente_model.dart';
+import '../../../../domain/controller/permissao_controller.dart';
 import '../../../../domain/repositories/remote/eapi_remote_repository.dart';
 
 part 'cliente_event.dart';
@@ -11,8 +12,12 @@ part 'cliente_state.dart';
 
 class ClienteBloc extends Bloc<ClienteEvent, ClienteState> {
   late final EapiRemoteRepository _eapiRemoteRepository;
+  late final PermissaoController _permissaoController;
 
-  ClienteBloc(this._eapiRemoteRepository) : super(const ClienteInitial()) {
+  ClienteBloc(
+    this._eapiRemoteRepository,
+    this._permissaoController,
+  ) : super(const ClienteInitial()) {
     on<ClientesLoad>(_onClientesLoad);
     on<ClienteSelecionar>(_onClienteSelecionar);
     on<ClienteCadastrar>(_onClienteCadastrar);
@@ -25,8 +30,18 @@ class ClienteBloc extends Bloc<ClienteEvent, ClienteState> {
   ) async {
     emit(const ClienteLoading());
     try {
+      bool hasCriarCliente = false;
+
       final clientes = await _eapiRemoteRepository.getClientes();
-      emit(ClienteLoaded(clientes: clientes));
+
+      hasCriarCliente = _permissaoController.podeCriarCliente;
+
+      emit(
+        ClienteLoaded(
+          clientes: clientes,
+          hasCriarCliente: hasCriarCliente,
+        ),
+      );
     } catch (e) {
       emit(ClienteError('Não foi possível carregar os clientes\n$e'));
     }

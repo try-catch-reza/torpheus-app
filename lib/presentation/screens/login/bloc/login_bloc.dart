@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:torpheus/core/utils/jwt_decoder.dart';
 import 'package:torpheus/data/datasources/remote/http_client.dart';
 import 'package:torpheus/data/models/auth_model.dart';

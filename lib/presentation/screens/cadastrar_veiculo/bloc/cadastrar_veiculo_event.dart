@@ -28,7 +28,7 @@ final class CadastrarVeiculoSubmit extends CadastrarVeiculoEvent {
   final String placa;
   final String modelo;
   final String motor;
-  final String ano;
+  final int ano;
 
   @override
   List<Object?> get props => [placa, modelo, motor, ano];
@@ -46,7 +46,7 @@ final class CadastrarVeiculoUpdate extends CadastrarVeiculoEvent {
 final class CadastrarVeiculoSetTipo extends CadastrarVeiculoEvent {
   const CadastrarVeiculoSetTipo(this.tipo);
 
-  final String tipo;
+  final TipoVeiculo tipo;
 
   @override
   List<Object?> get props => [tipo];
@@ -55,7 +55,7 @@ final class CadastrarVeiculoSetTipo extends CadastrarVeiculoEvent {
 final class CadastrarVeiculoSetMarca extends CadastrarVeiculoEvent {
   const CadastrarVeiculoSetMarca(this.marca);
 
-  final String marca;
+  final MarcaVeiculo marca;
 
   @override
   List<Object?> get props => [marca];
@@ -64,7 +64,7 @@ final class CadastrarVeiculoSetMarca extends CadastrarVeiculoEvent {
 final class CadastrarVeiculoSetCambio extends CadastrarVeiculoEvent {
   const CadastrarVeiculoSetCambio(this.cambio);
 
-  final String cambio;
+  final CambioVeiculo cambio;
 
   @override
   List<Object?> get props => [cambio];
@@ -73,7 +73,7 @@ final class CadastrarVeiculoSetCambio extends CadastrarVeiculoEvent {
 final class CadastrarVeiculoSetCombustivel extends CadastrarVeiculoEvent {
   const CadastrarVeiculoSetCombustivel(this.combustivel);
 
-  final String combustivel;
+  final CombustivelVeiculo combustivel;
 
   @override
   List<Object?> get props => [combustivel];

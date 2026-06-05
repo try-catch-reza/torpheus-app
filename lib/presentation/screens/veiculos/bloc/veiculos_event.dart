@@ -25,7 +25,7 @@ final class VeiculoSubmit extends VeiculosEvent {
   final String placa;
   final String modelo;
   final String motor;
-  final String ano;
+  final int ano;
 
   @override
   List<Object?> get props => [placa, modelo, motor, ano];
@@ -43,7 +43,7 @@ final class VeiculoUpdate extends VeiculosEvent {
 final class VeiculoSetTipo extends VeiculosEvent {
   const VeiculoSetTipo(this.tipo);
 
-  final String tipo;
+  final TipoVeiculo tipo;
 
   @override
   List<Object?> get props => [tipo];
@@ -52,7 +52,7 @@ final class VeiculoSetTipo extends VeiculosEvent {
 final class VeiculoSetMarca extends VeiculosEvent {
   const VeiculoSetMarca(this.marca);
 
-  final String marca;
+  final MarcaVeiculo marca;
 
   @override
   List<Object?> get props => [marca];
@@ -61,7 +61,7 @@ final class VeiculoSetMarca extends VeiculosEvent {
 final class VeiculoSetCambio extends VeiculosEvent {
   const VeiculoSetCambio(this.cambio);
 
-  final String cambio;
+  final CambioVeiculo cambio;
 
   @override
   List<Object?> get props => [cambio];
@@ -70,7 +70,7 @@ final class VeiculoSetCambio extends VeiculosEvent {
 final class VeiculoSetCombustivel extends VeiculosEvent {
   const VeiculoSetCombustivel(this.combustivel);
 
-  final String combustivel;
+  final CombustivelVeiculo combustivel;
 
   @override
   List<Object?> get props => [combustivel];

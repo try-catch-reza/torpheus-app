@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/cpf_input_formatter.dart';
 import '../../../../core/utils/telefone_input_formatter.dart';
-import '../../../../data/models/mecanico_model.dart';
 import '../bloc/cadastrar_funcionario_bloc.dart';
 import 'cadastrar_funcionario_web_campo.dart';
 import 'cadastrar_funcionario_web_dropdown.dart';
@@ -123,18 +121,11 @@ class _CadastrarFuncionarioWebBodyState extends State<CadastrarFuncionarioWebBod
                         CadastrarFuncionarioWebFooter(
                           onCadastrar: () {
                             if (widget.formKey.currentState!.validate()) {
-                              final funcionario = FuncionarioModel(
-                                nome: widget.nomeController.text,
-                                documento: widget.documentoController.text,
-                                telefone: widget.telefoneController.text,
-                                funcao: _selectedFuncao.label,
-                              );
-
-                              context.read<CadastrarFuncionarioBloc>().add(
-                                    CadastrarFuncionarioSubmit(
-                                      funcionario: funcionario,
-                                    ),
-                                  );
+                              // context.read<CadastrarFuncionarioBloc>().add(
+                              //       CadastrarFuncionarioSubmit(
+                              //         funcionario: funcionario,
+                              //       ),
+                              //     );
                             }
                           },
                           onCancelar: () {},

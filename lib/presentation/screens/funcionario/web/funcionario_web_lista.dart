@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/mecanico_model.dart';
+import '../../../../data/models/funcionario_model.dart';
 import 'funcionario_web_card.dart';
 
 class FuncionarioWebLista extends StatelessWidget {

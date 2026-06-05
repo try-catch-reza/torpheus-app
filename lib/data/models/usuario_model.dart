@@ -23,7 +23,6 @@ class UsuarioModel extends Equatable {
     return UsuarioModel(
       id: json['id'] as String?,
       nome: json['name'] as String?,
-      senha: json['password'] as String?,
       email: json['email'] as String?,
       roleId: json['roleId'] as String?,
       isActive: json['isActive'] as bool?,

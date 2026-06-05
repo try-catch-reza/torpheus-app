@@ -15,12 +15,34 @@ final class CadastrarFuncionarioLoad extends CadastrarFuncionarioEvent {
 }
 
 final class CadastrarFuncionarioSubmit extends CadastrarFuncionarioEvent {
-  const CadastrarFuncionarioSubmit({required this.funcionario});
+  const CadastrarFuncionarioSubmit({
+    required this.nome,
+    required this.telefone,
+    required this.documento,
+  });
 
-  final FuncionarioModel funcionario;
+  final String nome;
+  final String telefone;
+  final String documento;
 
   @override
-  List<Object?> get props => [funcionario];
+  List<Object?> get props => [nome, telefone, documento];
 }
 
+final class CadastrarFuncionarioSetFuncao extends CadastrarFuncionarioEvent {
+  const CadastrarFuncionarioSetFuncao(this.funcao);
 
+  final Funcao funcao;
+
+  @override
+  List<Object?> get props => [funcao];
+}
+
+final class CadastrarFuncionarioSetUsuario extends CadastrarFuncionarioEvent {
+  const CadastrarFuncionarioSetUsuario(this.usuario);
+
+  final UsuarioModel usuario;
+
+  @override
+  List<Object?> get props => [usuario];
+}

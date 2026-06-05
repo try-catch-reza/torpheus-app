@@ -30,31 +30,62 @@ class TorpheusDrawer extends StatelessWidget {
                   emailUsuario: state.email,
                 ),
                 const Divider(color: Color(0xFF304D7A), height: 1),
-                const SizedBox(height: 8),
-                _DrawerItem(
-                  icon: Icons.account_circle,
-                  label: 'Perfil',
-                  onTap: () {
-                    Navigator.of(context).pushNamed(AppRoutes.perfil.route);
-                  },
+                Visibility(
+                  visible: state.hasAccessCliente,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: _DrawerItem(
+                      icon: Icons.person,
+                      label: 'Clientes',
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(AppRoutes.cliente.route);
+                      },
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 8),
-                _DrawerItem(
-                  icon: Icons.bar_chart,
-                  label: 'Relatório',
-                  onTap: () {
-                    Navigator.of(context).pushNamed(AppRoutes.relatorios.route);
-                  },
+                Visibility(
+                  visible: state.hasAccessUsuario,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: _DrawerItem(
+                      icon: Icons.supervised_user_circle_rounded,
+                      label: 'Usuários',
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(AppRoutes.usuario.route);
+                      },
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 8),
-                _DrawerItem(
-                  icon: Icons.person_add_alt_1,
-                  label: 'Cadastrar usuário',
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      AppRoutes.cadastrarUsuario.route,
-                    );
-                  },
+                Visibility(
+                  visible: state.hasAccessVeiculo,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: _DrawerItem(
+                      icon: Icons.directions_car_sharp,
+                      label: 'Veículos',
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(AppRoutes.veiculos.route);
+                      },
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: state.hasAccessFuncionario,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: _DrawerItem(
+                      icon: Icons.group,
+                      label: 'Funcionários',
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          AppRoutes.funcionario.route,
+                        );
+                      },
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 8),
                 _DrawerItemDanger(

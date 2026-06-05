@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/core/constants/color_constants.dart';
-import 'package:torpheus/core/constants/lista_dropdown.dart';
+import 'package:torpheus/core/constants/enum/cambio_veiculo.dart';
+import 'package:torpheus/core/constants/enum/combustivel_veiculo.dart';
+import 'package:torpheus/core/constants/enum/marca_veiculo.dart';
+import 'package:torpheus/core/constants/enum/tipo_veiculo.dart';
 import 'package:torpheus/presentation/components/web/header_web_custom.dart';
 import 'package:torpheus/presentation/screens/veiculos/bloc/veiculos_bloc.dart';
 
@@ -125,22 +128,22 @@ class VeiculosWebBody extends StatelessWidget {
                           Row(
                             children: [
                               Expanded(
-                                child: AppDropdownField<String>(
+                                child: AppDropdownField<TipoVeiculo>(
                                   label: 'Tipo',
                                   validator: (value) {
-                                    if (value == null || value.isEmpty) {
+                                    if (value == null) {
                                       return 'Selecione o tipo do veículo';
                                     }
                                     return null;
                                   },
-                                  items: ListaDropdown.tipoVeiculo.map((tipo) {
+                                  items: TipoVeiculo.values.map((tipo) {
                                     return DropdownMenuItem(
                                       value: tipo,
-                                      child: Text(tipo),
+                                      child: Text(tipo.label),
                                     );
                                   }).toList(),
                                   onChanged: (value) {
-                                    bloc.add(VeiculoSetTipo(value ?? ''));
+                                    bloc.add(VeiculoSetTipo(value!));
                                   },
                                 ),
                               ),
@@ -171,23 +174,22 @@ class VeiculosWebBody extends StatelessWidget {
                           Row(
                             children: [
                               Expanded(
-                                child: AppDropdownField<String>(
+                                child: AppDropdownField<MarcaVeiculo>(
                                   label: 'Marca',
                                   validator: (value) {
-                                    if (value == null || value.isEmpty) {
+                                    if (value == null) {
                                       return 'Selecione a marca do veículo';
                                     }
                                     return null;
                                   },
-                                  items:
-                                      ListaDropdown.marcasVeiculo.map((marca) {
+                                  items: MarcaVeiculo.values.map((marca) {
                                     return DropdownMenuItem(
                                       value: marca,
-                                      child: Text(marca),
+                                      child: Text(marca.label),
                                     );
                                   }).toList(),
                                   onChanged: (value) {
-                                    bloc.add(VeiculoSetMarca(value ?? ''));
+                                    bloc.add(VeiculoSetMarca(value!));
                                   },
                                 ),
                               ),
@@ -240,22 +242,22 @@ class VeiculosWebBody extends StatelessWidget {
                               ),
                               const SizedBox(width: 16),
                               Expanded(
-                                child: AppDropdownField<String>(
+                                child: AppDropdownField<CambioVeiculo>(
                                   label: 'Câmbio',
                                   validator: (value) {
-                                    if (value == null || value.isEmpty) {
+                                    if (value == null) {
                                       return 'Selecione o tipo de câmbio do veículo';
                                     }
                                     return null;
                                   },
-                                  items: ListaDropdown.cambio.map((cambio) {
+                                  items: CambioVeiculo.values.map((cambio) {
                                     return DropdownMenuItem(
                                       value: cambio,
-                                      child: Text(cambio),
+                                      child: Text(cambio.label),
                                     );
                                   }).toList(),
                                   onChanged: (value) {
-                                    bloc.add(VeiculoSetCambio(value ?? ''));
+                                    bloc.add(VeiculoSetCambio(value!));
                                   },
                                 ),
                               ),
@@ -285,24 +287,23 @@ class VeiculosWebBody extends StatelessWidget {
                               ),
                               const SizedBox(width: 16),
                               Expanded(
-                                child: AppDropdownField<String>(
+                                child: AppDropdownField<CombustivelVeiculo>(
                                   label: 'Combustível',
                                   validator: (value) {
-                                    if (value == null || value.isEmpty) {
+                                    if (value == null) {
                                       return 'Selecione o combustível do veículo';
                                     }
                                     return null;
                                   },
-                                  items: ListaDropdown.combustivel
+                                  items: CombustivelVeiculo.values
                                       .map((combustivel) {
                                     return DropdownMenuItem(
                                       value: combustivel,
-                                      child: Text(combustivel),
+                                      child: Text(combustivel.label),
                                     );
                                   }).toList(),
                                   onChanged: (value) {
-                                    bloc.add(
-                                        VeiculoSetCombustivel(value ?? ''));
+                                    bloc.add(VeiculoSetCombustivel(value!));
                                   },
                                 ),
                               ),
@@ -386,7 +387,7 @@ class VeiculosWebBody extends StatelessWidget {
           placa: placaController.text,
           modelo: modeloController.text,
           motor: motorController.text,
-          ano: anoController.text,
+          ano: int.tryParse(anoController.text) ?? 0,
         ),
       );
     }

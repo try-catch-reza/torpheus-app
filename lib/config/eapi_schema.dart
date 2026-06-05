@@ -5,19 +5,23 @@ class EapiSchema {
 
   String adicionarPermissao(String id) => '$_apiUtils/v1/roles/$id';
 
-  String get buscarCliente => '$_apiUtils/v1/client';
+  String get buscarClientes => '$_apiUtils/v1/client';
 
   String buscarClienteById(String id) => '$_apiUtils/v1/client/$id';
 
-  String get buscarFuncionario => '$_apiUtils/v1/employee';
+  String get buscarFuncionarios => '$_apiUtils/v1/employee';
 
-  String get buscarVeiculo => '$_apiUtils/v1/vehicle';
+  String get buscarVeiculos => '$_apiUtils/v1/vehicle';
+
+  String get buscarUsuarios => '$_apiUtils/v1/user';
 
   String buscarEndereco(String cep) => '$_apiUtils/v1/address/$cep';
 
   String get buscarPerfis => '$_apiUtils/v1/roles';
 
   String buscarPerfilById(String id) => '$_apiUtils/v1/roles/$id';
+
+  String buscarVeiculolById(String id) => '$_apiUtils/v1/vehicle/$id';
 
   String get cadastrarCliente => '$_apiUtils/v1/client';
 
@@ -26,6 +30,8 @@ class EapiSchema {
   String get cadastrarPerfil => '$_apiUtils/v1/roles';
 
   String get cadastrarUsuario => '$_apiUtils/v1/user';
+
+  String get cadastrarVeiculo => '$_apiUtils/v1/vehicle';
 
   String get catalogoPermissoes => '$_apiUtils/v1/roles/permissions/catalog';
 

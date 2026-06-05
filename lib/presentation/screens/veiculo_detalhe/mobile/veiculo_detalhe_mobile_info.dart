@@ -21,15 +21,15 @@ class VeiculoDetalheMobileInfo extends StatelessWidget {
         children: [
           VeiculoDetalheMobileTile(
             title: 'Tipo',
-            value: veiculo?.tipo ?? 'Tipo não informado',
+            value: veiculo?.tipo?.label ?? 'Tipo não informado',
           ),
           VeiculoDetalheMobileTile(
             title: 'Marca',
-            value: veiculo?.marca ?? 'Marca não informada',
+            value: veiculo?.marca?.label ?? 'Marca não informada',
           ),
           VeiculoDetalheMobileTile(
             title: 'Ano',
-            value: veiculo?.ano ?? 'Ano não informado',
+            value: veiculo?.ano.toString() ?? 'Ano não informado',
           ),
           VeiculoDetalheMobileTile(
             title: 'Motor',
@@ -37,11 +37,11 @@ class VeiculoDetalheMobileInfo extends StatelessWidget {
           ),
           VeiculoDetalheMobileTile(
             title: 'Câmbio',
-            value: veiculo?.cambio ?? 'Câmbio não informado',
+            value: veiculo?.cambio?.label ?? 'Câmbio não informado',
           ),
           VeiculoDetalheMobileTile(
             title: 'Combustível',
-            value: veiculo?.combustivel ?? 'Combustível não informado',
+            value: veiculo?.combustivel?.label ?? 'Combustível não informado',
             isDivider: false,
           ),
         ],

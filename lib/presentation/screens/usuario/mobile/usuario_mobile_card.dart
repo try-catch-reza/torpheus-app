@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/extension/string_extension.dart';
-import 'package:torpheus/data/models/funcionario_model.dart';
-
 import '../../../../core/constants/color_constants.dart';
+import '../../../../data/models/usuario_model.dart';
 
-class FuncionarioMobileCard extends StatelessWidget {
-  const FuncionarioMobileCard({
+class UsuarioMobileCard extends StatelessWidget {
+  const UsuarioMobileCard({
     super.key,
-    required this.funcionario,
-    required this.onTap,
+    required this.usuario,
     required this.onEdit,
+    required this.onTap,
   });
 
-  final FuncionarioModel funcionario;
-  final VoidCallback onTap;
+  final UsuarioModel usuario;
   final VoidCallback onEdit;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +38,7 @@ class FuncionarioMobileCard extends StatelessWidget {
                     radius: 21,
                     backgroundColor: ColorConstants.chambray,
                     child: Text(
-                      funcionario.nome?.iniciais ?? '',
+                      usuario.nome?.iniciais ?? '',
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -53,7 +52,7 @@ class FuncionarioMobileCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          funcionario.nome ?? '',
+                          usuario.nome ?? '',
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
@@ -63,7 +62,7 @@ class FuncionarioMobileCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          funcionario.documento ?? '',
+                          usuario.email ?? '',
                           style: const TextStyle(
                             fontSize: 12,
                             color: Color(0xFF6B7280),

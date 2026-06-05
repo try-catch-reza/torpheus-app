@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../core/constants/enum/documento_tipo.dart';
+
 class FuncionarioModel extends Equatable {
   const FuncionarioModel({
     this.id,
@@ -10,6 +12,7 @@ class FuncionarioModel extends Equatable {
     this.funcao,
     this.isActive,
     this.hiredAt,
+    this.documentType,
   });
 
   final String? id;
@@ -20,13 +23,14 @@ class FuncionarioModel extends Equatable {
   final String? funcao;
   final bool? isActive;
   final DateTime? hiredAt;
+  final DocumentoTipo? documentType;
 
   factory FuncionarioModel.fromJson(Map<String, dynamic> json) {
     return FuncionarioModel(
       id: json['id'] as String?,
+      userId: json['userId'] as String?,
       nome: json['name'] as String?,
       telefone: json['phone'] as String?,
-      documento: json['document'] as String?,
       funcao: json['function'] as String?,
       isActive: json['isActive'] as bool?,
       hiredAt: json['hiredAt'] != null
@@ -37,13 +41,12 @@ class FuncionarioModel extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      'userId': userId,
       'name': nome,
-      'phone': telefone,
-      'document': documento,
       'function': funcao,
-      'isActive': isActive,
-      'hiredAt': hiredAt?.toIso8601String(),
+      'phone': telefone,
+      'documentNumber': documento,
+      'documentType': documentType?.value,
     };
   }
 
@@ -51,8 +54,8 @@ class FuncionarioModel extends Equatable {
   String toString() {
     return 'MecanicoModel{'
         'id: $id, '
-        'userId: $userId,'
-        ' nome: $nome, '
+        'userId: $userId, '
+        'nome: $nome, '
         'telefone: $telefone,'
         ' documento: $documento, '
         'funcao: $funcao, '

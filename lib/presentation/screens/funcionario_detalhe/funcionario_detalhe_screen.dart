@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/data/models/mecanico_model.dart';
+import 'package:torpheus/data/models/funcionario_model.dart';
 
 import '../../../config/responsive.dart';
 import 'bloc/funcionario_detalhe_bloc.dart';

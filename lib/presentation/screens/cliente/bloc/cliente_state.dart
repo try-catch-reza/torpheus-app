@@ -5,14 +5,22 @@ sealed class ClienteState extends Equatable {
     this.clientes = const [],
     this.endereco = const EnderecoModel(),
     this.clienteSelecionado,
+    this.hasCriarCliente = false,
   });
 
   final List<ClienteModel> clientes;
   final EnderecoModel endereco;
   final ClienteModel? clienteSelecionado;
 
+  final bool hasCriarCliente;
+
   @override
-  List<Object?> get props => [clientes, endereco, clienteSelecionado];
+  List<Object?> get props => [
+        clientes,
+        endereco,
+        clienteSelecionado,
+        hasCriarCliente,
+      ];
 }
 
 final class ClienteInitial extends ClienteState {
@@ -30,10 +38,14 @@ final class ClienteLoading extends ClienteState {
 }
 
 final class ClienteLoaded extends ClienteState {
-  const ClienteLoaded({required super.clientes, super.endereco});
+  const ClienteLoaded({
+    required super.clientes,
+    super.endereco,
+    super.hasCriarCliente,
+  });
 
   @override
-  List<Object?> get props => [clientes, endereco];
+  List<Object?> get props => [clientes, endereco, hasCriarCliente];
 }
 
 final class ClienteError extends ClienteState {

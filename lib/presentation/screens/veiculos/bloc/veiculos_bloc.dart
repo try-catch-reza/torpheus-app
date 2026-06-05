@@ -2,16 +2,28 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:torpheus/core/constants/enum/cambio_veiculo.dart';
+import 'package:torpheus/core/constants/enum/combustivel_veiculo.dart';
+import 'package:torpheus/core/constants/enum/marca_veiculo.dart';
+import 'package:torpheus/core/constants/enum/tipo_veiculo.dart';
 import 'package:torpheus/data/models/veiculo_model.dart';
 
 import '../../../../data/datasources/remote/http_client.dart';
+import '../../../../domain/controller/permissao_controller.dart';
+import '../../../../domain/repositories/remote/eapi_remote_repository.dart';
 
 part 'veiculos_event.dart';
 
 part 'veiculos_state.dart';
 
 class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
-  VeiculosBloc() : super(const VeiculosInitial()) {
+  late final EapiRemoteRepository _eapiRemoteRepository;
+  late final PermissaoController _permissaoController;
+
+  VeiculosBloc(
+    this._eapiRemoteRepository,
+    this._permissaoController,
+  ) : super(const VeiculosInitial()) {
     on<VeiculosLoad>(_onVeiculosLoad);
     on<VeiculoSubmit>(_onVeiculoSubmit);
     on<VeiculoSetTipo>(_onVeiculoSetTipo);
@@ -26,30 +38,15 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
   ) async {
     emit(const VeiculosLoading());
     try {
-      final veiculos = [
-        const VeiculoModel(
-          placa: 'ABC-1234',
-          modelo: 'Fiat Uno',
-          ano: '2010',
-          tipo: 'Hatch',
-          marca: 'Fiat',
-          cambio: 'Manual',
-          combustivel: 'Gasolina',
-          motor: '1.0',
-        ),
-        const VeiculoModel(
-          placa: 'DEF-5678',
-          modelo: 'Volkswagen Gol',
-          ano: '2015',
-          tipo: 'Hatch',
-          marca: 'Volkswagen',
-          cambio: 'Manual',
-          combustivel: 'Flex',
-          motor: '1.6',
-        ),
-      ];
+      final veiculos = await _eapiRemoteRepository.getVeiculos();
+      final hasCriarVeiculo = _permissaoController.podeCriarVeiculo;
 
-      emit(VeiculosLoaded(veiculos: veiculos));
+      emit(
+        VeiculosLoaded(
+          veiculos: veiculos,
+          hasCriarVeiculo: hasCriarVeiculo,
+        ),
+      );
     } catch (e) {
       emit(VeiculosError('Não foi possível carregar os veículos\n$e'));
     }

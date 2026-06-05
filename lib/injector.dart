@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:torpheus/config/eapi_schema.dart';
 import 'package:torpheus/data/plugins/image_service.dart';
+import 'package:torpheus/domain/controller/permissao_controller.dart';
 import 'package:torpheus/external/plugins/image_service_impl.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cadastrar_funcionario/bloc/cadastrar_funcionario_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:torpheus/presentation/screens/cadastrar_veiculo/bloc/cadastrar_v
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import 'package:torpheus/presentation/screens/perfis/bloc/perfis_bloc.dart';
+import 'package:torpheus/presentation/screens/usuario/bloc/usuario_bloc.dart';
 import 'package:torpheus/presentation/screens/veiculo_detalhe/bloc/veiculo_detalhe_bloc.dart';
 import 'package:torpheus/presentation/screens/funcionario_detalhe/bloc/funcionario_detalhe_bloc.dart';
 import 'package:torpheus/presentation/screens/funcionario/bloc/funcionario_bloc.dart';
@@ -106,6 +108,10 @@ final class InjectorImpl extends Injector {
       PreferencesController(getIt<PreferencesLocalRepository>()),
     );
 
+    getIt.registerSingleton<PermissaoController>(
+      PermissaoController(getIt.get<PreferencesLocalRepository>()),
+    );
+
     /// BLoC--------------------------------------------------------------------
 
     getIt.registerSingleton<AuthenticationBloc>(
@@ -146,17 +152,22 @@ final class InjectorImpl extends Injector {
     getIt.registerSingleton<ClienteBloc>(
       ClienteBloc(
         getIt.get<EapiRemoteRepository>(),
+        getIt.get<PermissaoController>(),
       ),
     );
 
     getIt.registerSingleton<FuncionarioBloc>(
       FuncionarioBloc(
         getIt.get<EapiRemoteRepository>(),
+        getIt.get<PermissaoController>(),
       ),
     );
 
     getIt.registerSingleton<VeiculosBloc>(
-      VeiculosBloc(),
+      VeiculosBloc(
+        getIt.get<EapiRemoteRepository>(),
+        getIt.get<PermissaoController>(),
+      ),
     );
 
     getIt.registerSingleton<OrdensServicoBloc>(
@@ -168,7 +179,9 @@ final class InjectorImpl extends Injector {
     );
 
     getIt.registerSingleton<ClienteDetalheBloc>(
-      ClienteDetalheBloc(),
+      ClienteDetalheBloc(
+        getIt.get<PermissaoController>(),
+      ),
     );
 
     getIt.registerSingleton<VeiculoDetalheBloc>(
@@ -194,6 +207,7 @@ final class InjectorImpl extends Injector {
     getIt.registerSingleton<CadastrarVeiculoBloc>(
       CadastrarVeiculoBloc(
         getIt.get<EapiRemoteRepository>(),
+        getIt.get<PermissaoController>(),
       ),
     );
 
@@ -205,6 +219,13 @@ final class InjectorImpl extends Injector {
 
     getIt.registerSingleton<PerfisBloc>(
       PerfisBloc(getIt.get<EapiRemoteRepository>()),
+    );
+
+    getIt.registerSingleton<UsuarioBloc>(
+      UsuarioBloc(
+        getIt.get<EapiRemoteRepository>(),
+        getIt.get<PermissaoController>(),
+      ),
     );
 
     return InjectorImpl._(getIt);

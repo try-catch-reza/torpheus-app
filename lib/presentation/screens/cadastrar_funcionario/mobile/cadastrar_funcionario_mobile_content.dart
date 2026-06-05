@@ -5,7 +5,6 @@ import 'package:torpheus/presentation/components/loading_state.dart';
 import 'package:torpheus/presentation/screens/cadastrar_funcionario/mobile/cadastrar_funcionario_mobile_body.dart';
 
 import '../../../../core/constants/color_constants.dart';
-import '../../../../data/models/mecanico_model.dart';
 import '../../../components/app_bar_padrao.dart';
 import '../../../components/app_primary_button.dart';
 import '../bloc/cadastrar_funcionario_bloc.dart';
@@ -75,14 +74,12 @@ class _CadastrarFuncionarioMobileContentState
 
   void _onCadastrarFuncionario(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
-      FuncionarioModel mecanico = FuncionarioModel(
-        nome: _nomeController.text.trim(),
-        documento: _documentoController.text.trim(),
-        telefone: _telefoneController.text.trim(),
-      );
-
       context.read<CadastrarFuncionarioBloc>().add(
-            CadastrarFuncionarioSubmit(funcionario: mecanico),
+            CadastrarFuncionarioSubmit(
+              telefone: _telefoneController.text,
+              documento: _documentoController.text,
+              nome: _nomeController.text,
+            ),
           );
     }
   }
@@ -99,7 +96,7 @@ class _CadastrarFuncionarioMobileContentState
     if (state is CadastrarFuncionarioSuccess) {
       DialogMobilePadrao.successDialog(
         context: context,
-        message: 'Mecânico cadastrado com sucesso!',
+        message: 'Funcionário cadastrado com sucesso!',
         onPress: () {
           Navigator.of(context).pop();
         },

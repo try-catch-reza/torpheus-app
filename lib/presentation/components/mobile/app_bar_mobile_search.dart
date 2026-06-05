@@ -13,6 +13,7 @@ class AppBarMobileSearch extends StatelessWidget {
     required this.controller,
     this.onChanged,
     this.hintText = 'Pesquisar por nome',
+    this.hasPodeCriar = false,
   });
 
   final VoidCallback onPressed;
@@ -21,6 +22,7 @@ class AppBarMobileSearch extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
   final String hintText;
+  final bool hasPodeCriar;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class AppBarMobileSearch extends StatelessWidget {
             title: title,
             subtitle: subtitle,
             onPressed: onPressed,
+            hasPodeCriar: hasPodeCriar,
           ),
           SearchCustom(
             controller: controller,

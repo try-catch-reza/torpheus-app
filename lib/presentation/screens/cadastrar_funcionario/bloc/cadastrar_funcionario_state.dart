@@ -1,7 +1,15 @@
 part of 'cadastrar_funcionario_bloc.dart';
 
 sealed class CadastrarFuncionarioState extends Equatable {
-  const CadastrarFuncionarioState();
+  const CadastrarFuncionarioState({
+    this.usuarios = const [],
+    this.usuarioSelecionado,
+    this.funcaoSelecionada,
+  });
+
+  final List<UsuarioModel> usuarios;
+  final UsuarioModel? usuarioSelecionado;
+  final Funcao? funcaoSelecionada;
 
   @override
   List<Object?> get props => [];
@@ -12,11 +20,24 @@ final class CadastrarFuncionarioInitial extends CadastrarFuncionarioState {
 }
 
 final class CadastrarFuncionarioLoading extends CadastrarFuncionarioState {
-  const CadastrarFuncionarioLoading();
+  const CadastrarFuncionarioLoading({
+    super.funcaoSelecionada,
+    super.usuarioSelecionado,
+  });
+
+  @override
+  List<Object?> get props => [funcaoSelecionada, usuarioSelecionado];
 }
 
 final class CadastrarFuncionarioLoaded extends CadastrarFuncionarioState {
-  const CadastrarFuncionarioLoaded();
+  const CadastrarFuncionarioLoaded({
+    super.usuarios,
+    super.usuarioSelecionado,
+    super.funcaoSelecionada,
+  });
+
+  @override
+  List<Object?> get props => [usuarios, funcaoSelecionada, usuarioSelecionado];
 }
 
 final class CadastrarFuncionarioSuccess extends CadastrarFuncionarioState {

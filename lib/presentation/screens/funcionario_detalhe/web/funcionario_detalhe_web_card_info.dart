@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/extension/string_extension.dart';
-import 'package:torpheus/data/models/mecanico_model.dart';
+import 'package:torpheus/data/models/funcionario_model.dart';
 
 /// Card com informações do funcionário
 class FuncionarioDetalheWebCardInfo extends StatelessWidget {

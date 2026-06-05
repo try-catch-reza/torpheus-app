@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:torpheus/core/constants/lista_dropdown.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/core/constants/enum/funcao.dart';
+import 'package:torpheus/data/models/usuario_model.dart';
 import 'package:torpheus/presentation/components/app_dropdown_field.dart';
 import 'package:torpheus/presentation/components/app_text_field.dart';
 
@@ -32,7 +34,6 @@ class CadastrarFuncionarioMobileBody extends StatefulWidget {
 
 class _CadastrarFuncionarioMobileBodyState
     extends State<CadastrarFuncionarioMobileBody> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -83,7 +84,7 @@ class _CadastrarFuncionarioMobileBodyState
                       const SizedBox(height: 16),
                       AppTextField(
                         label: 'Telefone',
-                        controller: widget.documentoController,
+                        controller: widget.telefoneController,
                         hint: '(00) 00000-0000',
                         validator: (p0) {
                           if (p0 == null || p0.isEmpty) {
@@ -98,21 +99,47 @@ class _CadastrarFuncionarioMobileBodyState
                         ],
                       ),
                       const SizedBox(height: 16),
-                      AppDropdownField<String>(
+                      AppDropdownField<Funcao>(
                         label: 'Função',
                         validator: (p0) {
-                          if (p0 == null || p0.isEmpty) {
+                          if (p0 == null) {
                             return 'Selecione a função do funcionário';
                           }
                           return null;
                         },
-                        items: ListaDropdown.funcao.map((funcao) {
+                        items: Funcao.values.map((funcao) {
                           return DropdownMenuItem(
                             value: funcao,
-                            child: Text(funcao),
+                            child: Text(funcao.label),
                           );
                         }).toList(),
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          context.read<CadastrarFuncionarioBloc>().add(
+                                CadastrarFuncionarioSetFuncao(value!),
+                              );
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      AppDropdownField<UsuarioModel>(
+                        label: 'Usuário',
+                        validator: (p0) {
+                          if (p0 == null) {
+                            return 'Selecione o usuario para '
+                                'atribuir a esse funcionário';
+                          }
+                          return null;
+                        },
+                        items: widget.state.usuarios.map((usuario) {
+                          return DropdownMenuItem(
+                            value: usuario,
+                            child: Text('${usuario.nome}'),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          context.read<CadastrarFuncionarioBloc>().add(
+                                CadastrarFuncionarioSetUsuario(value!),
+                              );
+                        },
                       ),
                     ],
                   ),

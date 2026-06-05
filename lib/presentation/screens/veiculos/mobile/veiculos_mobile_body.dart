@@ -34,6 +34,7 @@ class VeiculosMobileBody extends StatelessWidget {
           subtitle: 'Cadastro e histórico de veículos',
           controller: controller,
           hintText: 'Pesquisar por placa',
+          hasPodeCriar: state.hasCriarVeiculo,
         ),
         if (state.veiculos.isEmpty)
           const ListaVaziaCustom(

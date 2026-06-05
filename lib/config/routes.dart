@@ -14,6 +14,7 @@ import 'package:torpheus/presentation/screens/menu/bloc/menu_bloc.dart';
 import 'package:torpheus/presentation/screens/perfil/perfil_screen.dart';
 import 'package:torpheus/presentation/screens/recuperar_senha/recuperar_senha_screen.dart';
 import 'package:torpheus/presentation/screens/relatorios/relatorios_screen.dart';
+import 'package:torpheus/presentation/screens/usuario/bloc/usuario_bloc.dart';
 import 'package:torpheus/presentation/screens/veiculos/bloc/veiculos_bloc.dart';
 import 'package:torpheus/presentation/screens/veiculos/veiculos_screen.dart';
 import '../presentation/components/animation/face_page_route.dart';
@@ -28,6 +29,7 @@ import '../presentation/screens/cliente/bloc/cliente_bloc.dart';
 import '../presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import '../presentation/screens/cliente_detalhe/cliente_detalhe_screen.dart';
 import '../presentation/screens/perfis/bloc/perfis_bloc.dart';
+import '../presentation/screens/usuario/usuario_screen.dart';
 import '../presentation/screens/veiculo_detalhe/bloc/veiculo_detalhe_bloc.dart';
 import '../presentation/screens/veiculo_detalhe/veiculo_detalhe_screen.dart';
 import '../presentation/screens/funcionario_detalhe/bloc/funcionario_detalhe_bloc.dart';
@@ -59,7 +61,8 @@ enum AppRoutes {
   cadastrarCliente('/cadastrar-cliente', NavigationFlow.modalBottomUp),
   cadastrarFuncionario('/cadastrar-mecanico', NavigationFlow.modalBottomUp),
   cadastrarVeiculo('/cadastrar-veiculo', NavigationFlow.modalBottomUp),
-  cadastrarUsuario('/cadastrar-usuario', NavigationFlow.modalBottomUp);
+  cadastrarUsuario('/cadastrar-usuario', NavigationFlow.modalBottomUp),
+  usuario('usuario', NavigationFlow.fade);
 
   final String route;
   final NavigationFlow flow;
@@ -146,6 +149,9 @@ class Routes {
       AppRoutes.cadastrarUsuario => CadastrarUsuarioScreen(
           cadastrarUsuarioBloc: injector.getIt.get<CadastrarUsuarioBloc>(),
         ),
+      AppRoutes.usuario => UsuarioScreen(
+        usuarioBloc: injector.getIt.get<UsuarioBloc>(),
+      ),
     };
 
     return switch (appRoute.flow) {

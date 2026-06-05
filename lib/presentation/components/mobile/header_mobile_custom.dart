@@ -8,11 +8,13 @@ class HeaderMobileCustom extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.onPressed,
+    required this.hasPodeCriar,
   });
 
   final String title;
   final String subtitle;
   final VoidCallback onPressed;
+  final bool hasPodeCriar;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,13 @@ class HeaderMobileCustom extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: ColorConstants.chambray,
+            ),
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -50,20 +59,23 @@ class HeaderMobileCustom extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          SizedBox(
-            height: 40,
-            child: ElevatedButton(
-              onPressed: onPressed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: ColorConstants.chambray,
-                foregroundColor: Colors.white,
-                elevation: 0,
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+          Visibility(
+            visible: hasPodeCriar,
+            child: SizedBox(
+              height: 40,
+              child: ElevatedButton(
+                onPressed: onPressed,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ColorConstants.chambray,
+                  foregroundColor: Colors.white,
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
+                child: const Icon(Icons.add_rounded, size: 18),
               ),
-              child: const Icon(Icons.add_rounded, size: 18),
             ),
           ),
         ],
