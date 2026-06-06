@@ -130,7 +130,6 @@ final class InjectorImpl extends Injector {
 
     getIt.registerSingleton<PainelBloc>(
       PainelBloc(
-        getIt.get<ImageService>(),
         getIt.get<PreferencesLocalRepository>(),
         getIt.get<PermissaoController>(),
       ),
@@ -223,7 +222,10 @@ final class InjectorImpl extends Injector {
     );
 
     getIt.registerSingleton<PerfisBloc>(
-      PerfisBloc(getIt.get<EapiRemoteRepository>()),
+      PerfisBloc(
+        getIt.get<EapiRemoteRepository>(),
+        getIt.get<PermissaoController>(),
+      ),
     );
 
     getIt.registerSingleton<UsuarioBloc>(

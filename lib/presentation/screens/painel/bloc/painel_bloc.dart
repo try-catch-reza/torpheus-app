@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../data/plugins/image_service.dart';
 import '../../../../domain/controller/permissao_controller.dart';
 import '../../../../domain/repositories/preferenfeces/preferences_local_repository.dart';
 
@@ -12,12 +11,10 @@ part 'painel_event.dart';
 part 'painel_state.dart';
 
 class PainelBloc extends Bloc<PainelEvent, PainelState> {
-  late final ImageService _imageService;
   late final PreferencesLocalRepository _preferencesLocalRepository;
   late final PermissaoController _permissaoController;
 
   PainelBloc(
-    this._imageService,
     this._preferencesLocalRepository,
     this._permissaoController,
   ) : super(const PainelInitial()) {
@@ -40,6 +37,7 @@ class PainelBloc extends Bloc<PainelEvent, PainelState> {
       final hasAccessFuncionario = _permissaoController.podeLerFuncionario;
       final hasAccessCliente = _permissaoController.podeLerCliente;
       final hasAccessVeiculo = _permissaoController.podeLerVeiculo;
+      final hasAccessPerfis = _permissaoController.podeLerRole;
 
       emit(
         PainelLoaded(
@@ -50,6 +48,7 @@ class PainelBloc extends Bloc<PainelEvent, PainelState> {
           hasAccessCliente: hasAccessCliente,
           hasAccessFuncionario: hasAccessFuncionario,
           hasAccessVeiculo: hasAccessVeiculo,
+          hasAccessPerfis: hasAccessPerfis,
         ),
       );
     } catch (e) {
@@ -62,7 +61,7 @@ class PainelBloc extends Bloc<PainelEvent, PainelState> {
     Emitter<PainelState> emit,
   ) async {
     try {
-      final image = await _imageService.pickFromCamera();
+      // final image = await _imageService.pickFromCamera();
     } catch (e) {
       emit(const PainelFail('Erro ao abrir a câmera'));
     }
@@ -73,7 +72,7 @@ class PainelBloc extends Bloc<PainelEvent, PainelState> {
     Emitter<PainelState> emit,
   ) async {
     try {
-      final image = await _imageService.pickFromGallery();
+      // final image = await _imageService.pickFromGallery();
     } catch (e) {
       emit(const PainelFail('Erro ao abrir a galeria'));
     }

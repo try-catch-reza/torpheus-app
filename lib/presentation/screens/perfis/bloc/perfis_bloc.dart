@@ -5,18 +5,24 @@ import 'package:torpheus/presentation/screens/perfis/bloc/perfis_event.dart';
 
 import '../../../../data/datasources/remote/http_client.dart';
 import '../../../../data/models/permissao_model.dart';
+import '../../../../domain/controller/permissao_controller.dart';
 import '../../../../domain/repositories/remote/eapi_remote_repository.dart';
 
 import 'perfis_state.dart';
 
 class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
-  final EapiRemoteRepository _eapiRemoteRepository;
+  late final EapiRemoteRepository _eapiRemoteRepository;
+  late final PermissaoController _permissaoController;
 
-  PerfisBloc(this._eapiRemoteRepository) : super(const PerfisInitial()) {
+  PerfisBloc(
+    this._eapiRemoteRepository,
+    this._permissaoController,
+  ) : super(const PerfisInitial()) {
     on<PerfisLoad>(_onPerfisLoad);
     on<PerfisSelect>(_onPerfisSelect);
     on<PerfisCriar>(_onPerfisCriar);
     on<PerfisAdicionarPermissao>(_onPerfisAdicionarPermissao);
+    on<PerfisExcluirPerfil>(_onPerfisExcluirPerfil);
   }
 
   Future<void> _onPerfisLoad(
@@ -26,12 +32,33 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
     emit(const PerfisLoading());
 
     try {
+      final hasCriarPerfis = _permissaoController.podeCriarRole;
+      final hasExcluirPerfis = _permissaoController.podeExcluirRole;
+
       final perfis = await _eapiRemoteRepository.getPerfis();
-      emit(PerfisLoaded(perfis: perfis));
+      emit(
+        PerfisLoaded(
+          perfis: perfis,
+          hasCriarPerfis: hasCriarPerfis,
+          hasExcluirPerfis: hasExcluirPerfis,
+        ),
+      );
     } on HttpRequestException catch (e) {
-      emit(PerfisError(message: e.title));
+      emit(
+        PerfisError(
+          message: e.title,
+          hasCriarPerfis: state.hasCriarPerfis,
+          hasExcluirPerfis: state.hasExcluirPerfis,
+        ),
+      );
     } catch (e) {
-      emit(PerfisError(message: 'Não foi possível carregar os perfis.\n$e'));
+      emit(
+        PerfisError(
+          message: 'Não foi possível carregar os perfis.\n$e',
+          hasCriarPerfis: state.hasCriarPerfis,
+          hasExcluirPerfis: state.hasExcluirPerfis,
+        ),
+      );
     }
   }
 
@@ -64,12 +91,16 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
           perfilSelecionado: perfilSelecionado,
           permissaoGrupo: permissionGroup,
           catalogoPermissoes: allPermissoes,
+          hasCriarPerfis: state.hasCriarPerfis,
+          hasExcluirPerfis: state.hasExcluirPerfis,
         ),
       );
     } catch (e) {
       emit(
         PerfisError(
           message: 'Não foi possível carregar os detalhes do perfil.\n$e',
+          hasCriarPerfis: state.hasCriarPerfis,
+          hasExcluirPerfis: state.hasExcluirPerfis,
         ),
       );
     }
@@ -87,7 +118,12 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
 
       await _eapiRemoteRepository.cadastrarPerfil(perfisNovo);
 
-      emit(const PerfisCriado());
+      emit(
+        PerfisCriado(
+          hasCriarPerfis: state.hasCriarPerfis,
+          hasExcluirPerfis: state.hasExcluirPerfis,
+        ),
+      );
     } on HttpRequestException catch (e) {
       emit(
         PerfisError(
@@ -95,6 +131,8 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
           permissaoGrupo: state.permissaoGrupo,
           perfilSelecionado: state.perfilSelecionado,
           perfis: state.perfis,
+          hasCriarPerfis: state.hasCriarPerfis,
+          hasExcluirPerfis: state.hasExcluirPerfis,
         ),
       );
     } catch (e) {
@@ -104,6 +142,8 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
           permissaoGrupo: state.permissaoGrupo,
           perfilSelecionado: state.perfilSelecionado,
           perfis: state.perfis,
+          hasCriarPerfis: state.hasCriarPerfis,
+          hasExcluirPerfis: state.hasExcluirPerfis,
         ),
       );
     }
@@ -148,6 +188,8 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
           perfilSelecionado: perfilAtualizado,
           permissaoGrupo: permissionGroup,
           catalogoPermissoes: state.catalogoPermissoes,
+          hasCriarPerfis: state.hasCriarPerfis,
+          hasExcluirPerfis: state.hasExcluirPerfis,
         ),
       );
     } on HttpRequestException catch (e) {
@@ -157,6 +199,8 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
           permissaoGrupo: state.permissaoGrupo,
           perfilSelecionado: state.perfilSelecionado,
           perfis: state.perfis,
+          hasCriarPerfis: state.hasCriarPerfis,
+          hasExcluirPerfis: state.hasExcluirPerfis,
         ),
       );
     } catch (e) {
@@ -166,6 +210,41 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
           permissaoGrupo: state.permissaoGrupo,
           perfilSelecionado: state.perfilSelecionado,
           perfis: state.perfis,
+          hasCriarPerfis: state.hasCriarPerfis,
+          hasExcluirPerfis: state.hasExcluirPerfis,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onPerfisExcluirPerfil(
+    PerfisExcluirPerfil event,
+    Emitter<PerfisState> emit,
+  ) async {
+    try {
+      await _eapiRemoteRepository.excluirPerfil(event.perfis);
+
+      emit(const PerfisExcluido());
+    } on HttpRequestException catch (e) {
+      emit(
+        PerfisError(
+          message: e.message,
+          permissaoGrupo: state.permissaoGrupo,
+          perfilSelecionado: state.perfilSelecionado,
+          perfis: state.perfis,
+          hasCriarPerfis: state.hasCriarPerfis,
+          hasExcluirPerfis: state.hasExcluirPerfis,
+        ),
+      );
+    } catch (e) {
+      emit(
+        PerfisError(
+          message: 'Não foi possível criar o perfil.\n$e',
+          permissaoGrupo: state.permissaoGrupo,
+          perfilSelecionado: state.perfilSelecionado,
+          perfis: state.perfis,
+          hasCriarPerfis: state.hasCriarPerfis,
+          hasExcluirPerfis: state.hasExcluirPerfis,
         ),
       );
     }

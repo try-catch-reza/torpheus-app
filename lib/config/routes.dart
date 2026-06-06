@@ -12,6 +12,7 @@ import 'package:torpheus/presentation/screens/painel/painel_screen.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:torpheus/presentation/screens/menu/bloc/menu_bloc.dart';
 import 'package:torpheus/presentation/screens/perfil/perfil_screen.dart';
+import 'package:torpheus/presentation/screens/perfis/perfis_screen.dart';
 import 'package:torpheus/presentation/screens/recuperar_senha/recuperar_senha_screen.dart';
 import 'package:torpheus/presentation/screens/relatorios/relatorios_screen.dart';
 import 'package:torpheus/presentation/screens/usuario/bloc/usuario_bloc.dart';
@@ -62,7 +63,8 @@ enum AppRoutes {
   cadastrarFuncionario('/cadastrar-mecanico', NavigationFlow.modalBottomUp),
   cadastrarVeiculo('/cadastrar-veiculo', NavigationFlow.modalBottomUp),
   cadastrarUsuario('/cadastrar-usuario', NavigationFlow.modalBottomUp),
-  usuario('usuario', NavigationFlow.fade);
+  usuario('usuario', NavigationFlow.fade),
+  perfis('perfis', NavigationFlow.fade);
 
   final String route;
   final NavigationFlow flow;
@@ -150,8 +152,11 @@ class Routes {
           cadastrarUsuarioBloc: injector.getIt.get<CadastrarUsuarioBloc>(),
         ),
       AppRoutes.usuario => UsuarioScreen(
-        usuarioBloc: injector.getIt.get<UsuarioBloc>(),
-      ),
+          usuarioBloc: injector.getIt.get<UsuarioBloc>(),
+        ),
+      AppRoutes.perfis => PerfisScreen(
+          perfisBloc: injector.getIt.get<PerfisBloc>(),
+        ),
     };
 
     return switch (appRoute.flow) {

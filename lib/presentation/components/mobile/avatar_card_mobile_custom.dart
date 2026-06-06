@@ -8,13 +8,13 @@ class AvatarCardMobileCustom extends StatelessWidget {
     super.key,
     required this.title,
     required this.subTitle,
-    required this.onTap,
+    this.onTap,
     required this.isActive,
   });
 
   final String title;
   final String subTitle;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final bool isActive;
 
   @override
@@ -84,10 +84,13 @@ class AvatarCardMobileCustom extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Icon(
-                    size: 20,
-                    Icons.arrow_forward_ios,
-                    color: ColorConstants.chambray,
+                  Visibility(
+                    visible: onTap != null,
+                    child: Icon(
+                      size: 20,
+                      Icons.arrow_forward_ios,
+                      color: ColorConstants.chambray,
+                    ),
                   ),
                 ],
               ),

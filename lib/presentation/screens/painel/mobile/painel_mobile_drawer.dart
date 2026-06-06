@@ -45,6 +45,35 @@ class TorpheusDrawer extends StatelessWidget {
                   ),
                 ),
                 Visibility(
+                  visible: state.hasAccessFuncionario,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: _DrawerItem(
+                      icon: Icons.group,
+                      label: 'Funcionários',
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          AppRoutes.funcionario.route,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: state.hasAccessPerfis,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: _DrawerItem(
+                      icon: Icons.security,
+                      label: 'Perfis de acesso',
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(AppRoutes.perfis.route);
+                      },
+                    ),
+                  ),
+                ),
+                Visibility(
                   visible: state.hasAccessUsuario,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -68,21 +97,6 @@ class TorpheusDrawer extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context)
                             .pushNamed(AppRoutes.veiculos.route);
-                      },
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: state.hasAccessFuncionario,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: _DrawerItem(
-                      icon: Icons.group,
-                      label: 'Funcionários',
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                          AppRoutes.funcionario.route,
-                        );
                       },
                     ),
                   ),

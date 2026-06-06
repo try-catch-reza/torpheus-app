@@ -50,6 +50,8 @@ abstract class EapiRemoteRepository {
 
   Future<void> adicionarPermissao(PerfisModel perfil);
 
+  Future<void> excluirPerfil(PerfisModel perfil);
+
   /// Usuário ------------------------------------------------------------------
   Future<void> cadastrarUsuario(UsuarioModel usuario);
 

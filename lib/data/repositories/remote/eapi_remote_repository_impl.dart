@@ -417,7 +417,10 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
           final Map<String, dynamic> data = response.data;
           final List<dynamic> items = data['items'] ?? [];
 
-          return items.map((item) => VeiculoModel.fromJson(item)).toList().first;
+          return items
+              .map((item) => VeiculoModel.fromJson(item))
+              .toList()
+              .first;
         } else {
           throw HttpRequestException(
             titleMessage: titleMessage,
@@ -440,6 +443,27 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       response: (response) {
         if (response.statusCode == 200) {
           return PerfisModel.fromJson(response.data);
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<void> excluirPerfil(PerfisModel perfil) async {
+    const titleMessage = 'Não foi possível excluir esse perfil';
+
+    await delete(
+      path: _schema.excluirPerfilById(perfil.id ?? ''),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 204) {
+          return;
         } else {
           throw HttpRequestException(
             titleMessage: titleMessage,

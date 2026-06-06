@@ -40,10 +40,7 @@ class UsuarioMobileBody extends StatelessWidget {
             subMessage: 'Cadastre um novo usuário',
           ),
         if (state.usuariosFiltered.isNotEmpty)
-          UsuarioMobileLista(
-            usuarios: state.usuariosFiltered,
-            onUsuarioTap: (value) {},
-          ),
+          UsuarioMobileLista(usuarios: state.usuariosFiltered),
       ],
     );
   }

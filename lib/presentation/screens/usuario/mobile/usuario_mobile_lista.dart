@@ -6,11 +6,9 @@ class UsuarioMobileLista extends StatelessWidget {
   const UsuarioMobileLista({
     super.key,
     required this.usuarios,
-    required this.onUsuarioTap,
   });
 
   final List<UsuarioModel> usuarios;
-  final ValueChanged<UsuarioModel> onUsuarioTap;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,6 @@ class UsuarioMobileLista extends StatelessWidget {
             title: usuario.nome ?? '',
             subTitle: usuario.email ?? '',
             isActive: usuario.isActive ?? false,
-            onTap: () => onUsuarioTap(usuario),
           );
         },
       ),

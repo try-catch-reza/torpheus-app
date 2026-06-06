@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:torpheus/data/models/perfis_model.dart';
 import 'package:torpheus/data/models/permissao_model.dart';
 
 sealed class PerfisEvent extends Equatable {
@@ -40,4 +41,13 @@ final class PerfisAdicionarPermissao extends PerfisEvent {
 
   @override
   List<Object?> get props => [permissao];
+}
+
+final class PerfisExcluirPerfil extends PerfisEvent {
+  const PerfisExcluirPerfil(this.perfis);
+
+  final PerfisModel perfis;
+
+  @override
+  List<Object?> get props => [perfis];
 }

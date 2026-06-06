@@ -35,6 +35,8 @@ class EapiSchema {
 
   String get catalogoPermissoes => '$_apiUtils/v1/roles/permissions/catalog';
 
+  String excluirPerfilById(String id) => '$_apiUtils/v1/roles/$id';
+
   String updateCliente(String id) => '$_apiUtils/v1/client/$id';
 
   String updateVeiculo(String id) => '$_apiUtils/v1/vehicle/$id';

@@ -9,12 +9,17 @@ sealed class PerfisState extends Equatable {
     this.perfilSelecionado,
     this.permissaoGrupo = const [],
     this.catalogoPermissoes = const [],
+    this.hasCriarPerfis = false,
+    this.hasExcluirPerfis = false,
   });
 
   final List<PerfisModel> perfis;
   final PerfisModel? perfilSelecionado;
   final List<PermissaoGrupoModel> permissaoGrupo;
   final List<String> catalogoPermissoes;
+
+  final bool hasCriarPerfis;
+  final bool hasExcluirPerfis;
 
   @override
   List<Object?> get props => [];
@@ -31,6 +36,8 @@ final class PerfisLoading extends PerfisState {
 final class PerfisLoaded extends PerfisState {
   const PerfisLoaded({
     required super.perfis,
+    required super.hasCriarPerfis,
+    required super.hasExcluirPerfis,
     super.perfilSelecionado,
     super.permissaoGrupo,
     super.catalogoPermissoes,
@@ -39,6 +46,7 @@ final class PerfisLoaded extends PerfisState {
   @override
   List<Object?> get props => [
         perfis,
+        hasCriarPerfis,
         perfilSelecionado,
         permissaoGrupo,
         catalogoPermissoes,
@@ -48,6 +56,8 @@ final class PerfisLoaded extends PerfisState {
 final class PerfisError extends PerfisState {
   const PerfisError({
     required this.message,
+    required super.hasCriarPerfis,
+    required super.hasExcluirPerfis,
     super.perfis,
     super.perfilSelecionado,
     super.permissaoGrupo,
@@ -66,10 +76,23 @@ final class PerfisError extends PerfisState {
 
 final class PerfisCriado extends PerfisState {
   const PerfisCriado({
+    required super.hasCriarPerfis,
+    required super.hasExcluirPerfis,
     super.perfis,
     super.perfilSelecionado,
     super.permissaoGrupo,
   });
+
+  @override
+  List<Object?> get props => [
+        perfis,
+        perfilSelecionado,
+        permissaoGrupo,
+      ];
+}
+
+final class PerfisExcluido extends PerfisState {
+  const PerfisExcluido();
 
   @override
   List<Object?> get props => [
