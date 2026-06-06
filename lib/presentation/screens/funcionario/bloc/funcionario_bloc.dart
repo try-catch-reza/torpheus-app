@@ -20,6 +20,7 @@ class FuncionarioBloc extends Bloc<FuncionarioEvent, FuncionarioState> {
   ) : super(const FuncionarioInitial()) {
     on<FuncionarioLoad>(_onFuncionarioLoad);
     on<FuncionarioCadastrar>(_onFuncionarioCadastrar);
+    on<FuncionarioSearch>(_onFuncionarioSearch);
   }
 
   Future<void> _onFuncionarioLoad(
@@ -34,6 +35,7 @@ class FuncionarioBloc extends Bloc<FuncionarioEvent, FuncionarioState> {
       emit(
         FuncionarioLoaded(
           funcionarios: funcionarios,
+          funcionariosFiltered: funcionarios,
           hasCriarFuncionario: hasCriarFuncionario,
         ),
       );
@@ -47,5 +49,32 @@ class FuncionarioBloc extends Bloc<FuncionarioEvent, FuncionarioState> {
     Emitter<FuncionarioState> emit,
   ) {
     emit(const FuncionarioCadastrando());
+  }
+
+  void _onFuncionarioSearch(
+    FuncionarioSearch event,
+    Emitter<FuncionarioState> emit,
+  ) {
+    List<FuncionarioModel> funcionariosFiltered = [];
+
+    if (event.search.isNotEmpty) {
+      final search = event.search.toLowerCase().trim();
+      funcionariosFiltered = state.funcionarios.where((f) {
+        final nome = f.nome?.toLowerCase() ?? '';
+
+        return nome.contains(search);
+      }).toList();
+    } else {
+      funcionariosFiltered = state.funcionarios;
+    }
+
+    emit(
+      FuncionarioLoaded(
+        funcionarios: state.funcionarios,
+        funcionariosFiltered: funcionariosFiltered,
+        hasCriarFuncionario: state.hasCriarFuncionario,
+        search: event.search,
+      ),
+    );
   }
 }

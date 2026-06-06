@@ -3,14 +3,23 @@ part of 'funcionario_bloc.dart';
 sealed class FuncionarioState extends Equatable {
   const FuncionarioState({
     this.funcionarios = const [],
+    this.funcionariosFiltered = const [],
     this.hasCriarFuncionario = false,
+    this.search = '',
   });
 
   final List<FuncionarioModel> funcionarios;
+  final List<FuncionarioModel> funcionariosFiltered;
+
   final bool hasCriarFuncionario;
+  final String search;
 
   @override
-  List<Object?> get props => [funcionarios, hasCriarFuncionario];
+  List<Object?> get props => [
+        funcionarios,
+        hasCriarFuncionario,
+        search,
+      ];
 }
 
 class FuncionarioInitial extends FuncionarioState {
@@ -21,20 +30,30 @@ class FuncionarioInitial extends FuncionarioState {
 }
 
 class FuncionarioLoading extends FuncionarioState {
-  const FuncionarioLoading();
+  const FuncionarioLoading({
+    super.funcionarios,
+    super.funcionariosFiltered,
+  });
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [funcionarios, funcionariosFiltered];
 }
 
 class FuncionarioLoaded extends FuncionarioState {
   const FuncionarioLoaded({
     required super.funcionarios,
-    required super.hasCriarFuncionario,
+    required super.funcionariosFiltered,
+    super.hasCriarFuncionario,
+    super.search,
   });
 
   @override
-  List<Object?> get props => [funcionarios, hasCriarFuncionario];
+  List<Object?> get props => [
+        funcionarios,
+        funcionariosFiltered,
+        hasCriarFuncionario,
+        search,
+      ];
 }
 
 class FuncionarioError extends FuncionarioState {

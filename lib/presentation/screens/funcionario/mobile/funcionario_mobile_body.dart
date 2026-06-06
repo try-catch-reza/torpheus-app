@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/components/mobile/app_bar_mobile_search.dart';
 import 'package:torpheus/presentation/screens/funcionario/mobile/funcionario_mobile_lista.dart';
 import 'package:torpheus/presentation/screens/funcionario_detalhe/funcionario_detalhe_screen.dart';
@@ -28,19 +29,22 @@ class FuncionarioMobileBody extends StatelessWidget {
               AppRoutes.cadastrarFuncionario.route,
             );
           },
+          onChanged: (value) {
+            context.read<FuncionarioBloc>().add(FuncionarioSearch(value));
+          },
           title: 'Funcionários',
           subtitle: 'Cadastro e histórico de funcionários',
           controller: controller,
           hasPodeCriar: state.hasCriarFuncionario,
         ),
-        if (state.funcionarios.isEmpty)
+        if (state.funcionariosFiltered.isEmpty)
           const ListaVaziaCustom(
             message: 'Nenhum funcionário encontrado.',
             subMessage: 'Cadastre um novo funcionário',
           ),
-        if (state.funcionarios.isNotEmpty)
+        if (state.funcionariosFiltered.isNotEmpty)
           FuncionarioMobileLista(
-            funcionarios: state.funcionarios,
+            funcionarios: state.funcionariosFiltered,
             onFuncionarioTap: (value) {
               Navigator.of(context).pushNamed(
                 AppRoutes.funcionarioDetalhe.route,

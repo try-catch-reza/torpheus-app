@@ -20,3 +20,13 @@ final class FuncionarioCadastrar extends FuncionarioEvent {
   @override
   List<Object?> get props => [];
 }
+
+final class FuncionarioSearch extends FuncionarioEvent {
+  const FuncionarioSearch(this.search);
+
+  final String search;
+
+  @override
+  List<Object?> get props => [search];
+}
+
