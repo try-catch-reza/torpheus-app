@@ -23,7 +23,16 @@ sealed class PainelState extends Equatable {
   final bool hasAccessVeiculo;
 
   @override
-  List<Object?> get props => [image, hasAccessUsuario];
+  List<Object?> get props => [
+        image,
+        nome,
+        email,
+        cargo,
+        hasAccessUsuario,
+        hasAccessFuncionario,
+        hasAccessVeiculo,
+        hasAccessCliente,
+      ];
 }
 
 final class PainelInitial extends PainelState {
@@ -52,7 +61,15 @@ final class PainelLoaded extends PainelState {
   });
 
   @override
-  List<Object?> get props => [email, nome];
+  List<Object?> get props => [
+        email,
+        nome,
+        cargo,
+        hasAccessUsuario,
+        hasAccessFuncionario,
+        hasAccessVeiculo,
+        hasAccessCliente,
+      ];
 }
 
 final class PainelFail extends PainelState {

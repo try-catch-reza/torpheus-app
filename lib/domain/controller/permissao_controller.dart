@@ -3,7 +3,9 @@ import 'package:torpheus/domain/repositories/preferenfeces/preferences_local_rep
 class PermissaoController {
   final PreferencesLocalRepository _preferencesLocalRepository;
 
-  PermissaoController(this._preferencesLocalRepository);
+  PermissaoController(
+    this._preferencesLocalRepository,
+  );
 
   bool temPermissao(String permissao) {
     final permissoes = _preferencesLocalRepository.getListPermissions();

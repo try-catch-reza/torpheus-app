@@ -16,14 +16,16 @@ class CadastrarVeiculoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: cadastrarVeiculoBloc
-        ..add(
-          CadastrarVeiculoLoad(
-            isEdit: arguments.isEdit,
-            veiculoId: arguments.veiculoId,
-          ),
-        ),
+    return BlocProvider<CadastrarVeiculoBloc>(
+      create: (context) {
+        return cadastrarVeiculoBloc
+          ..add(
+            CadastrarVeiculoLoad(
+              isEdit: arguments.isEdit,
+              veiculoId: arguments.veiculoId,
+            ),
+          );
+      },
       child: Responsive.isDesktop(context) || Responsive.isTablet(context)
           ? const CadastrarVeiculoMobileContent()
           : const CadastrarVeiculoMobileContent(),

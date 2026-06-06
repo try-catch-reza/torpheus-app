@@ -35,12 +35,20 @@ final class CadastrarVeiculoSubmit extends CadastrarVeiculoEvent {
 }
 
 final class CadastrarVeiculoUpdate extends CadastrarVeiculoEvent {
-  const CadastrarVeiculoUpdate({required this.veiculo});
+  const CadastrarVeiculoUpdate({
+    required this.placa,
+    required this.modelo,
+    required this.motor,
+    required this.ano,
+  });
 
-  final VeiculoModel veiculo;
+  final String placa;
+  final String modelo;
+  final String motor;
+  final int ano;
 
   @override
-  List<Object?> get props => [veiculo];
+  List<Object?> get props => [];
 }
 
 final class CadastrarVeiculoSetTipo extends CadastrarVeiculoEvent {
@@ -78,5 +86,3 @@ final class CadastrarVeiculoSetCombustivel extends CadastrarVeiculoEvent {
   @override
   List<Object?> get props => [combustivel];
 }
-
-

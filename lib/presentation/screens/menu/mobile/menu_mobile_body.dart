@@ -71,7 +71,7 @@ class MenuMobileBody extends StatelessWidget {
 
   List<Widget> _widgetPages() {
     return [
-      PainelScreen(painelBloc: menuParametros.homeBloc),
+      PainelScreen(painelBloc: menuParametros.painelBloc),
       OrdensServicoScreen(ordensServicoBloc: menuParametros.ordensServicoBloc),
       RelatoriosScreen(relatoriosBloc: menuParametros.relatoriosBloc),
       PerfilScreen(perfilBloc: menuParametros.perfilBloc),

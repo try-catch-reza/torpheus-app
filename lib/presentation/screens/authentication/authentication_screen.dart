@@ -23,7 +23,7 @@ class AuthenticationScreen extends StatefulWidget {
     required this.authenticationBloc,
     required this.loginBloc,
     required this.menuBloc,
-    required this.homeBloc,
+    required this.painelBloc,
     required this.perfilBloc,
     required this.clienteBloc,
     required this.mecanicosBloc,
@@ -36,7 +36,7 @@ class AuthenticationScreen extends StatefulWidget {
   final AuthenticationBloc authenticationBloc;
   final LoginBloc loginBloc;
   final MenuBloc menuBloc;
-  final PainelBloc homeBloc;
+  final PainelBloc painelBloc;
   final PerfilBloc perfilBloc;
   final ClienteBloc clienteBloc;
   final FuncionarioBloc mecanicosBloc;
@@ -53,7 +53,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   late final AuthenticationBloc _authenticationBloc;
   late final LoginBloc _loginBloc;
   late final MenuBloc _menuBloc;
-  late final PainelBloc _homeBloc;
+  late final PainelBloc _painelBloc;
   late final PerfilBloc _perfilBloc;
   late final ClienteBloc _clienteBloc;
   late final FuncionarioBloc _mecanicosBloc;
@@ -67,7 +67,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
     _authenticationBloc = widget.authenticationBloc;
     _loginBloc = widget.loginBloc;
     _menuBloc = widget.menuBloc;
-    _homeBloc = widget.homeBloc;
+    _painelBloc = widget.painelBloc;
     _perfilBloc = widget.perfilBloc;
     _clienteBloc = widget.clienteBloc;
     _mecanicosBloc = widget.mecanicosBloc;
@@ -90,7 +90,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         return state.isAuthenticated
             ? MenuScreen(
                 menuParametros: MenuParametros(
-                  homeBloc: _homeBloc,
+                  painelBloc: _painelBloc,
                   menuBloc: _menuBloc,
                   perfilBloc: _perfilBloc,
                   clienteBloc: _clienteBloc,

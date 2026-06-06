@@ -119,6 +119,8 @@ class CadastrarVeiculoBloc
     CadastrarVeiculoUpdate event,
     Emitter<CadastrarVeiculoState> emit,
   ) async {
+    VeiculoModel veiculo = const VeiculoModel();
+
     emit(
       CadastrarVeiculoLoading(
         veiculoId: state.veiculoId,
@@ -128,7 +130,14 @@ class CadastrarVeiculoBloc
     );
 
     try {
-      // await _eapiRemoteRepository.updateVeiculo(event.veiculo, state.veiculoId);
+      veiculo = state.veiculoEditar.copyWith(
+        ano: event.ano,
+        motor: event.motor,
+        modelo: event.modelo,
+        placa: event.placa
+      );
+
+      await _eapiRemoteRepository.updateVeiculo(veiculo);
       emit(const CadastrarVeiculoAtualizado());
     } on HttpRequestException catch (e) {
       emit(
@@ -153,9 +162,15 @@ class CadastrarVeiculoBloc
     CadastrarVeiculoSetTipo event,
     Emitter<CadastrarVeiculoState> emit,
   ) {
+    VeiculoModel veiculo = const VeiculoModel();
+
+    if (state.isEdit) {
+      veiculo = state.veiculoEditar.copyWith(tipo: event.tipo);
+    }
+
     emit(
       CadastrarVeiculoLoaded(
-        veiculoEditar: state.veiculoEditar,
+        veiculoEditar: veiculo,
         isEdit: state.isEdit,
         veiculoId: state.veiculoId,
         tipo: event.tipo,
@@ -171,9 +186,15 @@ class CadastrarVeiculoBloc
     CadastrarVeiculoSetMarca event,
     Emitter<CadastrarVeiculoState> emit,
   ) {
+    VeiculoModel veiculo = const VeiculoModel();
+
+    if (state.isEdit) {
+      veiculo = state.veiculoEditar.copyWith(marca: event.marca);
+    }
+
     emit(
       CadastrarVeiculoLoaded(
-        veiculoEditar: state.veiculoEditar,
+        veiculoEditar: veiculo,
         isEdit: state.isEdit,
         veiculoId: state.veiculoId,
         marca: event.marca,
@@ -188,9 +209,15 @@ class CadastrarVeiculoBloc
     CadastrarVeiculoSetCambio event,
     Emitter<CadastrarVeiculoState> emit,
   ) {
+    VeiculoModel veiculo = const VeiculoModel();
+
+    if (state.isEdit) {
+      veiculo = state.veiculoEditar.copyWith(cambio: event.cambio);
+    }
+
     emit(
       CadastrarVeiculoLoaded(
-        veiculoEditar: state.veiculoEditar,
+        veiculoEditar: veiculo,
         isEdit: state.isEdit,
         veiculoId: state.veiculoId,
         cambio: event.cambio,
@@ -205,9 +232,15 @@ class CadastrarVeiculoBloc
     CadastrarVeiculoSetCombustivel event,
     Emitter<CadastrarVeiculoState> emit,
   ) {
+    VeiculoModel veiculo = const VeiculoModel();
+
+    if (state.isEdit) {
+      veiculo = state.veiculoEditar.copyWith(combustivel: event.combustivel);
+    }
+
     emit(
       CadastrarVeiculoLoaded(
-        veiculoEditar: state.veiculoEditar,
+        veiculoEditar: veiculo,
         isEdit: state.isEdit,
         veiculoId: state.veiculoId,
         cambio: state.cambio,

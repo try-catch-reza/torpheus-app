@@ -34,6 +34,8 @@ abstract class EapiRemoteRepository {
 
   Future<void> cadastrarVeiculo(VeiculoModel veiculo);
 
+  Future<void> updateVeiculo(VeiculoModel veiculo);
+
   Future<VeiculoModel> getVeiculoById(String id);
 
   /// Catálogo Permissões ------------------------------------------------------

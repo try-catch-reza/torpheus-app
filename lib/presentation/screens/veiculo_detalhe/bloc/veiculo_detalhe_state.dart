@@ -1,12 +1,13 @@
 part of 'veiculo_detalhe_bloc.dart';
 
 sealed class VeiculoDetalheState extends Equatable {
-  const VeiculoDetalheState({this.veiculo});
+  const VeiculoDetalheState({this.veiculo, this.hasEditarVeiculo = false});
 
   final VeiculoModel? veiculo;
+  final bool hasEditarVeiculo;
 
   @override
-  List<Object?> get props => [veiculo];
+  List<Object?> get props => [veiculo, hasEditarVeiculo];
 }
 
 final class VeiculoDetalheInitial extends VeiculoDetalheState {
@@ -18,10 +19,13 @@ final class VeiculoDetalheLoading extends VeiculoDetalheState {
 }
 
 final class VeiculoDetalheLoaded extends VeiculoDetalheState {
-  const VeiculoDetalheLoaded({required super.veiculo});
+  const VeiculoDetalheLoaded({
+    required super.veiculo,
+    required super.hasEditarVeiculo,
+  });
 
   @override
-  List<Object?> get props => [veiculo];
+  List<Object?> get props => [veiculo, hasEditarVeiculo];
 }
 
 final class VeiculoDetalheError extends VeiculoDetalheState {
@@ -32,4 +36,3 @@ final class VeiculoDetalheError extends VeiculoDetalheState {
   @override
   List<Object?> get props => [message];
 }
-

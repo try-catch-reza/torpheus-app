@@ -65,6 +65,48 @@ class VeiculoModel extends Equatable {
     };
   }
 
+  Map<String, dynamic> toJsonPUT() {
+    return {
+      'type': tipo?.value,
+      'licensePlate': placa,
+      'brand': marca?.value,
+      'model': modelo,
+      'engine': motor,
+      'transmission': cambio?.value,
+      'manufactureYear': ano,
+      'fuel': combustivel?.value,
+      'isActive': isActive
+    };
+  }
+
+  VeiculoModel copyWith({
+    String? id,
+    TipoVeiculo? tipo,
+    String? placa,
+    MarcaVeiculo? marca,
+    String? modelo,
+    String? motor,
+    int? ano,
+    CambioVeiculo? cambio,
+    CombustivelVeiculo? combustivel,
+    bool? isActive,
+    DateTime? createdAt,
+  }) {
+    return VeiculoModel(
+      id: id ?? this.id,
+      tipo: tipo ?? this.tipo,
+      placa: placa ?? this.placa,
+      marca: marca ?? this.marca,
+      modelo: modelo ?? this.modelo,
+      motor: motor ?? this.motor,
+      ano: ano ?? this.ano,
+      cambio: cambio ?? this.cambio,
+      combustivel: combustivel ?? this.combustivel,
+      isActive: isActive ?? this.isActive,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
   @override
   String toString() {
     return 'VeiculoModel{'
@@ -75,7 +117,8 @@ class VeiculoModel extends Equatable {
         'motor: $motor, '
         'ano: $ano, '
         'cambio: $cambio, '
-        'combustivel: $combustivel,'
+        'combustivel: $combustivel, '
+        'isActive: $isActive, '
         '}';
   }
 

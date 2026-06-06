@@ -27,6 +27,9 @@ class SharedDataImpl implements SharedData {
     );
 
     try {
+      if (T == List<String>) {
+        return _prefs.getStringList(preference.key) as T?;
+      }
       return _prefs.get(preference.key) as T;
     } catch (e) {
       return null;

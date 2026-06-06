@@ -89,7 +89,7 @@ class Routes {
           authenticationBloc: injector.getIt.get<AuthenticationBloc>(),
           loginBloc: injector.getIt.get<LoginBloc>(),
           menuBloc: injector.getIt.get<MenuBloc>(),
-          homeBloc: injector.getIt.get<PainelBloc>(),
+          painelBloc: injector.getIt.get<PainelBloc>(),
           perfilBloc: injector.getIt.get<PerfilBloc>(),
           clienteBloc: injector.getIt.get<ClienteBloc>(),
           mecanicosBloc: injector.getIt.get<FuncionarioBloc>(),

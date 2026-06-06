@@ -132,6 +132,7 @@ final class InjectorImpl extends Injector {
       PainelBloc(
         getIt.get<ImageService>(),
         getIt.get<PreferencesLocalRepository>(),
+        getIt.get<PermissaoController>(),
       ),
     );
 
@@ -185,7 +186,9 @@ final class InjectorImpl extends Injector {
     );
 
     getIt.registerSingleton<VeiculoDetalheBloc>(
-      VeiculoDetalheBloc(),
+      VeiculoDetalheBloc(
+        getIt.get<PermissaoController>(),
+      ),
     );
 
     getIt.registerSingleton<FuncionarioDetalheBloc>(
@@ -204,8 +207,8 @@ final class InjectorImpl extends Injector {
       ),
     );
 
-    getIt.registerSingleton<CadastrarVeiculoBloc>(
-      CadastrarVeiculoBloc(
+    getIt.registerFactory<CadastrarVeiculoBloc>(
+      () => CadastrarVeiculoBloc(
         getIt.get<EapiRemoteRepository>(),
         getIt.get<PermissaoController>(),
       ),

@@ -39,7 +39,7 @@ class MenuWebBody extends StatelessWidget {
 
   List<Widget> _widgetPages() {
     return [
-      PainelScreen(painelBloc: menuParametros.homeBloc),
+      PainelScreen(painelBloc: menuParametros.painelBloc),
       OrdensServicoScreen(ordensServicoBloc: menuParametros.ordensServicoBloc),
       VeiculosScreen(veiculosBloc: menuParametros.veiculosBloc),
       FuncionarioScreen(funcionarioBloc: menuParametros.mecanicosBloc),

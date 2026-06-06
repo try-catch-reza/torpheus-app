@@ -13,21 +13,22 @@ class VeiculoDetalheMobileAtualizar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<VeiculoDetalheBloc, VeiculoDetalheState>(
       builder: (context, state) {
-        return AppButtonBottomNavigation(
-          icon: Icons.edit,
-          text: 'Editar dados do veículo',
-          onPressed: () {
-            Navigator.of(context).pushNamed(
-              AppRoutes.cadastrarVeiculo.route,
-              arguments: CadastrarVeiculoArguments(
-                isEdit: true,
-              ),
-            );
-          },
+        return Visibility(
+          visible: state.hasEditarVeiculo,
+          child: AppButtonBottomNavigation(
+            icon: Icons.edit,
+            text: 'Editar dados do veículo',
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                AppRoutes.cadastrarVeiculo.route,
+                arguments: CadastrarVeiculoArguments(
+                  isEdit: true,
+                ),
+              );
+            },
+          ),
         );
       },
     );
   }
 }
-
-

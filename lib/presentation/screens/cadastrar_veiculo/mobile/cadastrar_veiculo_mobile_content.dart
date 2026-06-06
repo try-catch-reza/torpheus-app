@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/core/constants/color_constants.dart';
-import 'package:torpheus/presentation/components/app_bar_padrao.dart';
 import 'package:torpheus/presentation/components/dialog/dialog_mobile_padrao.dart';
 import 'package:torpheus/presentation/screens/cadastrar_veiculo/bloc/cadastrar_veiculo_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_veiculo/mobile/cadastrar_veiculo_mobile_button.dart';
 
-import '../../../components/app_primary_button.dart';
 import '../../../components/loading_state.dart';
 import 'cadastrar_veiculo_body.dart';
+import 'cadastrar_veiculo_mobile_app_bar.dart';
 
 class CadastrarVeiculoMobileContent extends StatefulWidget {
   const CadastrarVeiculoMobileContent({super.key});
@@ -28,7 +27,7 @@ class _CadastrarVeiculoMobileContentState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPadrao(title: 'Cadastrar Veículo', hasLeading: true),
+      appBar: const CadastrarVeiculoMobileAppBar(),
       body: BlocConsumer<CadastrarVeiculoBloc, CadastrarVeiculoState>(
         buildWhen: _buildWhen,
         listener: _listener,
@@ -52,29 +51,14 @@ class _CadastrarVeiculoMobileContentState
           return const SizedBox.shrink();
         },
       ),
-      bottomNavigationBar: Container(
-        color: ColorConstants.chambray,
-        child: AppPrimaryButton(
-          fontSize: 17,
-          text: 'Salvar veículo',
-          icon: Icons.check,
-          onPressed: () => _onCadastrarVeiculo(context),
-        ),
+      bottomNavigationBar: CadastrarVeiculoMobileButton(
+        formKey: _formKey,
+        placaController: _placaController,
+        modeloController: _modeloController,
+        motorController: _motorController,
+        anoController: _anoController,
       ),
     );
-  }
-
-  void _onCadastrarVeiculo(BuildContext context) {
-    if (_formKey.currentState?.validate() ?? false) {
-      context.read<CadastrarVeiculoBloc>().add(
-            CadastrarVeiculoSubmit(
-              placa: _placaController.text,
-              modelo: _modeloController.text,
-              motor: _motorController.text,
-              ano: int.tryParse(_anoController.text) ?? 0,
-            ),
-          );
-    }
   }
 
   void _listener(BuildContext context, CadastrarVeiculoState state) {
@@ -102,6 +86,23 @@ class _CadastrarVeiculoMobileContentState
         },
       );
     }
+
+    if (state is CadastrarVeiculoEditando) {
+      _placaController.text = state.veiculoEditar.placa ?? '';
+      _anoController.text = state.veiculoEditar.ano.toString();
+      _motorController.text = state.veiculoEditar.motor ?? '';
+      _modeloController.text = state.veiculoEditar.modelo ?? '';
+    }
+
+    if (state is CadastrarVeiculoAtualizado) {
+      DialogMobilePadrao.successDialog(
+        context: context,
+        message: 'Veículo atualizado com sucesso!',
+        onPress: () {
+          Navigator.of(context).pop();
+        },
+      );
+    }
   }
 
   bool _buildWhen(
@@ -109,6 +110,7 @@ class _CadastrarVeiculoMobileContentState
     CadastrarVeiculoState current,
   ) {
     return current is! CadastrarVeiculoLoading &&
-        current is! CadastrarVeiculoSuccess;
+        current is! CadastrarVeiculoSuccess &&
+        current is! CadastrarVeiculoAtualizado;
   }
 }

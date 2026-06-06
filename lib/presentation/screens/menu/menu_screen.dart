@@ -46,7 +46,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
 class MenuParametros {
   const MenuParametros({
-    required this.homeBloc,
+    required this.painelBloc,
     required this.menuBloc,
     required this.perfilBloc,
     required this.clienteBloc,
@@ -57,7 +57,7 @@ class MenuParametros {
     required this.perfisBloc,
   });
 
-  final PainelBloc homeBloc;
+  final PainelBloc painelBloc;
   final MenuBloc menuBloc;
   final PerfilBloc perfilBloc;
   final ClienteBloc clienteBloc;

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../data/plugins/image_service.dart';
+import '../../../../domain/controller/permissao_controller.dart';
 import '../../../../domain/repositories/preferenfeces/preferences_local_repository.dart';
 
 part 'painel_event.dart';
@@ -13,10 +14,12 @@ part 'painel_state.dart';
 class PainelBloc extends Bloc<PainelEvent, PainelState> {
   late final ImageService _imageService;
   late final PreferencesLocalRepository _preferencesLocalRepository;
+  late final PermissaoController _permissaoController;
 
   PainelBloc(
     this._imageService,
     this._preferencesLocalRepository,
+    this._permissaoController,
   ) : super(const PainelInitial()) {
     on<PainelCarregar>(_onPainelLoad);
     on<PainelAbrirCamera>(_onPainelAbrirCamera);
@@ -24,37 +27,19 @@ class PainelBloc extends Bloc<PainelEvent, PainelState> {
   }
 
   Future<void> _onPainelLoad(
-    PainelEvent event,
+    PainelCarregar event,
     Emitter<PainelState> emit,
   ) async {
     try {
       emit(const PainelLoading());
-
-      bool hasAccessUsuario = false;
-      bool hasAccessFuncionario = false;
-      bool hasAccessCliente = false;
-      bool hasAccessVeiculo = false;
-
       final nome = _preferencesLocalRepository.getNome();
       final email = _preferencesLocalRepository.getEmail();
       final cargo = _preferencesLocalRepository.getCargo();
-      final permissoes = _preferencesLocalRepository.getListPermissions();
 
-      if (permissoes.contains('users.read')) {
-        hasAccessUsuario = true;
-      }
-
-      if (permissoes.contains('employees.read')) {
-        hasAccessFuncionario = true;
-      }
-
-      if (permissoes.contains('clients.read')) {
-        hasAccessCliente = true;
-      }
-
-      if (permissoes.contains('vehicles.read')) {
-        hasAccessVeiculo = true;
-      }
+      final hasAccessUsuario = _permissaoController.podeLerUsuario;
+      final hasAccessFuncionario = _permissaoController.podeLerFuncionario;
+      final hasAccessCliente = _permissaoController.podeLerCliente;
+      final hasAccessVeiculo = _permissaoController.podeLerVeiculo;
 
       emit(
         PainelLoaded(
