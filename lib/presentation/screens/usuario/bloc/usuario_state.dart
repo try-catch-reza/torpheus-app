@@ -3,14 +3,18 @@ part of 'usuario_bloc.dart';
 sealed class UsuarioState extends Equatable {
   const UsuarioState({
     this.usuarios = const [],
+    this.usuariosFiltered = const [],
     this.hasCriarUsuario = false,
+    this.search = '',
   });
 
   final List<UsuarioModel> usuarios;
+  final List<UsuarioModel> usuariosFiltered;
   final bool hasCriarUsuario;
+  final String search;
 
   @override
-  List<Object?> get props => [usuarios, hasCriarUsuario];
+  List<Object?> get props => [usuarios, hasCriarUsuario, search];
 }
 
 final class UsuarioInitial extends UsuarioState {
@@ -18,17 +22,22 @@ final class UsuarioInitial extends UsuarioState {
 }
 
 final class UsuarioLoading extends UsuarioState {
-  const UsuarioLoading();
+  const UsuarioLoading({
+    super.usuarios,
+    super.usuariosFiltered,
+  });
 }
 
 final class UsuarioLoaded extends UsuarioState {
   const UsuarioLoaded({
     required super.usuarios,
-    required super.hasCriarUsuario,
+    required super.usuariosFiltered,
+    super.hasCriarUsuario,
+    super.search,
   });
 
   @override
-  List<Object?> get props => [usuarios, hasCriarUsuario];
+  List<Object?> get props => [usuarios, usuariosFiltered, hasCriarUsuario, search];
 }
 
 final class UsuarioError extends UsuarioState {

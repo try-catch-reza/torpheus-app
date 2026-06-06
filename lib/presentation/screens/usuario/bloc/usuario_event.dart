@@ -22,3 +22,13 @@ final class UsuarioSelecionar extends UsuarioEvent {
   @override
   List<Object?> get props => [usuario];
 }
+
+final class UsuarioSearch extends UsuarioEvent {
+  const UsuarioSearch(this.search);
+
+  final String search;
+
+  @override
+  List<Object?> get props => [search];
+}
+

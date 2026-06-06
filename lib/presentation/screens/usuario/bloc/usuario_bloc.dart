@@ -17,6 +17,7 @@ class UsuarioBloc extends Bloc<UsuarioEvent, UsuarioState> {
       : super(const UsuarioInitial()) {
     on<UsuariosLoad>(_onUsuariosLoad);
     on<UsuarioSelecionar>(_onUsuarioSelecionar);
+    on<UsuarioSearch>(_onUsuarioSearch);
   }
 
   Future<void> _onUsuariosLoad(
@@ -29,7 +30,13 @@ class UsuarioBloc extends Bloc<UsuarioEvent, UsuarioState> {
       final usuarios = await _eapiRemoteRepository.getUsuarios();
       final hasCriarUsuario = _permissaoController.podeCriarUsuario;
 
-      emit(UsuarioLoaded(usuarios: usuarios, hasCriarUsuario: hasCriarUsuario));
+      emit(
+        UsuarioLoaded(
+          usuarios: usuarios,
+          usuariosFiltered: usuarios,
+          hasCriarUsuario: hasCriarUsuario,
+        ),
+      );
     } catch (e) {
       emit(UsuarioError('Não foi possível carregar os usuários\n$e'));
     }
@@ -43,6 +50,34 @@ class UsuarioBloc extends Bloc<UsuarioEvent, UsuarioState> {
       UsuarioSelecionado(
         usuarios: state.usuarios,
         usuarioSelecionado: event.usuario,
+      ),
+    );
+  }
+
+  void _onUsuarioSearch(
+    UsuarioSearch event,
+    Emitter<UsuarioState> emit,
+  ) {
+    List<UsuarioModel> usuariosFiltered = [];
+
+    if (event.search.isNotEmpty) {
+      final search = event.search.toLowerCase().trim();
+      usuariosFiltered = state.usuarios.where((u) {
+        final nome = u.nome?.toLowerCase() ?? '';
+        final email = u.email?.toLowerCase() ?? '';
+
+        return nome.contains(search) || email.contains(search);
+      }).toList();
+    } else {
+      usuariosFiltered = state.usuarios;
+    }
+
+    emit(
+      UsuarioLoaded(
+        usuarios: state.usuarios,
+        usuariosFiltered: usuariosFiltered,
+        hasCriarUsuario: state.hasCriarUsuario,
+        search: event.search,
       ),
     );
   }
