@@ -192,7 +192,9 @@ final class InjectorImpl extends Injector {
     );
 
     getIt.registerSingleton<FuncionarioDetalheBloc>(
-      FuncionarioDetalheBloc(),
+      FuncionarioDetalheBloc(
+        getIt.get<PermissaoController>(),
+      ),
     );
 
     getIt.registerSingleton<CadastrarClienteBloc>(

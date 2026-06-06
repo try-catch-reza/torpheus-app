@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/config/routes.dart';
+import 'package:torpheus/data/models/veiculo_model.dart';
 import 'package:torpheus/presentation/components/mobile/app_bar_mobile_search.dart';
 import 'package:torpheus/presentation/screens/cadastrar_veiculo/cadastrar_veiculo_screen.dart';
 import 'package:torpheus/presentation/screens/veiculos/bloc/veiculos_bloc.dart';
@@ -28,7 +30,12 @@ class VeiculosMobileBody extends StatelessWidget {
             Navigator.of(context).pushNamed(
               AppRoutes.cadastrarVeiculo.route,
               arguments: CadastrarVeiculoArguments(),
-            );
+            ).then((_) {
+              context.read<VeiculosBloc>().add(const VeiculosLoad());
+            });
+          },
+          onChanged: (value) {
+            context.read<VeiculosBloc>().add(VeiculoSearch(value));
           },
           title: 'Veículos',
           subtitle: 'Cadastro e histórico de veículos',
@@ -36,22 +43,24 @@ class VeiculosMobileBody extends StatelessWidget {
           hintText: 'Pesquisar por placa',
           hasPodeCriar: state.hasCriarVeiculo,
         ),
-        if (state.veiculos.isEmpty)
+        if (state.veiculosFiltered.isEmpty)
           const ListaVaziaCustom(
             message: 'Nenhum veículo encontrado',
             subMessage: 'Cadastre um novo veículo para começar a gerenciar',
           ),
-        if (state.veiculos.isNotEmpty)
+        if (state.veiculosFiltered.isNotEmpty)
           VeiculosMobileLista(
-            veiculos: state.veiculos,
-            onVeiculoTap: (value) {
-              Navigator.of(context).pushNamed(
-                AppRoutes.veiculoDetalhe.route,
-                arguments: VeiculoDetalheArguments(veiculo: value),
-              );
-            },
+            veiculos: state.veiculosFiltered,
+            onVeiculoTap: (value) => _onTap(context, value),
           )
       ],
+    );
+  }
+
+  void _onTap(BuildContext context, VeiculoModel veiculo) {
+    Navigator.of(context).pushNamed(
+      AppRoutes.veiculoDetalhe.route,
+      arguments: VeiculoDetalheArguments(veiculo: veiculo),
     );
   }
 }

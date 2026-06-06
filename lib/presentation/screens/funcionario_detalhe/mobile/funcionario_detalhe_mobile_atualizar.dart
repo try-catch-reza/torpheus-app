@@ -12,14 +12,17 @@ class FuncionarioDetalheMobileAtualizar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<FuncionarioDetalheBloc, FuncionarioDetalheState>(
       builder: (context, state) {
-        return AppButtonBottomNavigation(
-          icon: Icons.edit,
-          text: 'Editar dados do funcionário',
-          onPressed: () {
-            Navigator.of(context).pushNamed(
-              AppRoutes.cadastrarFuncionario.route,
-            );
-          },
+        return Visibility(
+          visible: state.hasEditarFuncionario,
+          child: AppButtonBottomNavigation(
+            icon: Icons.edit,
+            text: 'Editar dados do funcionário',
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                AppRoutes.cadastrarFuncionario.route,
+              );
+            },
+          ),
         );
       },
     );

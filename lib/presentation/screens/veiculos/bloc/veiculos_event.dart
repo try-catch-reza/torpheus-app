@@ -75,3 +75,12 @@ final class VeiculoSetCombustivel extends VeiculosEvent {
   @override
   List<Object?> get props => [combustivel];
 }
+
+final class VeiculoSearch extends VeiculosEvent {
+  const VeiculoSearch(this.search);
+
+  final String search;
+
+  @override
+  List<Object?> get props => [search];
+}

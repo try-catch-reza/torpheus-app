@@ -30,6 +30,7 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
     on<VeiculoSetMarca>(_onCadastrarVeiculoSetMarca);
     on<VeiculoSetCambio>(_onVeiculoSetCambio);
     on<VeiculoSetCombustivel>(_onVeiculoSetCombustivel);
+    on<VeiculoSearch>(_onVeiculoSearch);
   }
 
   Future<void> _onVeiculosLoad(
@@ -45,6 +46,7 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
         VeiculosLoaded(
           veiculos: veiculos,
           hasCriarVeiculo: hasCriarVeiculo,
+          veiculosFiltered: veiculos,
         ),
       );
     } catch (e) {
@@ -100,6 +102,7 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
         combustivel: state.combustivel,
         marca: state.marca,
         veiculos: state.veiculos,
+        veiculosFiltered: state.veiculosFiltered,
       ),
     );
   }
@@ -115,6 +118,7 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
         cambio: state.cambio,
         tipo: state.tipo,
         veiculos: state.veiculos,
+        veiculosFiltered: state.veiculosFiltered,
       ),
     );
   }
@@ -130,6 +134,7 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
         marca: state.marca,
         tipo: state.tipo,
         veiculos: state.veiculos,
+        veiculosFiltered: state.veiculosFiltered,
       ),
     );
   }
@@ -145,6 +150,37 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
         combustivel: event.combustivel,
         marca: state.marca,
         tipo: state.tipo,
+        veiculosFiltered: state.veiculosFiltered,
+      ),
+    );
+  }
+
+  void _onVeiculoSearch(
+    VeiculoSearch event,
+    Emitter<VeiculosState> emit,
+  ) {
+    List<VeiculoModel> veiculosFiltered = [];
+
+    if (event.search.isNotEmpty) {
+      veiculosFiltered = state.veiculos.where(
+        (veiculo) {
+          return veiculo.placa!.contains(event.search.toUpperCase().trim());
+        },
+      ).toList();
+    } else {
+      veiculosFiltered = state.veiculos;
+    }
+
+    emit(
+      VeiculosLoaded(
+        veiculos: state.veiculos,
+        cambio: state.cambio,
+        combustivel: state.combustivel,
+        marca: state.marca,
+        tipo: state.tipo,
+        veiculosFiltered: veiculosFiltered,
+        search: event.search,
+        hasCriarVeiculo: state.hasCriarVeiculo,
       ),
     );
   }
