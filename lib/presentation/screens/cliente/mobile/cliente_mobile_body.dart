@@ -4,6 +4,7 @@ import 'package:torpheus/presentation/components/mobile/app_bar_mobile_search.da
 import 'package:torpheus/presentation/screens/cadastrar_cliente/cadastrar_cliente_screen.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/cliente_detalhe_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../components/lista_vazia_custom.dart';
 import 'cliente_mobile_lista.dart';
@@ -30,19 +31,22 @@ class ClienteMobileBody extends StatelessWidget {
               arguments: CadastrarClienteArguments(),
             );
           },
+          onChanged: (value) {
+            context.read<ClienteBloc>().add(ClienteSearch(value));
+          },
           title: 'Clientes',
           subtitle: 'Cadastro e histórico de clientes',
           controller: controller,
           hasPodeCriar: state.hasCriarCliente,
         ),
-        if (state.clientes.isEmpty)
+        if (state.clientesFiltered.isEmpty)
           const ListaVaziaCustom(
             message: 'Nenhum cliente encontrado ',
             subMessage: 'Cadastre um novo cliente',
           ),
-        if (state.clientes.isNotEmpty)
+        if (state.clientesFiltered.isNotEmpty)
           ClienteMobileLista(
-            clientes: state.clientes,
+            clientes: state.clientesFiltered,
             onClienteTap: (value) {
               Navigator.of(context).pushNamed(
                 AppRoutes.clienteDetalhe.route,

@@ -22,6 +22,7 @@ class ClienteBloc extends Bloc<ClienteEvent, ClienteState> {
     on<ClienteSelecionar>(_onClienteSelecionar);
     on<ClienteCadastrar>(_onClienteCadastrar);
     on<ClienteAtualizar>(_onClienteAtualizar);
+    on<ClienteSearch>(_onClienteSearch);
   }
 
   Future<void> _onClientesLoad(
@@ -39,6 +40,7 @@ class ClienteBloc extends Bloc<ClienteEvent, ClienteState> {
       emit(
         ClienteLoaded(
           clientes: clientes,
+          clientesFiltered: clientes,
           hasCriarCliente: hasCriarCliente,
         ),
       );
@@ -71,5 +73,36 @@ class ClienteBloc extends Bloc<ClienteEvent, ClienteState> {
     Emitter<ClienteState> emit,
   ) {
     emit(ClienteAtualizando(clienteSelecionado: event.cliente));
+  }
+
+  void _onClienteSearch(
+    ClienteSearch event,
+    Emitter<ClienteState> emit,
+  ) {
+    List<ClienteModel> clientesFiltered = [];
+
+    if (event.query.isNotEmpty) {
+      final query = event.query.toLowerCase().trim();
+      clientesFiltered = state.clientes.where((c) {
+        final nome = c.nome?.toLowerCase() ?? '';
+        final documento = c.documento?.toLowerCase() ?? '';
+        final email = c.email?.toLowerCase() ?? '';
+
+        return nome.contains(query) ||
+            documento.contains(query) ||
+            email.contains(query);
+      }).toList();
+    } else {
+      clientesFiltered = state.clientes;
+    }
+
+    emit(
+      ClienteLoaded(
+        clientes: state.clientes,
+        clientesFiltered: clientesFiltered,
+        hasCriarCliente: state.hasCriarCliente,
+        search: event.query,
+      ),
+    );
   }
 }
