@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:torpheus/presentation/screens/veiculos/mobile/veiculos_mobile_card.dart';
+import 'package:torpheus/presentation/components/mobile/card_mobile_custom.dart';
 
 import '../../../../data/models/veiculo_model.dart';
-import '../../../components/divider_custom.dart';
 
 class VeiculosMobileLista extends StatelessWidget {
   const VeiculosMobileLista({
@@ -17,16 +16,17 @@ class VeiculosMobileLista extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.separated(
+      child: ListView.builder(
         padding: EdgeInsets.zero,
-        separatorBuilder: (context, index) => DividerCustom.dividerList,
         itemCount: veiculos.length,
         itemBuilder: (context, index) {
           final veiculo = veiculos[index];
 
-          return VeiculosMobileCard(
-            veiculo: veiculo,
+          return CardMobileCustom(
+            title: veiculo.placa ?? '',
+            subTitle: veiculo.subTitle,
             onTap: () => onVeiculoTap(veiculo),
+            isActive: veiculo.isActive ?? false,
           );
         },
       ),

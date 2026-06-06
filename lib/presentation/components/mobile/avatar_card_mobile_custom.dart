@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/extension/string_extension.dart';
-import 'package:torpheus/data/models/cliente_model.dart';
 
-import '../../../../core/constants/color_constants.dart';
+import '../../../core/constants/color_constants.dart';
 
-class ClienteMobileCard extends StatelessWidget {
-  const ClienteMobileCard({
+class AvatarCardMobileCustom extends StatelessWidget {
+  const AvatarCardMobileCustom({
     super.key,
-    required this.cliente,
+    required this.title,
+    required this.subTitle,
     required this.onTap,
-    required this.onEdit,
+    required this.isActive,
   });
 
-  final ClienteModel cliente;
+  final String title;
+  final String subTitle;
   final VoidCallback onTap;
-  final VoidCallback onEdit;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +24,19 @@ class ClienteMobileCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(bottom: 10, top: 10),
         decoration: BoxDecoration(
-          border: Border.all(
-            color: ColorConstants.mercury,
-            width: 1.0,
+          border: Border(
+            top: const BorderSide(
+              color: ColorConstants.mercury,
+              width: 1.0,
+            ),
+            bottom: const BorderSide(
+              color: ColorConstants.mercury,
+              width: 1.0,
+            ),
+            left: BorderSide(
+              color: isActive ? Colors.green : Colors.redAccent,
+              width: 5.0,
+            ),
           ),
         ),
         child: Padding(
@@ -39,7 +50,7 @@ class ClienteMobileCard extends StatelessWidget {
                     radius: 21,
                     backgroundColor: ColorConstants.chambray,
                     child: Text(
-                      cliente.nome?.iniciais ?? '',
+                      title.iniciais,
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -53,7 +64,7 @@ class ClienteMobileCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          cliente.nome ?? '',
+                          title,
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
@@ -63,7 +74,7 @@ class ClienteMobileCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          cliente.email ?? '',
+                          subTitle,
                           style: const TextStyle(
                             fontSize: 12,
                             color: Color(0xFF6B7280),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/presentation/components/mobile/avatar_card_mobile_custom.dart';
 
 import '../../../../data/models/cliente_model.dart';
-import 'cliente_mobile_card.dart';
 
 class ClienteMobileLista extends StatelessWidget {
   const ClienteMobileLista({
@@ -24,10 +24,11 @@ class ClienteMobileLista extends StatelessWidget {
         itemBuilder: (context, index) {
           final cliente = clientes[index];
 
-          return ClienteMobileCard(
-            cliente: cliente,
+          return AvatarCardMobileCustom(
+            title: cliente.nome ?? '',
+            subTitle: cliente.email ?? '',
             onTap: () => onClienteTap(cliente),
-            onEdit: () => onEditTap(cliente),
+            isActive: cliente.isActive ?? false,
           );
         },
       ),

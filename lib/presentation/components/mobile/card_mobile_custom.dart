@@ -1,38 +1,52 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/color_constants.dart';
-import '../../../../data/models/veiculo_model.dart';
+import '../../../core/constants/color_constants.dart';
 
-class VeiculosMobileCard extends StatelessWidget {
-  const VeiculosMobileCard({
+class CardMobileCustom extends StatelessWidget {
+  const CardMobileCustom({
     super.key,
-    required this.veiculo,
+    required this.title,
+    required this.subTitle,
     required this.onTap,
+    required this.isActive,
   });
 
-  final VeiculoModel? veiculo;
+  final String title;
+  final String subTitle;
   final VoidCallback onTap;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 10.0,
-        right: 22.0,
-        left: 22.0,
-        bottom: 10.0,
-      ),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          color: Colors.white,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.only(bottom: 10, top: 10),
+        decoration: BoxDecoration(
+          border: Border(
+            top: const BorderSide(
+              color: ColorConstants.mercury,
+              width: 1.0,
+            ),
+            bottom: const BorderSide(
+              color: ColorConstants.mercury,
+              width: 1.0,
+            ),
+            left: BorderSide(
+              color: isActive ? Colors.green : Colors.redAccent,
+              width: 5.0,
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 2.0),
                 child: Text(
-                  '${veiculo?.placa}',
+                  title,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15.0,
@@ -50,7 +64,7 @@ class VeiculosMobileCard extends StatelessWidget {
                         right: 20.0,
                       ),
                       child: Text(
-                        veiculo?.subTitle ?? '',
+                        subTitle,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(

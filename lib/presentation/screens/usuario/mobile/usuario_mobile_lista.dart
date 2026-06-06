@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'usuario_mobile_card.dart';
+import 'package:torpheus/presentation/components/mobile/avatar_card_mobile_custom.dart';
 import '../../../../data/models/usuario_model.dart';
 
 class UsuarioMobileLista extends StatelessWidget {
@@ -21,9 +21,10 @@ class UsuarioMobileLista extends StatelessWidget {
         itemBuilder: (context, index) {
           final usuario = usuarios[index];
 
-          return UsuarioMobileCard(
-            usuario: usuario,
-            onEdit: () {},
+          return AvatarCardMobileCustom(
+            title: usuario.nome ?? '',
+            subTitle: usuario.email ?? '',
+            isActive: usuario.isActive ?? false,
             onTap: () => onUsuarioTap(usuario),
           );
         },
