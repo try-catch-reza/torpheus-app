@@ -9,12 +9,14 @@ class HeaderWebCustom extends StatelessWidget {
     required this.subtitle,
     required this.onPressed,
     required this.buttonText,
+    required this.hasPodeCriar,
   });
 
   final String title;
   final String subtitle;
   final String buttonText;
   final VoidCallback onPressed;
+  final bool hasPodeCriar;
 
   @override
   Widget build(BuildContext context) {
@@ -52,26 +54,29 @@ class HeaderWebCustom extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          SizedBox(
-            height: 40,
-            child: ElevatedButton.icon(
-              onPressed: onPressed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: ColorConstants.chambray,
-                foregroundColor: Colors.white,
-                elevation: 0,
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+          Visibility(
+            visible: hasPodeCriar,
+            child: SizedBox(
+              height: 40,
+              child: ElevatedButton.icon(
+                onPressed: onPressed,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ColorConstants.chambray,
+                  foregroundColor: Colors.white,
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
-              ),
-              icon: const Icon(Icons.add_rounded, size: 18),
-              label: Text(
-                buttonText,
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  decoration: TextDecoration.none,
+                icon: const Icon(Icons.add_rounded, size: 18),
+                label: Text(
+                  buttonText,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.none,
+                  ),
                 ),
               ),
             ),

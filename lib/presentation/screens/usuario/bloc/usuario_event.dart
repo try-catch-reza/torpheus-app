@@ -32,3 +32,26 @@ final class UsuarioSearch extends UsuarioEvent {
   List<Object?> get props => [search];
 }
 
+final class UsuarioSubmit extends UsuarioEvent {
+  const UsuarioSubmit({
+    required this.senha,
+    required this.nome,
+    required this.email,
+  });
+
+  final String nome;
+  final String email;
+  final String senha;
+
+  @override
+  List<Object?> get props => [nome, email, senha];
+}
+
+final class UsuarioSetPerfil extends UsuarioEvent {
+  const UsuarioSetPerfil(this.perfil);
+
+  final PerfisModel perfil;
+
+  @override
+  List<Object?> get props => [perfil];
+}

@@ -25,6 +25,8 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       final nome = _preferencesLocalRepository.getNome();
       final permissoes = _preferencesLocalRepository.getListPermissions();
 
+      print('Permissoes: $permissoes');
+
       emit(
         MenuLoaded(
           indexScreen: state.indexScreen,

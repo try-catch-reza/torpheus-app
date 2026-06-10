@@ -99,6 +99,7 @@ class Routes {
           ordensServicoBloc: injector.getIt.get<OrdensServicoBloc>(),
           relatoriosBloc: injector.getIt.get<RelatoriosBloc>(),
           perfisBloc: injector.getIt.get<PerfisBloc>(),
+          usuarioBloc: injector.getIt.get<UsuarioBloc>(),
         ),
       AppRoutes.home => PainelScreen(
           painelBloc: injector.getIt.get<PainelBloc>(),

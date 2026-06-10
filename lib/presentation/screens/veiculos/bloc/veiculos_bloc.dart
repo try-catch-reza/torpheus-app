@@ -31,6 +31,7 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
     on<VeiculoSetCambio>(_onVeiculoSetCambio);
     on<VeiculoSetCombustivel>(_onVeiculoSetCombustivel);
     on<VeiculoSearch>(_onVeiculoSearch);
+    on<VeiculoUpdate>(_onVeiculoUpdate);
   }
 
   Future<void> _onVeiculosLoad(
@@ -41,12 +42,14 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
     try {
       final veiculos = await _eapiRemoteRepository.getVeiculos();
       final hasCriarVeiculo = _permissaoController.podeCriarVeiculo;
+      final hasEditarVeiculo = _permissaoController.podeAtualizarVeiculo;
 
       emit(
         VeiculosLoaded(
           veiculos: veiculos,
           hasCriarVeiculo: hasCriarVeiculo,
           veiculosFiltered: veiculos,
+          hasEditarVeiculo: hasEditarVeiculo,
         ),
       );
     } catch (e) {
@@ -80,9 +83,7 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
         motor: event.motor,
       );
 
-      print('Veiculo: $veiculo');
-
-      // await _eapiRemoteRepository.cadastrarVeiculo(event.veiculo);
+      await _eapiRemoteRepository.cadastrarVeiculo(veiculo);
       emit(const VeiculoSuccess());
     } on HttpRequestException catch (e) {
       emit(VeiculosError(e.title));
@@ -183,5 +184,42 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
         hasCriarVeiculo: state.hasCriarVeiculo,
       ),
     );
+  }
+
+  FutureOr<void> _onVeiculoUpdate(
+    VeiculoUpdate event,
+    Emitter<VeiculosState> emit,
+  ) async {
+    try {
+      emit(
+        VeiculosAtualizando(
+          veiculos: state.veiculos,
+          cambio: state.cambio,
+          combustivel: state.combustivel,
+          marca: state.marca,
+          tipo: state.tipo,
+        ),
+      );
+
+      final veiculo = VeiculoModel(
+        id: event.id,
+        ano: event.ano,
+        motor: event.motor,
+        modelo: event.modelo,
+        placa: event.placa,
+        tipo: state.tipo,
+        cambio: state.cambio,
+        combustivel: state.combustivel,
+        marca: state.marca,
+        isActive: true,
+      );
+
+      await _eapiRemoteRepository.updateVeiculo(veiculo);
+      emit(const VeiculoAtualizado());
+    } on HttpRequestException catch (e) {
+      emit(VeiculosError(e.title));
+    } catch (e) {
+      emit(VeiculosError('Não foi possível atualizar o veículo.\n$e'));
+    }
   }
 }

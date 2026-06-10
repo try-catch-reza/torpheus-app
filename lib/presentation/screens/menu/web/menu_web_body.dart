@@ -3,6 +3,8 @@ import 'package:torpheus/presentation/screens/cliente/cliente_screen.dart';
 import 'package:torpheus/presentation/screens/funcionario/funcionario_screen.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/ordens_servico_screen.dart';
 import 'package:torpheus/presentation/screens/perfis/perfis_screen.dart';
+import 'package:torpheus/presentation/screens/relatorios/relatorios_screen.dart';
+import 'package:torpheus/presentation/screens/usuario/usuario_screen.dart';
 import 'package:torpheus/presentation/screens/veiculos/veiculos_screen.dart';
 
 import '../../painel/painel_screen.dart';
@@ -41,10 +43,12 @@ class MenuWebBody extends StatelessWidget {
     return [
       PainelScreen(painelBloc: menuParametros.painelBloc),
       OrdensServicoScreen(ordensServicoBloc: menuParametros.ordensServicoBloc),
-      VeiculosScreen(veiculosBloc: menuParametros.veiculosBloc),
-      FuncionarioScreen(funcionarioBloc: menuParametros.mecanicosBloc),
+      RelatoriosScreen(relatoriosBloc: menuParametros.relatoriosBloc),
       ClienteScreen(clienteBloc: menuParametros.clienteBloc),
+      FuncionarioScreen(funcionarioBloc: menuParametros.mecanicosBloc),
       PerfisScreen(perfisBloc: menuParametros.perfisBloc),
+      UsuarioScreen(usuarioBloc: menuParametros.usuarioBloc),
+      VeiculosScreen(veiculosBloc: menuParametros.veiculosBloc),
       const Text(''),
     ];
   }

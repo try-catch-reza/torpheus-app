@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/config/responsive.dart';
 import 'package:torpheus/presentation/screens/cadastrar_veiculo/bloc/cadastrar_veiculo_bloc.dart';
 import 'package:torpheus/presentation/screens/cadastrar_veiculo/mobile/cadastrar_veiculo_mobile_content.dart';
 
@@ -26,9 +25,7 @@ class CadastrarVeiculoScreen extends StatelessWidget {
             ),
           );
       },
-      child: Responsive.isDesktop(context) || Responsive.isTablet(context)
-          ? const CadastrarVeiculoMobileContent()
-          : const CadastrarVeiculoMobileContent(),
+      child: const CadastrarVeiculoMobileContent(),
     );
   }
 }

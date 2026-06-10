@@ -4,7 +4,6 @@ import 'package:torpheus/presentation/components/loading_state.dart';
 import 'package:torpheus/presentation/screens/veiculos/bloc/veiculos_bloc.dart';
 import 'package:torpheus/presentation/screens/veiculos/web/veiculos_web_body.dart';
 
-import '../../../components/dialog/dialog_mobile_padrao.dart';
 import '../../../components/dialog/dialog_web_padrao.dart';
 
 class VeiculosWebContent extends StatefulWidget {
@@ -62,13 +61,15 @@ class _VeiculosWebContentState extends State<VeiculosWebContent> {
           _modeloController.clear();
           _motorController.clear();
           _placaController.clear();
+
+          context.read<VeiculosBloc>().add(const VeiculosLoad());
         },
       );
     }
 
     if (state is VeiculosError) {
       Navigator.of(context).pop();
-      DialogMobilePadrao.errorDialog(
+      DialogWebPadrao.errorDialog(
         context: context,
         message: state.message,
         onPress: () {
@@ -78,12 +79,31 @@ class _VeiculosWebContentState extends State<VeiculosWebContent> {
         },
       );
     }
+
+    if (state is VeiculoAtualizado) {
+      Navigator.of(context).pop();
+      DialogWebPadrao.successDialog(
+        context: context,
+        message: 'Veículo atualizado com sucesso!',
+        onPress: () {
+          _anoController.clear();
+          _modeloController.clear();
+          _motorController.clear();
+          _placaController.clear();
+
+          context.read<VeiculosBloc>().add(const VeiculosLoad());
+        },
+      );
+    }
   }
 
   bool _buildWhen(
     VeiculosState previous,
     VeiculosState current,
   ) {
-    return current is! VeiculosSalvando && current is! VeiculoSuccess;
+    return current is! VeiculosSalvando &&
+        current is! VeiculoSuccess &&
+        current is! VeiculosAtualizando &&
+        current is! VeiculoAtualizado;
   }
 }

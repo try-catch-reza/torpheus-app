@@ -25,6 +25,7 @@ class FuncionarioWebBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           HeaderWebCustom(
+            hasPodeCriar: state.hasCriarFuncionario,
             title: 'Funcionários',
             subtitle: 'Cadastro e histórico de funcionários',
             buttonText: 'Cadastrar funcionário',

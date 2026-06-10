@@ -114,6 +114,7 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
       final perfisNovo = PerfisModel(
         permissoes: const [],
         nome: event.nome,
+        isActive: true,
       );
 
       await _eapiRemoteRepository.cadastrarPerfil(perfisNovo);

@@ -6,15 +6,28 @@ sealed class UsuarioState extends Equatable {
     this.usuariosFiltered = const [],
     this.hasCriarUsuario = false,
     this.search = '',
+    this.hasEditarUsuario = false,
+    this.perfis = const [],
+    this.perfilSelecionado,
   });
 
   final List<UsuarioModel> usuarios;
   final List<UsuarioModel> usuariosFiltered;
+
+  final List<PerfisModel> perfis;
+  final PerfisModel? perfilSelecionado;
+
   final bool hasCriarUsuario;
+  final bool hasEditarUsuario;
   final String search;
 
   @override
-  List<Object?> get props => [usuarios, hasCriarUsuario, search];
+  List<Object?> get props => [
+        usuarios,
+        hasCriarUsuario,
+        search,
+        hasEditarUsuario,
+      ];
 }
 
 final class UsuarioInitial extends UsuarioState {
@@ -25,6 +38,8 @@ final class UsuarioLoading extends UsuarioState {
   const UsuarioLoading({
     super.usuarios,
     super.usuariosFiltered,
+    super.perfilSelecionado,
+    super.perfis,
   });
 }
 
@@ -34,10 +49,20 @@ final class UsuarioLoaded extends UsuarioState {
     required super.usuariosFiltered,
     super.hasCriarUsuario,
     super.search,
+    super.hasEditarUsuario,
+    super.perfilSelecionado,
+    super.perfis,
   });
 
   @override
-  List<Object?> get props => [usuarios, usuariosFiltered, hasCriarUsuario, search];
+  List<Object?> get props => [
+        usuarios,
+        usuariosFiltered,
+        hasCriarUsuario,
+        search,
+        perfis,
+        perfilSelecionado,
+      ];
 }
 
 final class UsuarioError extends UsuarioState {
@@ -49,15 +74,23 @@ final class UsuarioError extends UsuarioState {
   List<Object?> get props => [message];
 }
 
-final class UsuarioSelecionado extends UsuarioState {
-  const UsuarioSelecionado({
-    required this.usuarios,
-    required this.usuarioSelecionado,
-  }) : super(usuarios: usuarios);
-
-  final List<UsuarioModel> usuarios;
-  final UsuarioModel usuarioSelecionado;
+final class UsuarioSalvando extends UsuarioState {
+  const UsuarioSalvando({
+    super.usuarios,
+    super.usuariosFiltered,
+    super.perfilSelecionado,
+    super.perfis,
+  });
 
   @override
-  List<Object?> get props => [usuarios, usuarioSelecionado];
+  List<Object?> get props => [
+        usuarios,
+        usuariosFiltered,
+        perfilSelecionado,
+        perfis,
+      ];
+}
+
+final class UsuarioSalvo extends UsuarioState {
+  const UsuarioSalvo();
 }

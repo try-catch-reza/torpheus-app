@@ -414,13 +414,7 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       titleMessage: titleMessage,
       response: (response) {
         if (response.statusCode == 200) {
-          final Map<String, dynamic> data = response.data;
-          final List<dynamic> items = data['items'] ?? [];
-
-          return items
-              .map((item) => VeiculoModel.fromJson(item))
-              .toList()
-              .first;
+          return VeiculoModel.fromJson(response.data);
         } else {
           throw HttpRequestException(
             titleMessage: titleMessage,
@@ -437,7 +431,7 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
     const titleMessage = 'Não foi possível atualizar esse veículo';
 
     await put(
-      path: _schema.adicionarPermissao(veiculo.id ?? ''),
+      path: _schema.updateVeiculo(veiculo.id ?? ''),
       body: veiculo.toJsonPUT(),
       titleMessage: titleMessage,
       response: (response) {

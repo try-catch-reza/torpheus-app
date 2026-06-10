@@ -10,6 +10,7 @@ sealed class VeiculosState extends Equatable {
     this.tipo,
     this.hasCriarVeiculo = false,
     this.search = '',
+    this.hasEditarVeiculo = false,
   });
 
   final List<VeiculoModel> veiculos;
@@ -21,6 +22,7 @@ sealed class VeiculosState extends Equatable {
   final TipoVeiculo? tipo;
 
   final bool hasCriarVeiculo;
+  final bool hasEditarVeiculo;
   final String search;
 
   @override
@@ -65,6 +67,7 @@ final class VeiculosLoaded extends VeiculosState {
     super.tipo,
     super.hasCriarVeiculo,
     super.search,
+    super.hasEditarVeiculo,
   });
 
   @override
@@ -107,4 +110,24 @@ final class VeiculosSalvando extends VeiculosState {
 
   @override
   List<Object?> get props => [veiculos, cambio, marca, combustivel, tipo];
+}
+
+final class VeiculosAtualizando extends VeiculosState {
+  const VeiculosAtualizando({
+    super.veiculos,
+    super.cambio,
+    super.marca,
+    super.combustivel,
+    super.tipo,
+  });
+
+  @override
+  List<Object?> get props => [veiculos, cambio, marca, combustivel, tipo];
+}
+
+final class VeiculoAtualizado extends VeiculosState {
+  const VeiculoAtualizado();
+
+  @override
+  List<Object?> get props => [];
 }

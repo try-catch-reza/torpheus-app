@@ -7,6 +7,7 @@ import 'package:torpheus/presentation/screens/menu/bloc/menu_bloc.dart';
 import 'package:torpheus/presentation/screens/menu/web/menu_web_content.dart';
 import 'package:torpheus/presentation/screens/perfil/bloc/perfil_bloc.dart';
 import 'package:torpheus/presentation/screens/relatorios/bloc/relatorios_bloc.dart';
+import 'package:torpheus/presentation/screens/usuario/bloc/usuario_bloc.dart';
 
 import '../../../config/responsive.dart';
 import '../funcionario/bloc/funcionario_bloc.dart';
@@ -55,6 +56,7 @@ class MenuParametros {
     required this.ordensServicoBloc,
     required this.relatoriosBloc,
     required this.perfisBloc,
+    required this.usuarioBloc,
   });
 
   final PainelBloc painelBloc;
@@ -66,4 +68,5 @@ class MenuParametros {
   final OrdensServicoBloc ordensServicoBloc;
   final RelatoriosBloc relatoriosBloc;
   final PerfisBloc perfisBloc;
+  final UsuarioBloc usuarioBloc;
 }

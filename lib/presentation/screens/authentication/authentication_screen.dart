@@ -6,6 +6,7 @@ import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:torpheus/presentation/screens/menu/bloc/menu_bloc.dart';
 import 'package:torpheus/presentation/screens/menu/menu_screen.dart';
 import 'package:torpheus/presentation/screens/perfil/bloc/perfil_bloc.dart';
+import 'package:torpheus/presentation/screens/usuario/bloc/usuario_bloc.dart';
 import '../cliente/bloc/cliente_bloc.dart';
 import '../funcionario/bloc/funcionario_bloc.dart';
 import '../login/login_screen.dart';
@@ -31,6 +32,7 @@ class AuthenticationScreen extends StatefulWidget {
     required this.ordensServicoBloc,
     required this.relatoriosBloc,
     required this.perfisBloc,
+    required this.usuarioBloc,
   });
 
   final AuthenticationBloc authenticationBloc;
@@ -44,6 +46,7 @@ class AuthenticationScreen extends StatefulWidget {
   final OrdensServicoBloc ordensServicoBloc;
   final RelatoriosBloc relatoriosBloc;
   final PerfisBloc perfisBloc;
+  final UsuarioBloc usuarioBloc;
 
   @override
   State<AuthenticationScreen> createState() => _AuthenticationScreenState();
@@ -61,6 +64,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   late final OrdensServicoBloc _ordensServicoBloc;
   late final RelatoriosBloc _relatoriosBloc;
   late final PerfisBloc _perfisBloc;
+  late final UsuarioBloc _usuarioBloc;
 
   @override
   void initState() {
@@ -75,6 +79,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
     _ordensServicoBloc = widget.ordensServicoBloc;
     _relatoriosBloc = widget.relatoriosBloc;
     _perfisBloc = widget.perfisBloc;
+    _usuarioBloc = widget.usuarioBloc;
 
     _authenticationBloc.add(const AuthenticationLoad());
 
@@ -99,6 +104,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   ordensServicoBloc: _ordensServicoBloc,
                   relatoriosBloc: _relatoriosBloc,
                   perfisBloc: _perfisBloc,
+                  usuarioBloc: _usuarioBloc,
                 ),
               )
             : LoginScreen(loginBloc: _loginBloc);

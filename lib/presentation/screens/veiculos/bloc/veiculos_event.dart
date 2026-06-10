@@ -32,12 +32,22 @@ final class VeiculoSubmit extends VeiculosEvent {
 }
 
 final class VeiculoUpdate extends VeiculosEvent {
-  const VeiculoUpdate({required this.veiculo});
+  const VeiculoUpdate({
+    required this.placa,
+    required this.modelo,
+    required this.motor,
+    required this.ano,
+    required this.id,
+  });
 
-  final VeiculoModel veiculo;
+  final String placa;
+  final String modelo;
+  final String motor;
+  final int ano;
+  final String id;
 
   @override
-  List<Object?> get props => [veiculo];
+  List<Object?> get props => [];
 }
 
 final class VeiculoSetTipo extends VeiculosEvent {

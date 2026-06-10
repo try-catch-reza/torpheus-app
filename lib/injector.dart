@@ -187,6 +187,7 @@ final class InjectorImpl extends Injector {
     getIt.registerSingleton<VeiculoDetalheBloc>(
       VeiculoDetalheBloc(
         getIt.get<PermissaoController>(),
+        getIt.get<EapiRemoteRepository>(),
       ),
     );
 

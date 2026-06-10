@@ -27,6 +27,7 @@ class ClienteWebBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           HeaderWebCustom(
+            hasPodeCriar: state.hasCriarCliente,
             title: 'Clientes',
             subtitle: 'Cadastro e histórico de clientes',
             buttonText: 'Cadastrar cliente',
