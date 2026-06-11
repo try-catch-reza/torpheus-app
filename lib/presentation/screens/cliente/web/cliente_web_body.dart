@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/data/models/cliente_model.dart';
 import 'package:torpheus/presentation/components/lista_vazia_custom.dart';
 import 'package:torpheus/presentation/components/search_custom.dart';
 import 'package:torpheus/presentation/components/web/header_web_custom.dart';
 import 'package:torpheus/presentation/screens/cliente/bloc/cliente_bloc.dart';
-import 'package:torpheus/presentation/screens/cliente/web/cliente_web_lista.dart';
+import 'package:torpheus/presentation/screens/cliente/web/cliente_web_table.dart';
 
-import '../../../../core/constants/color_constants.dart';
+import 'cliente_web_dialog.dart';
 
 class ClienteWebBody extends StatelessWidget {
   const ClienteWebBody({
@@ -42,72 +41,16 @@ class ClienteWebBody extends StatelessWidget {
               subMessage: 'Cadastre um novo cliente',
             ),
           if (state.clientes.isNotEmpty)
-            ClienteWebLista(
+            ClienteWebTable(
               clientes: state.clientes,
-              onClienteTap: (value) => _showClienteDetails(context, state, value),
-              onEditTap: (value) {
-                context.read<ClienteBloc>().add(ClienteAtualizar(value));
-              },
+              onTap: (value) => ClienteWeblDialog.show(
+                context,
+                value,
+                context.read<ClienteBloc>(),
+              ),
             ),
         ],
       ),
-    );
-  }
-
-  void _showClienteDetails(
-    BuildContext context,
-    ClienteState state,
-    ClienteModel cliente,
-  ) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(24),
-            width: MediaQuery.of(context).size.width * 0.4,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Dados do cliente',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color: ColorConstants.chambray,
-                      ),
-                    ),
-                    IconButton(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.close, size: 30),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    cliente.nome ?? '',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  subtitle: Text('CPF: ${cliente.documento}'),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }
