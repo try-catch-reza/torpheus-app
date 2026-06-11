@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/color_constants.dart';
-import 'package:torpheus/data/models/usuario_model.dart';
+import 'package:torpheus/data/models/funcionario_model.dart';
 
-class UsuarioWebTable extends StatelessWidget {
-  const UsuarioWebTable({
+class FuncionarioWebTable extends StatelessWidget {
+  const FuncionarioWebTable({
     super.key,
-    required this.usuarios,
+    required this.funcionarios,
+    required this.onTap,
   });
 
-  final List<UsuarioModel> usuarios;
+  final List<FuncionarioModel> funcionarios;
+  final ValueChanged<FuncionarioModel>? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +29,17 @@ class UsuarioWebTable extends StatelessWidget {
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: usuarios.length,
+            itemCount: funcionarios.length,
             separatorBuilder: (_, __) => const Divider(
               height: 1,
               thickness: 0.5,
               color: Color(0xFFEEEEEA),
             ),
             itemBuilder: (context, i) {
-              return _TableRow(usuario: usuarios[i]);
+              return _TableRow(
+                funcionario: funcionarios[i],
+                onTap: onTap != null ? () => onTap!(funcionarios[i]) : null,
+              );
             },
           ),
         ],
@@ -52,8 +57,8 @@ class _TableHeader extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       child: Row(
         children: [
-          _HeaderCell('Usuário', flex: 4),
-          _HeaderCell('E-mail', flex: 4),
+          _HeaderCell('Nome', flex: 4),
+          _HeaderCell('Função', flex: 4),
           _HeaderCell('Criado em', flex: 3),
           _HeaderCell('Status', flex: 2),
           SizedBox(width: 32),
@@ -89,9 +94,10 @@ class _HeaderCell extends StatelessWidget {
 // ── Linha ─────────────────────────────────────────────────────────────────────
 
 class _TableRow extends StatefulWidget {
-  const _TableRow({required this.usuario});
+  const _TableRow({required this.funcionario, required this.onTap});
 
-  final UsuarioModel usuario;
+  final FuncionarioModel funcionario;
+  final VoidCallback? onTap;
 
   @override
   State<_TableRow> createState() => _TableRowState();
@@ -107,6 +113,7 @@ class _TableRowState extends State<_TableRow> {
       onExit: (_) => setState(() => _hovered = false),
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
+        onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           color: _hovered ? const Color(0xFFF7F7F5) : Colors.white,
@@ -117,11 +124,11 @@ class _TableRowState extends State<_TableRow> {
                 flex: 4,
                 child: Row(
                   children: [
-                    _Avatar(nome: widget.usuario.nome ?? ''),
+                    _Avatar(nome: widget.funcionario.nome ?? ''),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
-                        widget.usuario.nome ?? '—',
+                        widget.funcionario.nome ?? '—',
                         style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
@@ -137,7 +144,7 @@ class _TableRowState extends State<_TableRow> {
               Expanded(
                 flex: 4,
                 child: Text(
-                  widget.usuario.email ?? '—',
+                  widget.funcionario.funcao?.label ?? '—',
                   style: const TextStyle(
                     fontSize: 13,
                     color: Color(0xFF3A3A38),
@@ -149,7 +156,7 @@ class _TableRowState extends State<_TableRow> {
               Expanded(
                 flex: 3,
                 child: Text(
-                  _formatarData(widget.usuario.createdAt),
+                  _formatarData(widget.funcionario.hiredAt),
                   style: const TextStyle(
                     fontSize: 13,
                     color: Color(0xFF3A3A38),
@@ -159,7 +166,18 @@ class _TableRowState extends State<_TableRow> {
               // Status
               Expanded(
                 flex: 2,
-                child: _StatusBadge(ativo: widget.usuario.isActive ?? false),
+                child:
+                    _StatusBadge(ativo: widget.funcionario.isActive ?? false),
+              ),
+              Visibility(
+                visible: widget.onTap != null,
+                child: Icon(
+                  Icons.chevron_right_rounded,
+                  size: 20,
+                  color: _hovered
+                      ? ColorConstants.chambray
+                      : const Color(0xFFBBBBB7),
+                ),
               ),
             ],
           ),

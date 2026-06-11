@@ -14,10 +14,10 @@ class ClienteDetalheWebCardEstatisticas extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: const Color(0xFFEAEDF2)),
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Estatísticas',
             style: TextStyle(
               fontSize: 14,
@@ -26,23 +26,23 @@ class ClienteDetalheWebCardEstatisticas extends StatelessWidget {
               decoration: TextDecoration.none,
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
           _StatRow(
             label: 'Veículos atendidos',
             value: '',
-            valueColor: const Color(0xFF1B2A4A),
+            valueColor: Color(0xFF1B2A4A),
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
           _StatRow(
             label: 'OS deste cliente',
             value: '',
-            valueColor: const Color(0xFF1B4FA8),
+            valueColor: Color(0xFF1B4FA8),
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
           _StatRow(
             label: 'Concluídas',
             value: '',
-            valueColor: const Color(0xFF16A34A),
+            valueColor: Color(0xFF16A34A),
           ),
         ],
       ),

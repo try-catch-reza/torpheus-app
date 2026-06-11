@@ -69,6 +69,16 @@ class LoginForm extends StatelessWidget {
             ),
             const SizedBox(height: 20.0),
             TextFormField(
+              onFieldSubmitted: (value) {
+                if (formKey.currentState?.validate() ?? false) {
+                  context.read<LoginBloc>().add(
+                    LoginEnviar(
+                      email: controllerNome.text,
+                      senha: controllerSenha.text,
+                    ),
+                  );
+                }
+              },
               controller: controllerSenha,
               validator: (value) {
                 if (value == null || value.isEmpty) {

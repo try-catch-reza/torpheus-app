@@ -24,7 +24,7 @@ class FuncionarioMobileLista extends StatelessWidget {
 
           return AvatarCardMobileCustom(
             title: funcionario.nome ?? '',
-            subTitle: funcionario.funcao ?? '',
+            subTitle: funcionario.funcao?.label ?? '',
             isActive: funcionario.isActive ?? false,
             onTap: () => onFuncionarioTap(funcionario),
           );

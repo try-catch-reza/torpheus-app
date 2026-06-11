@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/presentation/screens/cadastrar_funcionario/cadastrar_funcionario_screen.dart';
 
+import '../../../components/dialog/dialog_web_padrao.dart';
 import '../../../components/loading_state.dart';
-import '../../cadastrar_funcionario/bloc/cadastrar_funcionario_bloc.dart';
 import '../bloc/funcionario_bloc.dart';
 import 'funcionario_web_body.dart';
 
@@ -16,11 +15,17 @@ class FuncionarioWebContent extends StatefulWidget {
 
 class _FuncionarioWebContentState extends State<FuncionarioWebContent> {
   final TextEditingController _searchController = TextEditingController();
+  final _nomeController = TextEditingController();
+  final _documentoController = TextEditingController();
+  final _telefoneController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<FuncionarioBloc, FuncionarioState>(
+      body: BlocConsumer<FuncionarioBloc, FuncionarioState>(
+        listener: _listener,
+        buildWhen: _buildWhen,
         builder: (context, state) {
           if (state is FuncionarioLoading) {
             return const LoadingState();
@@ -30,12 +35,10 @@ class _FuncionarioWebContentState extends State<FuncionarioWebContent> {
             return FuncionarioWebBody(
               state: state,
               controller: _searchController,
-            );
-          }
-
-          if (state is FuncionarioCadastrando) {
-            return CadastrarFuncionarioScreen(
-              cadastrarFuncionarioBloc: context.read<CadastrarFuncionarioBloc>(),
+              nomeController: _nomeController,
+              formKey: _formKey,
+              telefoneController: _telefoneController,
+              documentoController: _documentoController,
             );
           }
 
@@ -43,5 +46,47 @@ class _FuncionarioWebContentState extends State<FuncionarioWebContent> {
         },
       ),
     );
+  }
+
+  bool _buildWhen(FuncionarioState previous, FuncionarioState current) {
+    return current is! FuncionarioSalvando &&
+        current is! FuncionarioSalvo &&
+        current is FuncionarioError &&
+        current is FuncionarioErrorInicial;
+  }
+
+  void _listener(BuildContext context, FuncionarioState state) {
+    if (state is FuncionarioSalvo) {
+      Navigator.of(context).pop();
+      DialogWebPadrao.successDialog(
+        context: context,
+        message: 'Funcionário cadastrado com sucesso!',
+        onPress: () {
+          _nomeController.clear();
+          _documentoController.clear();
+          _telefoneController.clear();
+
+          context.read<FuncionarioBloc>().add(const FuncionarioLoad());
+        },
+      );
+    }
+
+    if (state is FuncionarioError) {
+      DialogWebPadrao.errorDialog(
+        context: context,
+        message: state.message,
+        onPress: () {
+          context.read<FuncionarioBloc>().add(const FuncionarioLoad());
+        },
+      );
+    }
+
+    if (state is FuncionarioErrorInicial) {
+      DialogWebPadrao.errorDialog(
+        context: context,
+        message: state.message,
+        onPress: () {},
+      );
+    }
   }
 }

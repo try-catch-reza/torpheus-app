@@ -32,7 +32,7 @@ class PainelMobileBody extends StatelessWidget {
                         color: Colors.grey.shade700
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
                       '150',
                       style: TextStyle(

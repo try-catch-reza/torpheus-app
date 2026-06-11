@@ -15,13 +15,11 @@ class PerfisWebBody extends StatelessWidget {
     super.key,
     required this.state,
     required this.nameController,
-    required this.descController,
     required this.formKey,
   });
 
   final PerfisState state;
   final TextEditingController nameController;
-  final TextEditingController descController;
   final GlobalKey<FormState> formKey;
 
   @override
@@ -41,6 +39,8 @@ class PerfisWebBody extends StatelessWidget {
 
   void _openNewPerfisDialog(BuildContext context) {
     final bloc = context.read<PerfisBloc>();
+
+    nameController.clear();
 
     showDialog(
       context: context,

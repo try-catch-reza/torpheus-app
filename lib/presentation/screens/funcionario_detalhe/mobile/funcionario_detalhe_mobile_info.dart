@@ -26,7 +26,7 @@ class FuncionarioDetalheMobileInfo extends StatelessWidget {
           ),
           FuncionarioDetalheMobileTile(
             title: 'Função',
-            value: funcionario?.funcao ?? 'Função não informada',
+            value: funcionario?.funcao?.label ?? 'Função não informada',
           ),
           FuncionarioDetalheMobileTile(
             title: 'Data de contratação',

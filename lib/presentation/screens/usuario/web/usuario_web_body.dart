@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/data/models/usuario_model.dart';
 import 'package:torpheus/presentation/screens/usuario/bloc/usuario_bloc.dart';
 import 'package:torpheus/presentation/screens/usuario/web/usuario_web_table.dart';
 
@@ -59,18 +58,11 @@ class UsuarioWebBody extends StatelessWidget {
               subMessage: 'Cadastre um novo usuário para começar a gerenciar',
             ),
           if (state.usuariosFiltered.isNotEmpty)
-            UsuarioWebTable(
-              usuarios: state.usuariosFiltered,
-              onTap: state.hasEditarUsuario
-                  ? (value) => _onShowDialogUpdateVeiculo(context, value)
-                  : null,
-            ),
+            UsuarioWebTable(usuarios: state.usuariosFiltered),
         ],
       ),
     );
   }
-
-  _onShowDialogUpdateVeiculo(BuildContext context, UsuarioModel value) {}
 
   _onShowDialogCadastrarUsuario(BuildContext context) {
     final bloc = context.read<UsuarioBloc>();
@@ -281,6 +273,4 @@ class UsuarioWebBody extends StatelessWidget {
           );
     }
   }
-
-  void _onAtualizarUsuario(BuildContext context, UsuarioBloc bloc) {}
 }

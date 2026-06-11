@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/presentation/screens/cliente/cliente_screen.dart';
 import 'package:torpheus/presentation/screens/funcionario/funcionario_screen.dart';
+import 'package:torpheus/presentation/screens/menu/bloc/menu_bloc.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/ordens_servico_screen.dart';
 import 'package:torpheus/presentation/screens/perfis/perfis_screen.dart';
 import 'package:torpheus/presentation/screens/relatorios/relatorios_screen.dart';
@@ -18,18 +19,21 @@ class MenuWebBody extends StatelessWidget {
     required this.menuParametros,
     required this.nome,
     required this.permissoesUsuarios,
+    required this.state,
   });
 
   final int indexScreen;
   final MenuParametros menuParametros;
   final String nome;
   final List<String> permissoesUsuarios;
+  final MenuState state;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         MenuWebSidebar(
+          state: state,
           indexScreen: indexScreen,
           nome: nome,
           permissoesUsuario: permissoesUsuarios,

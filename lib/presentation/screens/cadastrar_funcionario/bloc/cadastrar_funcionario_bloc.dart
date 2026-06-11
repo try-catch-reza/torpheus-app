@@ -5,6 +5,7 @@ import 'package:torpheus/core/constants/enum/funcao.dart';
 import 'package:torpheus/data/models/funcionario_model.dart';
 import 'package:torpheus/data/models/usuario_model.dart';
 
+import '../../../../data/datasources/remote/http_client.dart';
 import '../../../../domain/repositories/remote/eapi_remote_repository.dart';
 
 part 'cadastrar_funcionario_event.dart';
@@ -49,16 +50,19 @@ class CadastrarFuncionarioBloc
 
       final funcionario = FuncionarioModel(
         nome: event.nome,
-        funcao: state.funcaoSelecionada?.label,
+        funcao: state.funcaoSelecionada,
         documento: event.documento,
         telefone: event.telefone,
         userId: state.usuarioSelecionado?.id,
         documentType: DocumentoTipo.cpf,
+        isActive: true,
       );
 
       await _eapiRemoteRepository.cadastrarFuncionario(funcionario);
 
       emit(const CadastrarFuncionarioSuccess());
+    } on HttpRequestException catch (e) {
+      emit(CadastrarFuncionarioError(e.title));
     } catch (e) {
       emit(
         CadastrarFuncionarioError(

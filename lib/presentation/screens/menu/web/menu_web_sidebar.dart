@@ -5,7 +5,9 @@ import 'package:torpheus/presentation/screens/menu/web/menu_web_item.dart';
 
 import '../../../../core/constants/color_constants.dart';
 import '../../../../data/models/menu_item.dart';
+import '../../../components/dialog/dialog_confirm.dart';
 import '../../../components/header_usuario.dart';
+import '../../login/bloc/login_bloc.dart';
 import '../bloc/menu_bloc.dart';
 
 class MenuWebSidebar extends StatelessWidget {
@@ -14,11 +16,13 @@ class MenuWebSidebar extends StatelessWidget {
     required this.indexScreen,
     required this.nome,
     required this.permissoesUsuario,
+    required this.state,
   });
 
   final int indexScreen;
   final String nome;
   final List<String> permissoesUsuario;
+  final MenuState state;
 
   List<({MenuItem item, int originalIndex})> _itensFiltrados() {
     return _menuItems
@@ -77,9 +81,9 @@ class MenuWebSidebar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           HeaderUsuario(
-            nomeUsuario: 'Huandres Schmidt',
-            cargoUsuario: 'Administrador',
-            emailUsuario: 'huandreschmidt@gmail.com',
+            emailUsuario: state.email,
+            cargoUsuario: state.cargo,
+            nomeUsuario: state.nome,
             onTap: () {
               Navigator.of(context).pushNamed(AppRoutes.perfil.route);
             },
@@ -91,14 +95,29 @@ class MenuWebSidebar extends StatelessWidget {
               itemCount: itensFiltrados.length,
               itemBuilder: (context, index) {
                 final entrada = itensFiltrados[index];
+                final isSair = entrada.item.label == 'Sair';
 
                 return MenuWebItem(
                   item: entrada.item,
                   isSelected: indexScreen == entrada.originalIndex,
                   onTap: () {
+                    if (isSair) {
+                      ConfirmDialog.show(
+                        context,
+                        titulo: 'Sair do aplicativo',
+                        mensagem: 'Tem certeza que deseja sair?',
+                        onConfirmar: () {
+                          context.read<LoginBloc>().add(const LoginLogout());
+                          Navigator.of(context)
+                              .pushReplacementNamed(AppRoutes.root.route);
+                        },
+                      );
+                      return;
+                    }
+
                     context.read<MenuBloc>().add(
-                          MenuTrocarTela(entrada.originalIndex),
-                        );
+                      MenuTrocarTela(entrada.originalIndex),
+                    );
                   },
                 );
               },

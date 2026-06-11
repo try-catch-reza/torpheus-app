@@ -14,13 +14,6 @@ class FuncionarioLoad extends FuncionarioEvent {
   List<Object?> get props => [];
 }
 
-final class FuncionarioCadastrar extends FuncionarioEvent {
-  const FuncionarioCadastrar();
-
-  @override
-  List<Object?> get props => [];
-}
-
 final class FuncionarioSearch extends FuncionarioEvent {
   const FuncionarioSearch(this.search);
 
@@ -30,3 +23,50 @@ final class FuncionarioSearch extends FuncionarioEvent {
   List<Object?> get props => [search];
 }
 
+final class FuncionarioSetFuncao extends FuncionarioEvent {
+  const FuncionarioSetFuncao(this.funcao);
+
+  final Funcao funcao;
+
+  @override
+  List<Object?> get props => [funcao];
+}
+
+final class FuncionarioSetUsuario extends FuncionarioEvent {
+  const FuncionarioSetUsuario(this.usuario);
+
+  final UsuarioModel usuario;
+
+  @override
+  List<Object?> get props => [usuario];
+}
+
+final class FuncionarioSubmit extends FuncionarioEvent {
+  const FuncionarioSubmit({
+    required this.nome,
+    required this.telefone,
+    required this.documento,
+  });
+
+  final String nome;
+  final String telefone;
+  final String documento;
+
+  @override
+  List<Object?> get props => [nome, telefone, documento];
+}
+
+final class FuncionarioUpdate extends FuncionarioEvent {
+  const FuncionarioUpdate({
+    required this.nome,
+    required this.telefone,
+    required this.documento,
+  });
+
+  final String nome;
+  final String telefone;
+  final String documento;
+
+  @override
+  List<Object?> get props => [nome, telefone, documento];
+}

@@ -13,34 +13,17 @@ class MenuWebContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: BlocConsumer<MenuBloc, MenuState>(
-        listener: _listener,
+      child: BlocBuilder<MenuBloc, MenuState>(
         builder: (context, state) {
           return MenuWebBody(
             indexScreen: state.indexScreen,
             menuParametros: menuParametros,
             nome: state.nome,
             permissoesUsuarios: state.permissoesUsuarios,
+            state: state,
           );
         },
       ),
     );
-  }
-
-  void _listener(BuildContext context, MenuState state) {
-    // if (state.indexScreen == 6) {
-    //   ConfirmDialog.show(
-    //     context,
-    //     titulo: 'Sair do aplicativo',
-    //     mensagem: 'Tem certeza que deseja sair do aplicativo?',
-    //     onConfirmar: () {
-    //       context.read<LoginBloc>().add(const LoginLogout());
-    //       Navigator.of(context).pushReplacementNamed(AppRoutes.root.route);
-    //     },
-    //     onCancelar: () {
-    //       context.read<MenuBloc>().add(const MenuTrocarTela(0));
-    //     },
-    //   );
-    // }
   }
 }

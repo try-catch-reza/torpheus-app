@@ -85,6 +85,9 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
       // Agrupa por recurso para exibir na UI
       final permissionGroup = _agruparPermissoes(permissions);
 
+      final hasExcluirPefis =
+          state.hasExcluirPerfis && !perfilSelecionado.isSystem!;
+
       emit(
         PerfisLoaded(
           perfis: state.perfis,
@@ -92,7 +95,7 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
           permissaoGrupo: permissionGroup,
           catalogoPermissoes: allPermissoes,
           hasCriarPerfis: state.hasCriarPerfis,
-          hasExcluirPerfis: state.hasExcluirPerfis,
+          hasExcluirPerfis: hasExcluirPefis,
         ),
       );
     } catch (e) {

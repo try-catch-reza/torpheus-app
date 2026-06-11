@@ -40,4 +40,6 @@ class EapiSchema {
   String updateCliente(String id) => '$_apiUtils/v1/client/$id';
 
   String updateVeiculo(String id) => '$_apiUtils/v1/vehicle/$id';
+
+  String updateFuncionario(String id) => '$_apiUtils/v1/employee/$id';
 }

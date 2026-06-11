@@ -29,6 +29,8 @@ abstract class EapiRemoteRepository {
 
   Future<void> cadastrarFuncionario(FuncionarioModel funcionario);
 
+  Future<void> updateFuncionario(FuncionarioModel funcionario);
+
   /// Veículos -----------------------------------------------------------------
   Future<List<VeiculoModel>> getVeiculos();
 

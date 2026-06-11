@@ -23,15 +23,18 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       emit(const MenuLoading());
 
       final nome = _preferencesLocalRepository.getNome();
-      final permissoes = _preferencesLocalRepository.getListPermissions();
+      final email = _preferencesLocalRepository.getEmail();
+      final cargo = _preferencesLocalRepository.getCargo();
 
-      print('Permissoes: $permissoes');
+      final permissoes = _preferencesLocalRepository.getListPermissions();
 
       emit(
         MenuLoaded(
           indexScreen: state.indexScreen,
           nome: nome,
           permissoesUsuarios: permissoes,
+          cargo: cargo,
+          email: email
         ),
       );
     } catch (e) {
@@ -48,6 +51,8 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
         indexScreen: event.indexScreen,
         nome: state.nome,
         permissoesUsuarios: state.permissoesUsuarios,
+        email: state.email,
+        cargo: state.cargo,
       ),
     );
   }

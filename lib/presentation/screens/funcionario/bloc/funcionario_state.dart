@@ -6,12 +6,21 @@ sealed class FuncionarioState extends Equatable {
     this.funcionariosFiltered = const [],
     this.hasCriarFuncionario = false,
     this.search = '',
+    this.usuarios = const [],
+    this.usuarioSelecionado,
+    this.funcaoSelecionada,
+    this.hasEditarFuncionario = false,
   });
 
   final List<FuncionarioModel> funcionarios;
   final List<FuncionarioModel> funcionariosFiltered;
+  final List<UsuarioModel> usuarios;
+  final UsuarioModel? usuarioSelecionado;
+  final Funcao? funcaoSelecionada;
 
   final bool hasCriarFuncionario;
+  final bool hasEditarFuncionario;
+
   final String search;
 
   @override
@@ -19,6 +28,10 @@ sealed class FuncionarioState extends Equatable {
         funcionarios,
         hasCriarFuncionario,
         search,
+        usuarios,
+        usuarioSelecionado,
+        funcaoSelecionada,
+        hasEditarFuncionario,
       ];
 }
 
@@ -33,10 +46,23 @@ class FuncionarioLoading extends FuncionarioState {
   const FuncionarioLoading({
     super.funcionarios,
     super.funcionariosFiltered,
+    super.usuarios,
+    super.funcaoSelecionada,
+    super.usuarioSelecionado,
+    super.hasCriarFuncionario,
+    super.hasEditarFuncionario,
   });
 
   @override
-  List<Object?> get props => [funcionarios, funcionariosFiltered];
+  List<Object?> get props => [
+        funcionarios,
+        funcionariosFiltered,
+        usuarios,
+        usuarioSelecionado,
+        hasCriarFuncionario,
+        funcaoSelecionada,
+        hasEditarFuncionario,
+      ];
 }
 
 class FuncionarioLoaded extends FuncionarioState {
@@ -45,6 +71,10 @@ class FuncionarioLoaded extends FuncionarioState {
     required super.funcionariosFiltered,
     super.hasCriarFuncionario,
     super.search,
+    super.usuarios,
+    super.funcaoSelecionada,
+    super.usuarioSelecionado,
+    super.hasEditarFuncionario,
   });
 
   @override
@@ -53,6 +83,10 @@ class FuncionarioLoaded extends FuncionarioState {
         funcionariosFiltered,
         hasCriarFuncionario,
         search,
+        usuarios,
+        usuarioSelecionado,
+        funcaoSelecionada,
+        hasEditarFuncionario,
       ];
 }
 
@@ -65,9 +99,55 @@ class FuncionarioError extends FuncionarioState {
   List<Object?> get props => [message];
 }
 
-final class FuncionarioCadastrando extends FuncionarioState {
-  const FuncionarioCadastrando();
+final class FuncionarioSalvando extends FuncionarioState {
+  const FuncionarioSalvando();
 
   @override
   List<Object?> get props => [];
+}
+
+final class FuncionarioSalvo extends FuncionarioState {
+  const FuncionarioSalvo();
+
+  @override
+  List<Object?> get props => [];
+}
+
+final class FuncionarioAtualizando extends FuncionarioState {
+  const FuncionarioAtualizando({
+    super.funcionarios,
+    super.funcionariosFiltered,
+    super.usuarios,
+    super.funcaoSelecionada,
+    super.usuarioSelecionado,
+    super.hasCriarFuncionario,
+    super.hasEditarFuncionario,
+  });
+
+  @override
+  List<Object?> get props => [
+        funcionarios,
+        funcionariosFiltered,
+        usuarios,
+        usuarioSelecionado,
+        hasCriarFuncionario,
+        funcaoSelecionada,
+        hasEditarFuncionario,
+      ];
+}
+
+final class FuncionarioAtualizado extends FuncionarioState {
+  const FuncionarioAtualizado();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class FuncionarioErrorInicial extends FuncionarioState {
+  const FuncionarioErrorInicial(this.message);
+
+  final String message;
+
+  @override
+  List<Object?> get props => [message];
 }

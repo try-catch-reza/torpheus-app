@@ -468,4 +468,26 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       },
     );
   }
+
+  @override
+  Future<void> updateFuncionario(FuncionarioModel funcionario) async {
+    const titleMessage = 'Não foi possível atualizar esse funcionário';
+
+    await put(
+      path: _schema.updateFuncionario(funcionario.id ?? ''),
+      body: funcionario.toJsonPUT(),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:torpheus/core/constants/enum/funcao.dart';
 
 import '../../core/constants/enum/documento_tipo.dart';
 
@@ -20,7 +21,7 @@ class FuncionarioModel extends Equatable {
   final String? nome;
   final String? telefone;
   final String? documento;
-  final String? funcao;
+  final Funcao? funcao;
   final bool? isActive;
   final DateTime? hiredAt;
   final DocumentoTipo? documentType;
@@ -31,7 +32,7 @@ class FuncionarioModel extends Equatable {
       userId: json['userId'] as String?,
       nome: json['name'] as String?,
       telefone: json['phone'] as String?,
-      funcao: json['function'] as String?,
+      funcao: Funcao.fromValue(json['function']),
       isActive: json['isActive'] as bool?,
       hiredAt: json['hiredAt'] != null
           ? DateTime.parse(json['hiredAt'] as String)
@@ -47,6 +48,17 @@ class FuncionarioModel extends Equatable {
       'phone': telefone,
       'documentNumber': documento,
       'documentType': documentType?.value,
+    };
+  }
+
+  Map<String, dynamic> toJsonPUT() {
+    return {
+      'name': nome,
+      'function': funcao,
+      'phone': telefone,
+      'documentNumber': documento,
+      'documentType': documentType?.value,
+      'isActive': isActive,
     };
   }
 

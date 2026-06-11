@@ -68,7 +68,8 @@ class UsuarioModel extends Equatable {
         'email: $email, '
         'isActive: $isActive, '
         'createdAt: $createdAt, '
-        'roleId: $roleId'
+        'roleId: $roleId, '
+        'senha: $senha, '
         '}';
   }
 

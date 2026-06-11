@@ -15,7 +15,6 @@ class PerfisWebContent extends StatefulWidget {
 
 class _PerfisWebContentState extends State<PerfisWebContent> {
   final _nameController = TextEditingController();
-  final _descController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -36,7 +35,6 @@ class _PerfisWebContentState extends State<PerfisWebContent> {
             return PerfisWebBody(
               state: state,
               formKey: _formKey,
-              descController: _descController,
               nameController: _nameController,
             );
           }
@@ -65,9 +63,21 @@ class _PerfisWebContentState extends State<PerfisWebContent> {
         onPress: () {},
       );
     }
+
+    if (state is PerfisExcluido) {
+      DialogWebPadrao.successDialog(
+        context: context,
+        message: 'Perfil excluído com sucesso!',
+        onPress: () {
+          context.read<PerfisBloc>().add(const PerfisLoad());
+        },
+      );
+    }
   }
 
   bool _buildWhen(PerfisState previous, PerfisState current) {
-    return current is! PerfisCriado && current is! PerfisError;
+    return current is! PerfisCriado &&
+        current is! PerfisError &&
+        current is! PerfisExcluido;
   }
 }
