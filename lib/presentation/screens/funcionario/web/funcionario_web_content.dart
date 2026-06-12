@@ -49,10 +49,9 @@ class _FuncionarioWebContentState extends State<FuncionarioWebContent> {
   }
 
   bool _buildWhen(FuncionarioState previous, FuncionarioState current) {
-    return current is! FuncionarioSalvando &&
-        current is! FuncionarioSalvo &&
-        current is FuncionarioError &&
-        current is FuncionarioErrorInicial &&
+    return current is! FuncionarioSalvo &&
+        current is! FuncionarioError &&
+        current is! FuncionarioErrorInicial &&
         current is! FuncionarioAtualizado;
   }
 

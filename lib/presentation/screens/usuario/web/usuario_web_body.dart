@@ -58,7 +58,7 @@ class UsuarioWebBody extends StatelessWidget {
               subMessage: 'Cadastre um novo usuário para começar a gerenciar',
             ),
           if (state.usuariosFiltered.isNotEmpty)
-            UsuarioWebTable(usuarios: state.usuariosFiltered),
+            Expanded(child: UsuarioWebTable(usuarios: state.usuariosFiltered)),
         ],
       ),
     );

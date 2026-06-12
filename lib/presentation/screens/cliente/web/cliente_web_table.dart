@@ -39,12 +39,8 @@ class ClienteWebTable extends StatelessWidget {
         children: [
           const _TableHeader(),
           const Divider(height: 1, thickness: 0.5, color: Color(0xFFEEEEEA)),
-          if (clientes.isEmpty)
-            _EmptyState()
-          else
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+          Expanded(
+            child: ListView.separated(
               itemCount: clientes.length,
               separatorBuilder: (_, __) => const Divider(
                 height: 1,
@@ -59,6 +55,7 @@ class ClienteWebTable extends StatelessWidget {
                 );
               },
             ),
+          ),
         ],
       ),
     );
@@ -221,37 +218,6 @@ class _TableRowState extends State<_TableRow> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-// ── Empty state ───────────────────────────────────────────────────────────────
-
-class _EmptyState extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 48),
-      child: Column(
-        children: [
-          Icon(Icons.person_search_outlined,
-              size: 36, color: Color(0xFFBBBBB7)),
-          SizedBox(height: 12),
-          Text(
-            'Nenhum cliente encontrado',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Color(0xFF9A9A96),
-            ),
-          ),
-          SizedBox(height: 4),
-          Text(
-            'Tente ajustar o filtro ou cadastre um novo cliente.',
-            style: TextStyle(fontSize: 13, color: Color(0xFFBBBBB7)),
-          ),
-        ],
       ),
     );
   }

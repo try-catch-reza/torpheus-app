@@ -76,7 +76,7 @@ class CadastrarClienteMobileBotoes extends StatelessWidget {
         telefone: telefoneController.text.trim(),
         email: emailController.text.trim(),
         documentoTipo: state.documentoTipo,
-        isActive: state.clienteEditar.isActive,
+        isActive: state.clienteEditar?.isActive,
       );
 
       context.read<CadastrarClienteBloc>().add(

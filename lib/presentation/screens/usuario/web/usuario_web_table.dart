@@ -24,18 +24,18 @@ class UsuarioWebTable extends StatelessWidget {
         children: [
           _TableHeader(),
           const Divider(height: 1, thickness: 0.5, color: Color(0xFFEEEEEA)),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: usuarios.length,
-            separatorBuilder: (_, __) => const Divider(
-              height: 1,
-              thickness: 0.5,
-              color: Color(0xFFEEEEEA),
+          Expanded(
+            child: ListView.separated(
+              itemCount: usuarios.length,
+              separatorBuilder: (_, __) => const Divider(
+                height: 1,
+                thickness: 0.5,
+                color: Color(0xFFEEEEEA),
+              ),
+              itemBuilder: (context, i) {
+                return _TableRow(usuario: usuarios[i]);
+              },
             ),
-            itemBuilder: (context, i) {
-              return _TableRow(usuario: usuarios[i]);
-            },
           ),
         ],
       ),

@@ -151,7 +151,7 @@ class FuncionarioBloc extends Bloc<FuncionarioEvent, FuncionarioState> {
       await _eapiRemoteRepository.cadastrarFuncionario(funcionario);
       emit(const FuncionarioSalvo());
     } on HttpRequestException catch (e) {
-      emit(FuncionarioError(e.title));
+      emit(FuncionarioError(e.message));
     } catch (e) {
       emit(
         FuncionarioError(

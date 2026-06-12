@@ -57,11 +57,13 @@ class FuncionarioWebBody extends StatelessWidget {
               subMessage: 'Cadastre um novo funcionário',
             ),
           if (state.funcionarios.isNotEmpty)
-            FuncionarioWebTable(
-              funcionarios: state.funcionarios,
-              onTap: state.hasEditarFuncionario
-                  ? (value) => _onShowDialogUpdateFuncionario(context, value)
-                  : null,
+            Expanded(
+              child: FuncionarioWebTable(
+                funcionarios: state.funcionarios,
+                onTap: state.hasEditarFuncionario
+                    ? (value) => _onShowDialogUpdateFuncionario(context, value)
+                    : null,
+              ),
             ),
         ],
       ),

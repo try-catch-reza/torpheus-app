@@ -164,7 +164,7 @@ class CadastrarClienteBloc
     } on HttpRequestException catch (e) {
       emit(
         CadastrarClienteError(
-          message: e.title,
+          message: e.message,
           isEdit: state.isEdit,
           clienteId: state.clienteId,
         ),
@@ -184,7 +184,7 @@ class CadastrarClienteBloc
     CadastrarClienteSetAtivo event,
     Emitter<CadastrarClienteState> emit,
   ) {
-    final clienteAtualizado = state.clienteEditar.copyWith(
+    final clienteAtualizado = state.clienteEditar!.copyWith(
       isActive: event.isActive,
     );
 

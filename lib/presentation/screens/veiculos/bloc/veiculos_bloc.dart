@@ -32,6 +32,8 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
     on<VeiculoSetCombustivel>(_onVeiculoSetCombustivel);
     on<VeiculoSearch>(_onVeiculoSearch);
     on<VeiculoUpdate>(_onVeiculoUpdate);
+    on<VeiculoSetUpdate>(_onVeiculoSetUpdate);
+    on<VeiculoSetAtivo>(_onVeiculoSetAtivo);
   }
 
   Future<void> _onVeiculosLoad(
@@ -198,6 +200,7 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
           combustivel: state.combustivel,
           marca: state.marca,
           tipo: state.tipo,
+          veiculoEditar: state.veiculoEditar,
         ),
       );
 
@@ -211,7 +214,7 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
         cambio: state.cambio,
         combustivel: state.combustivel,
         marca: state.marca,
-        isActive: true,
+        isActive: state.veiculoEditar?.isActive,
       );
 
       await _eapiRemoteRepository.updateVeiculo(veiculo);
@@ -221,5 +224,47 @@ class VeiculosBloc extends Bloc<VeiculosEvent, VeiculosState> {
     } catch (e) {
       emit(VeiculosError('Não foi possível atualizar o veículo.\n$e'));
     }
+  }
+
+  void _onVeiculoSetUpdate(
+    VeiculoSetUpdate event,
+    Emitter<VeiculosState> emit,
+  ) {
+    emit(
+      VeiculosLoaded(
+        veiculos: state.veiculos,
+        cambio: event.veiculo.cambio,
+        combustivel: event.veiculo.combustivel,
+        marca: event.veiculo.marca,
+        tipo: event.veiculo.tipo,
+        veiculosFiltered: state.veiculosFiltered,
+        hasEditarVeiculo: state.hasCriarVeiculo,
+        hasCriarVeiculo: state.hasCriarVeiculo,
+        veiculoEditar: event.veiculo,
+      ),
+    );
+  }
+
+  void _onVeiculoSetAtivo(
+    VeiculoSetAtivo event,
+    Emitter<VeiculosState> emit,
+  ) {
+    final veiculo = state.veiculoEditar!.copyWith(
+      isActive: state.veiculoEditar?.isActive == true ? false : true,
+    );
+
+    emit(
+      VeiculosLoaded(
+        veiculos: state.veiculos,
+        cambio: state.cambio,
+        combustivel: state.combustivel,
+        marca: state.marca,
+        tipo: state.tipo,
+        veiculosFiltered: state.veiculosFiltered,
+        hasEditarVeiculo: state.hasCriarVeiculo,
+        hasCriarVeiculo: state.hasCriarVeiculo,
+        veiculoEditar: veiculo,
+      ),
+    );
   }
 }

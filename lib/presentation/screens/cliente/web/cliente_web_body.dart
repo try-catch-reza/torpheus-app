@@ -41,12 +41,14 @@ class ClienteWebBody extends StatelessWidget {
               subMessage: 'Cadastre um novo cliente',
             ),
           if (state.clientes.isNotEmpty)
-            ClienteWebTable(
-              clientes: state.clientes,
-              onTap: (value) => ClienteWeblDialog.show(
-                context,
-                value,
-                context.read<ClienteBloc>(),
+            Expanded(
+              child: ClienteWebTable(
+                clientes: state.clientes,
+                onTap: (value) => ClienteWeblDialog.show(
+                  context,
+                  value,
+                  context.read<ClienteBloc>(),
+                ),
               ),
             ),
         ],

@@ -94,3 +94,19 @@ final class VeiculoSearch extends VeiculosEvent {
   @override
   List<Object?> get props => [search];
 }
+
+final class VeiculoSetUpdate extends VeiculosEvent {
+  const VeiculoSetUpdate(this.veiculo);
+
+  final VeiculoModel veiculo;
+
+  @override
+  List<Object?> get props => [veiculo];
+}
+
+final class VeiculoSetAtivo extends VeiculosEvent {
+  const VeiculoSetAtivo();
+
+  @override
+  List<Object?> get props => [];
+}

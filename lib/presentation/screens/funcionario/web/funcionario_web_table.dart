@@ -26,21 +26,21 @@ class FuncionarioWebTable extends StatelessWidget {
         children: [
           _TableHeader(),
           const Divider(height: 1, thickness: 0.5, color: Color(0xFFEEEEEA)),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: funcionarios.length,
-            separatorBuilder: (_, __) => const Divider(
-              height: 1,
-              thickness: 0.5,
-              color: Color(0xFFEEEEEA),
+          Expanded(
+            child: ListView.separated(
+              itemCount: funcionarios.length,
+              separatorBuilder: (_, __) => const Divider(
+                height: 1,
+                thickness: 0.5,
+                color: Color(0xFFEEEEEA),
+              ),
+              itemBuilder: (context, i) {
+                return _TableRow(
+                  funcionario: funcionarios[i],
+                  onTap: onTap != null ? () => onTap!(funcionarios[i]) : null,
+                );
+              },
             ),
-            itemBuilder: (context, i) {
-              return _TableRow(
-                funcionario: funcionarios[i],
-                onTap: onTap != null ? () => onTap!(funcionarios[i]) : null,
-              );
-            },
           ),
         ],
       ),

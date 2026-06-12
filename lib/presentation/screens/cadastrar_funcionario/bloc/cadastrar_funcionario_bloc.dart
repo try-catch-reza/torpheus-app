@@ -84,7 +84,7 @@ class CadastrarFuncionarioBloc
 
       emit(const CadastrarFuncionarioSuccess());
     } on HttpRequestException catch (e) {
-      emit(CadastrarFuncionarioError(e.title));
+      emit(CadastrarFuncionarioError(e.message));
     } catch (e) {
       emit(
         CadastrarFuncionarioError(
@@ -148,7 +148,7 @@ class CadastrarFuncionarioBloc
 
       emit(CadastrarFuncionarioAtualizado(funcionario: funcionario));
     } on HttpRequestException catch (e) {
-      emit(CadastrarFuncionarioError(e.title));
+      emit(CadastrarFuncionarioError(e.message));
     } catch (e) {
       emit(
         CadastrarFuncionarioError(

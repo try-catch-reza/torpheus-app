@@ -47,10 +47,7 @@ class CadastrarUsuarioBloc
       await _eapiRemoteRepository.cadastrarUsuario(usuario);
       emit(const CadastrarUsuarioSuccess());
     } on HttpRequestException catch (e) {
-      emit(
-        CadastrarUsuarioError(
-          message: e.title,
-        ),
+      emit(CadastrarUsuarioError(message: e.message),
       );
     } catch (e) {
       emit(

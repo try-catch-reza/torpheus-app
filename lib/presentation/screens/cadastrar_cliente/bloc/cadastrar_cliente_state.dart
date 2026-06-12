@@ -4,7 +4,7 @@ sealed class CadastrarClienteState extends Equatable {
   const CadastrarClienteState({
     this.endereco = const EnderecoModel(),
     this.documentoTipo = DocumentoTipo.cpf,
-    this.clienteEditar = const ClienteModel(),
+    this.clienteEditar,
     this.clienteId = '',
     this.isEdit = false,
     this.hasAtualizarCliente = false,
@@ -12,7 +12,7 @@ sealed class CadastrarClienteState extends Equatable {
 
   final EnderecoModel endereco;
   final DocumentoTipo documentoTipo;
-  final ClienteModel clienteEditar;
+  final ClienteModel? clienteEditar;
   final bool isEdit;
   final String clienteId;
 

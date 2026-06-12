@@ -63,13 +63,16 @@ class CadastroHeaderWebCustom extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          StatusToggle(
-            isActive: isActive,
-            onChanged: (value) {
-              context.read<CadastrarClienteBloc>().add(
-                    CadastrarClienteSetAtivo(value),
-                  );
-            },
+          Visibility(
+            visible: isEdit,
+            child: StatusToggle(
+              isActive: isActive,
+              onChanged: (value) {
+                context.read<CadastrarClienteBloc>().add(
+                      CadastrarClienteSetAtivo(value),
+                    );
+              },
+            ),
           ),
         ],
       ),

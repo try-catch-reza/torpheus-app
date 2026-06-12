@@ -27,23 +27,23 @@ class VeiculoWebTable extends StatelessWidget {
         children: [
           _TableHeader(),
           const Divider(height: 1, thickness: 0.5, color: Color(0xFFEEEEEA)),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: veiculos.length,
-            separatorBuilder: (_, __) => const Divider(
-              height: 1,
-              thickness: 0.5,
-              color: Color(0xFFEEEEEA),
+          Expanded(
+            child: ListView.separated(
+              itemCount: veiculos.length,
+              separatorBuilder: (_, __) => const Divider(
+                height: 1,
+                thickness: 0.5,
+                color: Color(0xFFEEEEEA),
+              ),
+              itemBuilder: (context, i) {
+                final veiculo = veiculos[i];
+            
+                return _TableRow(
+                  veiculo: veiculo,
+                  onTap: onTap != null ? () => onTap!(veiculos[i]) : null,
+                );
+              },
             ),
-            itemBuilder: (context, i) {
-              final veiculo = veiculos[i];
-
-              return _TableRow(
-                veiculo: veiculo,
-                onTap: onTap != null ? () => onTap!(veiculos[i]) : null,
-              );
-            },
           ),
         ],
       ),

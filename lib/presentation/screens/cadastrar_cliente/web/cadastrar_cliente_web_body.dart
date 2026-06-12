@@ -60,7 +60,7 @@ class CadastrarClienteWebBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CadastroHeaderWebCustom(
-              isActive: state.clienteEditar.isActive ?? false,
+              isActive: state.clienteEditar?.isActive ?? false,
               isEdit: state.isEdit,
               title: 'Cadastrar Cliente',
               subTitle: 'Preencha os dados para cadastrar um novo cliente',
@@ -221,7 +221,7 @@ class CadastrarClienteWebBody extends StatelessWidget {
         telefone: telefoneController.text.trim(),
         email: emailController.text.trim(),
         documentoTipo: state.documentoTipo,
-        isActive: state.clienteEditar.isActive,
+        isActive: state.clienteEditar?.isActive,
       );
 
       context.read<CadastrarClienteBloc>().add(

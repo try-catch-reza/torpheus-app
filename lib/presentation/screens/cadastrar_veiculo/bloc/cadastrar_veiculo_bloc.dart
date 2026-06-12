@@ -100,7 +100,7 @@ class CadastrarVeiculoBloc
     } on HttpRequestException catch (e) {
       emit(
         CadastrarVeiculoError(
-          message: e.title,
+          message: e.message,
           isEdit: state.isEdit,
           veiculoId: state.veiculoId,
         ),
@@ -142,7 +142,7 @@ class CadastrarVeiculoBloc
     } on HttpRequestException catch (e) {
       emit(
         CadastrarVeiculoError(
-          message: e.title,
+          message: e.message,
           isEdit: state.isEdit,
           veiculoId: state.veiculoId,
         ),

@@ -65,7 +65,7 @@ class CadastrarClienteMobileBody extends StatelessWidget {
                     children: [
                       CadastrarClienteWebTipoDocumento(
                         selected: state.isEdit
-                            ? state.clienteEditar.documentoTipo!
+                            ? state.clienteEditar!.documentoTipo!
                             : state.documentoTipo,
                         onChanged: (tipo) {
                           documentoController.clear();

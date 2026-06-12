@@ -66,11 +66,13 @@ class VeiculosWebBody extends StatelessWidget {
               subMessage: 'Cadastre um novo veículo para começar a gerenciar',
             ),
           if (state.veiculosFiltered.isNotEmpty)
-            VeiculoWebTable(
-              veiculos: state.veiculosFiltered,
-              onTap: state.hasEditarVeiculo
-                  ? (value) => _onShowDialogUpdateVeiculo(context, value)
-                  : null,
+            Expanded(
+              child: VeiculoWebTable(
+                veiculos: state.veiculosFiltered,
+                onTap: state.hasEditarVeiculo
+                    ? (value) => _onShowDialogUpdateVeiculo(context, value)
+                    : null,
+              ),
             ),
         ],
       ),
@@ -85,10 +87,7 @@ class VeiculosWebBody extends StatelessWidget {
     motorController.text = veiculo.motor ?? '';
     modeloController.text = veiculo.modelo ?? '';
 
-    bloc.add(VeiculoSetCambio(veiculo.cambio!));
-    bloc.add(VeiculoSetCombustivel(veiculo.combustivel!));
-    bloc.add(VeiculoSetMarca(veiculo.marca!));
-    bloc.add(VeiculoSetTipo(veiculo.tipo!));
+    bloc.add(VeiculoSetUpdate(veiculo));
 
     showDialog(
       context: context,
@@ -133,39 +132,67 @@ class VeiculosWebBody extends StatelessWidget {
                           const SizedBox(height: 16),
                           const Divider(),
                           const SizedBox(height: 16),
-                          Text(
-                            'IDENTIFICAÇÃO',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[600],
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'IDENTIFICAÇÃO',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    state.veiculoEditar?.isActive ?? false
+                                        ? 'Ativo'
+                                        : 'Inativo',
+                                    style: const TextStyle(fontSize: 17),
+                                  ),
+                                  Switch(
+                                    value:
+                                        state.veiculoEditar?.isActive ?? false,
+                                    onChanged: (value) {
+                                      context.read<VeiculosBloc>().add(
+                                            const VeiculoSetAtivo(),
+                                          );
+                                    },
+                                    activeColor: ColorConstants.activeThumb,
+                                    activeTrackColor:
+                                        ColorConstants.activeBorder,
+                                    inactiveThumbColor:
+                                        ColorConstants.inactiveThumb,
+                                    inactiveTrackColor:
+                                        ColorConstants.inactiveBorder,
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 16),
                           Row(
                             children: [
                               Expanded(
                                 child: AppDropdownField<TipoVeiculo>(
-                                  label: 'Tipo',
-                                  value: veiculo.tipo,
-                                  validator: (value) {
-                                    if (value == null) {
-                                      return 'Selecione o tipo do veículo';
-                                    }
-                                    return null;
-                                  },
-                                  items: TipoVeiculo.values.map((tipo) {
-                                    return DropdownMenuItem(
-                                      value: tipo,
-                                      child: Text(tipo.label),
-                                    );
-                                  }).toList(),
-                                  onChanged: state.hasEditarVeiculo
-                                      ? (value) {
-                                          bloc.add(VeiculoSetTipo(value!));
-                                        }
-                                      : null,
-                                ),
+                                    label: 'Tipo',
+                                    value: veiculo.tipo,
+                                    validator: (value) {
+                                      if (value == null) {
+                                        return 'Selecione o tipo do veículo';
+                                      }
+                                      return null;
+                                    },
+                                    items: TipoVeiculo.values.map((tipo) {
+                                      return DropdownMenuItem(
+                                        value: tipo,
+                                        child: Text(tipo.label),
+                                      );
+                                    }).toList(),
+                                    onChanged: (value) {
+                                      bloc.add(VeiculoSetTipo(value!));
+                                    }),
                               ),
                               const SizedBox(width: 16),
                               Expanded(
