@@ -27,11 +27,42 @@ class LoginWebBody extends StatelessWidget {
         Container(
           color: ColorConstants.corFundo,
           width: MediaQuery.of(context).size.width * 0.25,
-          child: LoginForm(
-            state: state,
-            formKey: formKey,
-            controllerSenha: controllerSenha,
-            controllerNome: controllerNome,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(right: 24, left: 24, top: 28),
+                child: Text(
+                  'Bem-vindo de volta 👋',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF1B2A4A),
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 4),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: Text(
+                  'Acesse sua conta para continuar',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF6B7A99),
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 28),
+              LoginForm(
+                state: state,
+                formKey: formKey,
+                controllerSenha: controllerSenha,
+                controllerNome: controllerNome,
+              ),
+            ],
           ),
         ),
       ],

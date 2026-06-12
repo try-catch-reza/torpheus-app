@@ -29,7 +29,6 @@ import 'external/plugins/app_package_impl.dart';
 import 'external/plugins/device_hardware_info_impl.dart';
 import 'presentation/screens/authentication/authentication_bloc/authentication_bloc.dart';
 
-import 'data/datasources/local/app_database.dart';
 import 'data/datasources/local/shared_data.dart';
 import 'data/datasources/remote/http_client.dart';
 import 'data/repositories/preferences/preferences_local_repository_impl.dart';
@@ -37,7 +36,6 @@ import 'data/repositories/remote/eapi_remote_repository_impl.dart';
 import 'domain/controller/preferences_controller.dart';
 import 'domain/repositories/preferenfeces/preferences_local_repository.dart';
 import 'domain/repositories/remote/eapi_remote_repository.dart';
-import 'external/datasources/local/app_database_impl.dart';
 import 'external/datasources/local/shared_data_impl.dart';
 import 'external/datasources/remote/http_client_impl.dart';
 
@@ -67,9 +65,9 @@ final class InjectorImpl extends Injector {
     getIt.registerSingleton<ImageService>(ImageServiceImpl());
 
     /// Database----------------------------------------------------------------
-    getIt.registerSingletonAsync<ApplicationDatabase>(
-      ApplicationDatabaseImpl.initialize,
-    );
+    // getIt.registerSingletonAsync<ApplicationDatabase>(
+    //   ApplicationDatabaseImpl.initialize,
+    // );
 
     getIt.registerSingletonAsync<SharedData>(SharedDataImpl.initialize);
 

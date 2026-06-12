@@ -84,9 +84,6 @@ class MenuWebSidebar extends StatelessWidget {
             emailUsuario: state.email,
             cargoUsuario: state.cargo,
             nomeUsuario: state.nome,
-            onTap: () {
-              Navigator.of(context).pushNamed(AppRoutes.perfil.route);
-            },
           ),
           const SizedBox(height: 8),
           Expanded(

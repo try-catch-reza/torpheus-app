@@ -50,12 +50,9 @@ class HeaderUsuario extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(height: 14),
-
-            // Nome
             Text(
-              nomeUsuario,
+              nomeUsuario.primeiraLetraMaiuscula,
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w700,
