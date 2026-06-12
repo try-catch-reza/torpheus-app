@@ -28,6 +28,8 @@ class FuncionarioBloc extends Bloc<FuncionarioEvent, FuncionarioState> {
     on<FuncionarioSetFuncao>(_onFuncionarioSetFuncao);
     on<FuncionarioSubmit>(_onFuncionarioSubmit);
     on<FuncionarioUpdate>(_onFuncionarioUpdate);
+    on<FuncionarioSetAtivo>(_onFuncionarioSetAtivo);
+    on<FuncionarioSetUpdate>(_onFuncionarioSetUpdate);
   }
 
   Future<void> _onFuncionarioLoad(
@@ -173,12 +175,14 @@ class FuncionarioBloc extends Bloc<FuncionarioEvent, FuncionarioState> {
           funcionarios: state.funcionarios,
           usuarios: state.usuarios,
           hasEditarFuncionario: state.hasEditarFuncionario,
+          funcionarioEditar: state.funcionarioEditar,
         ),
       );
 
       final funcionario = FuncionarioModel(
+        id: state.funcionarioEditar?.id,
         documentType: DocumentoTipo.cpf,
-        isActive: true,
+        isActive: state.funcionarioEditar?.isActive,
         nome: event.nome,
         documento: event.documento,
         telefone: event.telefone,
@@ -192,5 +196,45 @@ class FuncionarioBloc extends Bloc<FuncionarioEvent, FuncionarioState> {
     } catch (e) {
       emit(FuncionarioError('Não foi possível atualizar o veículo.\n$e'));
     }
+  }
+
+  void _onFuncionarioSetAtivo(
+    FuncionarioSetAtivo event,
+    Emitter<FuncionarioState> emit,
+  ) {
+    final funcionarioEditar = state.funcionarioEditar?.copyWith(
+      isActive: state.funcionarioEditar?.isActive == true ? false : true,
+    );
+
+    emit(
+      FuncionarioLoaded(
+        funcaoSelecionada: state.funcaoSelecionada,
+        usuarios: state.usuarios,
+        usuarioSelecionado: state.usuarioSelecionado,
+        funcionarios: state.funcionarios,
+        funcionariosFiltered: state.funcionariosFiltered,
+        hasCriarFuncionario: state.hasCriarFuncionario,
+        hasEditarFuncionario: state.hasEditarFuncionario,
+        funcionarioEditar: funcionarioEditar,
+      ),
+    );
+  }
+
+  void _onFuncionarioSetUpdate(
+    FuncionarioSetUpdate event,
+    Emitter<FuncionarioState> emit,
+  ) {
+    emit(
+      FuncionarioLoaded(
+        funcaoSelecionada: event.funcionario.funcao,
+        usuarios: state.usuarios,
+        usuarioSelecionado: state.usuarioSelecionado,
+        funcionarios: state.funcionarios,
+        funcionariosFiltered: state.funcionariosFiltered,
+        hasCriarFuncionario: state.hasCriarFuncionario,
+        hasEditarFuncionario: state.hasEditarFuncionario,
+        funcionarioEditar: event.funcionario,
+      ),
+    );
   }
 }

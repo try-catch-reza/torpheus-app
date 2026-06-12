@@ -9,17 +9,28 @@ class CadastrarFuncionarioScreen extends StatelessWidget {
   const CadastrarFuncionarioScreen({
     super.key,
     required this.cadastrarFuncionarioBloc,
+    required this.arguments,
   });
 
   final CadastrarFuncionarioBloc cadastrarFuncionarioBloc;
+  final CadastrarFuncionarioArguments arguments;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: cadastrarFuncionarioBloc..add(const CadastrarFuncionarioLoad()),
+      value: cadastrarFuncionarioBloc
+        ..add(
+          CadastrarFuncionarioLoad(id: arguments.id),
+        ),
       child: Responsive.isDesktop(context) || Responsive.isTablet(context)
           ? const CadastrarFuncionarioWebContent()
           : const CadastrarFuncionarioMobileContent(),
     );
   }
+}
+
+class CadastrarFuncionarioArguments {
+  CadastrarFuncionarioArguments({this.id});
+
+  final String? id;
 }

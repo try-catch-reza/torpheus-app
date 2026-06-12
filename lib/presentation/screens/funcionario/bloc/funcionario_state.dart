@@ -10,6 +10,7 @@ sealed class FuncionarioState extends Equatable {
     this.usuarioSelecionado,
     this.funcaoSelecionada,
     this.hasEditarFuncionario = false,
+    this.funcionarioEditar,
   });
 
   final List<FuncionarioModel> funcionarios;
@@ -17,6 +18,7 @@ sealed class FuncionarioState extends Equatable {
   final List<UsuarioModel> usuarios;
   final UsuarioModel? usuarioSelecionado;
   final Funcao? funcaoSelecionada;
+  final FuncionarioModel? funcionarioEditar;
 
   final bool hasCriarFuncionario;
   final bool hasEditarFuncionario;
@@ -32,6 +34,7 @@ sealed class FuncionarioState extends Equatable {
         usuarioSelecionado,
         funcaoSelecionada,
         hasEditarFuncionario,
+        funcionarioEditar,
       ];
 }
 
@@ -75,6 +78,7 @@ class FuncionarioLoaded extends FuncionarioState {
     super.funcaoSelecionada,
     super.usuarioSelecionado,
     super.hasEditarFuncionario,
+    super.funcionarioEditar,
   });
 
   @override
@@ -87,6 +91,7 @@ class FuncionarioLoaded extends FuncionarioState {
         usuarioSelecionado,
         funcaoSelecionada,
         hasEditarFuncionario,
+        funcionarioEditar,
       ];
 }
 
@@ -122,6 +127,7 @@ final class FuncionarioAtualizando extends FuncionarioState {
     super.usuarioSelecionado,
     super.hasCriarFuncionario,
     super.hasEditarFuncionario,
+    super.funcionarioEditar,
   });
 
   @override
@@ -133,6 +139,7 @@ final class FuncionarioAtualizando extends FuncionarioState {
         hasCriarFuncionario,
         funcaoSelecionada,
         hasEditarFuncionario,
+        funcionarioEditar,
       ];
 }
 

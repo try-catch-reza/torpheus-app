@@ -31,4 +31,9 @@ class ColorConstants {
   static const Color extraordinary = Color.fromRGBO(230, 230, 230, 1.0);
   static const Color waiting = Color.fromRGBO(157, 157, 157, 1.0);
   static const Color antiFlashWhite = Color.fromRGBO(241, 243, 244, 1.0);
+
+  static const activeBorder = Color(0xFF6EE7B7);
+  static const activeThumb = Color(0xFF065F46);
+  static const inactiveBorder = Color(0xFFFCA5A5);
+  static const inactiveThumb = Color(0xFF991B1B);
 }

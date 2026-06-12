@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/screens/cadastrar_funcionario/cadastrar_funcionario_screen.dart';
 import 'package:torpheus/presentation/screens/funcionario_detalhe/bloc/funcionario_detalhe_bloc.dart';
 
 import '../../../../config/routes.dart';
@@ -20,7 +21,13 @@ class FuncionarioDetalheMobileAtualizar extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushNamed(
                 AppRoutes.cadastrarFuncionario.route,
-              );
+                arguments: CadastrarFuncionarioArguments(
+                  id: state.funcionario?.id ?? '',
+                ),
+              ).then((_) {
+                context.read<FuncionarioDetalheBloc>()
+                    .add(FuncionarioDetalheLoad(state.funcionario));
+              });
             },
           ),
         );
@@ -28,4 +35,3 @@ class FuncionarioDetalheMobileAtualizar extends StatelessWidget {
     );
   }
 }
-

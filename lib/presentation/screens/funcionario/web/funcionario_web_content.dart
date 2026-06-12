@@ -52,7 +52,8 @@ class _FuncionarioWebContentState extends State<FuncionarioWebContent> {
     return current is! FuncionarioSalvando &&
         current is! FuncionarioSalvo &&
         current is FuncionarioError &&
-        current is FuncionarioErrorInicial;
+        current is FuncionarioErrorInicial &&
+        current is! FuncionarioAtualizado;
   }
 
   void _listener(BuildContext context, FuncionarioState state) {
@@ -86,6 +87,27 @@ class _FuncionarioWebContentState extends State<FuncionarioWebContent> {
         context: context,
         message: state.message,
         onPress: () {},
+      );
+    }
+
+    if (state.funcionarioEditar != null) {
+      _nomeController.text = state.funcionarioEditar?.nome ?? '';
+      _telefoneController.text = state.funcionarioEditar?.telefone ?? '';
+      _documentoController.text = state.funcionarioEditar?.documento ?? '';
+    }
+
+    if (state is FuncionarioAtualizado) {
+      Navigator.of(context).pop();
+      DialogWebPadrao.successDialog(
+        context: context,
+        message: 'Funcionário atualizado com sucesso!',
+        onPress: () {
+          _nomeController.clear();
+          _documentoController.clear();
+          _telefoneController.clear();
+
+          context.read<FuncionarioBloc>().add(const FuncionarioLoad());
+        },
       );
     }
   }

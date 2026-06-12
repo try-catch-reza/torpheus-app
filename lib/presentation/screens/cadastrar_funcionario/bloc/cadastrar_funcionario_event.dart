@@ -8,10 +8,12 @@ sealed class CadastrarFuncionarioEvent extends Equatable {
 }
 
 final class CadastrarFuncionarioLoad extends CadastrarFuncionarioEvent {
-  const CadastrarFuncionarioLoad();
+  const CadastrarFuncionarioLoad({this.id});
+
+  final String? id;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [id];
 }
 
 final class CadastrarFuncionarioSubmit extends CadastrarFuncionarioEvent {
@@ -45,4 +47,23 @@ final class CadastrarFuncionarioSetUsuario extends CadastrarFuncionarioEvent {
 
   @override
   List<Object?> get props => [usuario];
+}
+
+final class CadastrarFuncionarioUpdate extends CadastrarFuncionarioEvent {
+  const CadastrarFuncionarioUpdate({
+    required this.nome,
+    required this.telefone,
+    required this.documento,
+  });
+
+  final String nome;
+  final String telefone;
+  final String documento;
+
+  @override
+  List<Object?> get props => [nome, telefone, documento];
+}
+
+final class CadastrarFuncionarioSetAtivo extends CadastrarFuncionarioEvent {
+
 }

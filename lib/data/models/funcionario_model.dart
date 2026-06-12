@@ -26,11 +26,36 @@ class FuncionarioModel extends Equatable {
   final DateTime? hiredAt;
   final DocumentoTipo? documentType;
 
+  FuncionarioModel copyWith({
+    String? id,
+    String? userId,
+    String? nome,
+    String? telefone,
+    String? documento,
+    Funcao? funcao,
+    bool? isActive,
+    DateTime? hiredAt,
+    DocumentoTipo? documentType,
+  }) {
+    return FuncionarioModel(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      nome: nome ?? this.nome,
+      telefone: telefone ?? this.telefone,
+      documento: documento ?? this.documento,
+      funcao: funcao ?? this.funcao,
+      isActive: isActive ?? this.isActive,
+      hiredAt: hiredAt ?? this.hiredAt,
+      documentType: documentType ?? this.documentType,
+    );
+  }
+
   factory FuncionarioModel.fromJson(Map<String, dynamic> json) {
     return FuncionarioModel(
       id: json['id'] as String?,
       userId: json['userId'] as String?,
       nome: json['name'] as String?,
+      documento: json['document'] as String?,
       telefone: json['phone'] as String?,
       funcao: Funcao.fromValue(json['function']),
       isActive: json['isActive'] as bool?,
@@ -44,7 +69,7 @@ class FuncionarioModel extends Equatable {
     return {
       'userId': userId,
       'name': nome,
-      'function': funcao,
+      'function': funcao?.value,
       'phone': telefone,
       'documentNumber': documento,
       'documentType': documentType?.value,
@@ -54,7 +79,7 @@ class FuncionarioModel extends Equatable {
   Map<String, dynamic> toJsonPUT() {
     return {
       'name': nome,
-      'function': funcao,
+      'function': funcao?.value,
       'phone': telefone,
       'documentNumber': documento,
       'documentType': documentType?.value,

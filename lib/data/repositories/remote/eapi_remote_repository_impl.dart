@@ -490,4 +490,46 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       },
     );
   }
+
+  @override
+  Future<FuncionarioModel> getFuncionarioById(String id) async {
+    const titleMessage = 'Não foi possível carregar o funcionário';
+
+    return await get(
+      path: _schema.buscarFuncionarioById(id),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return FuncionarioModel.fromJson(response.data);
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<UsuarioModel> getUsuarioById(String id) async {
+    const titleMessage = 'Não foi possível carregar o funcionário';
+
+    return await get(
+      path: _schema.buscarUsuarioById(id),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return UsuarioModel.fromJson(response.data);
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
 }

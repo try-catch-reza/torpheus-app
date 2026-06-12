@@ -144,6 +144,7 @@ class Routes {
       AppRoutes.cadastrarFuncionario => CadastrarFuncionarioScreen(
           cadastrarFuncionarioBloc:
               injector.getIt.get<CadastrarFuncionarioBloc>(),
+          arguments: settings.arguments as CadastrarFuncionarioArguments,
         ),
       AppRoutes.cadastrarVeiculo => CadastrarVeiculoScreen(
           cadastrarVeiculoBloc: injector.getIt.get<CadastrarVeiculoBloc>(),

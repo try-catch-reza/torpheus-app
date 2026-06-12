@@ -23,6 +23,8 @@ class CadastrarFuncionarioBloc
     on<CadastrarFuncionarioSubmit>(_onCadastrarFuncionarioSubmit);
     on<CadastrarFuncionarioSetFuncao>(_onCadastrarFuncionarioSetFuncao);
     on<CadastrarFuncionarioSetUsuario>(_onCadastrarFuncionarioSetUsuario);
+    on<CadastrarFuncionarioSetAtivo>(_onCadastrarFuncionarioSetAtivo);
+    on<CadastrarFuncionarioUpdate>(_onCadastrarFuncionarioAtualizar);
   }
 
   Future<void> _onCadastrarFuncionarioLoad(
@@ -32,6 +34,26 @@ class CadastrarFuncionarioBloc
     emit(const CadastrarFuncionarioLoading());
 
     final usuarios = await _eapiRemoteRepository.getUsuarios();
+
+    if (event.id != null) {
+      final funcionario = await _eapiRemoteRepository.getFuncionarioById(
+        event.id!,
+      );
+
+      final usuarioFunc = await _eapiRemoteRepository.getUsuarioById(
+        funcionario.userId!,
+      );
+
+      emit(
+        CadastrarFuncionarioLoaded(
+          usuarios: usuarios,
+          funcionario: funcionario,
+          usuarioSelecionado: usuarioFunc,
+          funcaoSelecionada: funcionario.funcao,
+        ),
+      );
+      return;
+    }
 
     emit(CadastrarFuncionarioLoaded(usuarios: usuarios));
   }
@@ -81,6 +103,7 @@ class CadastrarFuncionarioBloc
         funcaoSelecionada: event.funcao,
         usuarios: state.usuarios,
         usuarioSelecionado: state.usuarioSelecionado,
+        funcionario: state.funcionario,
       ),
     );
   }
@@ -94,6 +117,60 @@ class CadastrarFuncionarioBloc
         funcaoSelecionada: state.funcaoSelecionada,
         usuarios: state.usuarios,
         usuarioSelecionado: event.usuario,
+      ),
+    );
+  }
+
+  Future<void> _onCadastrarFuncionarioAtualizar(
+    CadastrarFuncionarioUpdate event,
+    Emitter<CadastrarFuncionarioState> emit,
+  ) async {
+    try {
+      emit(
+        CadastrarFuncionarioLoading(
+          funcaoSelecionada: state.funcaoSelecionada,
+          funcionario: state.funcionario,
+        ),
+      );
+
+      final funcionario = FuncionarioModel(
+        id: state.funcionario?.id,
+        nome: event.nome,
+        funcao: state.funcaoSelecionada,
+        documento: event.documento,
+        telefone: event.telefone,
+        documentType: DocumentoTipo.cpf,
+        isActive: state.funcionario?.isActive,
+      );
+
+      await _eapiRemoteRepository.updateFuncionario(funcionario);
+
+      emit(CadastrarFuncionarioAtualizado(funcionario: funcionario));
+    } on HttpRequestException catch (e) {
+      emit(CadastrarFuncionarioError(e.title));
+    } catch (e) {
+      emit(
+        CadastrarFuncionarioError(
+          'Não foi possível cadastrar o mecânico.\n$e',
+        ),
+      );
+    }
+  }
+
+  void _onCadastrarFuncionarioSetAtivo(
+    CadastrarFuncionarioSetAtivo event,
+    Emitter<CadastrarFuncionarioState> emit,
+  ) {
+    final funcionarioAtualizado = state.funcionario?.copyWith(
+      isActive: state.funcionario?.isActive == true ? false : true,
+    );
+
+    emit(
+      CadastrarFuncionarioLoaded(
+        funcaoSelecionada: state.funcaoSelecionada,
+        usuarios: state.usuarios,
+        usuarioSelecionado: state.usuarioSelecionado,
+        funcionario: funcionarioAtualizado,
       ),
     );
   }

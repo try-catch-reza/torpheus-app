@@ -23,6 +23,10 @@ class EapiSchema {
 
   String buscarVeiculolById(String id) => '$_apiUtils/v1/vehicle/$id';
 
+  String buscarFuncionarioById(String id) => '$_apiUtils/v1/employee/$id';
+
+  String buscarUsuarioById(String id) => '$_apiUtils/v1/user/$id';
+
   String get cadastrarCliente => '$_apiUtils/v1/client';
 
   String get cadastrarFuncionario => '$_apiUtils/v1/employee';

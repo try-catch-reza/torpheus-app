@@ -100,6 +100,7 @@ class _CadastrarFuncionarioMobileBodyState
                       ),
                       const SizedBox(height: 16),
                       AppDropdownField<Funcao>(
+                        value: widget.state.funcionario?.funcao,
                         label: 'Função',
                         validator: (p0) {
                           if (p0 == null) {
@@ -121,6 +122,7 @@ class _CadastrarFuncionarioMobileBodyState
                       ),
                       const SizedBox(height: 16),
                       AppDropdownField<UsuarioModel>(
+                        value: widget.state.usuarioSelecionado,
                         label: 'Usuário',
                         validator: (p0) {
                           if (p0 == null) {

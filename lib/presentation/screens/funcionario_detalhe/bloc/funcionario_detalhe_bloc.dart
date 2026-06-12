@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:torpheus/data/models/funcionario_model.dart';
 
 import '../../../../domain/controller/permissao_controller.dart';
+import '../../../../domain/repositories/remote/eapi_remote_repository.dart';
 
 part 'funcionario_detalhe_event.dart';
 
@@ -13,9 +14,11 @@ part 'funcionario_detalhe_state.dart';
 class FuncionarioDetalheBloc
     extends Bloc<FuncionarioDetalheEvent, FuncionarioDetalheState> {
   late final PermissaoController _permissaoController;
+  late final EapiRemoteRepository _eapiRemoteRepository;
 
   FuncionarioDetalheBloc(
     this._permissaoController,
+    this._eapiRemoteRepository,
   ) : super(const FuncionarioDetalheInitial()) {
     on<FuncionarioDetalheLoad>(_onFuncionarioDetalheLoad);
   }
@@ -29,9 +32,13 @@ class FuncionarioDetalheBloc
       final hasEditarFuncionario =
           _permissaoController.podeAtualizarFuncionario;
 
+      final funcionario = await _eapiRemoteRepository.getFuncionarioById(
+        event.funcionario?.id ?? '',
+      );
+
       emit(
         FuncionarioDetalheLoaded(
-          funcionario: event.funcionario,
+          funcionario: funcionario,
           hasEditarFuncionario: hasEditarFuncionario,
         ),
       );

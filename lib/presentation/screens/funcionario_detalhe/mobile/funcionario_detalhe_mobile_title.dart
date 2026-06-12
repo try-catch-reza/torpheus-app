@@ -23,23 +23,13 @@ class FuncionarioDetalheMobileTitle extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                funcionario?.nome ?? 'Nome não informado',
-                style: const TextStyle(
-                  color: ColorConstants.chromaphobicBlack,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                'CPF - ${funcionario?.documento}',
-                style: const TextStyle(color: ColorConstants.steel),
-              ),
-            ],
+          Text(
+            funcionario?.nome ?? 'Nome não informado',
+            style: const TextStyle(
+              color: ColorConstants.chromaphobicBlack,
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           StatusAtivo(
             dot: funcionario?.isActive ?? false,

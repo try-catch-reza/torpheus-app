@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/components/dialog/dialog_mobile_padrao.dart';
 import 'package:torpheus/presentation/components/loading_state.dart';
 import 'package:torpheus/presentation/screens/cadastrar_funcionario/mobile/cadastrar_funcionario_mobile_body.dart';
+import 'package:torpheus/presentation/screens/cadastrar_funcionario/mobile/cadastrar_funcionario_mobile_button.dart';
 
-import '../../../../core/constants/color_constants.dart';
-import '../../../components/app_bar_padrao.dart';
-import '../../../components/app_primary_button.dart';
 import '../bloc/cadastrar_funcionario_bloc.dart';
+import 'cadastrar_funcionario_mobile_appbar.dart';
 
 class CadastrarFuncionarioMobileContent extends StatefulWidget {
   const CadastrarFuncionarioMobileContent({super.key});
@@ -35,10 +34,7 @@ class _CadastrarFuncionarioMobileContentState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPadrao(
-        title: "Cadastrar Funcionário",
-        hasLeading: true,
-      ),
+      appBar: const CadastrarFuncionarioMobileAppbar(),
       body: BlocConsumer<CadastrarFuncionarioBloc, CadastrarFuncionarioState>(
         buildWhen: _buildWhen,
         listener: _listener,
@@ -60,28 +56,13 @@ class _CadastrarFuncionarioMobileContentState
           return const SizedBox.shrink();
         },
       ),
-      bottomNavigationBar: Container(
-        color: ColorConstants.chambray,
-        child: AppPrimaryButton(
-          fontSize: 17,
-          text: 'Salvar funcionário',
-          icon: Icons.check,
-          onPressed: () => _onCadastrarFuncionario(context),
-        ),
+      bottomNavigationBar: CadastrarFuncionarioMobileButton(
+        documentoController: _documentoController,
+        telefoneController: _telefoneController,
+        formKey: _formKey,
+        nomeController: _nomeController,
       ),
     );
-  }
-
-  void _onCadastrarFuncionario(BuildContext context) {
-    if (_formKey.currentState?.validate() ?? false) {
-      context.read<CadastrarFuncionarioBloc>().add(
-            CadastrarFuncionarioSubmit(
-              telefone: _telefoneController.text,
-              documento: _documentoController.text,
-              nome: _nomeController.text,
-            ),
-          );
-    }
   }
 
   bool _buildWhen(
@@ -89,7 +70,8 @@ class _CadastrarFuncionarioMobileContentState
     CadastrarFuncionarioState current,
   ) {
     return current is! CadastrarFuncionarioError &&
-        current is! CadastrarFuncionarioSuccess;
+        current is! CadastrarFuncionarioSuccess &&
+        current is! CadastrarFuncionarioAtualizado;
   }
 
   void _listener(BuildContext context, CadastrarFuncionarioState state) {
@@ -111,6 +93,22 @@ class _CadastrarFuncionarioMobileContentState
           context
               .read<CadastrarFuncionarioBloc>()
               .add(const CadastrarFuncionarioLoad());
+        },
+      );
+    }
+
+    if (state.funcionario != null) {
+      _documentoController.text = state.funcionario?.documento ?? '';
+      _telefoneController.text = state.funcionario?.telefone ?? '';
+      _nomeController.text = state.funcionario?.nome ?? '';
+    }
+
+    if (state is CadastrarFuncionarioAtualizado) {
+      DialogMobilePadrao.successDialog(
+        context: context,
+        message: 'Funcionário atualizado com sucesso!',
+        onPress: () {
+          Navigator.of(context).pop();
         },
       );
     }

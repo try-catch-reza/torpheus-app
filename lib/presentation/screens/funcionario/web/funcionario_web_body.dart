@@ -295,9 +295,7 @@ class FuncionarioWebBody extends StatelessWidget {
   ) {
     final bloc = context.read<FuncionarioBloc>();
 
-    nomeController.text = value.nome ?? '';
-    telefoneController.text = value.telefone ?? '';
-    documentoController.text = value.documento ?? '';
+    bloc.add(FuncionarioSetUpdate(value));
 
     showDialog(
       context: context,
@@ -342,13 +340,44 @@ class FuncionarioWebBody extends StatelessWidget {
                           const SizedBox(height: 16),
                           const Divider(),
                           const SizedBox(height: 16),
-                          Text(
-                            'IDENTIFICAÇÃO',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[600],
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'IDENTIFICAÇÃO',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    state.funcionarioEditar?.isActive ?? false
+                                        ? 'Ativo'
+                                        : 'Inativo',
+                                    style: const TextStyle(fontSize: 17),
+                                  ),
+                                  Switch(
+                                    value: state.funcionarioEditar?.isActive ??
+                                        false,
+                                    onChanged: (value) {
+                                      context.read<FuncionarioBloc>().add(
+                                            const FuncionarioSetAtivo(),
+                                          );
+                                    },
+                                    activeColor: ColorConstants.activeThumb,
+                                    activeTrackColor:
+                                        ColorConstants.activeBorder,
+                                    inactiveThumbColor:
+                                        ColorConstants.inactiveThumb,
+                                    inactiveTrackColor:
+                                        ColorConstants.inactiveBorder,
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 16),
                           AppTextField(

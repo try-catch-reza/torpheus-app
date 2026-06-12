@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/components/mobile/app_bar_mobile_search.dart';
+import 'package:torpheus/presentation/screens/cadastrar_funcionario/cadastrar_funcionario_screen.dart';
 import 'package:torpheus/presentation/screens/funcionario/mobile/funcionario_mobile_lista.dart';
 import 'package:torpheus/presentation/screens/funcionario_detalhe/funcionario_detalhe_screen.dart';
 
@@ -27,6 +28,11 @@ class FuncionarioMobileBody extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pushNamed(
               AppRoutes.cadastrarFuncionario.route,
+              arguments: CadastrarFuncionarioArguments(),
+            ).then(
+              (_) {
+                context.read<FuncionarioBloc>().add(const FuncionarioLoad());
+              },
             );
           },
           onChanged: (value) {
@@ -49,6 +55,9 @@ class FuncionarioMobileBody extends StatelessWidget {
               Navigator.of(context).pushNamed(
                 AppRoutes.funcionarioDetalhe.route,
                 arguments: FuncionarioDetalheArguments(funcionario: value),
+              ).then((_) {
+                  context.read<FuncionarioBloc>().add(const FuncionarioLoad());
+                },
               );
             },
           ),

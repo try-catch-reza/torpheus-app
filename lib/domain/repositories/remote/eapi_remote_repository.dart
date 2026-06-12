@@ -31,6 +31,8 @@ abstract class EapiRemoteRepository {
 
   Future<void> updateFuncionario(FuncionarioModel funcionario);
 
+  Future<FuncionarioModel> getFuncionarioById(String id);
+
   /// Veículos -----------------------------------------------------------------
   Future<List<VeiculoModel>> getVeiculos();
 
@@ -58,4 +60,6 @@ abstract class EapiRemoteRepository {
   Future<void> cadastrarUsuario(UsuarioModel usuario);
 
   Future<List<UsuarioModel>> getUsuarios();
+
+  Future<UsuarioModel> getUsuarioById(String id);
 }

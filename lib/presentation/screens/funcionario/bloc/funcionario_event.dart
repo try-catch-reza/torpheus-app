@@ -70,3 +70,19 @@ final class FuncionarioUpdate extends FuncionarioEvent {
   @override
   List<Object?> get props => [nome, telefone, documento];
 }
+
+final class FuncionarioSetAtivo extends FuncionarioEvent {
+  const FuncionarioSetAtivo();
+
+  @override
+  List<Object?> get props => [];
+}
+
+final class FuncionarioSetUpdate extends FuncionarioEvent {
+  const FuncionarioSetUpdate(this.funcionario);
+
+  final FuncionarioModel funcionario;
+
+  @override
+  List<Object?> get props => [funcionario];
+}
