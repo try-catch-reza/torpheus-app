@@ -19,8 +19,7 @@ class VeiculoDetalheMobileAtualizar extends StatelessWidget {
             icon: Icons.edit,
             text: 'Editar dados do veículo',
             onPressed: () {
-              Navigator.of(context)
-                  .pushNamed(
+              Navigator.of(context).pushNamed(
                 AppRoutes.cadastrarVeiculo.route,
                 arguments: CadastrarVeiculoArguments(
                   isEdit: true,

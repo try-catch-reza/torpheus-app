@@ -52,7 +52,7 @@ class CadastrarVeiculoBody extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               AppDropdownField<TipoVeiculo>(
-                value: state.veiculoEditar.tipo,
+                value: state.veiculoEditar?.tipo,
                 label: 'Tipo',
                 validator: (value) {
                   if (value == null) {
@@ -92,7 +92,7 @@ class CadastrarVeiculoBody extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               AppDropdownField<MarcaVeiculo>(
-                value: state.veiculoEditar.marca,
+                value: state.veiculoEditar?.marca,
                 label: 'Marca',
                 validator: (value) {
                   if (value == null) {
@@ -151,7 +151,7 @@ class CadastrarVeiculoBody extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               AppDropdownField<CambioVeiculo>(
-                value: state.veiculoEditar.cambio,
+                value: state.veiculoEditar?.cambio,
                 label: 'Câmbio',
                 validator: (value) {
                   if (value == null) {
@@ -190,7 +190,7 @@ class CadastrarVeiculoBody extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               AppDropdownField<CombustivelVeiculo>(
-                value: state.veiculoEditar.combustivel,
+                value: state.veiculoEditar?.combustivel,
                 label: 'Combustível',
                 validator: (value) {
                   if (value == null) {

@@ -117,6 +117,7 @@ class CadastrarFuncionarioBloc
         funcaoSelecionada: state.funcaoSelecionada,
         usuarios: state.usuarios,
         usuarioSelecionado: event.usuario,
+        funcionario: state.funcionario,
       ),
     );
   }

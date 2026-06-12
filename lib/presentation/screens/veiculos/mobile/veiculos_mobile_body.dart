@@ -61,6 +61,8 @@ class VeiculosMobileBody extends StatelessWidget {
     Navigator.of(context).pushNamed(
       AppRoutes.veiculoDetalhe.route,
       arguments: VeiculoDetalheArguments(veiculo: veiculo),
-    );
+    ).then((_) {
+      context.read<VeiculosBloc>().add(const VeiculosLoad());
+    });
   }
 }

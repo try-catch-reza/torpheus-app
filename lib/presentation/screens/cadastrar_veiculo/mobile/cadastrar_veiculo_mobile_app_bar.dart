@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/components/app_bar_padrao.dart';
+import 'package:torpheus/presentation/components/botao_ativar.dart';
 import 'package:torpheus/presentation/screens/cadastrar_veiculo/bloc/cadastrar_veiculo_bloc.dart';
 
 class CadastrarVeiculoMobileAppBar extends StatelessWidget
@@ -12,9 +13,23 @@ class CadastrarVeiculoMobileAppBar extends StatelessWidget
     return BlocBuilder<CadastrarVeiculoBloc, CadastrarVeiculoState>(
       builder: (context, state) {
         if (state.isEdit) {
-          return const AppBarPadrao(
-            title: 'Editar veículo',
-            hasLeading: true,
+          return AppBar(
+            title: const Text('Atualizar veículo'),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios_rounded, size: 18),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            actions: [
+              BotaoAtivar(
+                isEnabled: state.veiculoEditar != null,
+                isActive: state.veiculoEditar?.isActive ?? false,
+                onChanged: (value) {
+                  context.read<CadastrarVeiculoBloc>().add(
+                        const CadastrarVeiculoSetAtivo(),
+                      );
+                },
+              ),
+            ],
           );
         } else {
           return const AppBarPadrao(

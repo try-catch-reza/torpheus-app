@@ -86,3 +86,10 @@ final class CadastrarVeiculoSetCombustivel extends CadastrarVeiculoEvent {
   @override
   List<Object?> get props => [combustivel];
 }
+
+final class CadastrarVeiculoSetAtivo extends CadastrarVeiculoEvent {
+  const CadastrarVeiculoSetAtivo();
+
+  @override
+  List<Object?> get props => [];
+}

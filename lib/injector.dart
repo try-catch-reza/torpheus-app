@@ -204,8 +204,8 @@ final class InjectorImpl extends Injector {
       ),
     );
 
-    getIt.registerSingleton<CadastrarFuncionarioBloc>(
-      CadastrarFuncionarioBloc(
+    getIt.registerFactory<CadastrarFuncionarioBloc>(
+      () => CadastrarFuncionarioBloc(
         getIt.get<EapiRemoteRepository>(),
       ),
     );

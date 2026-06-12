@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/core/constants/enum/funcao.dart';
-import 'package:torpheus/data/models/usuario_model.dart';
 import 'package:torpheus/presentation/components/app_dropdown_field.dart';
 import 'package:torpheus/presentation/components/app_text_field.dart';
 
@@ -117,29 +116,6 @@ class _CadastrarFuncionarioMobileBodyState
                         onChanged: (value) {
                           context.read<CadastrarFuncionarioBloc>().add(
                                 CadastrarFuncionarioSetFuncao(value!),
-                              );
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      AppDropdownField<UsuarioModel>(
-                        value: widget.state.usuarioSelecionado,
-                        label: 'Usuário',
-                        validator: (p0) {
-                          if (p0 == null) {
-                            return 'Selecione o usuario para '
-                                'atribuir a esse funcionário';
-                          }
-                          return null;
-                        },
-                        items: widget.state.usuarios.map((usuario) {
-                          return DropdownMenuItem(
-                            value: usuario,
-                            child: Text('${usuario.nome}'),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          context.read<CadastrarFuncionarioBloc>().add(
-                                CadastrarFuncionarioSetUsuario(value!),
                               );
                         },
                       ),

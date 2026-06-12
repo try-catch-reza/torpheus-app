@@ -88,10 +88,10 @@ class _CadastrarVeiculoMobileContentState
     }
 
     if (state is CadastrarVeiculoEditando) {
-      _placaController.text = state.veiculoEditar.placa ?? '';
-      _anoController.text = state.veiculoEditar.ano.toString();
-      _motorController.text = state.veiculoEditar.motor ?? '';
-      _modeloController.text = state.veiculoEditar.modelo ?? '';
+      _placaController.text = state.veiculoEditar?.placa ?? '';
+      _anoController.text = state.veiculoEditar?.ano.toString() ?? '';
+      _motorController.text = state.veiculoEditar?.motor ?? '';
+      _modeloController.text = state.veiculoEditar?.modelo ?? '';
     }
 
     if (state is CadastrarVeiculoAtualizado) {

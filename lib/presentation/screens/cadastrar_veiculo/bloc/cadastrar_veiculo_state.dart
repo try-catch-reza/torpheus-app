@@ -2,7 +2,7 @@ part of 'cadastrar_veiculo_bloc.dart';
 
 sealed class CadastrarVeiculoState extends Equatable {
   const CadastrarVeiculoState({
-    this.veiculoEditar = const VeiculoModel(),
+    this.veiculoEditar,
     this.veiculoId = '',
     this.isEdit = false,
     this.isAtivo = true,
@@ -13,7 +13,7 @@ sealed class CadastrarVeiculoState extends Equatable {
     this.hasAtualizarVeiculo = false,
   });
 
-  final VeiculoModel veiculoEditar;
+  final VeiculoModel? veiculoEditar;
   final bool isEdit;
   final String veiculoId;
   final bool isAtivo;
