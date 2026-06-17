@@ -7,9 +7,7 @@ import 'package:torpheus/domain/repositories/preferenfeces/preferences_local_rep
 import '../../../../../injector.dart';
 
 class ApiInterceptor extends Interceptor {
-  late final Dio _client;
-
-  ApiInterceptor(this._client);
+  ApiInterceptor();
 
   @override
   void onRequest(
@@ -52,29 +50,6 @@ class ApiInterceptor extends Interceptor {
         }
       }
     }
-
-    // final bool isRefreshingToken = err.requestOptions.uri
-    //     .toString()
-    //     .contains(EapiSchema.route(EapiRoutes.refreshToken));
-
-    final bool isNotAuth = err.response?.statusCode == 401;
-
-    // if (isNotAuth && !isRefreshingToken) {
-    //   final String? jwtToken = await _refreshToken();
-    //
-    //   if (jwtToken != null) {
-    //     err.requestOptions.headers[_authorization] = '$_bearer $jwtToken';
-    //
-    //     try {
-    //       return handler.resolve(await _client.fetch(err.requestOptions));
-    //     } catch (dioEx) {
-    //       if (dioEx is DioException) {
-    //         return handler.reject(dioEx);
-    //       }
-    //       return handler.next(err);
-    //     }
-    //   }
-    // }
 
     return super.onError(err, handler);
   }

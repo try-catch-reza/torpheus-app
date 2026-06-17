@@ -185,7 +185,7 @@ class CadastrarClienteBloc
     Emitter<CadastrarClienteState> emit,
   ) {
     final clienteAtualizado = state.clienteEditar!.copyWith(
-      isActive: event.isActive,
+      isActive: state.clienteEditar?.isActive == true ? false : true,
     );
 
     emit(

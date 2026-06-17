@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
 
-import '../../../../core/constants/color_constants.dart';
+import '../../../components/botao_ativar.dart';
 
 class CadastrarClienteMobileAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -21,30 +21,14 @@ class CadastrarClienteMobileAppBar extends StatelessWidget
             onPressed: () => Navigator.of(context).pop(),
           ),
           actions: [
-            Visibility(
-              visible: state.clienteEditar != null,
-              child: Row(
-                children: [
-                  Text(
-                    state.clienteEditar?.isActive ?? false
-                        ? 'Ativo'
-                        : 'Inativo',
-                    style: const TextStyle(fontSize: 17),
-                  ),
-                  Switch(
-                    value: state.clienteEditar?.isActive ?? false,
-                    onChanged: (value) {
-                      context.read<CadastrarClienteBloc>().add(
-                            CadastrarClienteSetAtivo(value),
-                          );
-                    },
-                    activeColor: ColorConstants.activeThumb,
-                    activeTrackColor: ColorConstants.activeBorder,
-                    inactiveThumbColor: ColorConstants.inactiveThumb,
-                    inactiveTrackColor: ColorConstants.inactiveBorder,
-                  ),
-                ],
-              ),
+            BotaoAtivar(
+              isEnabled: state.clienteEditar != null,
+              isActive: state.clienteEditar?.isActive ?? false,
+              onChanged: (value) {
+                context.read<CadastrarClienteBloc>().add(
+                  const CadastrarClienteSetAtivo(),
+                );
+              },
             ),
           ],
         );

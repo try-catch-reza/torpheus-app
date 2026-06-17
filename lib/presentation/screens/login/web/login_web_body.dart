@@ -26,7 +26,7 @@ class LoginWebBody extends StatelessWidget {
         const LoginWebPainelEsquerdo(),
         Container(
           color: ColorConstants.corFundo,
-          width: MediaQuery.of(context).size.width * 0.25,
+          width: MediaQuery.of(context).size.width * 0.30,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,

@@ -69,7 +69,7 @@ class CadastroHeaderWebCustom extends StatelessWidget {
               isActive: isActive,
               onChanged: (value) {
                 context.read<CadastrarClienteBloc>().add(
-                      CadastrarClienteSetAtivo(value),
+                      const CadastrarClienteSetAtivo(),
                     );
               },
             ),

@@ -220,10 +220,14 @@ class FuncionarioBloc extends Bloc<FuncionarioEvent, FuncionarioState> {
     );
   }
 
-  void _onFuncionarioSetUpdate(
+  Future<void> _onFuncionarioSetUpdate(
     FuncionarioSetUpdate event,
     Emitter<FuncionarioState> emit,
-  ) {
+  ) async {
+    final funcionario = await _eapiRemoteRepository.getFuncionarioById(
+      event.funcionario.id ?? '',
+    );
+
     emit(
       FuncionarioLoaded(
         funcaoSelecionada: event.funcionario.funcao,
@@ -233,7 +237,7 @@ class FuncionarioBloc extends Bloc<FuncionarioEvent, FuncionarioState> {
         funcionariosFiltered: state.funcionariosFiltered,
         hasCriarFuncionario: state.hasCriarFuncionario,
         hasEditarFuncionario: state.hasEditarFuncionario,
-        funcionarioEditar: event.funcionario,
+        funcionarioEditar: funcionario,
       ),
     );
   }

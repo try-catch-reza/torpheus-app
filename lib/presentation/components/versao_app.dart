@@ -7,18 +7,21 @@ class VersaoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Text(
-        '${AppSystemInfo.appInfo?.appVersionInfo.appVersionName} - '
-        '${AppSystemInfo.appInfo?.appVersionInfo.appVersionCode} ·  '
-        'UniSenai Chapecó  ·  2026',
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontSize: 14,
-          color: Color(0xFF9BAABB),
-          letterSpacing: 0.4,
-          decoration: TextDecoration.none,
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 16.0),
+        child: Text(
+          '${AppSystemInfo.appInfo?.appVersionInfo.appVersionName} - '
+          '${AppSystemInfo.appInfo?.appVersionInfo.appVersionCode} ·  '
+          'UniSenai Chapecó  ·  2026',
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 14,
+            color: Color(0xFF9BAABB),
+            letterSpacing: 0.4,
+            decoration: TextDecoration.none,
+          ),
         ),
       ),
     );

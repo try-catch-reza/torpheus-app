@@ -16,7 +16,7 @@ class MobileLogoHeader extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Image.asset(
-              AssetsConstants.logo,
+              AssetsConstants.logoSemFundo,
               width: MediaQuery.of(context).size.width * 0.8,
               height: MediaQuery.of(context).size.height * 0.18,
               fit: BoxFit.contain,

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../data/models/cliente_model.dart';
 import '../../../../data/models/endereco_model.dart';
+import '../../../components/app_button_bottom_navigation.dart';
 import '../bloc/cadastrar_cliente_bloc.dart';
-import 'cadastrar_cliente_mobile_footer.dart';
 
 class CadastrarClienteMobileBotoes extends StatelessWidget {
   const CadastrarClienteMobileBotoes({
@@ -41,16 +41,16 @@ class CadastrarClienteMobileBotoes extends StatelessWidget {
     return BlocBuilder<CadastrarClienteBloc, CadastrarClienteState>(
       builder: (context, state) {
         if (state.isEdit) {
-          return CadastrarClienteMobileFooter(
-            isEdit: true,
-            isLoading: state is CadastrarClienteLoading,
-            onCadastrar: () => _onUpdate(context, state),
+          return AppButtonBottomNavigation(
+            icon: Icons.check,
+            text: 'Atualizar dados do cliente',
+            onPressed: () => _onUpdate(context, state),
           );
         } else {
-          return CadastrarClienteMobileFooter(
-            isEdit: false,
-            isLoading: state is CadastrarClienteLoading,
-            onCadastrar: () => _onCadastrar(context, state),
+          return AppButtonBottomNavigation(
+            icon: Icons.check,
+            text: 'Adicionar novo cliente',
+            onPressed: () => _onCadastrar(context, state),
           );
         }
       },

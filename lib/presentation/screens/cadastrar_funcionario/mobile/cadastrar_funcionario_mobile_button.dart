@@ -28,7 +28,7 @@ class CadastrarFuncionarioMobileButton extends StatelessWidget {
             color: ColorConstants.chambray,
             child: AppPrimaryButton(
               fontSize: 17,
-              text: 'Atualizar funcionário',
+              text: 'Atualizar dados do funcionário',
               icon: Icons.check,
               onPressed: () => _onAtualizarFuncionario(context),
             ),
@@ -38,7 +38,7 @@ class CadastrarFuncionarioMobileButton extends StatelessWidget {
             color: ColorConstants.chambray,
             child: AppPrimaryButton(
               fontSize: 17,
-              text: 'Salvar funcionário',
+              text: 'Adicionar novo funcionário',
               icon: Icons.check,
               onPressed: () => _onCadastrarFuncionario(context),
             ),

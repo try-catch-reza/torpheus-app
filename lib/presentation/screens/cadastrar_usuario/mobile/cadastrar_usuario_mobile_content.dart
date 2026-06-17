@@ -60,7 +60,7 @@ class _CadastrarUsuarioMobileContentState
       ),
       bottomNavigationBar: AppButtonBottomNavigation(
         onPressed: () => _onSalvarUsuario(context),
-        text: 'Salvar novo usuário',
+        text: 'Adicionar novo usuário',
         icon: Icons.check,
       ),
     );

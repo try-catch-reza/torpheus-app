@@ -7,17 +7,17 @@ flutter_native_splash:
 
   # Light mode
   color: "#1B2F4E"
-  image: assets/images/logo/torpheus_logo.png
+  image: assets/images/logo/logo_sem_fundo.png
 
   # Dark mode
   color_dark: "#1B2F4E"
-  image_dark: assets/images/logo/torpheus_logo.png
+  image_dark: assets/images/logo/logo_sem_fundo.png
 
   android_12:
     # Light mode
-    image: assets/images/logo/torpheus_logo.png
+    image: assets/images/logo/logo_sem_fundo.png
     icon_background_color: "#1B2F4E"
 
     # Dark mode
-    image_dark: assets/images/logo/torpheus_logo.png
+    image_dark: assets/images/logo/logo_sem_fundo.png
     icon_background_color_dark: "#1B2F4E"

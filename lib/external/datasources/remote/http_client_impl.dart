@@ -10,7 +10,7 @@ import 'interceptors/log_interceptor.dart';
 class HttpClientImpl implements HttpClient {
   HttpClientImpl() {
     client.interceptors.addAll([
-      ApiInterceptor(client),
+      ApiInterceptor(),
       LogApiInterceptor(),
     ]);
   }

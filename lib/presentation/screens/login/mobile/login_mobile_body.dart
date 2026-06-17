@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 
+import '../../../../core/constants/assets_contants.dart';
 import '../../../../core/constants/color_constants.dart';
 import 'login_mobile_card.dart';
-import 'login_mobile_grid.dart';
-import '../../../components/mobile/mobile_logo_header.dart';
 
 class LoginMobileBody extends StatelessWidget {
   const LoginMobileBody({
@@ -27,13 +26,13 @@ class LoginMobileBody extends StatelessWidget {
         Positioned.fill(
           child: ColoredBox(color: ColorConstants.chambray),
         ),
-        Positioned.fill(
-          child: CustomPaint(painter: LoginMobileGrid()),
-        ),
         SafeArea(
           child: Column(
             children: [
-              const MobileLogoHeader(),
+              Image.asset(
+                AssetsConstants.logoSemFundo,
+                width: MediaQuery.of(context).size.width * 0.8,
+              ),
               Expanded(
                 child: LoginMobileCard(
                   state: state,

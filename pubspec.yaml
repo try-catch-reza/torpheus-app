@@ -62,10 +62,8 @@ flutter:
     - assets/
     - assets/images/
     - assets/sql/
-    - assets/images/logo/torpheus_texto_ajustado.png
-    - assets/images/logo/torpheus_logomarca.png
-    - assets/images/logo/torpheus_logo.png
-    - assets/images/icon/torpheus_icone.png
+    - assets/images/logo/logo_sem_fundo.png
+    - assets/images/splash/splash_screen_logo.png
 
 flutter_icons:
   ios: true
