@@ -1,9 +1,13 @@
+import 'package:torpheus/core/constants/enum/status_ordem.dart';
+import 'package:torpheus/core/constants/enum/status_servico.dart';
 import 'package:torpheus/data/models/auth_model.dart';
 import 'package:torpheus/data/models/auth_response_model.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
 import 'package:torpheus/data/models/endereco_model.dart';
 import 'package:torpheus/data/models/funcionario_model.dart';
+import 'package:torpheus/data/models/ordem_servico_model.dart';
 import 'package:torpheus/data/models/perfis_model.dart';
+import 'package:torpheus/data/models/servico_model.dart';
 import 'package:torpheus/data/models/usuario_model.dart';
 import 'package:torpheus/data/models/veiculo_model.dart';
 
@@ -532,4 +536,86 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       },
     );
   }
+
+  @override
+  Future<void> abrirOS(OrdemServicoModel ordemServico) async {
+    const titleMessage = 'Não foi possível abrir uma ordem de serviço';
+
+    await post(
+      path: _schema.abrirOS,
+      body: ordemServico.toPOST(),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<void> adicionarServico(ServicoModel servico) async {}
+
+  @override
+  Future<List<OrdemServicoModel>> getOS() async {
+    const titleMessage = 'Não foi possível carregar as ordens de serviço';
+
+    return await get(
+      path: _schema.buscarOS,
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> data = response.data;
+          final List<dynamic> items = data['items'] ?? [];
+
+          return items.map((item) => OrdemServicoModel.fromJson(item)).toList();
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<OrdemServicoModel> getOSById(String id) async {
+    const titleMessage = 'Não foi possível carregar a ordem de serviço';
+
+    return await get(
+      path: _schema.buscarOSById(id),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return OrdemServicoModel.fromJson(response.data);
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<void> updateDescricaoAndMecanico(ServicoModel servico) async {}
+
+  @override
+  Future<void> updateOS(OrdemServicoModel ordemServico) async {}
+
+  @override
+  Future<void> updateStatusOS(StatusOrdem status) async {}
+
+  @override
+  Future<void> updateStatusServico(StatusServico status) async {}
 }

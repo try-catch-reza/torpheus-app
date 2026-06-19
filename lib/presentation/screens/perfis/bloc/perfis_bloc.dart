@@ -255,7 +255,8 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
   }
 
   List<PermissaoGrupoModel> _agruparPermissoes(
-      List<PermissaoModel> permissions) {
+    List<PermissaoModel> permissions,
+  ) {
     final Map<String, List<PermissaoModel>> mapa = {};
 
     for (final p in permissions) {
@@ -269,6 +270,7 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
       'employees': 'Funcionários',
       'tenants': 'Empresas',
       'vehicles': 'Veículos',
+      'service_orders': 'Ordens de Serviço',
     };
 
     return mapa.entries.map((entry) {

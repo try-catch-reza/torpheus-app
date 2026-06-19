@@ -58,4 +58,10 @@ class PermissaoController {
   bool get podeLerTenant => temPermissao('tenants.read');
 
   bool get podeAtualizarTenant => temPermissao('tenants.update');
+
+  bool get podeLerOS => temPermissao('service_orders.read');
+
+  bool get podeAtualizarOS => temPermissao('service_orders.update');
+
+  bool get podeCriarOS => temPermissao('service_orders.create');
 }

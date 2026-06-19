@@ -45,6 +45,7 @@ class PermissaoModel {
       'employees': 'Funcionários',
       'tenants': 'Empresas',
       'vehicles': 'Veículos',
+      'service_orders': 'Ordens de Serviço',
     };
 
     final acoes = {
@@ -53,6 +54,7 @@ class PermissaoModel {
       'update': 'Editar',
       'delete': 'Excluir',
       'assign_role': 'Atribuir perfil',
+      'change_status': 'Atualizar status',
     };
 
     final nomeRecurso = recursos[recurso] ?? _capitalizar(recurso);

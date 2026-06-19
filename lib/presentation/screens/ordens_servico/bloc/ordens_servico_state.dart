@@ -1,10 +1,36 @@
 part of 'ordens_servico_bloc.dart';
 
 sealed class OrdensServicoState extends Equatable {
-  const OrdensServicoState();
+  const OrdensServicoState({
+    this.ordensServico = const [],
+    this.ordensServicoFiltered = const [],
+    this.hasPodeCriar = false,
+    this.veiculos = const [],
+    this.clientes = const [],
+    this.clienteSelecionado,
+    this.veiculoSelecionado,
+  });
+
+  final List<OrdemServicoModel> ordensServico;
+  final List<OrdemServicoModel> ordensServicoFiltered;
+  final List<ClienteModel> clientes;
+  final List<VeiculoModel> veiculos;
+
+  final ClienteModel? clienteSelecionado;
+  final VeiculoModel? veiculoSelecionado;
+
+  final bool hasPodeCriar;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        ordensServico,
+        ordensServicoFiltered,
+        hasPodeCriar,
+        clientes,
+        veiculos,
+        clienteSelecionado,
+        veiculoSelecionado,
+      ];
 }
 
 final class OrdensServicoInitial extends OrdensServicoState {
@@ -22,16 +48,50 @@ final class OrdensServicoLoading extends OrdensServicoState {
 }
 
 final class OrdensServicoLoaded extends OrdensServicoState {
-  const OrdensServicoLoaded();
+  const OrdensServicoLoaded({
+    required super.ordensServico,
+    required super.ordensServicoFiltered,
+    required super.hasPodeCriar,
+    required super.clientes,
+    required super.veiculos,
+    super.clienteSelecionado,
+    super.veiculoSelecionado,
+  });
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        ordensServico,
+        ordensServicoFiltered,
+        hasPodeCriar,
+        clientes,
+        veiculos,
+        clienteSelecionado,
+        veiculoSelecionado,
+      ];
 }
 
 final class OrdensServicoError extends OrdensServicoState {
   final String message;
+
   const OrdensServicoError({required this.message});
 
   @override
   List<Object?> get props => [message];
+}
+
+final class OrdensServicoSalvando extends OrdensServicoState {
+  const OrdensServicoSalvando({
+    required super.clienteSelecionado,
+    required super.veiculoSelecionado,
+  });
+
+  @override
+  List<Object?> get props => [clienteSelecionado, veiculoSelecionado];
+}
+
+final class OrdensServicoSalvo extends OrdensServicoState {
+  const OrdensServicoSalvo();
+
+  @override
+  List<Object?> get props => [];
 }

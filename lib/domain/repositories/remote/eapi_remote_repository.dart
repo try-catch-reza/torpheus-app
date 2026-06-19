@@ -1,10 +1,14 @@
+import 'package:torpheus/core/constants/enum/status_ordem.dart';
+import 'package:torpheus/core/constants/enum/status_servico.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
 import 'package:torpheus/data/models/funcionario_model.dart';
+import 'package:torpheus/data/models/servico_model.dart';
 import 'package:torpheus/data/models/usuario_model.dart';
 
 import '../../../data/models/auth_model.dart';
 import '../../../data/models/auth_response_model.dart';
 import '../../../data/models/endereco_model.dart';
+import '../../../data/models/ordem_servico_model.dart';
 import '../../../data/models/perfis_model.dart';
 import '../../../data/models/veiculo_model.dart';
 
@@ -62,4 +66,22 @@ abstract class EapiRemoteRepository {
   Future<List<UsuarioModel>> getUsuarios();
 
   Future<UsuarioModel> getUsuarioById(String id);
+
+  /// Ordem de Servio ---------------------------------------------------------
+  Future<List<OrdemServicoModel>> getOS();
+
+  Future<void> abrirOS(OrdemServicoModel ordemServico);
+
+  Future<OrdemServicoModel> getOSById(String id);
+
+  Future<void> updateOS(OrdemServicoModel ordemServico);
+
+  Future<void> updateStatusOS(StatusOrdem status);
+
+  /// Serviço ------------------------------------------------------------------
+  Future<void> adicionarServico(ServicoModel servico);
+
+  Future<void> updateDescricaoAndMecanico(ServicoModel servico);
+
+  Future<void> updateStatusServico(StatusServico status);
 }

@@ -5,6 +5,10 @@ class EapiSchema {
 
   String adicionarPermissao(String id) => '$_apiUtils/v1/roles/$id';
 
+  String adicionarServico(String id) => '$_apiUtils/v1/serviceOrder/$id/items';
+
+  String get abrirOS => '$_apiUtils/v1/serviceorder';
+
   String get buscarClientes => '$_apiUtils/v1/client';
 
   String buscarClienteById(String id) => '$_apiUtils/v1/client/$id';
@@ -16,6 +20,10 @@ class EapiSchema {
   String get buscarUsuarios => '$_apiUtils/v1/user';
 
   String buscarEndereco(String cep) => '$_apiUtils/v1/address/$cep';
+
+  String get buscarOS => '$_apiUtils/v1/serviceorder';
+
+  String buscarOSById(String id) => '$_apiUtils/v1/serviceorder/$id';
 
   String get buscarPerfis => '$_apiUtils/v1/roles';
 
@@ -46,4 +54,16 @@ class EapiSchema {
   String updateVeiculo(String id) => '$_apiUtils/v1/vehicle/$id';
 
   String updateFuncionario(String id) => '$_apiUtils/v1/employee/$id';
+
+  String updateOS(String id) => '$_apiUtils/v1/serviceorder/$id';
+
+  String updateStatusOS(String id) => '$_apiUtils/v1/serviceorder/$id';
+
+  String updateDescrOurFuncOS(String id, String itemId) {
+    return '$_apiUtils/v1/serviceorder/$id/items/$itemId';
+  }
+
+  String updateStatusServico(String id, String itemId) {
+    return '$_apiUtils/v1/serviceorder/$id/items/$itemId/status';
+  }
 }

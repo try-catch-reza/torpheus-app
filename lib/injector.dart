@@ -169,7 +169,10 @@ final class InjectorImpl extends Injector {
     );
 
     getIt.registerSingleton<OrdensServicoBloc>(
-      OrdensServicoBloc(),
+      OrdensServicoBloc(
+        getIt.get<PermissaoController>(),
+        getIt.get<EapiRemoteRepository>(),
+      ),
     );
 
     getIt.registerSingleton<RelatoriosBloc>(
