@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:torpheus/core/constants/enum/status_ordem.dart';
 import 'package:torpheus/core/constants/extension/string_extension.dart';
 import 'package:torpheus/data/models/ordem_servico_model.dart';
-import 'package:torpheus/data/models/vis/vis_ordem_servico.dart';
 
 import '../../../../core/constants/color_constants.dart';
 
@@ -61,14 +60,11 @@ class _TableHeader extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       child: Row(
         children: [
-          _HeaderCell('OS', flex: 2),
-          _HeaderCell('Placa/Modelo', flex: 2),
-          _HeaderCell('Cliente', flex: 3),
-          _HeaderCell('Serviços', flex: 2),
-          _HeaderCell('Entrada', flex: 2),
-          _HeaderCell('Mecânico', flex: 2),
-          _HeaderCell('Status', flex: 2),
-          SizedBox(width: 32),
+          _HeaderCell('Placa/Modelo', flex: 1),
+          _HeaderCell('Cliente', flex: 1),
+          _HeaderCell('Serviços', flex: 1),
+          _HeaderCell('Entrada', flex: 1),
+          _HeaderCell('Status', flex: 1),
         ],
       ),
     );
@@ -126,31 +122,19 @@ class _TableRowState extends State<_TableRow> {
           child: Row(
             children: [
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: Text(
-                  widget.ordem.id ?? '',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    color: ColorConstants.chambray,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'LZW-2704 / Corsa Wind',
+                  '${widget.ordem.veiculoPlaca} / ${widget.ordem.veiculoModelo}',
                   style: const TextStyle(
                     fontSize: 13,
                     color: Color(0xFF3A3A38),
                   ),
                 ),
               ),
-              // Modelo / Ano
               Expanded(
-                flex: 3,
+                flex: 1,
                 child: Text(
-                  'Cleiton',
+                  widget.ordem.clienteNome ?? '',
                   style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -158,9 +142,8 @@ class _TableRowState extends State<_TableRow> {
                   ),
                 ),
               ),
-              // Combustível
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: Text(
                   widget.ordem.quantidadeServico.toString(),
                   style: const TextStyle(
@@ -169,9 +152,8 @@ class _TableRowState extends State<_TableRow> {
                   ),
                 ),
               ),
-              // Câmbio
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: Text(
                   widget.ordem.dataCriacao.toString().formataData,
                   style: const TextStyle(
@@ -180,23 +162,10 @@ class _TableRowState extends State<_TableRow> {
                   ),
                 ),
               ),
-              // Tipo
               Expanded(
-                flex: 2,
-                child: Text(
-                  'Mecânico',
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: Color(0xFF3A3A38),
-                  ),
-                ),
-              ),
-              // Status
-              Expanded(
-                flex: 2,
+                flex: 1,
                 child: _StatusBadge(status: widget.ordem.statusOrdem!),
               ),
-              // Chevron
               Visibility(
                 visible: widget.onTap != null,
                 child: Icon(

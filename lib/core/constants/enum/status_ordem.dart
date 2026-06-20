@@ -20,15 +20,13 @@ enum StatusOrdem {
   Color get colorStatus {
     switch (this) {
       case StatusOrdem.aberta:
-        return Colors.yellowAccent;
+        return Colors.blue.shade600;       // aberto: azul visível e neutro
       case StatusOrdem.emProgresso:
-        return Colors.amber;
+        return Colors.orange.shade600;     // em progresso: laranja para atenção
       case StatusOrdem.cancelado:
-        return Colors.redAccent;
+        return Colors.red.shade700;        // cancelado: vermelho mais forte
       case StatusOrdem.completado:
-        return Colors.green;
-      default:
-        return Colors.grey;
+        return Colors.green.shade600;
     }
   }
 }

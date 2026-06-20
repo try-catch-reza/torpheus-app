@@ -6,7 +6,10 @@ import '../../core/constants/enum/status_ordem.dart';
 class OrdemServicoModel extends Equatable {
   final String? id;
   final String? clienteId;
+  final String? clienteNome;
   final String? veiculoId;
+  final String? veiculoPlaca;
+  final String? veiculoModelo;
   final StatusOrdem? statusOrdem;
   final String? descricaoCliente;
   final DateTime? dataInicio;
@@ -16,6 +19,9 @@ class OrdemServicoModel extends Equatable {
   final int? quantidadeServico;
 
   const OrdemServicoModel({
+    this.clienteNome,
+    this.veiculoPlaca,
+    this.veiculoModelo,
     this.id,
     this.clienteId,
     this.veiculoId,
@@ -39,6 +45,9 @@ class OrdemServicoModel extends Equatable {
     DateTime? dataCriacao,
     List<ServicoModel>? servicos,
     int? quantidadeServico,
+    String? clienteNome,
+    String? veiculoModelo,
+    String? veiculoPlaca,
   }) {
     return OrdemServicoModel(
       id: id ?? this.id,
@@ -51,6 +60,9 @@ class OrdemServicoModel extends Equatable {
       dataCriacao: dataCriacao ?? this.dataCriacao,
       servicos: servicos ?? this.servicos,
       quantidadeServico: quantidadeServico ?? this.quantidadeServico,
+      clienteNome: clienteNome ?? this.clienteNome,
+      veiculoModelo: veiculoModelo ?? this.veiculoModelo,
+      veiculoPlaca: veiculoPlaca ?? this.veiculoPlaca,
     );
   }
 
@@ -76,6 +88,9 @@ class OrdemServicoModel extends Equatable {
               .toList()
           : [],
       quantidadeServico: json['servicesCount'],
+      clienteNome: json['clientName'],
+      veiculoModelo: json['vehicleModel'],
+      veiculoPlaca: json['vehicleLicensePlate'],
     );
   }
 
@@ -90,6 +105,9 @@ class OrdemServicoModel extends Equatable {
       'endAt': dataFim?.toIso8601String(),
       'createdAt': dataCriacao?.toIso8601String(),
       'servicos': servicos?.map((s) => s.toJson()).toList(),
+      'clientName': clienteNome,
+      'vehicleModel': veiculoModelo,
+      'vehicleLicensePlate': veiculoPlaca,
     };
   }
 
@@ -114,6 +132,9 @@ class OrdemServicoModel extends Equatable {
         'dataFim: $dataFim, '
         'dataCriacao: $dataCriacao, '
         'servicos: $servicos, '
+        'clienteNome: $clienteNome, '
+        'veiculoModelo: $veiculoModelo, '
+        'veiculoPlaca: $veiculoPlaca, '
         '}';
   }
 
@@ -128,5 +149,8 @@ class OrdemServicoModel extends Equatable {
         dataFim,
         dataCriacao,
         servicos,
+        veiculoModelo,
+        veiculoPlaca,
+        clienteNome,
       ];
 }

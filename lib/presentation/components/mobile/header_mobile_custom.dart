@@ -9,12 +9,14 @@ class HeaderMobileCustom extends StatelessWidget {
     required this.subtitle,
     required this.onPressed,
     required this.hasPodeCriar,
+    required this.hasPopUp,
   });
 
   final String title;
   final String subtitle;
   final VoidCallback onPressed;
   final bool hasPodeCriar;
+  final bool hasPopUp;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +30,14 @@ class HeaderMobileCustom extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          IconButton(
-            onPressed: () => Navigator.of(context).pop(),
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: ColorConstants.chambray,
+          Visibility(
+            visible: hasPopUp,
+            child: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: ColorConstants.chambray,
+              ),
             ),
           ),
           Column(
