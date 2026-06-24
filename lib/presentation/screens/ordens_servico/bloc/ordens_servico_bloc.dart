@@ -30,6 +30,7 @@ class OrdensServicoBloc extends Bloc<OrdensServicoEvent, OrdensServicoState> {
     on<OrdensServicoSubmit>(_onOrdensServicoSubmit);
     on<OrdensServicoSetFuncionario>(_onOrdensServicoSetFuncionario);
     on<OrdensServicoAddServico>(_onOrdensServicoAddServico);
+    on<OrdensServicoSearch>(_onOrdensServicoSearch);
   }
 
   Future<void> _onOrdensServicoLoad(
@@ -184,5 +185,35 @@ class OrdensServicoBloc extends Bloc<OrdensServicoEvent, OrdensServicoState> {
         const OrdensServicoError(message: 'Não foi possível cadastrar a OS'),
       );
     }
+  }
+
+  void _onOrdensServicoSearch(
+    OrdensServicoSearch event,
+    Emitter<OrdensServicoState> emit,
+  ) {
+    final search = event.search.toLowerCase();
+
+    final filtered = state.ordensServico.where((ordem) {
+      final cliente = ordem.descricaoCliente?.toLowerCase() ?? '';
+      final veiculo = ordem.veiculoModelo?.toLowerCase() ?? '';
+      final placa = ordem.veiculoPlaca?.toUpperCase() ?? '';
+
+      return cliente.contains(search) ||
+          veiculo.contains(search) ||
+          placa.contains(search);
+    }).toList();
+
+    emit(
+      OrdensServicoLoaded(
+        clientes: state.clientes,
+        veiculos: state.veiculos,
+        hasPodeCriar: state.hasPodeCriar,
+        ordensServicoFiltered: filtered,
+        ordensServico: state.ordensServico,
+        clienteSelecionado: state.clienteSelecionado,
+        veiculoSelecionado: state.veiculoSelecionado,
+        funcionarios: state.funcionarios,
+      ),
+    );
   }
 }

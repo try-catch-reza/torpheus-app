@@ -80,7 +80,7 @@ class _OrdensServicoMobileContentState
 
   bool _buildWhen(OrdensServicoState previous, OrdensServicoState current) {
     return current is! OrdensServicoError &&
-        current is OrdensServicoSalvando &&
-        current is OrdensServicoSalvo;
+        current is! OrdensServicoSalvando &&
+        current is! OrdensServicoSalvo;
   }
 }
