@@ -29,7 +29,9 @@ class ClienteMobileBody extends StatelessWidget {
             Navigator.of(context).pushNamed(
               AppRoutes.cadastrarCliente.route,
               arguments: CadastrarClienteArguments(),
-            );
+            ).then((_) {
+              context.read<ClienteBloc>().add(const ClientesLoad());
+            });
           },
           onChanged: (value) {
             context.read<ClienteBloc>().add(ClienteSearch(value));
@@ -53,16 +55,9 @@ class ClienteMobileBody extends StatelessWidget {
                 arguments: ClienteDetalheArguments(
                   cliente: value,
                 ),
-              );
-            },
-            onEditTap: (value) {
-              Navigator.of(context).pushNamed(
-                AppRoutes.cadastrarCliente.route,
-                arguments: CadastrarClienteArguments(
-                  isEdit: true,
-                  clienteId: value.id ?? '',
-                ),
-              );
+              ).then((_) {
+                context.read<ClienteBloc>().add(const ClientesLoad());
+              });
             },
           ),
       ],

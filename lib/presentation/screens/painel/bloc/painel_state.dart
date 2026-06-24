@@ -11,6 +11,7 @@ sealed class PainelState extends Equatable {
     this.hasAccessCliente = false,
     this.hasAccessVeiculo = false,
     this.hasAccessPerfis = false,
+    this.hasAccessOrdem = false,
   });
 
   final File? image;
@@ -23,6 +24,7 @@ sealed class PainelState extends Equatable {
   final bool hasAccessCliente;
   final bool hasAccessVeiculo;
   final bool hasAccessPerfis;
+  final bool hasAccessOrdem;
 
   @override
   List<Object?> get props => [
@@ -35,6 +37,7 @@ sealed class PainelState extends Equatable {
         hasAccessVeiculo,
         hasAccessCliente,
         hasAccessPerfis,
+        hasAccessOrdem,
       ];
 }
 
@@ -62,6 +65,7 @@ final class PainelLoaded extends PainelState {
     required super.hasAccessFuncionario,
     required super.hasAccessVeiculo,
     required super.hasAccessPerfis,
+    required super.hasAccessOrdem,
   });
 
   @override
@@ -74,6 +78,7 @@ final class PainelLoaded extends PainelState {
         hasAccessVeiculo,
         hasAccessCliente,
         hasAccessPerfis,
+        hasAccessOrdem,
       ];
 }
 

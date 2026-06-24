@@ -30,6 +30,7 @@ import '../presentation/screens/cliente/bloc/cliente_bloc.dart';
 import '../presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import '../presentation/screens/cliente_detalhe/cliente_detalhe_screen.dart';
 import '../presentation/screens/perfis/bloc/perfis_bloc.dart';
+import '../presentation/screens/servico/bloc/servico_bloc.dart';
 import '../presentation/screens/usuario/usuario_screen.dart';
 import '../presentation/screens/veiculo_detalhe/bloc/veiculo_detalhe_bloc.dart';
 import '../presentation/screens/veiculo_detalhe/veiculo_detalhe_screen.dart';
@@ -42,6 +43,7 @@ import '../presentation/screens/perfil/bloc/perfil_bloc.dart';
 import '../presentation/screens/recuperar_senha/bloc/recuperar_senha_bloc.dart';
 import '../presentation/screens/relatorios/bloc/relatorios_bloc.dart';
 import '../presentation/screens/cadastrar_funcionario/cadastrar_funcionario_screen.dart';
+import '../presentation/screens/servico/servico_screen.dart';
 
 enum NavigationFlow { simple, modalBottomUp, fade }
 
@@ -64,7 +66,8 @@ enum AppRoutes {
   cadastrarVeiculo('/cadastrar-veiculo', NavigationFlow.modalBottomUp),
   cadastrarUsuario('/cadastrar-usuario', NavigationFlow.modalBottomUp),
   usuario('usuario', NavigationFlow.fade),
-  perfis('perfis', NavigationFlow.fade);
+  perfis('perfis', NavigationFlow.fade),
+  servico('/servico', NavigationFlow.modalBottomUp);
 
   final String route;
   final NavigationFlow flow;
@@ -100,6 +103,7 @@ class Routes {
           relatoriosBloc: injector.getIt.get<RelatoriosBloc>(),
           perfisBloc: injector.getIt.get<PerfisBloc>(),
           usuarioBloc: injector.getIt.get<UsuarioBloc>(),
+          servicoBloc: injector.getIt.get<ServicoBloc>(),
         ),
       AppRoutes.home => PainelScreen(
           painelBloc: injector.getIt.get<PainelBloc>(),
@@ -158,6 +162,10 @@ class Routes {
         ),
       AppRoutes.perfis => PerfisScreen(
           perfisBloc: injector.getIt.get<PerfisBloc>(),
+        ),
+      AppRoutes.servico => ServicoScreen(
+          servicoBloc: injector.getIt.get<ServicoBloc>(),
+          arguments: settings.arguments as ServicoArguments,
         ),
     };
 

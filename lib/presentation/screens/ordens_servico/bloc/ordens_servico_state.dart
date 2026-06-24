@@ -7,17 +7,21 @@ sealed class OrdensServicoState extends Equatable {
     this.hasPodeCriar = false,
     this.veiculos = const [],
     this.clientes = const [],
+    this.funcionarios = const [],
     this.clienteSelecionado,
     this.veiculoSelecionado,
+    this.funcionarioSelecionado,
   });
 
   final List<OrdemServicoModel> ordensServico;
   final List<OrdemServicoModel> ordensServicoFiltered;
   final List<ClienteModel> clientes;
   final List<VeiculoModel> veiculos;
+  final List<FuncionarioModel> funcionarios;
 
   final ClienteModel? clienteSelecionado;
   final VeiculoModel? veiculoSelecionado;
+  final FuncionarioModel? funcionarioSelecionado;
 
   final bool hasPodeCriar;
 
@@ -30,6 +34,8 @@ sealed class OrdensServicoState extends Equatable {
         veiculos,
         clienteSelecionado,
         veiculoSelecionado,
+        funcionarios,
+        funcionarioSelecionado,
       ];
 }
 
@@ -54,8 +60,10 @@ final class OrdensServicoLoaded extends OrdensServicoState {
     required super.hasPodeCriar,
     required super.clientes,
     required super.veiculos,
+    required super.funcionarios,
     super.clienteSelecionado,
     super.veiculoSelecionado,
+    super.funcionarioSelecionado,
   });
 
   @override
@@ -67,6 +75,8 @@ final class OrdensServicoLoaded extends OrdensServicoState {
         veiculos,
         clienteSelecionado,
         veiculoSelecionado,
+        funcionarioSelecionado,
+        funcionarios,
       ];
 }
 
@@ -83,10 +93,15 @@ final class OrdensServicoSalvando extends OrdensServicoState {
   const OrdensServicoSalvando({
     required super.clienteSelecionado,
     required super.veiculoSelecionado,
+    super.funcionarioSelecionado,
   });
 
   @override
-  List<Object?> get props => [clienteSelecionado, veiculoSelecionado];
+  List<Object?> get props => [
+        clienteSelecionado,
+        veiculoSelecionado,
+        funcionarioSelecionado,
+      ];
 }
 
 final class OrdensServicoSalvo extends OrdensServicoState {

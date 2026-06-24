@@ -40,7 +40,11 @@ class MenuWebSidebar extends StatelessWidget {
 
   static const List<MenuItem> _menuItems = [
     MenuItem(icon: Icons.dashboard_rounded, label: 'Painel'),
-    MenuItem(icon: Icons.receipt_long_rounded, label: 'Ordens de Serviço'),
+    MenuItem(
+      icon: Icons.receipt_long_rounded,
+      label: 'Ordens de Serviço',
+      permissaoNecessaria: 'service_orders.read',
+    ),
     MenuItem(icon: Icons.bar_chart, label: 'Relatório'),
     MenuItem(
       icon: Icons.person_rounded,
@@ -113,8 +117,8 @@ class MenuWebSidebar extends StatelessWidget {
                     }
 
                     context.read<MenuBloc>().add(
-                      MenuTrocarTela(entrada.originalIndex),
-                    );
+                          MenuTrocarTela(entrada.originalIndex),
+                        );
                   },
                 );
               },

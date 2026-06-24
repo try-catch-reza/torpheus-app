@@ -14,6 +14,7 @@ class AppTextField extends StatelessWidget {
   final bool enabled;
   final List<TextInputFormatter>? inputFormatters;
   final void Function(String)? onChange;
+  final int? maxLines;
 
   const AppTextField({
     super.key,
@@ -27,11 +28,13 @@ class AppTextField extends StatelessWidget {
     this.enabled = true,
     this.inputFormatters,
     this.onChange,
+    this.maxLines = 1,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines,
       onChanged: onChange,
       controller: controller,
       validator: validator,

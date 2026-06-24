@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
+import 'package:torpheus/data/models/ordem_servico_model.dart';
 import 'package:torpheus/data/models/veiculo_model.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/bloc/ordens_servico_bloc.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/web/ordens_servico_web_table.dart';
 
 import '../../../../core/constants/color_constants.dart';
+import '../../../../data/models/funcionario_model.dart';
 import '../../../components/app_cancel_button.dart';
 import '../../../components/app_dropdown_field.dart';
 import '../../../components/app_primary_button.dart';
@@ -13,6 +15,7 @@ import '../../../components/app_text_field.dart';
 import '../../../components/lista_vazia_custom.dart';
 import '../../../components/search_custom.dart';
 import '../../../components/web/header_web_custom.dart';
+import 'ordem_servico_web_dialog.dart';
 
 class OrdensServicoWebBody extends StatelessWidget {
   const OrdensServicoWebBody({
@@ -58,7 +61,9 @@ class OrdensServicoWebBody extends StatelessWidget {
             Expanded(
               child: OrdensServicoWebTable(
                 ordens: state.ordensServicoFiltered,
-                onTap: null,
+                onTap: (value) {
+                  _showModalServicos(context, value);
+                },
               ),
             ),
         ],
@@ -153,6 +158,7 @@ class OrdensServicoWebBody extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
                           AppTextField(
+                            maxLines: 5,
                             controller: descricaoController,
                             label: 'Descrição',
                             hint: 'Barulho na roda dianteira ao passar lombada',
@@ -241,5 +247,143 @@ class OrdensServicoWebBody extends StatelessWidget {
     if (formKey.currentState?.validate() ?? false) {
       bloc.add(OrdensServicoSubmit(descricaoController.text));
     }
+  }
+
+  void _onAdicionarServico(
+    BuildContext context,
+    OrdensServicoBloc bloc,
+    String id,
+  ) {
+    if (formKey.currentState?.validate() ?? false) {
+      bloc.add(
+        OrdensServicoAddServico(
+          descricao: descricaoController.text,
+          id: id,
+        ),
+      );
+    }
+  }
+
+  void _showModalServicos(BuildContext context, OrdemServicoModel ordem) {
+    descricaoController.clear();
+    final bloc = context.read<OrdensServicoBloc>();
+
+    showDialog(
+      context: context,
+      barrierColor: Colors.black54,
+      barrierDismissible: true,
+      builder: (dialogContext) => OrdemServicoWebDialog(
+        ordem: ordem,
+        onAdicionar: () => _onShowDialogAdicionar(
+          dialogContext,
+          bloc,
+          ordem.id ?? '',
+        ),
+        onRemover: (s) => {},
+      ),
+    );
+  }
+
+  void _onShowDialogAdicionar(
+    BuildContext context,
+    OrdensServicoBloc bloc,
+    String id,
+  ) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return BlocProvider.value(
+          value: bloc,
+          child: BlocBuilder<OrdensServicoBloc, OrdensServicoState>(
+            builder: (context, state) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Cadastrar serviço',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                        color: ColorConstants.chambray,
+                      ),
+                    ),
+                    IconButton(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.close, size: 24),
+                    ),
+                  ],
+                ),
+                content: Form(
+                  key: formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AppTextField(
+                          maxLines: 5,
+                          controller: descricaoController,
+                          label: 'Descrição',
+                          hint: 'Barulho na roda dianteira ao passar lombada',
+                          validator: (p0) {
+                            if (p0 == null || p0.isEmpty) {
+                              return 'A descrição é obrigatório';
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.text,
+                        ),
+                        const SizedBox(height: 16),
+                        AppDropdownField<FuncionarioModel>(
+                          label: 'Funcionário',
+                          items: state.funcionarios.map((funcionario) {
+                            return DropdownMenuItem(
+                              value: funcionario,
+                              child: Text(
+                                '${funcionario.nome}',
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            bloc.add(
+                              OrdensServicoSetFuncionario(value!),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
+                  ),
+                ),
+                actions: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: ElevatedButton.icon(
+                        onPressed: () => _onAdicionarServico(context, bloc, id),
+                        icon: const Icon(Icons.check, size: 20),
+                        label: const Text('Adicionar serviço'),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.all(16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 }

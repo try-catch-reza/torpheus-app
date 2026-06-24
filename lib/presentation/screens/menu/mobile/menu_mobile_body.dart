@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/core/constants/color_constants.dart';
-import 'package:torpheus/presentation/screens/ordens_servico/ordens_servico_screen.dart';
 import 'package:torpheus/presentation/screens/perfil/perfil_screen.dart';
 import 'package:torpheus/presentation/screens/relatorios/relatorios_screen.dart';
 
@@ -27,11 +26,11 @@ class MenuMobileBody extends StatelessWidget {
       activeIcon: Icon(Icons.dashboard, size: 28),
       label: 'Painel',
     ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.receipt_long_rounded, size: 28),
-      activeIcon: Icon(Icons.receipt_long_rounded, size: 28),
-      label: 'OS',
-    ),
+    // BottomNavigationBarItem(
+    //   icon: Icon(Icons.receipt_long_rounded, size: 28),
+    //   activeIcon: Icon(Icons.receipt_long_rounded, size: 28),
+    //   label: 'OS',
+    // ),
     BottomNavigationBarItem(
       icon: Icon(Icons.bar_chart, size: 28),
       activeIcon: Icon(Icons.bar_chart, size: 28),
@@ -72,7 +71,10 @@ class MenuMobileBody extends StatelessWidget {
   List<Widget> _widgetPages() {
     return [
       PainelScreen(painelBloc: menuParametros.painelBloc),
-      OrdensServicoScreen(ordensServicoBloc: menuParametros.ordensServicoBloc),
+      // OrdensServicoScreen(
+      //   ordensServicoBloc: menuParametros.ordensServicoBloc,
+      //   servicoBloc: menuParametros.servicoBloc,
+      // ),
       RelatoriosScreen(relatoriosBloc: menuParametros.relatoriosBloc),
       PerfilScreen(perfilBloc: menuParametros.perfilBloc),
     ];

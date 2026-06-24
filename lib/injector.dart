@@ -22,6 +22,7 @@ import 'package:torpheus/presentation/screens/perfil/bloc/perfil_bloc.dart';
 import 'package:torpheus/presentation/screens/recuperar_senha/bloc/recuperar_senha_bloc.dart';
 import 'package:torpheus/presentation/screens/veiculos/bloc/veiculos_bloc.dart';
 import 'package:torpheus/presentation/screens/relatorios/bloc/relatorios_bloc.dart';
+import 'package:torpheus/presentation/screens/servico/bloc/servico_bloc.dart';
 
 import 'core/shared/app_system_info.dart';
 import 'external/plugins/android_info_impl.dart';
@@ -179,8 +180,14 @@ final class InjectorImpl extends Injector {
       RelatoriosBloc(),
     );
 
-    getIt.registerSingleton<ClienteDetalheBloc>(
-      ClienteDetalheBloc(
+    getIt.registerFactory<ServicoBloc>(
+      () => ServicoBloc(
+        getIt.get<EapiRemoteRepository>(),
+      ),
+    );
+
+    getIt.registerFactory<ClienteDetalheBloc>(
+      () => ClienteDetalheBloc(
         getIt.get<PermissaoController>(),
       ),
     );

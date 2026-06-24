@@ -17,8 +17,10 @@ class ClienteDetalheScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: clienteDetalheBloc..add(ClienteDetalheLoad(arguments.cliente)),
+    return BlocProvider<ClienteDetalheBloc>(
+      create: (context) {
+        return clienteDetalheBloc..add(ClienteDetalheLoad(arguments.cliente));
+      },
       child: const ClienteDetalheMobileContent(),
     );
   }

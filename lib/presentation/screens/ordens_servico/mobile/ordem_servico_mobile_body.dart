@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/screens/servico/servico_screen.dart';
 
+import '../../../../config/routes.dart';
 import '../../../../core/constants/color_constants.dart';
 import '../../../../data/models/cliente_model.dart';
 import '../../../../data/models/veiculo_model.dart';
@@ -38,7 +40,6 @@ class OrdemServicoMobileBody extends StatelessWidget {
             subtitle: 'Cadastro e histórico de ordem de serviço',
             controller: searchController,
             hasPodeCriar: state.hasPodeCriar,
-            hasPopUp: false,
           ),
           if (state.ordensServicoFiltered.isEmpty)
             const ListaVaziaCustom(
@@ -47,8 +48,13 @@ class OrdemServicoMobileBody extends StatelessWidget {
             ),
           if (state.ordensServicoFiltered.isNotEmpty)
             OrdensServicoMobileLista(
-              onOrdemTap: (value) {},
               ordens: state.ordensServicoFiltered,
+              onOrdemTap: (value) {
+                Navigator.of(context).pushNamed(
+                  AppRoutes.servico.route,
+                  arguments: ServicoArguments(value.id ?? ''),
+                );
+              },
             ),
         ],
       ),

@@ -34,6 +34,10 @@ class OrdemServicoModel extends Equatable {
     this.quantidadeServico,
   });
 
+  String get labelQuantiServico {
+    return '(${quantidadeServico ?? 0})';
+  }
+
   OrdemServicoModel copyWith({
     String? id,
     String? clienteId,
@@ -135,6 +139,7 @@ class OrdemServicoModel extends Equatable {
         'clienteNome: $clienteNome, '
         'veiculoModelo: $veiculoModelo, '
         'veiculoPlaca: $veiculoPlaca, '
+        'quantidadeServico: $quantidadeServico, '
         '}';
   }
 

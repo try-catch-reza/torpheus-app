@@ -122,7 +122,7 @@ class _CadastrarClienteMobileContentState
         context: context,
         message: 'Cliente cadastrado com sucesso!',
         onPress: () {
-          Navigator.of(context).pushNamed(AppRoutes.cliente.route);
+          Navigator.of(context).pop();
         },
       );
     }
@@ -162,7 +162,9 @@ class _CadastrarClienteMobileContentState
         context: context,
         message: 'Cliente atualizado com sucesso!',
         onPress: () {
-          Navigator.of(context).pushNamed(AppRoutes.cliente.route);
+          Navigator.of(context).popUntil(
+            ModalRoute.withName(AppRoutes.cliente.route),
+          );
         },
       );
     }

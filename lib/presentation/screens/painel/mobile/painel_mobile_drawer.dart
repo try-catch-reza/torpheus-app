@@ -60,6 +60,21 @@ class TorpheusDrawer extends StatelessWidget {
                   ),
                 ),
                 Visibility(
+                  visible: state.hasAccessOrdem,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: _DrawerItem(
+                      icon: Icons.receipt_long_rounded,
+                      label: 'Ordem de serviço',
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          AppRoutes.ordensServico.route,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                Visibility(
                   visible: state.hasAccessPerfis,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8.0),

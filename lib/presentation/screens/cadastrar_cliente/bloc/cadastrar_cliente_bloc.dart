@@ -160,6 +160,7 @@ class CadastrarClienteBloc
 
     try {
       await _eapiRemoteRepository.updateCliente(event.cliente, state.clienteId);
+
       emit(const CadastrarClienteAtualizado());
     } on HttpRequestException catch (e) {
       emit(

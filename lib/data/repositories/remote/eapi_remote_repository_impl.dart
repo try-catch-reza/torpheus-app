@@ -560,7 +560,26 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
   }
 
   @override
-  Future<void> adicionarServico(ServicoModel servico) async {}
+  Future<void> adicionarServico(ServicoModel servico, String id) async {
+    const titleMessage = 'Não foi possível adicionar o serviço';
+
+    await post(
+      path: _schema.adicionarServico(id),
+      body: servico.toPUTDescrAndFunc(),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
 
   @override
   Future<List<OrdemServicoModel>> getOS() async {
@@ -608,14 +627,79 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
   }
 
   @override
-  Future<void> updateDescricaoAndMecanico(ServicoModel servico) async {}
+  Future<void> updateDescricaoAndMecanico(
+    ServicoModel servico,
+    String id,
+  ) async {
+    const titleMessage = 'Não foi possível atualizar o serviço';
+
+    await put(
+      path: _schema.updateDescrOurFuncOS(id, servico.id ?? ''),
+      body: servico.toPUTDescrAndFunc(),
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
 
   @override
   Future<void> updateOS(OrdemServicoModel ordemServico) async {}
 
   @override
-  Future<void> updateStatusOS(StatusOrdem status) async {}
+  Future<void> updateStatusOS(StatusOrdem status, String id) async {
+    const titleMessage =
+        'Não foi possível atualizar o status da ordem de serviço';
+
+    await patch(
+      path: _schema.updateStatusOS(id),
+      body: {'status': status.value},
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
 
   @override
-  Future<void> updateStatusServico(StatusServico status) async {}
+  Future<void> updateStatusServico(
+    StatusServico status,
+    String id,
+    String servicoId,
+  ) async {
+    const titleMessage = 'Não foi possível atualizar o status do serviço';
+
+    await patch(
+      path: _schema.updateStatusServico(id, servicoId),
+      titleMessage: titleMessage,
+      body: {'status': status.value},
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
 }

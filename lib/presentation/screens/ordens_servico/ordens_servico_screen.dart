@@ -8,7 +8,10 @@ import 'package:torpheus/presentation/screens/ordens_servico/mobile/ordens_servi
 import '../../../config/responsive.dart';
 
 class OrdensServicoScreen extends StatelessWidget {
-  const OrdensServicoScreen({super.key, required this.ordensServicoBloc});
+  const OrdensServicoScreen({
+    super.key,
+    required this.ordensServicoBloc,
+  });
 
   final OrdensServicoBloc ordensServicoBloc;
 

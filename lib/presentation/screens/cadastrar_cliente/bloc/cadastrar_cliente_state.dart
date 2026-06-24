@@ -122,5 +122,5 @@ final class CadastrarClienteAtualizado extends CadastrarClienteState {
   const CadastrarClienteAtualizado();
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [clienteEditar];
 }

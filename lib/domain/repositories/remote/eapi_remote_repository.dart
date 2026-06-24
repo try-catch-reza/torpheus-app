@@ -76,12 +76,16 @@ abstract class EapiRemoteRepository {
 
   Future<void> updateOS(OrdemServicoModel ordemServico);
 
-  Future<void> updateStatusOS(StatusOrdem status);
+  Future<void> updateStatusOS(StatusOrdem status, String id);
 
   /// Serviço ------------------------------------------------------------------
-  Future<void> adicionarServico(ServicoModel servico);
+  Future<void> adicionarServico(ServicoModel servico, String id);
 
-  Future<void> updateDescricaoAndMecanico(ServicoModel servico);
+  Future<void> updateDescricaoAndMecanico(ServicoModel servico, String id);
 
-  Future<void> updateStatusServico(StatusServico status);
+  Future<void> updateStatusServico(
+    StatusServico status,
+    String id,
+    String servicoId,
+  );
 }

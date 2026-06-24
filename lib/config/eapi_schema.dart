@@ -5,7 +5,7 @@ class EapiSchema {
 
   String adicionarPermissao(String id) => '$_apiUtils/v1/roles/$id';
 
-  String adicionarServico(String id) => '$_apiUtils/v1/serviceOrder/$id/items';
+    String adicionarServico(String id) => '$_apiUtils/v1/serviceorder/$id/items';
 
   String get abrirOS => '$_apiUtils/v1/serviceorder';
 
@@ -57,7 +57,7 @@ class EapiSchema {
 
   String updateOS(String id) => '$_apiUtils/v1/serviceorder/$id';
 
-  String updateStatusOS(String id) => '$_apiUtils/v1/serviceorder/$id';
+  String updateStatusOS(String id) => '$_apiUtils/v1/serviceorder/$id/status';
 
   String updateDescrOurFuncOS(String id, String itemId) {
     return '$_apiUtils/v1/serviceorder/$id/items/$itemId';

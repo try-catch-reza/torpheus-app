@@ -38,6 +38,7 @@ class PainelBloc extends Bloc<PainelEvent, PainelState> {
       final hasAccessCliente = _permissaoController.podeLerCliente;
       final hasAccessVeiculo = _permissaoController.podeLerVeiculo;
       final hasAccessPerfis = _permissaoController.podeLerRole;
+      final hasAccessOrdem = _permissaoController.podeLerOS;
 
       emit(
         PainelLoaded(
@@ -49,6 +50,7 @@ class PainelBloc extends Bloc<PainelEvent, PainelState> {
           hasAccessFuncionario: hasAccessFuncionario,
           hasAccessVeiculo: hasAccessVeiculo,
           hasAccessPerfis: hasAccessPerfis,
+          hasAccessOrdem: hasAccessOrdem,
         ),
       );
     } catch (e) {

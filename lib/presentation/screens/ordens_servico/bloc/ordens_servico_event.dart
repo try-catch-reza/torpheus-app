@@ -49,3 +49,25 @@ final class OrdensServicoSubmit extends OrdensServicoEvent {
   @override
   List<Object?> get props => [descricao];
 }
+
+final class OrdensServicoSetFuncionario extends OrdensServicoEvent {
+  const OrdensServicoSetFuncionario(this.funcionario);
+
+  final FuncionarioModel funcionario;
+
+  @override
+  List<Object?> get props => [funcionario];
+}
+
+final class OrdensServicoAddServico extends OrdensServicoEvent {
+  const OrdensServicoAddServico({
+    required this.descricao,
+    required this.id,
+  });
+
+  final String descricao;
+  final String id;
+
+  @override
+  List<Object?> get props => [descricao, id];
+}
