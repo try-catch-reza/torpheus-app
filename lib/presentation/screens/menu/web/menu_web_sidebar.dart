@@ -41,12 +41,6 @@ class MenuWebSidebar extends StatelessWidget {
   static const List<MenuItem> _menuItems = [
     MenuItem(icon: Icons.dashboard_rounded, label: 'Painel'),
     MenuItem(
-      icon: Icons.receipt_long_rounded,
-      label: 'Ordens de Serviço',
-      permissaoNecessaria: 'service_orders.read',
-    ),
-    MenuItem(icon: Icons.bar_chart, label: 'Relatório'),
-    MenuItem(
       icon: Icons.person_rounded,
       label: 'Clientes',
       permissaoNecessaria: 'clients.read',
@@ -55,6 +49,11 @@ class MenuWebSidebar extends StatelessWidget {
       icon: Icons.group,
       label: 'Funcionários',
       permissaoNecessaria: 'employees.read',
+    ),
+    MenuItem(
+      icon: Icons.receipt_long_rounded,
+      label: 'Ordens de Serviço',
+      permissaoNecessaria: 'service_orders.read',
     ),
     MenuItem(
       icon: Icons.security,
@@ -71,6 +70,7 @@ class MenuWebSidebar extends StatelessWidget {
       label: 'Veículos',
       permissaoNecessaria: 'vehicles.read',
     ),
+    MenuItem(icon: Icons.bar_chart, label: 'Relatório'),
     MenuItem(icon: Icons.logout, label: 'Sair'),
   ];
 

@@ -12,12 +12,12 @@ import 'package:torpheus/presentation/screens/veiculos/web/veiculo_web_table.dar
 
 import '../../../../core/utils/placa_input_formatter.dart';
 import '../../../../data/models/veiculo_model.dart';
-import '../../../components/app_cancel_button.dart';
 import '../../../components/app_dropdown_field.dart';
-import '../../../components/app_primary_button.dart';
 import '../../../components/app_text_field.dart';
+import '../../../components/footer_dialog.dart';
 import '../../../components/lista_vazia_custom.dart';
 import '../../../components/search_custom.dart';
+import '../../../components/title_dialog.dart';
 
 class VeiculosWebBody extends StatelessWidget {
   const VeiculosWebBody({
@@ -98,101 +98,62 @@ class VeiculosWebBody extends StatelessWidget {
           child: BlocBuilder<VeiculosBloc, VeiculosState>(
             builder: (context, state) {
               return Dialog(
+                backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Form(
-                  key: formKey,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    padding: const EdgeInsets.all(24),
-                    child: SingleChildScrollView(
+                insetPadding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 40,
+                ),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 480),
+                  child: Padding(
+                    padding: const EdgeInsets.all(28),
+                    child: Form(
+                      key: formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Atualizar veículo',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                  color: ColorConstants.chambray,
-                                ),
-                              ),
-                              IconButton(
-                                padding: const EdgeInsets.only(bottom: 5),
-                                onPressed: () => Navigator.pop(context),
-                                icon: const Icon(Icons.close, size: 30),
-                              ),
-                            ],
+                          const TitleDialog(
+                            title: 'Atualizar veículo',
+                            subTitle: 'Preencha os dados do novo veículo',
                           ),
-                          const SizedBox(height: 16),
-                          const Divider(),
-                          const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'IDENTIFICAÇÃO',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    state.veiculoEditar?.isActive ?? false
-                                        ? 'Ativo'
-                                        : 'Inativo',
-                                    style: const TextStyle(fontSize: 17),
-                                  ),
-                                  Switch(
-                                    value:
-                                        state.veiculoEditar?.isActive ?? false,
-                                    onChanged: (value) {
-                                      context.read<VeiculosBloc>().add(
-                                            const VeiculoSetAtivo(),
-                                          );
-                                    },
-                                    activeColor: ColorConstants.activeThumb,
-                                    activeTrackColor:
-                                        ColorConstants.activeBorder,
-                                    inactiveThumbColor:
-                                        ColorConstants.inactiveThumb,
-                                    inactiveTrackColor:
-                                        ColorConstants.inactiveBorder,
-                                  ),
-                                ],
-                              ),
-                            ],
+                          const SizedBox(height: 24),
+                          const Divider(height: 1, color: Color(0xFFEEF0F3)),
+                          const SizedBox(height: 24),
+                          Text(
+                            'IDENTIFICAÇÃO',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey[600],
+                            ),
                           ),
                           const SizedBox(height: 16),
                           Row(
                             children: [
                               Expanded(
                                 child: AppDropdownField<TipoVeiculo>(
-                                    label: 'Tipo',
-                                    value: veiculo.tipo,
-                                    validator: (value) {
-                                      if (value == null) {
-                                        return 'Selecione o tipo do veículo';
-                                      }
-                                      return null;
-                                    },
-                                    items: TipoVeiculo.values.map((tipo) {
-                                      return DropdownMenuItem(
-                                        value: tipo,
-                                        child: Text(tipo.label),
-                                      );
-                                    }).toList(),
-                                    onChanged: (value) {
-                                      bloc.add(VeiculoSetTipo(value!));
-                                    }),
+                                  value: veiculo.tipo,
+                                  label: 'Tipo',
+                                  validator: (value) {
+                                    if (value == null) {
+                                      return 'Selecione o tipo do veículo';
+                                    }
+                                    return null;
+                                  },
+                                  items: TipoVeiculo.values.map((tipo) {
+                                    return DropdownMenuItem(
+                                      value: tipo,
+                                      child: Text(tipo.label),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    bloc.add(VeiculoSetTipo(value!));
+                                  },
+                                ),
                               ),
                               const SizedBox(width: 16),
                               Expanded(
@@ -260,16 +221,47 @@ class VeiculosWebBody extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
-                          const Divider(),
-                          const SizedBox(height: 16),
-                          Text(
-                            'ESPECIFICAÇÕES',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[600],
-                            ),
+                          const SizedBox(height: 28),
+                          const Divider(height: 1, color: Color(0xFFEEF0F3)),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'IDENTIFICAÇÃO',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    state.veiculoEditar?.isActive ?? false
+                                        ? 'Ativo'
+                                        : 'Inativo',
+                                    style: const TextStyle(fontSize: 17),
+                                  ),
+                                  Switch(
+                                    value:
+                                        state.veiculoEditar?.isActive ?? false,
+                                    onChanged: (value) {
+                                      context.read<VeiculosBloc>().add(
+                                            const VeiculoSetAtivo(),
+                                          );
+                                    },
+                                    activeColor: ColorConstants.activeThumb,
+                                    activeTrackColor:
+                                        ColorConstants.activeBorder,
+                                    inactiveThumbColor:
+                                        ColorConstants.inactiveThumb,
+                                    inactiveTrackColor:
+                                        ColorConstants.inactiveBorder,
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 16),
                           Row(
@@ -360,69 +352,17 @@ class VeiculosWebBody extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 32),
-                          const Divider(),
-                          const SizedBox(height: 16),
-                          LayoutBuilder(
-                            builder: (context, constraints) {
-                              if (constraints.maxWidth < 350) {
-                                return state is VeiculosSalvando
-                                    ? const Center(
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : Center(
-                                        child: Column(
-                                          children: [
-                                            AppCancelButton(
-                                              text: 'Cancelar',
-                                              icon: Icons.close,
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                            ),
-                                            const SizedBox(height: 12),
-                                            AppPrimaryButton(
-                                              text: 'Atualizar Veículo',
-                                              icon: Icons.check,
-                                              onPressed: () {
-                                                _onAtualizarVeiculo(
-                                                  context,
-                                                  bloc,
-                                                  veiculo.id ?? '',
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                              }
-
-                              return state is VeiculosSalvando
-                                  ? const Center(
-                                      child: CircularProgressIndicator(),
-                                    )
-                                  : Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        AppCancelButton(
-                                          text: 'Cancelar',
-                                          icon: Icons.close,
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                        ),
-                                        const SizedBox(width: 12),
-                                        AppPrimaryButton(
-                                          text: 'Atualizar veículo',
-                                          icon: Icons.check,
-                                          onPressed: () {
-                                            _onAtualizarVeiculo(
-                                              context,
-                                              bloc,
-                                              veiculo.id ?? '',
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    );
+                          const SizedBox(height: 28),
+                          const Divider(height: 1, color: Color(0xFFEEF0F3)),
+                          const SizedBox(height: 20),
+                          FooterDialog(
+                            label: 'Atualizar veículo',
+                            onPressed: () {
+                              _onAtualizarVeiculo(
+                                context,
+                                bloc,
+                                veiculo.id ?? '',
+                              );
                             },
                           ),
                         ],
@@ -450,40 +390,31 @@ class VeiculosWebBody extends StatelessWidget {
           child: BlocBuilder<VeiculosBloc, VeiculosState>(
             builder: (context, state) {
               return Dialog(
+                backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Form(
-                  key: formKey,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    padding: const EdgeInsets.all(24),
-                    child: SingleChildScrollView(
+                insetPadding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 40,
+                ),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 480),
+                  child: Padding(
+                    padding: const EdgeInsets.all(28),
+                    child: Form(
+                      key: formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Cadastrar Veículo',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                  color: ColorConstants.chambray,
-                                ),
-                              ),
-                              IconButton(
-                                padding: const EdgeInsets.only(bottom: 5),
-                                onPressed: () => Navigator.pop(context),
-                                icon: const Icon(Icons.close, size: 30),
-                              ),
-                            ],
+                          const TitleDialog(
+                            title: 'Cadastrar veículo',
+                            subTitle: 'Preencha os dados do novo veículo',
                           ),
-                          const SizedBox(height: 16),
-                          const Divider(),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 24),
+                          const Divider(height: 1, color: Color(0xFFEEF0F3)),
+                          const SizedBox(height: 24),
                           Text(
                             'IDENTIFICAÇÃO',
                             style: TextStyle(
@@ -579,9 +510,9 @@ class VeiculosWebBody extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
-                          const Divider(),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 28),
+                          const Divider(height: 1, color: Color(0xFFEEF0F3)),
+                          const SizedBox(height: 20),
                           Text(
                             'ESPECIFICAÇÕES',
                             style: TextStyle(
@@ -677,62 +608,13 @@ class VeiculosWebBody extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 32),
-                          const Divider(),
-                          const SizedBox(height: 16),
-                          LayoutBuilder(
-                            builder: (context, constraints) {
-                              if (constraints.maxWidth < 350) {
-                                return state is VeiculosSalvando
-                                    ? const Center(
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : Center(
-                                        child: Column(
-                                          children: [
-                                            AppCancelButton(
-                                              text: 'Cancelar',
-                                              icon: Icons.close,
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                            ),
-                                            const SizedBox(height: 12),
-                                            AppPrimaryButton(
-                                              text: 'Cadastrar Veículo',
-                                              icon: Icons.check,
-                                              onPressed: () {
-                                                _onCadastrarVeiculo(
-                                                    context, bloc);
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                              }
-
-                              return state is VeiculosSalvando
-                                  ? const Center(
-                                      child: CircularProgressIndicator(),
-                                    )
-                                  : Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        AppCancelButton(
-                                          text: 'Cancelar',
-                                          icon: Icons.close,
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                        ),
-                                        const SizedBox(width: 12),
-                                        AppPrimaryButton(
-                                          text: 'Cadastrar Veículo',
-                                          icon: Icons.check,
-                                          onPressed: () {
-                                            _onCadastrarVeiculo(context, bloc);
-                                          },
-                                        ),
-                                      ],
-                                    );
+                          const SizedBox(height: 28),
+                          const Divider(height: 1, color: Color(0xFFEEF0F3)),
+                          const SizedBox(height: 20),
+                          FooterDialog(
+                            label: 'Adicionar veículo',
+                            onPressed: () {
+                              _onCadastrarVeiculo(context, bloc);
                             },
                           ),
                         ],

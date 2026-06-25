@@ -46,13 +46,13 @@ class MenuWebBody extends StatelessWidget {
   List<Widget> _widgetPages() {
     return [
       PainelScreen(painelBloc: menuParametros.painelBloc),
-      OrdensServicoScreen(ordensServicoBloc: menuParametros.ordensServicoBloc),
-      RelatoriosScreen(relatoriosBloc: menuParametros.relatoriosBloc),
       ClienteScreen(clienteBloc: menuParametros.clienteBloc),
       FuncionarioScreen(funcionarioBloc: menuParametros.mecanicosBloc),
+      OrdensServicoScreen(ordensServicoBloc: menuParametros.ordensServicoBloc),
       PerfisScreen(perfisBloc: menuParametros.perfisBloc),
       UsuarioScreen(usuarioBloc: menuParametros.usuarioBloc),
       VeiculosScreen(veiculosBloc: menuParametros.veiculosBloc),
+      RelatoriosScreen(relatoriosBloc: menuParametros.relatoriosBloc),
       const Text(''),
     ];
   }

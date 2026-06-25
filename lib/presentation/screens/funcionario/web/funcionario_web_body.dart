@@ -13,7 +13,9 @@ import '../../../components/app_cancel_button.dart';
 import '../../../components/app_dropdown_field.dart';
 import '../../../components/app_primary_button.dart';
 import '../../../components/app_text_field.dart';
+import '../../../components/footer_dialog.dart';
 import '../../../components/search_custom.dart';
+import '../../../components/title_dialog.dart';
 import '../../../components/web/header_web_custom.dart';
 import '../bloc/funcionario_bloc.dart';
 import 'funcionario_web_table.dart';
@@ -85,37 +87,27 @@ class FuncionarioWebBody extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Form(
-                  key: formKey,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    padding: const EdgeInsets.all(24),
-                    child: SingleChildScrollView(
+                insetPadding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 40,
+                ),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 480),
+                  child: Padding(
+                    padding: const EdgeInsets.all(28),
+                    child: Form(
+                      key: formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Cadastrar funcionário',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                  color: ColorConstants.chambray,
-                                ),
-                              ),
-                              IconButton(
-                                padding: const EdgeInsets.only(bottom: 5),
-                                onPressed: () => Navigator.pop(context),
-                                icon: const Icon(Icons.close, size: 30),
-                              ),
-                            ],
+                          const TitleDialog(
+                            title: 'Cadastrar funcionário',
+                            subTitle: 'Preencha os dados do funcionário',
                           ),
-                          const SizedBox(height: 16),
-                          const Divider(),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 24),
+                          const Divider(height: 1, color: Color(0xFFEEF0F3)),
+                          const SizedBox(height: 24),
                           Text(
                             'IDENTIFICAÇÃO',
                             style: TextStyle(
@@ -214,68 +206,13 @@ class FuncionarioWebBody extends StatelessWidget {
                                   );
                             },
                           ),
-                          const SizedBox(height: 32),
-                          const Divider(),
-                          const SizedBox(height: 16),
-                          LayoutBuilder(
-                            builder: (context, constraints) {
-                              if (constraints.maxWidth < 350) {
-                                return state is FuncionarioSalvando
-                                    ? const Center(
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : Center(
-                                        child: Column(
-                                          children: [
-                                            AppCancelButton(
-                                              text: 'Cancelar',
-                                              icon: Icons.close,
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                            const SizedBox(height: 12),
-                                            AppPrimaryButton(
-                                              text: 'Cadastrar funcionário',
-                                              icon: Icons.check,
-                                              onPressed: () {
-                                                _onCadastrarFuncionario(
-                                                  context,
-                                                  bloc,
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                              }
-
-                              return state is FuncionarioSalvando
-                                  ? const Center(
-                                      child: CircularProgressIndicator(),
-                                    )
-                                  : Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        AppCancelButton(
-                                          text: 'Cancelar',
-                                          icon: Icons.close,
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                        ),
-                                        const SizedBox(width: 12),
-                                        AppPrimaryButton(
-                                          text: 'Cadastrar funcionário',
-                                          icon: Icons.check,
-                                          onPressed: () {
-                                            _onCadastrarFuncionario(
-                                              context,
-                                              bloc,
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    );
+                          const SizedBox(height: 24),
+                          const Divider(height: 1, color: Color(0xFFEEF0F3)),
+                          const SizedBox(height: 24),
+                          FooterDialog(
+                            label: 'Adicionar funcionário',
+                            onPressed: () {
+                              _onCadastrarFuncionario(context, bloc);
                             },
                           ),
                         ],

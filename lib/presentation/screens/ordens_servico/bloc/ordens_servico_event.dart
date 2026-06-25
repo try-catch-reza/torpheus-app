@@ -71,3 +71,13 @@ final class OrdensServicoAddServico extends OrdensServicoEvent {
   @override
   List<Object?> get props => [descricao, id];
 }
+
+final class OrdensServicoSelecionar extends OrdensServicoEvent {
+  const OrdensServicoSelecionar(this.ordemServico);
+
+  final OrdemServicoModel ordemServico;
+
+  @override
+  List<Object?> get props => [ordemServico];
+}
+

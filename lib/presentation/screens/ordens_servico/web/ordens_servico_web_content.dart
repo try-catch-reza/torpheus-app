@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/components/dialog/dialog_web_padrao.dart';
 import 'package:torpheus/presentation/screens/ordens_servico/bloc/ordens_servico_bloc.dart';
+import 'package:torpheus/presentation/screens/servico/bloc/servico_bloc.dart';
+import 'package:torpheus/presentation/screens/servico/servico_screen.dart';
 
 import '../../../components/loading_state.dart';
 import 'ordens_servico_web_body.dart';
@@ -36,6 +38,15 @@ class _OrdensServicoWebContentState extends State<OrdensServicoWebContent> {
               state: state,
               descricaoController: _descricaoController,
               searchController: _searchController,
+            );
+          }
+
+          if (state is OrdensServicoSelecionado) {
+            return ServicoScreen(
+              servicoBloc: context.read<ServicoBloc>(),
+              arguments: ServicoArguments(
+                state.ordemServicoSelecionada.id ?? '',
+              ),
             );
           }
 

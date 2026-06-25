@@ -31,6 +31,7 @@ class OrdensServicoBloc extends Bloc<OrdensServicoEvent, OrdensServicoState> {
     on<OrdensServicoSetFuncionario>(_onOrdensServicoSetFuncionario);
     on<OrdensServicoAddServico>(_onOrdensServicoAddServico);
     on<OrdensServicoSearch>(_onOrdensServicoSearch);
+    on<OrdensServicoSelecionar>(_onOrdensServicoSelecionar);
   }
 
   Future<void> _onOrdensServicoLoad(
@@ -213,6 +214,18 @@ class OrdensServicoBloc extends Bloc<OrdensServicoEvent, OrdensServicoState> {
         clienteSelecionado: state.clienteSelecionado,
         veiculoSelecionado: state.veiculoSelecionado,
         funcionarios: state.funcionarios,
+      ),
+    );
+  }
+
+  void _onOrdensServicoSelecionar(
+    OrdensServicoSelecionar event,
+    Emitter<OrdensServicoState> emit,
+  ) {
+    emit(
+      OrdensServicoSelecionado(
+        ordensServico: state.ordensServico,
+        ordemServicoSelecionada: event.ordemServico,
       ),
     );
   }

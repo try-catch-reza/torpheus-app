@@ -9,10 +9,11 @@ import 'package:torpheus/presentation/screens/servico/mobile/servico_mobile_adic
 import 'package:torpheus/presentation/screens/servico/mobile/servico_mobile_list.dart';
 import 'package:torpheus/presentation/screens/servico/mobile/servico_mobile_title.dart';
 
-import '../../../../core/constants/color_constants.dart';
 import '../../../../core/constants/enum/status_servico.dart';
 import '../../../components/app_dropdown_field.dart';
 import '../../../components/app_text_field.dart';
+import '../../../components/footer_dialog.dart';
+import '../../../components/title_dialog.dart';
 
 class ServicoMobileBody extends StatelessWidget {
   const ServicoMobileBody({
@@ -96,77 +97,72 @@ class ServicoMobileBody extends StatelessWidget {
           value: bloc,
           child: BlocBuilder<ServicoBloc, ServicoState>(
             builder: (context, state) {
-              return AlertDialog(
+              return Dialog(
+                backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Cadastrar serviço',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color: ColorConstants.chambray,
+                insetPadding:
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 480),
+                  child: Padding(
+                    padding: const EdgeInsets.all(28),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TitleDialog(
+                            title: 'Cadastrar serviço',
+                            subTitle: 'Preencha os dados do novo serviço',
+                          ),
+                          const SizedBox(height: 24),
+                          const Divider(height: 1, color: Color(0xFFEEF0F3)),
+                          const SizedBox(height: 24),
+                          AppTextField(
+                            maxLines: 5,
+                            controller: descricaoController,
+                            label: 'Descrição',
+                            hint: 'Barulho na roda dianteira ao passar lombada',
+                            validator: (p0) {
+                              if (p0 == null || p0.isEmpty) {
+                                return 'A descrição é obrigatória';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.text,
+                          ),
+                          const SizedBox(height: 16),
+                          AppDropdownField<FuncionarioModel>(
+                            label: 'Funcionário',
+                            items: state.funcionarios.map((funcionario) {
+                              return DropdownMenuItem(
+                                value: funcionario,
+                                child: Text('${funcionario.nome}'),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              bloc.add(
+                                ServicoSetFuncionario(funcionario: value!),
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 28),
+                          const Divider(height: 1, color: Color(0xFFEEF0F3)),
+                          const SizedBox(height: 20),
+                          FooterDialog(
+                            label: 'Adicionar serviço',
+                            onPressed: () {
+                              _onCadastrarServico(context, bloc);
+                            },
+                          ),
+                        ],
                       ),
                     ),
-                    IconButton(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.close, size: 24),
-                    ),
-                  ],
-                ),
-                content: Form(
-                  key: formKey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AppTextField(
-                          maxLines: 5,
-                          controller: descricaoController,
-                          label: 'Descrição',
-                          hint: 'Barulho na roda dianteira ao passar lombada',
-                          validator: (p0) {
-                            if (p0 == null || p0.isEmpty) {
-                              return 'A descrição é obrigatório';
-                            }
-                            return null;
-                          },
-                          keyboardType: TextInputType.text,
-                        ),
-                        const SizedBox(height: 16),
-                        AppDropdownField<FuncionarioModel>(
-                          label: 'Funcionário',
-                          items: state.funcionarios.map((funcionario) {
-                            return DropdownMenuItem(
-                              value: funcionario,
-                              child: Text(
-                                '${funcionario.nome}',
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            bloc.add(
-                              ServicoSetFuncionario(funcionario: value!),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
                   ),
                 ),
-                actions: [
-                  ElevatedButton.icon(
-                    onPressed: () => _onCadastrarServico(context, bloc),
-                    icon: const Icon(Icons.check, size: 24),
-                    label: const Text('Adicionar serviço'),
-                  ),
-                ],
               );
             },
           ),
@@ -195,83 +191,74 @@ class ServicoMobileBody extends StatelessWidget {
           value: bloc,
           child: BlocBuilder<ServicoBloc, ServicoState>(
             builder: (context, state) {
-              return AlertDialog(
+              return Dialog(
+                backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Atualizar serviço',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color: ColorConstants.chambray,
+                insetPadding:
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 480),
+                  child: Padding(
+                    padding: const EdgeInsets.all(28),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TitleDialog(
+                            title: 'Atualizar serviço',
+                            subTitle: 'Preencha os dados do serviço',
+                          ),
+                          const SizedBox(height: 24),
+                          const Divider(height: 1, color: Color(0xFFEEF0F3)),
+                          const SizedBox(height: 24),
+                          AppTextField(
+                            maxLines: 5,
+                            controller: descricaoController,
+                            label: 'Descrição',
+                            hint: 'Barulho na roda dianteira ao passar lombada',
+                            validator: (p0) {
+                              if (p0 == null || p0.isEmpty) {
+                                return 'A descrição é obrigatória';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.text,
+                          ),
+                          const SizedBox(height: 16),
+                          AppDropdownField<FuncionarioModel>(
+                            label: 'Funcionário',
+                            items: state.funcionarios.map((funcionario) {
+                              return DropdownMenuItem(
+                                value: funcionario,
+                                child: Text(
+                                  '${funcionario.nome}',
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              bloc.add(
+                                ServicoSetFuncionario(funcionario: value!),
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 28),
+                          const Divider(height: 1, color: Color(0xFFEEF0F3)),
+                          const SizedBox(height: 20),
+                          FooterDialog(
+                            label: 'Atualizar serviço',
+                            onPressed: () {
+                              _onUpdateServico(context, bloc, servico.id ?? '');
+                            },
+                          ),
+                        ],
                       ),
                     ),
-                    IconButton(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.close, size: 24),
-                    ),
-                  ],
-                ),
-                content: Form(
-                  key: formKey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AppTextField(
-                          maxLines: 5,
-                          controller: descricaoController,
-                          label: 'Descrição',
-                          hint: 'Barulho na roda dianteira ao passar lombada',
-                          validator: (p0) {
-                            if (p0 == null || p0.isEmpty) {
-                              return 'A descrição é obrigatório';
-                            }
-                            return null;
-                          },
-                          keyboardType: TextInputType.text,
-                        ),
-                        const SizedBox(height: 16),
-                        AppDropdownField<FuncionarioModel>(
-                          label: 'Funcionário',
-                          items: state.funcionarios.map((funcionario) {
-                            return DropdownMenuItem(
-                              value: funcionario,
-                              child: Text(
-                                '${funcionario.nome}',
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            bloc.add(
-                              ServicoSetFuncionario(funcionario: value!),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
                   ),
                 ),
-                actions: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      _onUpdateServico(
-                        context,
-                        bloc,
-                        servico.id ?? '',
-                      );
-                    },
-                    icon: const Icon(Icons.check, size: 24),
-                    label: const Text('Atualizar serviço'),
-                  ),
-                ],
               );
             },
           ),

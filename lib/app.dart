@@ -6,6 +6,7 @@ import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_c
 import 'package:torpheus/presentation/screens/cadastrar_funcionario/bloc/cadastrar_funcionario_bloc.dart';
 import 'package:torpheus/presentation/screens/cliente_detalhe/bloc/cliente_detalhe_bloc.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
+import 'package:torpheus/presentation/screens/servico/bloc/servico_bloc.dart';
 
 import 'config/routes.dart';
 import 'injector.dart';
@@ -38,6 +39,11 @@ class TorpheusApp extends StatelessWidget {
         BlocProvider<CadastrarFuncionarioBloc>(
           create: (_) {
             return injector.getIt.get<CadastrarFuncionarioBloc>();
+          },
+        ),
+        BlocProvider<ServicoBloc>(
+          create: (_) {
+            return injector.getIt.get<ServicoBloc>();
           },
         ),
       ],
