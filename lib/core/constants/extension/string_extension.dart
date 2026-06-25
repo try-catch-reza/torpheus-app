@@ -35,4 +35,22 @@ extension StringExtension on String {
     return this;
   }
 
+  String get formataDataExtenso {
+    if (isEmpty) return '';
+
+    try {
+      DateTime date;
+      if (contains(' ')) {
+        date = DateFormat('yyyy-MM-dd HH:mm:ss').parse(this);
+      } else if (contains('T')) {
+        date = DateFormat('yyyy-MM-ddTHH:mm').parse(this);
+      } else {
+        date = DateFormat('yyyy-MM-dd').parse(this);
+      }
+      return DateFormat("dd 'de' MMMM", 'pt_BR').format(date);
+    } catch (_) {
+      return this;
+    }
+  }
+
 }
