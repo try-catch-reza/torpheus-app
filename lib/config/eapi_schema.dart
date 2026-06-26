@@ -9,6 +9,10 @@ class EapiSchema {
 
   String get abrirOS => '$_apiUtils/v1/serviceorder';
 
+  String anexarFoto(String ordemServicoId, String servicoId) {
+    return '$_apiUtils/v1/serviceorder/$ordemServicoId/items/$servicoId/photos';
+  }
+
   String get buscarClientes => '$_apiUtils/v1/client';
 
   String buscarClienteById(String id) => '$_apiUtils/v1/client/$id';

@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:torpheus/core/constants/enum/status_ordem.dart';
 import 'package:torpheus/core/constants/enum/status_servico.dart';
 import 'package:torpheus/data/models/auth_model.dart';
@@ -689,6 +693,74 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       path: _schema.updateStatusServico(id, servicoId),
       titleMessage: titleMessage,
       body: {'status': status.value},
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<void> uploadFoto(
+    String ordemServicoId,
+    String servicoId,
+    File file,
+  ) async {
+    const titleMessage = 'Não foi possível enviar a foto do serviço';
+
+    final formData = FormData.fromMap({
+      'file': await MultipartFile.fromFile(
+        file.path,
+        filename: file.path.split('/').last,
+      ),
+    });
+
+    await post(
+      path: _schema.anexarFoto(ordemServicoId, servicoId),
+      body: formData,
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<void> uploadFotoXFile(
+    String ordemServicoId,
+    String servicoId,
+    XFile xFile,
+  ) async {
+    const titleMessage = 'Não foi possível enviar a foto do serviço';
+
+    final bytes = await xFile.readAsBytes();
+
+    final formData = FormData.fromMap({
+      'file': MultipartFile.fromBytes(
+        bytes,
+        filename: xFile.name,
+      ),
+    });
+
+    await post(
+      path: _schema.anexarFoto(ordemServicoId, servicoId),
+      body: formData,
+      titleMessage: titleMessage,
       response: (response) {
         if (response.statusCode == 200) {
           return;

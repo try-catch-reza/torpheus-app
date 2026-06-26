@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/components/title_dialog.dart';
+import 'package:torpheus/presentation/screens/foto/bloc/foto_bloc.dart';
+import 'package:torpheus/presentation/screens/foto/web/foto_web_content.dart';
 import 'package:torpheus/presentation/screens/servico/bloc/servico_bloc.dart';
 import 'package:torpheus/presentation/screens/servico/web/servico_web_header.dart';
 import 'package:torpheus/presentation/screens/servico/web/servico_web_list.dart';
@@ -9,6 +11,7 @@ import 'package:torpheus/presentation/screens/servico/web/servico_web_title.dart
 import '../../../../core/constants/enum/status_servico.dart';
 import '../../../../data/models/funcionario_model.dart';
 import '../../../../data/models/servico_model.dart';
+import '../../../../injector.dart';
 import '../../../components/app_dropdown_field.dart';
 import '../../../components/app_text_field.dart';
 import '../../../components/dialog/dialog_confirm.dart';
@@ -71,6 +74,14 @@ class ServicoWebBody extends StatelessWidget {
                       );
                 },
                 onCancelar: () {},
+              );
+            },
+            onAbrirFotos: (servico) {
+              FotoWebContent.show(
+                context,
+                fotoBloc: getIt.get<FotoBloc>(),
+                ordemServicoId: state.ordemServico?.id ?? '',
+                servico: servico,
               );
             },
           ),

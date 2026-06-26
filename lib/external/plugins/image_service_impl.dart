@@ -18,7 +18,11 @@ class ImageServiceImpl extends ImageService {
   @override
   Future<File?> pickFromGallery() async {
     final image = await _picker.pickImage(source: ImageSource.gallery);
-
     return image != null ? File(image.path) : null;
+  }
+
+  @override
+  Future<List<XFile>> pickMultipleFromGallery() async {
+    return await _picker.pickMultiImage();
   }
 }

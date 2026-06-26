@@ -4,6 +4,7 @@ import 'package:torpheus/data/plugins/image_service.dart';
 import 'package:torpheus/domain/controller/permissao_controller.dart';
 import 'package:torpheus/external/plugins/image_service_impl.dart';
 import 'package:torpheus/presentation/screens/cadastrar_cliente/bloc/cadastrar_cliente_bloc.dart';
+import 'package:torpheus/presentation/screens/foto/bloc/foto_bloc.dart';
 import 'package:torpheus/presentation/screens/cadastrar_funcionario/bloc/cadastrar_funcionario_bloc.dart';
 import 'package:torpheus/presentation/screens/cadastrar_usuario/bloc/cadastrar_usuario_bloc.dart';
 import 'package:torpheus/presentation/screens/cadastrar_veiculo/bloc/cadastrar_veiculo_bloc.dart';
@@ -202,6 +203,13 @@ final class InjectorImpl extends Injector {
     getIt.registerSingleton<FuncionarioDetalheBloc>(
       FuncionarioDetalheBloc(
         getIt.get<PermissaoController>(),
+        getIt.get<EapiRemoteRepository>(),
+      ),
+    );
+
+    getIt.registerFactory<FotoBloc>(
+      () => FotoBloc(
+        getIt.get<ImageService>(),
         getIt.get<EapiRemoteRepository>(),
       ),
     );

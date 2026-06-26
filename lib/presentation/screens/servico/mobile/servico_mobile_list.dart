@@ -12,13 +12,13 @@ class ServicoMobileList extends StatelessWidget {
     required this.servicos,
     required this.onConcluir,
     required this.onUpdate,
-    required this.onReabrir,
+    required this.onAbrirCamera,
   });
 
   final List<ServicoModel> servicos;
   final ValueChanged<ServicoModel>? onConcluir;
   final ValueChanged<ServicoModel>? onUpdate;
-  final ValueChanged<ServicoModel>? onReabrir;
+  final ValueChanged<ServicoModel>? onAbrirCamera;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +38,7 @@ class ServicoMobileList extends StatelessWidget {
           return Slidable(
             key: ValueKey(servico.id ?? index),
             endActionPane: ActionPane(
+              extentRatio: 0.7,
               motion: const ScrollMotion(),
               children: [
                 Visibility(
@@ -52,6 +53,16 @@ class ServicoMobileList extends StatelessWidget {
                     label: 'Atualizar',
                   ),
                 ),
+                SlidableAction(
+                  padding: EdgeInsets.zero,
+                  onPressed: onAbrirCamera != null
+                      ? (_) => onAbrirCamera!(servico)
+                      : null,
+                  backgroundColor: Colors.orange,
+                  foregroundColor: Colors.white,
+                  icon: Icons.photo_camera,
+                  label: 'Galeria',
+                ),
                 Visibility(
                   visible: servico.statusServico != StatusServico.completado,
                   child: SlidableAction(
@@ -62,18 +73,6 @@ class ServicoMobileList extends StatelessWidget {
                     foregroundColor: Colors.white,
                     icon: Icons.check_circle,
                     label: 'Concluir',
-                  ),
-                ),
-                Visibility(
-                  visible: servico.statusServico == StatusServico.completado,
-                  child: SlidableAction(
-                    padding: EdgeInsets.zero,
-                    onPressed:
-                        onReabrir != null ? (_) => onReabrir!(servico) : null,
-                    backgroundColor: ColorConstants.chambray,
-                    foregroundColor: Colors.white,
-                    icon: Icons.lock_open_sharp,
-                    label: 'Reabrir',
                   ),
                 ),
               ],
@@ -92,10 +91,10 @@ class ServicoMobileList extends StatelessWidget {
                 ),
               ),
               subtitle: Text(
-                servico.funcionarioId ?? 'Nenhum funcionário atribuído',
+                servico.funcionarioNome ?? 'Nenhum funcionário atribuído',
               ),
               trailing: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.4,
+                width: MediaQuery.of(context).size.width * 0.3,
                 child: Row(
                   children: [
                     Icon(

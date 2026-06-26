@@ -4,11 +4,13 @@ import 'package:torpheus/data/models/funcionario_model.dart';
 import 'package:torpheus/data/models/servico_model.dart';
 import 'package:torpheus/presentation/components/dialog/dialog_confirm.dart';
 import 'package:torpheus/presentation/components/lista_vazia_custom.dart';
+import 'package:torpheus/presentation/screens/foto/foto_screen.dart';
 import 'package:torpheus/presentation/screens/servico/bloc/servico_bloc.dart';
 import 'package:torpheus/presentation/screens/servico/mobile/servico_mobile_adicionar.dart';
 import 'package:torpheus/presentation/screens/servico/mobile/servico_mobile_list.dart';
 import 'package:torpheus/presentation/screens/servico/mobile/servico_mobile_title.dart';
 
+import '../../../../config/routes.dart';
 import '../../../../core/constants/enum/status_servico.dart';
 import '../../../components/app_dropdown_field.dart';
 import '../../../components/app_text_field.dart';
@@ -60,20 +62,20 @@ class ServicoMobileBody extends StatelessWidget {
                 onCancelar: () {},
               );
             },
-            onReabrir: (value) {
-              ConfirmDialog.show(
-                context,
-                titulo: 'Reabrir serviço',
-                mensagem: 'Tem certeza que deseja reabrir esse serviço?',
-                onConfirmar: () {
+            onAbrirCamera: (value) {
+              Navigator.of(context).pushNamed(
+                AppRoutes.foto.route,
+                arguments: FotoArguments(
+                  ordemServicoId: state.ordemServico?.id ?? '',
+                  servico: value,
+                ),
+              ).then((_) {
                   context.read<ServicoBloc>().add(
-                        ServicoTrocarStatus(
-                          servicoId: value.id ?? '',
-                          status: StatusServico.emProgresso,
-                        ),
-                      );
+                    ServicoLoad(
+                      ordemServicoId: state.ordemServico?.id ?? '',
+                    ),
+                  );
                 },
-                onCancelar: () {},
               );
             },
           )
@@ -103,7 +105,7 @@ class ServicoMobileBody extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 insetPadding:
-                const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 480),
                   child: Padding(
@@ -183,6 +185,10 @@ class ServicoMobileBody extends StatelessWidget {
 
     descricaoController.text = servico.descricao ?? '';
 
+    final funcionarioSelecionado = state.funcionarios.firstWhere(
+        (funcionario) => funcionario.id == servico.funcionarioId,
+        orElse: () => const FuncionarioModel(id: '', nome: 'Sem funcionário'));
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -197,7 +203,7 @@ class ServicoMobileBody extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 insetPadding:
-                const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 480),
                   child: Padding(
@@ -231,6 +237,7 @@ class ServicoMobileBody extends StatelessWidget {
                           const SizedBox(height: 16),
                           AppDropdownField<FuncionarioModel>(
                             label: 'Funcionário',
+                            value: funcionarioSelecionado,
                             items: state.funcionarios.map((funcionario) {
                               return DropdownMenuItem(
                                 value: funcionario,

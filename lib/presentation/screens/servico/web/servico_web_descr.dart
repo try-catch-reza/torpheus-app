@@ -24,7 +24,7 @@ class ServicoWebDescr extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             servico.funcionarioId != null
-                ? 'Funcionário: ${servico.funcionarioId}'
+                ? 'Funcionário: ${servico.funcionarioNome}'
                 : 'Funcionário não informado',
           ),
         ],

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:torpheus/core/constants/enum/status_ordem.dart';
 import 'package:torpheus/core/constants/enum/status_servico.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
@@ -87,5 +90,18 @@ abstract class EapiRemoteRepository {
     StatusServico status,
     String id,
     String servicoId,
+  );
+
+  /// Fotos --------------------------------------------------------------------
+  Future<void> uploadFoto(
+    String ordemServicoId,
+    String servicoId,
+    File file,
+  );
+
+  Future<void> uploadFotoXFile(
+    String ordemServicoId,
+    String servicoId,
+    XFile xFile,
   );
 }

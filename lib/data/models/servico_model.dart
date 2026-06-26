@@ -1,19 +1,25 @@
 import 'package:equatable/equatable.dart';
 import 'package:torpheus/core/constants/enum/status_servico.dart';
 
+import 'foto_model.dart';
+
 class ServicoModel extends Equatable {
   final String? id;
   final String? descricao;
   final StatusServico? statusServico;
   final String? funcionarioId;
+  final String? funcionarioNome;
   final DateTime? dataCriacao;
+  final List<FotoModel>? fotos;
 
   const ServicoModel({
     this.id,
     this.descricao,
     this.statusServico,
+    this.funcionarioNome,
     this.funcionarioId,
     this.dataCriacao,
+    this.fotos,
   });
 
   ServicoModel copyWith({
@@ -22,26 +28,32 @@ class ServicoModel extends Equatable {
     StatusServico? statusServico,
     String? funcionarioId,
     DateTime? dataCriacao,
+    String? funcionarioNome,
   }) {
     return ServicoModel(
-      id: id ?? this.id,
-      descricao: descricao ?? this.descricao,
-      statusServico: statusServico ?? this.statusServico,
-      funcionarioId: funcionarioId ?? this.funcionarioId,
-      dataCriacao: dataCriacao ?? this.dataCriacao,
-    );
+        id: id ?? this.id,
+        descricao: descricao ?? this.descricao,
+        statusServico: statusServico ?? this.statusServico,
+        funcionarioId: funcionarioId ?? this.funcionarioId,
+        dataCriacao: dataCriacao ?? this.dataCriacao,
+        funcionarioNome: funcionarioNome ?? this.funcionarioNome);
   }
 
   factory ServicoModel.fromJson(Map<String, dynamic> json) {
     return ServicoModel(
-      id: json['id'],
-      descricao: json['description'],
-      statusServico: StatusServico.fromValues(json['status']),
-      funcionarioId: json['mechanicId'],
-      dataCriacao: json['createdAt'] != null
-          ? DateTime.parse(json['createdAt'] as String)
-          : null,
-    );
+        id: json['id'],
+        descricao: json['description'],
+        statusServico: StatusServico.fromValues(json['status']),
+        funcionarioId: json['mechanicId'],
+        dataCriacao: json['createdAt'] != null
+            ? DateTime.parse(json['createdAt'] as String)
+            : null,
+        funcionarioNome: json['mechanicName'],
+        fotos: json['photos'] != null
+            ? (json['photos'] as List)
+                .map((photo) => FotoModel.fromMap(photo))
+                .toList()
+            : null);
   }
 
   Map<String, dynamic> toJson() {
@@ -51,6 +63,8 @@ class ServicoModel extends Equatable {
       'status': statusServico?.value,
       'mechanicId': funcionarioId,
       'createdAt': dataCriacao?.toIso8601String(),
+      'mechanicName': funcionarioNome,
+      'photos': fotos?.map((photo) => photo.toMap()).toList(),
     };
   }
 
@@ -74,5 +88,7 @@ class ServicoModel extends Equatable {
         statusServico,
         funcionarioId,
         dataCriacao,
+        funcionarioNome,
+        fotos,
       ];
 }

@@ -9,6 +9,8 @@ import 'package:torpheus/presentation/screens/funcionario/funcionario_screen.dar
 import 'package:torpheus/presentation/screens/ordens_servico/ordens_servico_screen.dart';
 import 'package:torpheus/presentation/screens/painel/bloc/painel_bloc.dart';
 import 'package:torpheus/presentation/screens/painel/painel_screen.dart';
+import 'package:torpheus/presentation/screens/foto/bloc/foto_bloc.dart';
+import 'package:torpheus/presentation/screens/foto/foto_screen.dart';
 import 'package:torpheus/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:torpheus/presentation/screens/menu/bloc/menu_bloc.dart';
 import 'package:torpheus/presentation/screens/perfil/perfil_screen.dart';
@@ -67,7 +69,8 @@ enum AppRoutes {
   cadastrarUsuario('/cadastrar-usuario', NavigationFlow.modalBottomUp),
   usuario('usuario', NavigationFlow.fade),
   perfis('perfis', NavigationFlow.fade),
-  servico('/servico', NavigationFlow.modalBottomUp);
+  servico('/servico', NavigationFlow.modalBottomUp),
+  foto('/foto', NavigationFlow.modalBottomUp);
 
   final String route;
   final NavigationFlow flow;
@@ -166,6 +169,10 @@ class Routes {
       AppRoutes.servico => ServicoScreen(
           servicoBloc: injector.getIt.get<ServicoBloc>(),
           arguments: settings.arguments as ServicoArguments,
+        ),
+      AppRoutes.foto => FotoScreen(
+          fotoBloc: injector.getIt.get<FotoBloc>(),
+          arguments: settings.arguments as FotoArguments,
         ),
     };
 

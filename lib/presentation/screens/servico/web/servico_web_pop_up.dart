@@ -9,12 +9,14 @@ class ServicoWebPopUp extends StatelessWidget {
     required this.onConcluir,
     required this.onUpdate,
     required this.onReabrir,
+    required this.onAbrirFotos,
     required this.servico,
   });
 
   final ValueChanged<ServicoModel>? onConcluir;
   final ValueChanged<ServicoModel>? onUpdate;
   final ValueChanged<ServicoModel>? onReabrir;
+  final ValueChanged<ServicoModel>? onAbrirFotos;
 
   final ServicoModel servico;
 
@@ -39,6 +41,8 @@ class ServicoWebPopUp extends StatelessWidget {
           onConcluir?.call(servico);
         } else if (value == 'reabrir') {
           onReabrir?.call(servico);
+        } else if (value == 'fotos') {
+          onAbrirFotos?.call(servico);
         }
       },
       itemBuilder: (_) {
@@ -51,13 +55,7 @@ class ServicoWebPopUp extends StatelessWidget {
               height: 40,
               child: Row(
                 children: [
-                  Icon(
-                    Icons.edit_outlined,
-                    size: 16,
-                    color: Color(
-                      0xFF344054,
-                    ),
-                  ),
+                  Icon(Icons.edit_outlined, size: 16, color: Color(0xFF344054)),
                   SizedBox(width: 10),
                   Text(
                     'Editar',
@@ -70,19 +68,33 @@ class ServicoWebPopUp extends StatelessWidget {
                 ],
               ),
             ),
+          const PopupMenuItem(
+            value: 'fotos',
+            height: 40,
+            child: Row(
+              children: [
+                Icon(Icons.photo_library_outlined, size: 16, color: Color(0xFF6B7A99)),
+                SizedBox(width: 10),
+                Text(
+                  'Fotos',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF6B7A99),
+                  ),
+                ),
+              ],
+            ),
+          ),
           PopupMenuItem(
             value: isConcluido ? 'reabrir' : 'concluir',
             height: 40,
             child: Row(
               children: [
                 Icon(
-                  isConcluido
-                      ? Icons.refresh_rounded
-                      : Icons.check_circle_outline_rounded,
+                  isConcluido ? Icons.refresh_rounded : Icons.check_circle_outline_rounded,
                   size: 16,
-                  color: isConcluido
-                      ? const Color(0xFF2E90FA)
-                      : const Color(0xFF12B76A),
+                  color: isConcluido ? const Color(0xFF2E90FA) : const Color(0xFF12B76A),
                 ),
                 const SizedBox(width: 10),
                 Text(
@@ -90,9 +102,7 @@ class ServicoWebPopUp extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
-                    color: isConcluido
-                        ? const Color(0xFF2E90FA)
-                        : const Color(0xFF12B76A),
+                    color: isConcluido ? const Color(0xFF2E90FA) : const Color(0xFF12B76A),
                   ),
                 ),
               ],
