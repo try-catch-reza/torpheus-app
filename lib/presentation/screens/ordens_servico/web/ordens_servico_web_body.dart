@@ -43,7 +43,7 @@ class OrdensServicoWebBody extends StatelessWidget {
           ),
           SearchCustom(
             controller: searchController,
-            hintText: 'Pesquisar por placa',
+            hintText: 'Pesquisar pelo nome do cliente ou placa do veículo',
             onChanged: (value) {
               context.read<OrdensServicoBloc>().add(OrdensServicoSearch(value));
             },

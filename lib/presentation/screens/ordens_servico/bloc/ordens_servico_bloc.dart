@@ -195,13 +195,10 @@ class OrdensServicoBloc extends Bloc<OrdensServicoEvent, OrdensServicoState> {
     final search = event.search.toLowerCase();
 
     final filtered = state.ordensServico.where((ordem) {
-      final cliente = ordem.descricaoCliente?.toLowerCase() ?? '';
-      final veiculo = ordem.veiculoModelo?.toLowerCase() ?? '';
-      final placa = ordem.veiculoPlaca?.toUpperCase() ?? '';
+      final cliente = ordem.clienteNome?.toLowerCase() ?? '';
+      final placa = ordem.veiculoPlaca?.toLowerCase() ?? '';
 
-      return cliente.contains(search) ||
-          veiculo.contains(search) ||
-          placa.contains(search);
+      return cliente.contains(search) || placa.contains(search);
     }).toList();
 
     emit(

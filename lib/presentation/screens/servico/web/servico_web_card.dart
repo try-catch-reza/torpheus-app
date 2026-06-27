@@ -12,6 +12,7 @@ class ServicoWebCard extends StatelessWidget {
     required this.onUpdate,
     required this.onReabrir,
     required this.onAbrirFotos,
+    required this.onCancelar,
     required this.servico,
   });
 
@@ -19,15 +20,13 @@ class ServicoWebCard extends StatelessWidget {
   final ValueChanged<ServicoModel>? onUpdate;
   final ValueChanged<ServicoModel>? onReabrir;
   final ValueChanged<ServicoModel>? onAbrirFotos;
+  final ValueChanged<ServicoModel>? onCancelar;
   final ServicoModel servico;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: 16,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       child: Row(
         children: [
           ServicoWebDescr(servico: servico),
@@ -38,6 +37,7 @@ class ServicoWebCard extends StatelessWidget {
             onUpdate: onUpdate,
             onReabrir: onReabrir,
             onAbrirFotos: onAbrirFotos,
+            onCancelar: onCancelar,
             servico: servico,
           ),
         ],

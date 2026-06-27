@@ -36,11 +36,16 @@ class OrdemServicoMobileBody extends StatelessWidget {
         children: [
           AppBarMobileSearch(
             onPressed: () => _onShowDialogCadastrarOS(context),
-            onChanged: (value) {},
+            onChanged: (value) {
+              context.read<OrdensServicoBloc>().add(
+                    OrdensServicoSearch(value),
+                  );
+            },
             title: 'Ordem de serviço',
             subtitle: 'Cadastro e histórico de ordem de serviço',
             controller: searchController,
             hasPodeCriar: state.hasPodeCriar,
+            hintText: 'Pesquisar por cliente ou placa',
           ),
           if (state.ordensServicoFiltered.isEmpty)
             const ListaVaziaCustom(
@@ -51,13 +56,15 @@ class OrdemServicoMobileBody extends StatelessWidget {
             OrdensServicoMobileLista(
               ordens: state.ordensServicoFiltered,
               onOrdemTap: (value) {
-                Navigator.of(context).pushNamed(
+                Navigator.of(context)
+                    .pushNamed(
                   AppRoutes.servico.route,
                   arguments: ServicoArguments(value.id ?? ''),
-                ).then((_) {
+                )
+                    .then((_) {
                   context.read<OrdensServicoBloc>().add(
-                    const OrdensServicoLoad(),
-                  );
+                        const OrdensServicoLoad(),
+                      );
                 });
               },
             ),

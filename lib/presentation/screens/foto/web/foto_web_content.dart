@@ -268,7 +268,8 @@ class _FotoWebFooter extends StatelessWidget {
           final isUploading = state is FotoUploadLoading;
 
           return Visibility(
-            visible: statusServico != StatusServico.completado,
+            visible: statusServico != StatusServico.completado &&
+                statusServico != StatusServico.cancelado,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

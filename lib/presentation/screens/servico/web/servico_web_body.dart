@@ -86,6 +86,22 @@ class ServicoWebBody extends StatelessWidget {
                 servico: servico,
               );
             },
+            onCancelar: (servico) {
+              ConfirmDialog.show(
+                context,
+                titulo: 'Cancelar serviço',
+                mensagem: 'Tem certeza que deseja cancelar esse serviço?',
+                onConfirmar: () {
+                  context.read<ServicoBloc>().add(
+                        ServicoTrocarStatus(
+                          servicoId: servico.id ?? '',
+                          status: StatusServico.cancelado,
+                        ),
+                      );
+                },
+                onCancelar: () {},
+              );
+            },
           ),
         ],
       ),
@@ -196,6 +212,10 @@ class ServicoWebBody extends StatelessWidget {
     )
         ? state.funcionarios.firstWhere((f) => f.id == servico.funcionarioId)
         : null;
+
+    if (funcionarioSelecionado != null) {
+      bloc.add(ServicoSetFuncionario(funcionario: funcionarioSelecionado));
+    }
 
     showDialog(
       context: context,

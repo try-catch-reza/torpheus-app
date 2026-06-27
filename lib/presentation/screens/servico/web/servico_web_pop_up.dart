@@ -10,6 +10,7 @@ class ServicoWebPopUp extends StatelessWidget {
     required this.onUpdate,
     required this.onReabrir,
     required this.onAbrirFotos,
+    required this.onCancelar,
     required this.servico,
   });
 
@@ -17,16 +18,14 @@ class ServicoWebPopUp extends StatelessWidget {
   final ValueChanged<ServicoModel>? onUpdate;
   final ValueChanged<ServicoModel>? onReabrir;
   final ValueChanged<ServicoModel>? onAbrirFotos;
+  final ValueChanged<ServicoModel>? onCancelar;
 
   final ServicoModel servico;
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
-      icon: const Icon(
-        Icons.more_vert,
-        color: Color(0xFF6B7A99),
-      ),
+      icon: const Icon(Icons.more_vert, color: Color(0xFF6B7A99)),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
         side: const BorderSide(color: Color(0xFFE8ECF0)),
@@ -43,13 +42,23 @@ class ServicoWebPopUp extends StatelessWidget {
           onReabrir?.call(servico);
         } else if (value == 'fotos') {
           onAbrirFotos?.call(servico);
+        } else if (value == 'cancelar') {
+          onCancelar?.call(servico);
         }
       },
       itemBuilder: (_) {
-        final isConcluido = servico.statusServico == StatusServico.completado;
+        final isConcluido = servico.statusServico != StatusServico.completado &&
+            servico.statusServico != StatusServico.cancelado;
+
+        final podeCancelar =
+            servico.statusServico == StatusServico.emProgresso ||
+                servico.statusServico == StatusServico.esperandoMecanico;
+
+        final isEditar = servico.statusServico != StatusServico.completado &&
+            servico.statusServico != StatusServico.cancelado;
 
         return [
-          if (!isConcluido)
+          if (isEditar)
             const PopupMenuItem(
               value: 'edit',
               height: 40,
@@ -90,25 +99,46 @@ class ServicoWebPopUp extends StatelessWidget {
               ],
             ),
           ),
-          if (!isConcluido)
-            PopupMenuItem(
+          if (isConcluido)
+            const PopupMenuItem(
               value: 'concluir',
               height: 40,
               child: Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.check_circle_outline_rounded,
                     size: 16,
-                    color: Color(0xFF12B76A),
+                    color: Color(
+                      0xFF12B76A,
+                    ),
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: 10),
                   Text(
                     'Concluir',
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
-                      color:
-                          isConcluido ? Colors.white : const Color(0xFF12B76A),
+                      color: Color(0xFF12B76A),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          if (podeCancelar)
+            const PopupMenuItem(
+              value: 'cancelar',
+              height: 40,
+              child: Row(
+                children: [
+                  Icon(Icons.cancel_outlined,
+                      size: 16, color: Color(0xFFD92D20)),
+                  SizedBox(width: 10),
+                  Text(
+                    'Cancelar',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFFD92D20),
                     ),
                   ),
                 ],

@@ -14,6 +14,7 @@ class ServicoWebList extends StatelessWidget {
     required this.onUpdate,
     required this.onReabrir,
     required this.onAbrirFotos,
+    required this.onCancelar,
     required this.statusOrdem,
   });
 
@@ -23,6 +24,7 @@ class ServicoWebList extends StatelessWidget {
   final ValueChanged<ServicoModel>? onUpdate;
   final ValueChanged<ServicoModel>? onReabrir;
   final ValueChanged<ServicoModel>? onAbrirFotos;
+  final ValueChanged<ServicoModel>? onCancelar;
   final StatusOrdem? statusOrdem;
 
   @override
@@ -60,6 +62,7 @@ class ServicoWebList extends StatelessWidget {
                 onUpdate: onUpdate,
                 onReabrir: onReabrir,
                 onAbrirFotos: onAbrirFotos,
+                onCancelar: onCancelar,
                 servico: servico,
               );
             },
