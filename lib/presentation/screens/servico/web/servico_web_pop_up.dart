@@ -73,7 +73,11 @@ class ServicoWebPopUp extends StatelessWidget {
             height: 40,
             child: Row(
               children: [
-                Icon(Icons.photo_library_outlined, size: 16, color: Color(0xFF6B7A99)),
+                Icon(
+                  Icons.photo_library_outlined,
+                  size: 16,
+                  color: Color(0xFF6B7A99),
+                ),
                 SizedBox(width: 10),
                 Text(
                   'Fotos',
@@ -86,28 +90,30 @@ class ServicoWebPopUp extends StatelessWidget {
               ],
             ),
           ),
-          PopupMenuItem(
-            value: isConcluido ? 'reabrir' : 'concluir',
-            height: 40,
-            child: Row(
-              children: [
-                Icon(
-                  isConcluido ? Icons.refresh_rounded : Icons.check_circle_outline_rounded,
-                  size: 16,
-                  color: isConcluido ? const Color(0xFF2E90FA) : const Color(0xFF12B76A),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  isConcluido ? 'Reabrir' : 'Concluir',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: isConcluido ? const Color(0xFF2E90FA) : const Color(0xFF12B76A),
+          if (!isConcluido)
+            PopupMenuItem(
+              value: 'concluir',
+              height: 40,
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.check_circle_outline_rounded,
+                    size: 16,
+                    color: Color(0xFF12B76A),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 10),
+                  Text(
+                    'Concluir',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color:
+                          isConcluido ? Colors.white : const Color(0xFF12B76A),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
         ];
       },
     );

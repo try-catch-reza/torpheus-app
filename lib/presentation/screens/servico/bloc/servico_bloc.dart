@@ -91,7 +91,20 @@ class ServicoBloc extends Bloc<ServicoEvent, ServicoState> {
         state.ordemServico?.id ?? '',
       );
 
-      emit(ServicoSalvo(ordemServico: state.ordemServico));
+      if (servico.funcionarioId != null &&
+          state.ordemServico?.statusOrdem != StatusOrdem.emProgresso) {
+        await _eapiRemoteRepository.updateStatusOS(
+          StatusOrdem.emProgresso,
+          state.ordemServico?.id ?? '',
+        );
+      }
+
+      emit(
+        ServicoSalvo(
+          ordemServico: state.ordemServico,
+          funcionarios: state.funcionarios,
+        ),
+      );
     } on HttpRequestException catch (e) {
       emit(ServicoFail(message: e.message, ordemServico: state.ordemServico));
     } catch (e) {
@@ -126,6 +139,14 @@ class ServicoBloc extends Bloc<ServicoEvent, ServicoState> {
         servico,
         state.ordemServico?.id ?? '',
       );
+
+      if (servico.funcionarioId != null &&
+          state.ordemServico?.statusOrdem != StatusOrdem.emProgresso) {
+        await _eapiRemoteRepository.updateStatusOS(
+          StatusOrdem.emProgresso,
+          state.ordemServico?.id ?? '',
+        );
+      }
 
       emit(ServicoAtualizado(ordemServico: state.ordemServico));
     } on HttpRequestException catch (e) {

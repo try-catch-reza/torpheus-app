@@ -11,6 +11,7 @@ sealed class PerfisState extends Equatable {
     this.catalogoPermissoes = const [],
     this.hasCriarPerfis = false,
     this.hasExcluirPerfis = false,
+    this.hasAtualizarPerfis = false,
   });
 
   final List<PerfisModel> perfis;
@@ -20,6 +21,7 @@ sealed class PerfisState extends Equatable {
 
   final bool hasCriarPerfis;
   final bool hasExcluirPerfis;
+  final bool hasAtualizarPerfis;
 
   @override
   List<Object?> get props => [];
@@ -38,6 +40,7 @@ final class PerfisLoaded extends PerfisState {
     required super.perfis,
     required super.hasCriarPerfis,
     required super.hasExcluirPerfis,
+    required super.hasAtualizarPerfis,
     super.perfilSelecionado,
     super.permissaoGrupo,
     super.catalogoPermissoes,

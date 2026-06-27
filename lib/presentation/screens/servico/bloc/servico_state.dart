@@ -56,10 +56,13 @@ final class ServicoFail extends ServicoState {
 }
 
 final class ServicoSalvo extends ServicoState {
-  const ServicoSalvo({required super.ordemServico});
+  const ServicoSalvo({
+    required super.ordemServico,
+    required super.funcionarios,
+  });
 
   @override
-  List<Object?> get props => [ordemServico];
+  List<Object?> get props => [ordemServico, funcionarios];
 }
 
 final class ServicoAtualizado extends ServicoState {

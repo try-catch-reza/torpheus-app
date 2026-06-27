@@ -34,10 +34,12 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
     try {
       final hasCriarPerfis = _permissaoController.podeCriarRole;
       final hasExcluirPerfis = _permissaoController.podeExcluirRole;
+      final hasEditarPerfis = _permissaoController.podeAtualizarRole;
 
       final perfis = await _eapiRemoteRepository.getPerfis();
       emit(
         PerfisLoaded(
+          hasAtualizarPerfis: hasEditarPerfis,
           perfis: perfis,
           hasCriarPerfis: hasCriarPerfis,
           hasExcluirPerfis: hasExcluirPerfis,
@@ -96,6 +98,7 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
           catalogoPermissoes: allPermissoes,
           hasCriarPerfis: state.hasCriarPerfis,
           hasExcluirPerfis: hasExcluirPefis,
+          hasAtualizarPerfis: state.hasAtualizarPerfis
         ),
       );
     } catch (e) {
@@ -194,6 +197,7 @@ class PerfisBloc extends Bloc<PerfisEvent, PerfisState> {
           catalogoPermissoes: state.catalogoPermissoes,
           hasCriarPerfis: state.hasCriarPerfis,
           hasExcluirPerfis: state.hasExcluirPerfis,
+          hasAtualizarPerfis: state.hasAtualizarPerfis
         ),
       );
     } on HttpRequestException catch (e) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/core/constants/enum/status_ordem.dart';
 import 'package:torpheus/presentation/screens/servico/web/servico_web_card.dart';
 import 'package:torpheus/presentation/screens/servico/web/servico_web_title_list.dart';
 
@@ -13,6 +14,7 @@ class ServicoWebList extends StatelessWidget {
     required this.onUpdate,
     required this.onReabrir,
     required this.onAbrirFotos,
+    required this.statusOrdem,
   });
 
   final List<ServicoModel> servicos;
@@ -21,6 +23,7 @@ class ServicoWebList extends StatelessWidget {
   final ValueChanged<ServicoModel>? onUpdate;
   final ValueChanged<ServicoModel>? onReabrir;
   final ValueChanged<ServicoModel>? onAbrirFotos;
+  final StatusOrdem? statusOrdem;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +40,7 @@ class ServicoWebList extends StatelessWidget {
           ServicoWebTitleList(
             onPressed: onPressed,
             quantServicos: servicos.length,
+            statusOrdem: statusOrdem,
           ),
           const Divider(height: 1, thickness: 1, color: Color(0xFFEEF0F3)),
           ListView.separated(

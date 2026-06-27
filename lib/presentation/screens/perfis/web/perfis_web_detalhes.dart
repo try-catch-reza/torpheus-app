@@ -37,7 +37,10 @@ class PerfisWebDetalhes extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final group = state.permissaoGrupo[index];
 
-                    return PerfisWebPermissionCard(grupo: group);
+                    return PerfisWebPermissionCard(
+                      grupo: group,
+                      hasEditarPerfis: state.hasAtualizarPerfis,
+                    );
                   },
                 ),
         ),

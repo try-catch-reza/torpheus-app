@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/core/constants/enum/status_ordem.dart';
 
 import '../../../../core/constants/color_constants.dart';
 
@@ -7,10 +8,12 @@ class ServicoWebTitleList extends StatelessWidget {
     super.key,
     required this.quantServicos,
     required this.onPressed,
+    required this.statusOrdem,
   });
 
   final int quantServicos;
   final VoidCallback onPressed;
+  final StatusOrdem? statusOrdem;
 
   @override
   Widget build(BuildContext context) {
@@ -27,29 +30,32 @@ class ServicoWebTitleList extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-          OutlinedButton.icon(
-            onPressed: onPressed,
-            icon: const Icon(Icons.add, size: 16, color: Colors.white),
-            label: const Text(
-              'Adicionar serviço',
-              style: TextStyle(color: Colors.white),
-            ),
-            style: OutlinedButton.styleFrom(
-              backgroundColor: ColorConstants.chambray,
-              textStyle: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
+          Visibility(
+            visible: statusOrdem != StatusOrdem.completado,
+            child: OutlinedButton.icon(
+              onPressed: onPressed,
+              icon: const Icon(Icons.add, size: 16, color: Colors.white),
+              label: const Text(
+                'Adicionar serviço',
+                style: TextStyle(color: Colors.white),
               ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 10,
-              ),
-              side: const BorderSide(
-                color: Color(0xFFD0D5DD),
-              ),
-              foregroundColor: const Color(0xFF344054),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+              style: OutlinedButton.styleFrom(
+                backgroundColor: ColorConstants.chambray,
+                textStyle: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
+                side: const BorderSide(
+                  color: Color(0xFFD0D5DD),
+                ),
+                foregroundColor: const Color(0xFF344054),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
             ),
           ),

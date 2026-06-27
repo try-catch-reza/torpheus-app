@@ -6,9 +6,14 @@ import 'package:torpheus/presentation/screens/perfis/bloc/perfis_bloc.dart';
 import 'package:torpheus/presentation/screens/perfis/bloc/perfis_event.dart';
 
 class PerfisWebItemPermissao extends StatelessWidget {
-  const PerfisWebItemPermissao({super.key, required this.permissao});
+  const PerfisWebItemPermissao({
+    super.key,
+    required this.permissao,
+    required this.hasAtualizarPerfis,
+  });
 
   final PermissaoModel permissao;
+  final bool hasAtualizarPerfis;
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +27,28 @@ class PerfisWebItemPermissao extends StatelessWidget {
       ),
       child: Row(
         children: [
-          SizedBox(
-            width: 18,
-            height: 18,
-            child: Checkbox(
-              onChanged: (value) {
-                context
-                    .read<PerfisBloc>()
-                    .add(PerfisAdicionarPermissao(permissao));
-              },
-              value: permissao.isSelected,
-              activeColor: ColorConstants.chambray,
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              visualDensity: VisualDensity.compact,
-              side: const BorderSide(
-                color: ColorConstants.mercury,
-                width: 1.5,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(3),
+          Visibility(
+            visible: hasAtualizarPerfis,
+            child: SizedBox(
+              width: 18,
+              height: 18,
+              child: Checkbox(
+                onChanged: (value) {
+                  context
+                      .read<PerfisBloc>()
+                      .add(PerfisAdicionarPermissao(permissao));
+                },
+                value: permissao.isSelected,
+                activeColor: ColorConstants.chambray,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                visualDensity: VisualDensity.compact,
+                side: const BorderSide(
+                  color: ColorConstants.mercury,
+                  width: 1.5,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(3),
+                ),
               ),
             ),
           ),

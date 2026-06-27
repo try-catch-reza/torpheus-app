@@ -55,6 +55,7 @@ class PermissaoModel {
       'delete': 'Excluir',
       'assign_role': 'Atribuir perfil',
       'change_status': 'Atualizar status',
+      'manage_photos': 'Gerenciar foto',
     };
 
     final nomeRecurso = recursos[recurso] ?? _capitalizar(recurso);

@@ -27,6 +27,7 @@ class PerfisWebBody extends StatelessWidget {
     return Row(
       children: [
         PerfisWebSidebar(
+          hasCriarPerfis: state.hasCriarPerfis,
           perfis: state.perfis,
           onNewProfile: () => _openNewPerfisDialog(context),
         ),

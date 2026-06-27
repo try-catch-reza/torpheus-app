@@ -54,7 +54,11 @@ class OrdemServicoMobileBody extends StatelessWidget {
                 Navigator.of(context).pushNamed(
                   AppRoutes.servico.route,
                   arguments: ServicoArguments(value.id ?? ''),
-                );
+                ).then((_) {
+                  context.read<OrdensServicoBloc>().add(
+                    const OrdensServicoLoad(),
+                  );
+                });
               },
             ),
         ],
@@ -79,7 +83,7 @@ class OrdemServicoMobileBody extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 insetPadding:
-                const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 480),
                   child: Padding(

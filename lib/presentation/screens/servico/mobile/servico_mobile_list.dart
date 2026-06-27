@@ -12,11 +12,13 @@ class ServicoMobileList extends StatelessWidget {
     required this.servicos,
     required this.onConcluir,
     required this.onUpdate,
+    required this.onCancelar,
     required this.onAbrirCamera,
   });
 
   final List<ServicoModel> servicos;
   final ValueChanged<ServicoModel>? onConcluir;
+  final ValueChanged<ServicoModel>? onCancelar;
   final ValueChanged<ServicoModel>? onUpdate;
   final ValueChanged<ServicoModel>? onAbrirCamera;
 
@@ -35,81 +37,101 @@ class ServicoMobileList extends StatelessWidget {
         itemBuilder: (context, index) {
           final servico = servicos[index];
 
-          return Slidable(
-            key: ValueKey(servico.id ?? index),
-            endActionPane: ActionPane(
-              extentRatio: 0.7,
-              motion: const ScrollMotion(),
-              children: [
-                Visibility(
-                  visible: servico.statusServico != StatusServico.completado,
-                  child: SlidableAction(
-                    padding: EdgeInsets.zero,
-                    onPressed:
-                        onUpdate != null ? (_) => onUpdate!(servico) : null,
-                    backgroundColor: ColorConstants.chambray,
-                    foregroundColor: Colors.white,
-                    icon: Icons.edit,
-                    label: 'Atualizar',
-                  ),
+          return Container(
+            decoration: BoxDecoration(
+              border: Border(
+                top: const BorderSide(
+                  color: ColorConstants.mercury,
+                  width: 1.0,
                 ),
-                SlidableAction(
-                  padding: EdgeInsets.zero,
-                  onPressed: onAbrirCamera != null
-                      ? (_) => onAbrirCamera!(servico)
-                      : null,
-                  backgroundColor: Colors.orange,
-                  foregroundColor: Colors.white,
-                  icon: Icons.photo_camera,
-                  label: 'Galeria',
+                bottom: const BorderSide(
+                  color: ColorConstants.mercury,
+                  width: 1.0,
                 ),
-                Visibility(
-                  visible: servico.statusServico != StatusServico.completado,
-                  child: SlidableAction(
-                    padding: EdgeInsets.zero,
-                    onPressed:
-                        onConcluir != null ? (_) => onConcluir!(servico) : null,
-                    backgroundColor: Colors.green,
-                    foregroundColor: Colors.white,
-                    icon: Icons.check_circle,
-                    label: 'Concluir',
-                  ),
+                left: BorderSide(
+                  color: servico.statusServico?.color ?? ColorConstants.mercury,
+                  width: 5.0,
                 ),
-              ],
+              ),
             ),
-            child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 8.0,
+            child: Slidable(
+              key: ValueKey(servico.id ?? index),
+              endActionPane: ActionPane(
+                extentRatio: 1,
+                motion: const ScrollMotion(),
+                children: [
+                  Visibility(
+                    visible:
+                        servico.statusServico != StatusServico.completado &&
+                            servico.statusServico != StatusServico.cancelado,
+                    child: SlidableAction(
+                      padding: EdgeInsets.zero,
+                      onPressed:
+                          onUpdate != null ? (_) => onUpdate!(servico) : null,
+                      backgroundColor: ColorConstants.chambray,
+                      foregroundColor: Colors.white,
+                      icon: Icons.edit,
+                      label: 'Atualizar',
+                    ),
+                  ),
+                  SlidableAction(
+                    padding: EdgeInsets.zero,
+                    onPressed: onAbrirCamera != null
+                        ? (_) => onAbrirCamera!(servico)
+                        : null,
+                    backgroundColor: Colors.orange,
+                    foregroundColor: Colors.white,
+                    icon: Icons.photo_camera,
+                    label: 'Galeria',
+                  ),
+                  Visibility(
+                    visible:
+                        servico.statusServico != StatusServico.completado &&
+                            servico.statusServico != StatusServico.cancelado,
+                    child: SlidableAction(
+                      padding: EdgeInsets.zero,
+                      onPressed: onConcluir != null
+                          ? (_) => onConcluir!(servico)
+                          : null,
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.white,
+                      icon: Icons.check_circle,
+                      label: 'Concluir',
+                    ),
+                  ),
+                  Visibility(
+                    visible:
+                        servico.statusServico == StatusServico.emProgresso ||
+                            servico.statusServico ==
+                                StatusServico.esperandoMecanico,
+                    child: SlidableAction(
+                      padding: EdgeInsets.zero,
+                      onPressed: onCancelar != null
+                          ? (_) => onCancelar!(servico)
+                          : null,
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                      icon: Icons.clear,
+                      label: 'Cancelar',
+                    ),
+                  ),
+                ],
               ),
-              dense: true,
-              title: Text(
-                servico.descricao ?? '',
-                style: const TextStyle(
-                  color: ColorConstants.steel,
-                  fontSize: 15,
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 8.0,
                 ),
-              ),
-              subtitle: Text(
-                servico.funcionarioNome ?? 'Nenhum funcionário atribuído',
-              ),
-              trailing: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.3,
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.circle,
-                      color: servico.statusServico?.color,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      servico.statusServico?.label ?? '',
-                      style: const TextStyle(
-                        color: ColorConstants.chromaphobicBlack,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
+                dense: true,
+                title: Text(
+                  servico.descricao ?? '',
+                  style: const TextStyle(
+                    color: ColorConstants.steel,
+                    fontSize: 15,
+                  ),
+                ),
+                subtitle: Text(
+                  servico.funcionarioNome ?? 'Nenhum funcionário atribuído',
                 ),
               ),
             ),

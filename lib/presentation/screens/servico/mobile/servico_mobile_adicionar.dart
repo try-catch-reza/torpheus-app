@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:torpheus/core/constants/enum/status_ordem.dart';
 
 import '../../../../core/constants/color_constants.dart';
 
@@ -7,10 +8,12 @@ class ServicoMobileAdicionar extends StatelessWidget {
     super.key,
     required this.quantServico,
     required this.onPressed,
+    required this.statusOrdem,
   });
 
   final int? quantServico;
   final VoidCallback onPressed;
+  final StatusOrdem? statusOrdem;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +30,13 @@ class ServicoMobileAdicionar extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-          ElevatedButton.icon(
-            onPressed: onPressed,
-            label: const Text('Adicionar serviço'),
-            icon: const Icon(Icons.add),
+          Visibility(
+            visible: statusOrdem != StatusOrdem.completado,
+            child: ElevatedButton.icon(
+              onPressed: onPressed,
+              label: const Text('Adicionar serviço'),
+              icon: const Icon(Icons.add),
+            ),
           )
         ],
       ),

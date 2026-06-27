@@ -38,6 +38,7 @@ class ServicoMobileBody extends StatelessWidget {
         ServicoMobileAdicionar(
           quantServico: state.ordemServico?.servicos?.length,
           onPressed: () => _onShowDialogAdicionar(context),
+          statusOrdem: state.ordemServico?.statusOrdem,
         ),
         if (state.ordemServico?.servicos != null &&
             state.ordemServico!.servicos!.isNotEmpty)
@@ -63,19 +64,38 @@ class ServicoMobileBody extends StatelessWidget {
               );
             },
             onAbrirCamera: (value) {
-              Navigator.of(context).pushNamed(
+              Navigator.of(context)
+                  .pushNamed(
                 AppRoutes.foto.route,
                 arguments: FotoArguments(
                   ordemServicoId: state.ordemServico?.id ?? '',
                   servico: value,
                 ),
-              ).then((_) {
+              )
+                  .then(
+                (_) {
                   context.read<ServicoBloc>().add(
-                    ServicoLoad(
-                      ordemServicoId: state.ordemServico?.id ?? '',
-                    ),
-                  );
+                        ServicoLoad(
+                          ordemServicoId: state.ordemServico?.id ?? '',
+                        ),
+                      );
                 },
+              );
+            },
+            onCancelar: (value) {
+              ConfirmDialog.show(
+                context,
+                titulo: 'Cancelar serviço',
+                mensagem: 'Tem certeza que deseja cancelar esse serviço?',
+                onConfirmar: () {
+                  context.read<ServicoBloc>().add(
+                        ServicoTrocarStatus(
+                          servicoId: value.id ?? '',
+                          status: StatusServico.cancelado,
+                        ),
+                      );
+                },
+                onCancelar: () {},
               );
             },
           )
@@ -90,6 +110,8 @@ class ServicoMobileBody extends StatelessWidget {
 
   void _onShowDialogAdicionar(BuildContext context) {
     final bloc = context.read<ServicoBloc>();
+
+    descricaoController.clear();
 
     showDialog(
       context: context,
@@ -185,9 +207,17 @@ class ServicoMobileBody extends StatelessWidget {
 
     descricaoController.text = servico.descricao ?? '';
 
-    final funcionarioSelecionado = state.funcionarios.firstWhere(
-        (funcionario) => funcionario.id == servico.funcionarioId,
-        orElse: () => const FuncionarioModel(id: '', nome: 'Sem funcionário'));
+    final funcionarioSelecionado = state.funcionarios.any(
+      (f) => f.id == servico.funcionarioId,
+    )
+        ? state.funcionarios.firstWhere((f) => f.id == servico.funcionarioId)
+        : null;
+
+    if (funcionarioSelecionado != null) {
+      bloc.add(
+        ServicoSetFuncionario(funcionario: funcionarioSelecionado),
+      );
+    }
 
     showDialog(
       context: context,
@@ -258,7 +288,12 @@ class ServicoMobileBody extends StatelessWidget {
                           FooterDialog(
                             label: 'Atualizar serviço',
                             onPressed: () {
-                              _onUpdateServico(context, bloc, servico.id ?? '');
+                              _onUpdateServico(
+                                context,
+                                bloc,
+                                servico.id ?? '',
+                                funcionarioSelecionado,
+                              );
                             },
                           ),
                         ],
@@ -278,11 +313,16 @@ class ServicoMobileBody extends StatelessWidget {
     BuildContext context,
     ServicoBloc bloc,
     String servicoId,
+    FuncionarioModel? funcionario,
   ) {
     if (formKey.currentState?.validate() ?? false) {
       Navigator.of(context).pop();
-      bloc.add(ServicoUpdate(
-          descricao: descricaoController.text, servicoId: servicoId));
+      bloc.add(
+        ServicoUpdate(
+          descricao: descricaoController.text,
+          servicoId: servicoId,
+        ),
+      );
     }
   }
 }

@@ -38,11 +38,12 @@ class ServicoMobileTitle extends StatelessWidget {
                 ordemServico?.descricaoCliente ?? '',
                 style: const TextStyle(color: ColorConstants.steel),
               ),
+              const SizedBox(height: 5),
+              Text(
+                '${ordemServico?.veiculoPlaca} - ${ordemServico?.veiculoModelo}',
+                style: const TextStyle(color: ColorConstants.steel),
+              ),
             ],
-          ),
-          Text(
-            '${ordemServico?.veiculoPlaca} - ${ordemServico?.veiculoModelo}',
-            style: const TextStyle(color: ColorConstants.steel),
           ),
         ],
       ),

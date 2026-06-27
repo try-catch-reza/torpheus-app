@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/core/constants/enum/status_ordem.dart';
 import 'package:torpheus/presentation/components/app_bar_padrao.dart';
 import 'package:torpheus/presentation/components/dialog/dialog_confirm.dart';
+import 'package:torpheus/presentation/components/dialog/dialog_legenda_servicos.dart';
 import 'package:torpheus/presentation/components/dialog/dialog_mobile_padrao.dart';
 import 'package:torpheus/presentation/components/loading_state.dart';
 import 'package:torpheus/presentation/screens/servico/bloc/servico_bloc.dart';
 import 'package:torpheus/presentation/screens/servico/mobile/servico_mobile_body.dart';
 
+import '../../../../core/constants/color_constants.dart';
 import '../../../components/app_button_bottom_navigation.dart';
 
 class ServicoMobileContent extends StatefulWidget {
@@ -46,22 +48,40 @@ class _ServicoMobileContentState extends State<ServicoMobileContent> {
           return const SizedBox.shrink();
         },
       ),
-      bottomNavigationBar: AppButtonBottomNavigation(
-        onPressed: () {
-          ConfirmDialog.show(
-            context,
-            titulo: 'Finalizar ordem de serviço',
-            mensagem: 'Tem certeza que deseja finalizar a ordem de serviço? '
-                'Essa ação não poderá ser desfeita.',
-            onConfirmar: () {
-              context.read<ServicoBloc>().add(
-                    const ServicoTrocarStatusOS(status: StatusOrdem.completado),
-                  );
-            },
+      bottomNavigationBar: BlocBuilder<ServicoBloc, ServicoState>(
+        builder: (context, state) {
+          return Visibility(
+            visible: state.ordemServico?.statusOrdem != StatusOrdem.completado,
+            child: AppButtonBottomNavigation(
+              onPressed: () {
+                ConfirmDialog.show(
+                  context,
+                  titulo: 'Finalizar ordem de serviço',
+                  mensagem:
+                      'Tem certeza que deseja finalizar a ordem de serviço? '
+                      'Essa ação não poderá ser desfeita.',
+                  onConfirmar: () {
+                    context.read<ServicoBloc>().add(
+                          const ServicoTrocarStatusOS(
+                            status: StatusOrdem.completado,
+                          ),
+                        );
+                  },
+                );
+              },
+              icon: Icons.check_circle,
+              text: 'Finalizar ordem de serviço',
+            ),
           );
         },
-        icon: Icons.check_circle,
-        text: 'Finalizar ordem de serviço',
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => DialogLegendaServicos.show(context),
+        backgroundColor: ColorConstants.chambray,
+        child: const Icon(
+          Icons.help_outline,
+          color: ColorConstants.mercury,
+        ),
       ),
     );
   }
@@ -106,7 +126,7 @@ class _ServicoMobileContentState extends State<ServicoMobileContent> {
     if (state is ServicoConcluido) {
       DialogMobilePadrao.successDialog(
         context: context,
-        message: 'Serviço foi concluído com sucesso!',
+        message: 'Operação realizada com sucesso!',
         onPress: () {
           context.read<ServicoBloc>().add(
                 ServicoLoad(ordemServicoId: state.ordemServico?.id ?? ''),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/core/constants/color_constants.dart';
+import 'package:torpheus/core/constants/enum/status_servico.dart';
 import 'package:torpheus/data/models/foto_model.dart';
 import 'package:torpheus/data/models/servico_model.dart';
 import 'package:torpheus/presentation/screens/foto/bloc/foto_bloc.dart';
 import 'package:torpheus/presentation/screens/foto/web/foto_web_item_existente.dart';
 import 'package:torpheus/presentation/screens/foto/web/foto_web_item_nova.dart';
+import 'package:torpheus/presentation/screens/servico/bloc/servico_bloc.dart';
 
 class FotoWebContent extends StatelessWidget {
   const FotoWebContent({
@@ -19,6 +21,7 @@ class FotoWebContent extends StatelessWidget {
 
   static void show(
     BuildContext context, {
+    required ServicoBloc servicoBloc,
     required FotoBloc fotoBloc,
     required String ordemServicoId,
     required ServicoModel servico,
@@ -26,14 +29,20 @@ class FotoWebContent extends StatelessWidget {
     showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (_) => BlocProvider.value(
-        value: fotoBloc
-          ..add(FotoCarregar(fotosExistentes: servico.fotos ?? [])),
-        child: FotoWebContent(
-          ordemServicoId: ordemServicoId,
-          servico: servico,
-        ),
-      ),
+      builder: (_) {
+        return BlocProvider.value(
+          value: fotoBloc
+            ..add(FotoCarregar(fotosExistentes: servico.fotos ?? [])),
+          child: FotoWebContent(
+            ordemServicoId: ordemServicoId,
+            servico: servico,
+          ),
+        );
+      },
+    ).then(
+      (value) {
+        servicoBloc.add(ServicoLoad(ordemServicoId: ordemServicoId));
+      },
     );
   }
 
@@ -78,6 +87,7 @@ class FotoWebContent extends StatelessWidget {
             _FotoWebFooter(
               ordemServicoId: ordemServicoId,
               servicoId: servico.id ?? '',
+              statusServico: servico.statusServico,
             ),
           ],
         ),
@@ -241,10 +251,12 @@ class _FotoWebFooter extends StatelessWidget {
   const _FotoWebFooter({
     required this.ordemServicoId,
     required this.servicoId,
+    required this.statusServico,
   });
 
   final String ordemServicoId;
   final String servicoId;
+  final StatusServico? statusServico;
 
   @override
   Widget build(BuildContext context) {
@@ -255,58 +267,22 @@ class _FotoWebFooter extends StatelessWidget {
           final qtdNovas = state.fotosNovasWeb.length + state.fotosNovas.length;
           final isUploading = state is FotoUploadLoading;
 
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              OutlinedButton.icon(
-                onPressed: isUploading
-                    ? null
-                    : () => context
-                        .read<FotoBloc>()
-                        .add(const FotoAdicionarArquivosWeb()),
-                icon: const Icon(Icons.add_photo_alternate_outlined),
-                label: const Text('Selecionar imagens'),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: ColorConstants.chambray,
-                  side: BorderSide(color: ColorConstants.chambray),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 14,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              if (qtdNovas > 0) ...[
-                const SizedBox(width: 12),
-                ElevatedButton.icon(
+          return Visibility(
+            visible: statusServico != StatusServico.completado,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                OutlinedButton.icon(
                   onPressed: isUploading
                       ? null
-                      : () => context.read<FotoBloc>().add(
-                            FotoEnviarFotos(
-                              ordemServicoId: ordemServicoId,
-                              servicoId: servicoId,
-                            ),
-                          ),
-                  icon: isUploading
-                      ? const SizedBox(
-                          width: 16,
-                          height: 16,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
-                          ),
-                        )
-                      : const Icon(Icons.cloud_upload_outlined),
-                  label: Text(
-                    isUploading
-                        ? 'Enviando...'
-                        : 'Enviar ${qtdNovas == 1 ? '1 foto' : '$qtdNovas fotos'}',
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorConstants.chambray,
-                    foregroundColor: Colors.white,
+                      : () => context
+                          .read<FotoBloc>()
+                          .add(const FotoAdicionarArquivosWeb()),
+                  icon: const Icon(Icons.add_photo_alternate_outlined),
+                  label: const Text('Selecionar imagens'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: ColorConstants.chambray,
+                    side: BorderSide(color: ColorConstants.chambray),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 14,
@@ -316,8 +292,47 @@ class _FotoWebFooter extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (qtdNovas > 0) ...[
+                  const SizedBox(width: 12),
+                  ElevatedButton.icon(
+                    onPressed: isUploading
+                        ? null
+                        : () => context.read<FotoBloc>().add(
+                              FotoEnviarFotos(
+                                ordemServicoId: ordemServicoId,
+                                servicoId: servicoId,
+                              ),
+                            ),
+                    icon: isUploading
+                        ? const SizedBox(
+                            width: 16,
+                            height: 16,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Icon(Icons.cloud_upload_outlined),
+                    label: Text(
+                      isUploading
+                          ? 'Enviando...'
+                          : 'Enviar ${qtdNovas == 1 ? '1 foto' : '$qtdNovas fotos'}',
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorConstants.chambray,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 14,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ],
               ],
-            ],
+            ),
           );
         },
       ),

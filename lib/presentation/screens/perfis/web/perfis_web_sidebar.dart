@@ -12,10 +12,12 @@ class PerfisWebSidebar extends StatelessWidget {
     super.key,
     required this.perfis,
     required this.onNewProfile,
+    required this.hasCriarPerfis,
   });
 
   final List<PerfisModel> perfis;
   final VoidCallback onNewProfile;
+  final bool hasCriarPerfis;
 
   @override
   Widget build(BuildContext context) {
@@ -53,25 +55,28 @@ class PerfisWebSidebar extends StatelessWidget {
                         color: ColorConstants.chromaphobicBlack,
                       ),
                     ),
-                    FilledButton.icon(
-                      onPressed: onNewProfile,
-                      icon: const Icon(Icons.add, size: 16),
-                      label: const Text('Novo'),
-                      style: FilledButton.styleFrom(
-                        backgroundColor: ColorConstants.chambray,
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 12,
-                        ),
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        textStyle: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
+                    Visibility(
+                      visible: hasCriarPerfis,
+                      child: FilledButton.icon(
+                        onPressed: onNewProfile,
+                        icon: const Icon(Icons.add, size: 16),
+                        label: const Text('Novo'),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: ColorConstants.chambray,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 12,
+                          ),
+                          minimumSize: Size.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          textStyle: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
                         ),
                       ),
                     ),

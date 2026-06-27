@@ -54,7 +54,8 @@ class FotoMobileContent extends StatelessWidget {
         },
       ),
       bottomNavigationBar: Visibility(
-        visible: servico.statusServico != StatusServico.completado,
+        visible: servico.statusServico != StatusServico.completado &&
+            servico.statusServico != StatusServico.cancelado,
         child: const FotoMobileBottomBar(),
       ),
       floatingActionButton: FotoMobileUploadButton(

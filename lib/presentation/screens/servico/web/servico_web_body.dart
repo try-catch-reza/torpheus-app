@@ -39,6 +39,7 @@ class ServicoWebBody extends StatelessWidget {
           ServicoWebHeader(state: state),
           ServicoWebTitle(ordemServico: state.ordemServico),
           ServicoWebList(
+            statusOrdem: state.ordemServico?.statusOrdem,
             servicos: state.ordemServico?.servicos?.reversed.toList() ?? [],
             onPressed: () => _onShowDialogAdicionar(context),
             onConcluir: (servico) {
@@ -79,6 +80,7 @@ class ServicoWebBody extends StatelessWidget {
             onAbrirFotos: (servico) {
               FotoWebContent.show(
                 context,
+                servicoBloc: context.read<ServicoBloc>(),
                 fotoBloc: getIt.get<FotoBloc>(),
                 ordemServicoId: state.ordemServico?.id ?? '',
                 servico: servico,
@@ -189,6 +191,12 @@ class ServicoWebBody extends StatelessWidget {
 
     descricaoController.text = servico.descricao ?? '';
 
+    final funcionarioSelecionado = state.funcionarios.any(
+      (f) => f.id == servico.funcionarioId,
+    )
+        ? state.funcionarios.firstWhere((f) => f.id == servico.funcionarioId)
+        : null;
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -202,8 +210,10 @@ class ServicoWebBody extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
-                insetPadding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+                insetPadding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 40,
+                ),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 480),
                   child: Padding(
@@ -237,6 +247,7 @@ class ServicoWebBody extends StatelessWidget {
                           const SizedBox(height: 16),
                           AppDropdownField<FuncionarioModel>(
                             label: 'Funcionário',
+                            value: funcionarioSelecionado,
                             items: state.funcionarios.map((funcionario) {
                               return DropdownMenuItem(
                                 value: funcionario,
@@ -257,7 +268,12 @@ class ServicoWebBody extends StatelessWidget {
                           FooterDialog(
                             label: 'Atualizar serviço',
                             onPressed: () {
-                              _onUpdateServico(context, bloc, servico.id ?? '');
+                              _onUpdateServico(
+                                context,
+                                bloc,
+                                servico.id ?? '',
+                                funcionarioSelecionado,
+                              );
                             },
                           ),
                         ],
@@ -277,11 +293,16 @@ class ServicoWebBody extends StatelessWidget {
     BuildContext context,
     ServicoBloc bloc,
     String servicoId,
+    FuncionarioModel? funcionario,
   ) {
     if (formKey.currentState?.validate() ?? false) {
       Navigator.of(context).pop();
-      bloc.add(ServicoUpdate(
-          descricao: descricaoController.text, servicoId: servicoId));
+      bloc.add(
+        ServicoUpdate(
+          descricao: descricaoController.text,
+          servicoId: servicoId,
+        ),
+      );
     }
   }
 }

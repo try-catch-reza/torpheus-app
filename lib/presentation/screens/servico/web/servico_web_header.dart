@@ -56,36 +56,39 @@ class ServicoWebHeader extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          ElevatedButton.icon(
-            onPressed: () {
-              ConfirmDialog.show(
-                context,
-                titulo: 'Finalizar ordem de serviço',
-                mensagem:
-                    'Tem certeza que deseja finalizar a ordem de serviço? '
-                    'Essa ação não poderá ser desfeita.',
-                onConfirmar: () {
-                  context.read<ServicoBloc>().add(
-                        const ServicoTrocarStatusOS(
-                          status: StatusOrdem.completado,
-                        ),
-                      );
-                },
-              );
-            },
-            label: const Text('Concluir'),
-            icon: const Icon(Icons.check),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: ColorConstants.chambray,
-              textStyle: const TextStyle(
-                fontSize: 13,
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 18,
-                vertical: 18,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+          Visibility(
+            visible: state.ordemServico?.statusOrdem != StatusOrdem.completado,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                ConfirmDialog.show(
+                  context,
+                  titulo: 'Finalizar ordem de serviço',
+                  mensagem:
+                      'Tem certeza que deseja finalizar a ordem de serviço? '
+                      'Essa ação não poderá ser desfeita.',
+                  onConfirmar: () {
+                    context.read<ServicoBloc>().add(
+                          const ServicoTrocarStatusOS(
+                            status: StatusOrdem.completado,
+                          ),
+                        );
+                  },
+                );
+              },
+              label: const Text('Concluir'),
+              icon: const Icon(Icons.check),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ColorConstants.chambray,
+                textStyle: const TextStyle(
+                  fontSize: 13,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 18,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
             ),
           ),

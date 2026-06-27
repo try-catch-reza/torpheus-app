@@ -7,9 +7,11 @@ class PerfisWebPermissionCard extends StatelessWidget {
   const PerfisWebPermissionCard({
     super.key,
     required this.grupo,
+    required this.hasEditarPerfis,
   });
 
   final PermissaoGrupoModel grupo;
+  final bool hasEditarPerfis;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,10 @@ class PerfisWebPermissionCard extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final permission = grupo.itens[index];
 
-                    return PerfisWebItemPermissao(permissao: permission);
+                    return PerfisWebItemPermissao(
+                      permissao: permission,
+                      hasAtualizarPerfis: hasEditarPerfis,
+                    );
                   },
                 );
               },
