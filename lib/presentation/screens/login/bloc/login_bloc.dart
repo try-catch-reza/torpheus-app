@@ -98,10 +98,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         _preferencesLocalRepository.saveNome(nome),
       ]);
 
-      final perfil = await _eapiRemoteRepository.getPerfilById(roleId);
-
-      await _preferencesLocalRepository.saveCargo(perfil.nome ?? '');
-
       emit(
         LoginAutenticado(
           nome: event.senha,

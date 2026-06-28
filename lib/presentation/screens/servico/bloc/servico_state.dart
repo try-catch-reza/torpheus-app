@@ -5,6 +5,9 @@ sealed class ServicoState extends Equatable {
     this.ordemServico,
     this.funcionarios = const [],
     this.funcionarioSelecionado,
+    this.hasPodeAdicionarServico = false,
+    this.hasPodeFinalizarOS = false,
+    this.hasPodeGerenciarFoto = false,
   });
 
   final OrdemServicoModel? ordemServico;
@@ -12,11 +15,17 @@ sealed class ServicoState extends Equatable {
 
   final FuncionarioModel? funcionarioSelecionado;
 
+  final bool hasPodeAdicionarServico;
+  final bool hasPodeFinalizarOS;
+  final bool hasPodeGerenciarFoto;
+
   @override
   List<Object?> get props => [
         ordemServico,
         funcionarios,
         funcionarioSelecionado,
+        hasPodeAdicionarServico,
+        hasPodeFinalizarOS,
       ];
 }
 
@@ -35,6 +44,9 @@ final class ServicoLoaded extends ServicoState {
   const ServicoLoaded({
     required super.ordemServico,
     required super.funcionarios,
+    required super.hasPodeAdicionarServico,
+    required super.hasPodeFinalizarOS,
+    required super.hasPodeGerenciarFoto,
     super.funcionarioSelecionado,
   });
 
@@ -42,7 +54,10 @@ final class ServicoLoaded extends ServicoState {
   List<Object?> get props => [
         ordemServico,
         funcionarios,
+        hasPodeAdicionarServico,
         funcionarioSelecionado,
+        hasPodeFinalizarOS,
+        hasPodeGerenciarFoto,
       ];
 }
 
@@ -59,17 +74,36 @@ final class ServicoSalvo extends ServicoState {
   const ServicoSalvo({
     required super.ordemServico,
     required super.funcionarios,
+    required super.hasPodeAdicionarServico,
+    required super.hasPodeFinalizarOS,
+    required super.hasPodeGerenciarFoto,
   });
 
   @override
-  List<Object?> get props => [ordemServico, funcionarios];
+  List<Object?> get props => [
+        ordemServico,
+        funcionarios,
+        hasPodeAdicionarServico,
+        hasPodeFinalizarOS,
+        hasPodeGerenciarFoto,
+      ];
 }
 
 final class ServicoAtualizado extends ServicoState {
-  const ServicoAtualizado({required super.ordemServico});
+  const ServicoAtualizado({
+    required super.ordemServico,
+    required super.hasPodeAdicionarServico,
+    required super.hasPodeFinalizarOS,
+    required super.hasPodeGerenciarFoto,
+  });
 
   @override
-  List<Object?> get props => [ordemServico];
+  List<Object?> get props => [
+        ordemServico,
+        hasPodeAdicionarServico,
+        hasPodeFinalizarOS,
+        hasPodeGerenciarFoto,
+      ];
 }
 
 final class ServicoConcluido extends ServicoState {
@@ -85,6 +119,9 @@ final class ServicoSelecionado extends ServicoState {
     required super.funcionarios,
     super.funcionarioSelecionado,
     required this.servicoSelecionado,
+    required super.hasPodeAdicionarServico,
+    required super.hasPodeFinalizarOS,
+    required super.hasPodeGerenciarFoto,
   });
 
   final ServicoModel servicoSelecionado;
@@ -95,6 +132,8 @@ final class ServicoSelecionado extends ServicoState {
         funcionarios,
         funcionarioSelecionado,
         servicoSelecionado,
+        hasPodeAdicionarServico,
+        hasPodeFinalizarOS,
+        hasPodeGerenciarFoto,
       ];
 }
-

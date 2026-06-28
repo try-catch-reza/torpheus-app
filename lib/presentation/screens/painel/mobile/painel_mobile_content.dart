@@ -37,7 +37,7 @@ class PainelMobileContent extends StatelessWidget {
           }
 
           if (state is PainelLoaded) {
-            return const PainelMobileBody();
+            return PainelMobileBody(state: state);
           }
 
           return const SizedBox.shrink();

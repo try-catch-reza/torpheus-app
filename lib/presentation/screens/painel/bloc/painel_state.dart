@@ -2,7 +2,6 @@ part of 'painel_bloc.dart';
 
 sealed class PainelState extends Equatable {
   const PainelState({
-    this.image,
     this.email = '',
     this.nome = '',
     this.cargo = '',
@@ -12,12 +11,17 @@ sealed class PainelState extends Equatable {
     this.hasAccessVeiculo = false,
     this.hasAccessPerfis = false,
     this.hasAccessOrdem = false,
+    this.ordens = const [],
+    this.totalOrdensAbertas = 0,
+    this.totalOrdensAndamento = 0,
   });
 
-  final File? image;
   final String nome;
   final String email;
   final String cargo;
+
+  final int totalOrdensAbertas;
+  final int totalOrdensAndamento;
 
   final bool hasAccessUsuario;
   final bool hasAccessFuncionario;
@@ -26,9 +30,10 @@ sealed class PainelState extends Equatable {
   final bool hasAccessPerfis;
   final bool hasAccessOrdem;
 
+  final List<OrdemServicoModel> ordens;
+
   @override
   List<Object?> get props => [
-        image,
         nome,
         email,
         cargo,
@@ -38,6 +43,9 @@ sealed class PainelState extends Equatable {
         hasAccessCliente,
         hasAccessPerfis,
         hasAccessOrdem,
+        ordens,
+        totalOrdensAbertas,
+        totalOrdensAndamento,
       ];
 }
 
@@ -66,6 +74,9 @@ final class PainelLoaded extends PainelState {
     required super.hasAccessVeiculo,
     required super.hasAccessPerfis,
     required super.hasAccessOrdem,
+    required super.ordens,
+    required super.totalOrdensAbertas,
+    required super.totalOrdensAndamento,
   });
 
   @override
@@ -79,6 +90,9 @@ final class PainelLoaded extends PainelState {
         hasAccessCliente,
         hasAccessPerfis,
         hasAccessOrdem,
+        ordens,
+        totalOrdensAbertas,
+        totalOrdensAndamento,
       ];
 }
 

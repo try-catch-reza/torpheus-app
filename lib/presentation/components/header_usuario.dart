@@ -5,13 +5,11 @@ class HeaderUsuario extends StatelessWidget {
   const HeaderUsuario({
     super.key,
     required this.nomeUsuario,
-    required this.cargoUsuario,
     required this.emailUsuario,
     this.onTap,
   });
 
   final String nomeUsuario;
-  final String cargoUsuario;
   final String emailUsuario;
   final VoidCallback? onTap;
 
@@ -61,22 +59,7 @@ class HeaderUsuario extends StatelessWidget {
               ),
               overflow: TextOverflow.ellipsis,
             ),
-
             const SizedBox(height: 2),
-
-            // Cargo
-            Text(
-              cargoUsuario,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Color(0xFF8FA3C0),
-                decoration: TextDecoration.none,
-              ),
-            ),
-
-            const SizedBox(height: 2),
-
-            // Email
             Text(
               emailUsuario,
               style: const TextStyle(

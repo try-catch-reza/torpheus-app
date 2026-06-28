@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:torpheus/presentation/screens/painel/web/painel_web_dashboard.dart';
-import 'package:torpheus/presentation/screens/painel/web/painel_web_title.dart';
+import 'package:torpheus/presentation/screens/painel/widgets/painel_title.dart';
 
 class PainelWebBody extends StatelessWidget {
   const PainelWebBody({super.key});
@@ -19,7 +19,7 @@ class PainelWebBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PainelWebTitle(),
+            PainelTitle(),
             SizedBox(height: 24),
             PainelWebDashboard(),
           ],

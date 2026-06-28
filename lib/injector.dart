@@ -133,6 +133,7 @@ final class InjectorImpl extends Injector {
       PainelBloc(
         getIt.get<PreferencesLocalRepository>(),
         getIt.get<PermissaoController>(),
+        getIt.get<EapiRemoteRepository>(),
       ),
     );
 
@@ -187,12 +188,14 @@ final class InjectorImpl extends Injector {
     getIt.registerFactory<ServicoBloc>(
       () => ServicoBloc(
         getIt.get<EapiRemoteRepository>(),
+        getIt.get<PermissaoController>()
       ),
     );
 
     getIt.registerFactory<AnaliseServicoBloc>(
       () => AnaliseServicoBloc(
         getIt.get<EapiRemoteRepository>(),
+        getIt.get<PermissaoController>(),
       ),
     );
 

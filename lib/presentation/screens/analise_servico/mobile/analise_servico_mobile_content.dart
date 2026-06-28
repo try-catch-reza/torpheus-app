@@ -26,7 +26,7 @@ class _AnaliseServicoMobileContentState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarPadrao(
-        title: 'Análise do Serviço',
+        title: 'Análise do serviço',
         hasLeading: true,
       ),
       body: BlocConsumer<AnaliseServicoBloc, AnaliseServicoState>(
@@ -58,6 +58,13 @@ class _AnaliseServicoMobileContentState
       horasController.clear();
       minutosController.clear();
       notaController.clear();
+
+      context.read<AnaliseServicoBloc>().add(
+            AnaliseServicoLoad(
+              ordemServicoId: state.ordemServico?.id ?? '',
+              servicoId: state.servico?.id ?? '',
+            ),
+          );
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

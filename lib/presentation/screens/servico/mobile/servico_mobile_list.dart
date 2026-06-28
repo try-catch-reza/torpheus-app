@@ -15,6 +15,7 @@ class ServicoMobileList extends StatelessWidget {
     required this.onCancelar,
     required this.onAbrirCamera,
     required this.onAnalisarServico,
+    required this.hasPodeGerenciaFoto,
   });
 
   final List<ServicoModel> servicos;
@@ -23,6 +24,7 @@ class ServicoMobileList extends StatelessWidget {
   final ValueChanged<ServicoModel>? onUpdate;
   final ValueChanged<ServicoModel>? onAbrirCamera;
   final ValueChanged<ServicoModel>? onAnalisarServico;
+  final bool hasPodeGerenciaFoto;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,6 @@ class ServicoMobileList extends StatelessWidget {
       ),
       child: ListView.separated(
         padding: EdgeInsets.zero,
-        shrinkWrap: true,
         itemCount: servicos.length,
         separatorBuilder: (context, index) => DividerCustom.dividerList,
         itemBuilder: (context, index) {
@@ -76,15 +77,18 @@ class ServicoMobileList extends StatelessWidget {
                       label: 'Atualizar',
                     ),
                   ),
-                  SlidableAction(
-                    padding: EdgeInsets.zero,
-                    onPressed: onAbrirCamera != null
-                        ? (_) => onAbrirCamera!(servico)
-                        : null,
-                    backgroundColor: Colors.orange,
-                    foregroundColor: Colors.white,
-                    icon: Icons.photo_camera,
-                    label: 'Galeria',
+                  Visibility(
+                    visible: hasPodeGerenciaFoto,
+                    child: SlidableAction(
+                      padding: EdgeInsets.zero,
+                      onPressed: onAbrirCamera != null
+                          ? (_) => onAbrirCamera!(servico)
+                          : null,
+                      backgroundColor: Colors.orange,
+                      foregroundColor: Colors.white,
+                      icon: Icons.photo_camera,
+                      label: 'Galeria',
+                    ),
                   ),
                   Visibility(
                     visible:
@@ -138,7 +142,8 @@ class ServicoMobileList extends StatelessWidget {
                 subtitle: Text(
                   servico.funcionarioNome ?? 'Nenhum funcionário atribuído',
                 ),
-                trailing: const Icon(Icons.chevron_right, color: ColorConstants.steel),
+                trailing: const Icon(Icons.chevron_right,
+                    color: ColorConstants.steel),
               ),
             ),
           );

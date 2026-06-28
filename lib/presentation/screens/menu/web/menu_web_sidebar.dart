@@ -86,7 +86,6 @@ class MenuWebSidebar extends StatelessWidget {
         children: [
           HeaderUsuario(
             emailUsuario: state.email,
-            cargoUsuario: state.cargo,
             nomeUsuario: state.nome,
           ),
           const SizedBox(height: 8),

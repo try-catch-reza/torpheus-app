@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 class RegistroTrabalhoModel extends Equatable {
   final String? id;
   final String? mechanicId;
+  final String? funcionarioNome;
   final int? durationMinutes;
   final DateTime? performedAt;
   final String? note;
@@ -11,6 +12,7 @@ class RegistroTrabalhoModel extends Equatable {
   const RegistroTrabalhoModel({
     this.id,
     this.mechanicId,
+    this.funcionarioNome,
     this.durationMinutes,
     this.performedAt,
     this.note,
@@ -20,6 +22,7 @@ class RegistroTrabalhoModel extends Equatable {
   factory RegistroTrabalhoModel.fromMap(Map<String, dynamic> map) {
     return RegistroTrabalhoModel(
       id: map['id'],
+      funcionarioNome: map['mechanicName'],
       mechanicId: map['mechanicId'],
       durationMinutes: map['durationMinutes'],
       performedAt: map['performedAt'] != null

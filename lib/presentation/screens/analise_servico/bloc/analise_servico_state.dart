@@ -7,6 +7,7 @@ sealed class AnaliseServicoState extends Equatable {
     this.funcionarios = const [],
     this.data,
     this.ordemServico,
+    this.hasPodeRegistrar = false,
   });
 
   final ServicoModel? servico;
@@ -15,6 +16,8 @@ sealed class AnaliseServicoState extends Equatable {
   final DateTime? data;
   final OrdemServicoModel? ordemServico;
 
+  final bool hasPodeRegistrar;
+
   @override
   List<Object?> get props => [
         servico,
@@ -22,6 +25,7 @@ sealed class AnaliseServicoState extends Equatable {
         funcionarios,
         data,
         ordemServico,
+        hasPodeRegistrar,
       ];
 }
 
@@ -43,6 +47,7 @@ final class AnaliseServicoLoaded extends AnaliseServicoState {
     required super.funcionarios,
     required super.data,
     required super.ordemServico,
+    required super.hasPodeRegistrar,
   });
 
   @override
@@ -52,6 +57,7 @@ final class AnaliseServicoLoaded extends AnaliseServicoState {
         funcionarios,
         data,
         ordemServico,
+        hasPodeRegistrar,
       ];
 }
 
@@ -75,8 +81,15 @@ final class AnaliseServicoHoraRegistrada extends AnaliseServicoState {
     required super.funcionario,
     required super.ordemServico,
     required super.funcionarios,
+    required super.hasPodeRegistrar,
   });
 
   @override
-  List<Object?> get props => [servico, funcionario, ordemServico, funcionarios];
+  List<Object?> get props => [
+        servico,
+        funcionario,
+        ordemServico,
+        funcionarios,
+        hasPodeRegistrar,
+      ];
 }

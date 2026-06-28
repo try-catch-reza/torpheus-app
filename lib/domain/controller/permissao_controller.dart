@@ -64,4 +64,12 @@ class PermissaoController {
   bool get podeAtualizarOS => temPermissao('service_orders.update');
 
   bool get podeCriarOS => temPermissao('service_orders.create');
+
+  bool get podeRegistrarHora => temPermissao(
+        'service_orders.register_work_time',
+      );
+
+  bool get podeFinalizarOS => temPermissao('service_orders.chance_status');
+
+  bool get podeGerenciarFoto => temPermissao('service_orders.manage_photos');
 }

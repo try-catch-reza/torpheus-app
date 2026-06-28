@@ -52,25 +52,28 @@ class _ServicoMobileContentState extends State<ServicoMobileContent> {
         builder: (context, state) {
           return Visibility(
             visible: state.ordemServico?.statusOrdem != StatusOrdem.completado,
-            child: AppButtonBottomNavigation(
-              onPressed: () {
-                ConfirmDialog.show(
-                  context,
-                  titulo: 'Finalizar ordem de serviço',
-                  mensagem:
-                      'Tem certeza que deseja finalizar a ordem de serviço? '
-                      'Essa ação não poderá ser desfeita.',
-                  onConfirmar: () {
-                    context.read<ServicoBloc>().add(
-                          const ServicoTrocarStatusOS(
-                            status: StatusOrdem.completado,
-                          ),
-                        );
-                  },
-                );
-              },
-              icon: Icons.check_circle,
-              text: 'Finalizar ordem de serviço',
+            child: Visibility(
+              visible: state.hasPodeFinalizarOS,
+              child: AppButtonBottomNavigation(
+                onPressed: () {
+                  ConfirmDialog.show(
+                    context,
+                    titulo: 'Finalizar ordem de serviço',
+                    mensagem:
+                        'Tem certeza que deseja finalizar a ordem de serviço? '
+                        'Essa ação não poderá ser desfeita.',
+                    onConfirmar: () {
+                      context.read<ServicoBloc>().add(
+                            const ServicoTrocarStatusOS(
+                              status: StatusOrdem.completado,
+                            ),
+                          );
+                    },
+                  );
+                },
+                icon: Icons.check_circle,
+                text: 'Finalizar ordem de serviço',
+              ),
             ),
           );
         },

@@ -36,78 +36,90 @@ class ServicoMobileBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ServicoMobileTitle(ordemServico: state.ordemServico),
-        ServicoMobileAdicionar(
-          quantServico: state.ordemServico?.servicos?.length,
-          onPressed: () => _onShowDialogAdicionar(context),
-          statusOrdem: state.ordemServico?.statusOrdem,
+        Visibility(
+          visible: state.hasPodeAdicionarServico && state.hasPodeFinalizarOS,
+          child: ServicoMobileAdicionar(
+            quantServico: state.ordemServico?.servicos?.length,
+            onPressed: () => _onShowDialogAdicionar(context),
+            statusOrdem: state.ordemServico?.statusOrdem,
+          ),
+        ),
+        Visibility(
+          visible: !state.hasPodeAdicionarServico || !state.hasPodeFinalizarOS,
+          child: const SizedBox(
+            height: 16,
+          ),
         ),
         if (state.ordemServico?.servicos != null &&
             state.ordemServico!.servicos!.isNotEmpty)
-          ServicoMobileList(
-            servicos: state.ordemServico!.servicos!.reversed.toList(),
-            onUpdate: (value) {
-              _onShowDialogUpdate(context, value);
-            },
-            onConcluir: (value) {
-              ConfirmDialog.show(
-                context,
-                titulo: 'Concluir serviço',
-                mensagem: 'Tem certeza que deseja concluir esse serviço?',
-                onConfirmar: () {
-                  context.read<ServicoBloc>().add(
-                        ServicoTrocarStatus(
-                          servicoId: value.id ?? '',
-                          status: StatusServico.completado,
-                        ),
-                      );
-                },
-                onCancelar: () {},
-              );
-            },
-            onAbrirCamera: (value) {
-              Navigator.of(context)
-                  .pushNamed(
-                AppRoutes.foto.route,
-                arguments: FotoArguments(
-                  ordemServicoId: state.ordemServico?.id ?? '',
-                  servico: value,
-                ),
-              )
-                  .then(
-                (_) {
-                  context.read<ServicoBloc>().add(
-                        ServicoLoad(
-                          ordemServicoId: state.ordemServico?.id ?? '',
-                        ),
-                      );
-                },
-              );
-            },
-            onCancelar: (value) {
-              ConfirmDialog.show(
-                context,
-                titulo: 'Cancelar serviço',
-                mensagem: 'Tem certeza que deseja cancelar esse serviço?',
-                onConfirmar: () {
-                  context.read<ServicoBloc>().add(
-                        ServicoTrocarStatus(
-                          servicoId: value.id ?? '',
-                          status: StatusServico.cancelado,
-                        ),
-                      );
-                },
-                onCancelar: () {},
-              );
-            },
-            onAnalisarServico: (value) {
-              Navigator.of(context).pushNamed(
-                AppRoutes.analiseServico.route,
-                arguments: AnaliseServicoArguments(
-                  ordemServicoId: state.ordemServico?.id ?? '',
-                  servicoId: value.id ?? '',
-                ),
-              );
-            },
+          Expanded(
+            child: ServicoMobileList(
+              hasPodeGerenciaFoto: state.hasPodeFinalizarOS,
+              servicos: state.ordemServico!.servicos!.reversed.toList(),
+              onUpdate: (value) {
+                _onShowDialogUpdate(context, value);
+              },
+              onConcluir: (value) {
+                ConfirmDialog.show(
+                  context,
+                  titulo: 'Concluir serviço',
+                  mensagem: 'Tem certeza que deseja concluir esse serviço?',
+                  onConfirmar: () {
+                    context.read<ServicoBloc>().add(
+                          ServicoTrocarStatus(
+                            servicoId: value.id ?? '',
+                            status: StatusServico.completado,
+                          ),
+                        );
+                  },
+                  onCancelar: () {},
+                );
+              },
+              onAbrirCamera: (value) {
+                Navigator.of(context)
+                    .pushNamed(
+                  AppRoutes.foto.route,
+                  arguments: FotoArguments(
+                    ordemServicoId: state.ordemServico?.id ?? '',
+                    servico: value,
+                  ),
+                )
+                    .then(
+                  (_) {
+                    context.read<ServicoBloc>().add(
+                          ServicoLoad(
+                            ordemServicoId: state.ordemServico?.id ?? '',
+                          ),
+                        );
+                  },
+                );
+              },
+              onCancelar: (value) {
+                ConfirmDialog.show(
+                  context,
+                  titulo: 'Cancelar serviço',
+                  mensagem: 'Tem certeza que deseja cancelar esse serviço?',
+                  onConfirmar: () {
+                    context.read<ServicoBloc>().add(
+                          ServicoTrocarStatus(
+                            servicoId: value.id ?? '',
+                            status: StatusServico.cancelado,
+                          ),
+                        );
+                  },
+                  onCancelar: () {},
+                );
+              },
+              onAnalisarServico: (value) {
+                Navigator.of(context).pushNamed(
+                  AppRoutes.analiseServico.route,
+                  arguments: AnaliseServicoArguments(
+                    ordemServicoId: state.ordemServico?.id ?? '',
+                    servicoId: value.id ?? '',
+                  ),
+                );
+              },
+            ),
           )
         else
           const ListaVaziaCustom(

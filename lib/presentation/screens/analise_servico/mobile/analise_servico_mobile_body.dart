@@ -23,23 +23,33 @@ class AnaliseServicoMobileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AnaliseServicoMobileTitle(servico: state.servico),
-        const SizedBox(height: 16.0),
-        AnaliseServicoMobileRegistrar(
-          state: state,
-          horasController: horasController,
-          minutosController: minutosController,
-          notaController: notaController,
-          formKey: formKey,
-        ),
-        const SizedBox(height: 16.0),
-        if (state.servico?.registroTrabalho != null &&
-            state.servico!.registroTrabalho!.isNotEmpty)
-          AnaliseServicoMobileRegistros(state: state),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AnaliseServicoMobileTitle(servico: state.servico),
+          Visibility(
+            visible: state.hasPodeRegistrar,
+            child: const SizedBox(
+              height: 16.0,
+            ),
+          ),
+          Visibility(
+            visible: state.hasPodeRegistrar,
+            child: AnaliseServicoMobileRegistrar(
+              state: state,
+              horasController: horasController,
+              minutosController: minutosController,
+              notaController: notaController,
+              formKey: formKey,
+            ),
+          ),
+          const SizedBox(height: 16.0),
+          if (state.servico?.registroTrabalho != null &&
+              state.servico!.registroTrabalho!.isNotEmpty)
+            AnaliseServicoMobileRegistros(state: state),
+        ],
+      ),
     );
   }
 }

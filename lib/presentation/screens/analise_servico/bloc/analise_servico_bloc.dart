@@ -6,6 +6,8 @@ import 'package:torpheus/data/models/ordem_servico_model.dart';
 import 'package:torpheus/data/models/servico_model.dart';
 import 'package:torpheus/domain/repositories/remote/eapi_remote_repository.dart';
 
+import '../../../../domain/controller/permissao_controller.dart';
+
 part 'analise_servico_event.dart';
 
 part 'analise_servico_state.dart';
@@ -13,9 +15,12 @@ part 'analise_servico_state.dart';
 class AnaliseServicoBloc
     extends Bloc<AnaliseServicoEvent, AnaliseServicoState> {
   final EapiRemoteRepository _eapiRemoteRepository;
+  late final PermissaoController _permissaoController;
 
-  AnaliseServicoBloc(this._eapiRemoteRepository)
-      : super(const AnaliseServicoInitial()) {
+  AnaliseServicoBloc(
+    this._eapiRemoteRepository,
+    this._permissaoController,
+  ) : super(const AnaliseServicoInitial()) {
     on<AnaliseServicoLoad>(_onAnaliseServicoLoad);
     on<AnaliseServicoSetData>(_onAnaliseServicoSetData);
     on<AnaliseServicoSetFuncionario>(_onAnaliseServicoSetFuncionario);
@@ -44,6 +49,8 @@ class AnaliseServicoBloc
         servico?.funcionarioId ?? '',
       );
 
+      final hasPodeRegistrar = _permissaoController.podeRegistrarHora;
+
       emit(
         AnaliseServicoLoaded(
           servico: servico,
@@ -51,6 +58,7 @@ class AnaliseServicoBloc
           funcionarios: funcionarios,
           data: DateTime.now(),
           ordemServico: ordemServico,
+          hasPodeRegistrar: hasPodeRegistrar,
         ),
       );
     } on HttpRequestException catch (e) {
@@ -83,6 +91,7 @@ class AnaliseServicoBloc
         data: event.data,
         funcionarios: state.funcionarios,
         ordemServico: state.ordemServico,
+        hasPodeRegistrar: state.hasPodeRegistrar,
       ),
     );
   }
@@ -93,11 +102,13 @@ class AnaliseServicoBloc
   ) {
     emit(
       AnaliseServicoLoaded(
-          funcionario: event.funcionario,
-          servico: state.servico,
-          data: state.data,
-          funcionarios: state.funcionarios,
-          ordemServico: state.ordemServico),
+        funcionario: event.funcionario,
+        servico: state.servico,
+        data: state.data,
+        funcionarios: state.funcionarios,
+        ordemServico: state.ordemServico,
+        hasPodeRegistrar: state.hasPodeRegistrar,
+      ),
     );
   }
 
@@ -123,6 +134,7 @@ class AnaliseServicoBloc
           servico: state.servico,
           funcionarios: state.funcionarios,
           ordemServico: state.ordemServico,
+          hasPodeRegistrar: state.hasPodeRegistrar,
         ),
       );
     } on HttpRequestException catch (e) {

@@ -7,6 +7,7 @@ import 'package:torpheus/data/models/ordem_servico_model.dart';
 import 'package:torpheus/data/models/servico_model.dart';
 
 import '../../../../data/models/funcionario_model.dart';
+import '../../../../domain/controller/permissao_controller.dart';
 import '../../../../domain/repositories/remote/eapi_remote_repository.dart';
 
 part 'servico_event.dart';
@@ -15,8 +16,12 @@ part 'servico_state.dart';
 
 class ServicoBloc extends Bloc<ServicoEvent, ServicoState> {
   late final EapiRemoteRepository _eapiRemoteRepository;
+  late final PermissaoController _permissaoController;
 
-  ServicoBloc(this._eapiRemoteRepository) : super(const ServicoInitial()) {
+  ServicoBloc(
+    this._eapiRemoteRepository,
+    this._permissaoController,
+  ) : super(const ServicoInitial()) {
     on<ServicoLoad>(_onServicoLoad);
     on<ServicoSetFuncionario>(_onServicoSetFuncionario);
     on<ServicoSubmit>(_onServicoSubmit);
@@ -39,10 +44,19 @@ class ServicoBloc extends Bloc<ServicoEvent, ServicoState> {
 
       final funcionarios = await _eapiRemoteRepository.getFuncionarios();
 
+      final podeAdicionarServico = _permissaoController.podeAtualizarOS;
+
+      final podeFinalizarOS = _permissaoController.podeGerenciarFoto;
+
+      final podeGerenciarFoto = _permissaoController.podeGerenciarFoto;
+
       emit(
         ServicoLoaded(
           ordemServico: ordemServico,
           funcionarios: funcionarios,
+          hasPodeAdicionarServico: podeAdicionarServico,
+          hasPodeFinalizarOS: podeFinalizarOS,
+          hasPodeGerenciarFoto: podeGerenciarFoto,
         ),
       );
     } on HttpRequestException catch (e) {
@@ -66,6 +80,9 @@ class ServicoBloc extends Bloc<ServicoEvent, ServicoState> {
         ordemServico: state.ordemServico,
         funcionarios: state.funcionarios,
         funcionarioSelecionado: event.funcionario,
+        hasPodeAdicionarServico: state.hasPodeAdicionarServico,
+        hasPodeFinalizarOS: state.hasPodeFinalizarOS,
+        hasPodeGerenciarFoto: state.hasPodeGerenciarFoto
       ),
     );
   }
@@ -104,6 +121,9 @@ class ServicoBloc extends Bloc<ServicoEvent, ServicoState> {
         ServicoSalvo(
           ordemServico: state.ordemServico,
           funcionarios: state.funcionarios,
+          hasPodeAdicionarServico: state.hasPodeAdicionarServico,
+          hasPodeFinalizarOS: state.hasPodeFinalizarOS,
+          hasPodeGerenciarFoto: state.hasPodeGerenciarFoto
         ),
       );
     } on HttpRequestException catch (e) {
@@ -149,7 +169,14 @@ class ServicoBloc extends Bloc<ServicoEvent, ServicoState> {
         );
       }
 
-      emit(ServicoAtualizado(ordemServico: state.ordemServico));
+      emit(
+        ServicoAtualizado(
+          ordemServico: state.ordemServico,
+          hasPodeAdicionarServico: state.hasPodeAdicionarServico,
+          hasPodeFinalizarOS: state.hasPodeFinalizarOS,
+          hasPodeGerenciarFoto: state.hasPodeGerenciarFoto
+        ),
+      );
     } on HttpRequestException catch (e) {
       emit(ServicoFail(message: e.message, ordemServico: state.ordemServico));
     } catch (e) {
@@ -233,6 +260,9 @@ class ServicoBloc extends Bloc<ServicoEvent, ServicoState> {
         funcionarios: state.funcionarios,
         funcionarioSelecionado: state.funcionarioSelecionado,
         servicoSelecionado: event.servico,
+        hasPodeAdicionarServico: state.hasPodeAdicionarServico,
+        hasPodeFinalizarOS: state.hasPodeFinalizarOS,
+        hasPodeGerenciarFoto: state.hasPodeGerenciarFoto
       ),
     );
   }

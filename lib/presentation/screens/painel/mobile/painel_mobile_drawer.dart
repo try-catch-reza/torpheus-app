@@ -26,7 +26,6 @@ class TorpheusDrawer extends StatelessWidget {
               children: [
                 HeaderUsuario(
                   nomeUsuario: state.nome,
-                  cargoUsuario: state.cargo,
                   emailUsuario: state.email,
                 ),
                 const Divider(color: Color(0xFF304D7A), height: 1),
