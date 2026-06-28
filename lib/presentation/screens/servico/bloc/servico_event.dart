@@ -70,3 +70,13 @@ final class ServicoTrocarStatusOS extends ServicoEvent {
   @override
   List<Object?> get props => [status];
 }
+
+final class ServicoSelecionarItem extends ServicoEvent {
+  const ServicoSelecionarItem({required this.servico});
+
+  final ServicoModel servico;
+
+  @override
+  List<Object?> get props => [servico];
+}
+

@@ -17,6 +17,7 @@ abstract class BaseRemoteDataSource<T> {
   Future<T> get({
     required String path,
     Map<String, String>? customHeader,
+    Map<String, String>? queryParameters,
     ResponseType responseType = ResponseType.plain,
     required HttpResponse<T> response,
     required String titleMessage,
@@ -24,6 +25,7 @@ abstract class BaseRemoteDataSource<T> {
     try {
       final Response res = await _httpClient.client.get(
         path,
+        queryParameters: queryParameters,
         options: Options(
           headers: customHeader,
           responseType: responseType,

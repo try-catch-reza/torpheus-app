@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:torpheus/core/constants/enum/granularidade.dart';
 import 'package:torpheus/core/constants/enum/status_ordem.dart';
 import 'package:torpheus/core/constants/enum/status_servico.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
@@ -11,6 +12,8 @@ import 'package:torpheus/data/models/usuario_model.dart';
 import '../../../data/models/auth_model.dart';
 import '../../../data/models/auth_response_model.dart';
 import '../../../data/models/endereco_model.dart';
+import '../../../data/models/indicador_ordem_servico_model.dart';
+import '../../../data/models/indicador_ordem_servico_periodo_model.dart';
 import '../../../data/models/ordem_servico_model.dart';
 import '../../../data/models/perfis_model.dart';
 import '../../../data/models/veiculo_model.dart';
@@ -104,4 +107,25 @@ abstract class EapiRemoteRepository {
     String servicoId,
     XFile xFile,
   );
+
+  /// Work Logs ----------------------------------------------------------------
+  Future<void> registrarWorkLog({
+    required String ordemServicoId,
+    required String servicoId,
+    required int durationMinutes,
+    required DateTime performedAt,
+    String? note,
+  });
+
+  /// Relatórios ---------------------------------------------------------------
+  Future<IndicadorOrdemServicoModel> getIndicadoresOrdensServico({
+    required DateTime startDate,
+    required DateTime endDate,
+  });
+
+  Future<IndicadorOrdemServicoPeriodoModel> getIndicadoresOrdensServicoPeriodo({
+    required DateTime startDate,
+    required DateTime endDate,
+    required Granularidade granularidade,
+  });
 }

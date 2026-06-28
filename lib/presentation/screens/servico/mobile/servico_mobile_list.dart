@@ -14,6 +14,7 @@ class ServicoMobileList extends StatelessWidget {
     required this.onUpdate,
     required this.onCancelar,
     required this.onAbrirCamera,
+    required this.onAnalisarServico,
   });
 
   final List<ServicoModel> servicos;
@@ -21,6 +22,7 @@ class ServicoMobileList extends StatelessWidget {
   final ValueChanged<ServicoModel>? onCancelar;
   final ValueChanged<ServicoModel>? onUpdate;
   final ValueChanged<ServicoModel>? onAbrirCamera;
+  final ValueChanged<ServicoModel>? onAnalisarServico;
 
   @override
   Widget build(BuildContext context) {
@@ -123,6 +125,9 @@ class ServicoMobileList extends StatelessWidget {
                   vertical: 8.0,
                 ),
                 dense: true,
+                onTap: onAnalisarServico != null
+                    ? () => onAnalisarServico!(servico)
+                    : null,
                 title: Text(
                   servico.descricao ?? '',
                   style: const TextStyle(
@@ -133,6 +138,7 @@ class ServicoMobileList extends StatelessWidget {
                 subtitle: Text(
                   servico.funcionarioNome ?? 'Nenhum funcionário atribuído',
                 ),
+                trailing: const Icon(Icons.chevron_right, color: ColorConstants.steel),
               ),
             ),
           );

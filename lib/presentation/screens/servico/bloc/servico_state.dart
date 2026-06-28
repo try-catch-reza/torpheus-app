@@ -78,3 +78,23 @@ final class ServicoConcluido extends ServicoState {
   @override
   List<Object?> get props => [ordemServico];
 }
+
+final class ServicoSelecionado extends ServicoState {
+  const ServicoSelecionado({
+    required super.ordemServico,
+    required super.funcionarios,
+    super.funcionarioSelecionado,
+    required this.servicoSelecionado,
+  });
+
+  final ServicoModel servicoSelecionado;
+
+  @override
+  List<Object?> get props => [
+        ordemServico,
+        funcionarios,
+        funcionarioSelecionado,
+        servicoSelecionado,
+      ];
+}
+

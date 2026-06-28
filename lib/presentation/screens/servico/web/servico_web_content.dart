@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/screens/analise_servico/analise_servico_screen.dart';
+import 'package:torpheus/presentation/screens/analise_servico/bloc/analise_servico_bloc.dart';
 import 'package:torpheus/presentation/screens/servico/bloc/servico_bloc.dart';
 import 'package:torpheus/presentation/screens/servico/web/servico_web_body.dart';
 
+import '../../../../injector.dart';
 import '../../../components/dialog/dialog_web_padrao.dart';
 
 class ServicoWebContent extends StatefulWidget {
@@ -24,6 +27,16 @@ class _ServicoWebContentState extends State<ServicoWebContent> {
         builder: (context, state) {
           if (state is ServicoLoading) {
             return const Center(child: CircularProgressIndicator());
+          }
+
+          if (state is ServicoSelecionado) {
+            return AnaliseServicoScreen(
+              analiseServicoBloc: getIt.get<AnaliseServicoBloc>(),
+              arguments: AnaliseServicoArguments(
+                ordemServicoId: state.ordemServico?.id ?? '',
+                servicoId: state.servicoSelecionado.id ?? '',
+              ),
+            );
           }
 
           if (state is ServicoLoaded) {

@@ -23,6 +23,7 @@ class ServicoBloc extends Bloc<ServicoEvent, ServicoState> {
     on<ServicoUpdate>(_onServicoUpdate);
     on<ServicoTrocarStatus>(_onServicoTrocarStatus);
     on<ServicoTrocarStatusOS>(_onServicoTrocarStatusOrdem);
+    on<ServicoSelecionarItem>(_onServicoSelecionarItem);
   }
 
   Future<void> _onServicoLoad(
@@ -220,5 +221,19 @@ class ServicoBloc extends Bloc<ServicoEvent, ServicoState> {
         ),
       );
     }
+  }
+
+  void _onServicoSelecionarItem(
+    ServicoSelecionarItem event,
+    Emitter<ServicoState> emit,
+  ) {
+    emit(
+      ServicoSelecionado(
+        ordemServico: state.ordemServico,
+        funcionarios: state.funcionarios,
+        funcionarioSelecionado: state.funcionarioSelecionado,
+        servicoSelecionado: event.servico,
+      ),
+    );
   }
 }

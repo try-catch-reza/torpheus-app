@@ -46,6 +46,8 @@ import '../presentation/screens/recuperar_senha/bloc/recuperar_senha_bloc.dart';
 import '../presentation/screens/relatorios/bloc/relatorios_bloc.dart';
 import '../presentation/screens/cadastrar_funcionario/cadastrar_funcionario_screen.dart';
 import '../presentation/screens/servico/servico_screen.dart';
+import '../presentation/screens/analise_servico/analise_servico_screen.dart';
+import '../presentation/screens/analise_servico/bloc/analise_servico_bloc.dart';
 
 enum NavigationFlow { simple, modalBottomUp, fade }
 
@@ -70,7 +72,8 @@ enum AppRoutes {
   usuario('usuario', NavigationFlow.fade),
   perfis('perfis', NavigationFlow.fade),
   servico('/servico', NavigationFlow.modalBottomUp),
-  foto('/foto', NavigationFlow.modalBottomUp);
+  foto('/foto', NavigationFlow.modalBottomUp),
+  analiseServico('/analise-servico', NavigationFlow.modalBottomUp);
 
   final String route;
   final NavigationFlow flow;
@@ -173,6 +176,10 @@ class Routes {
       AppRoutes.foto => FotoScreen(
           fotoBloc: injector.getIt.get<FotoBloc>(),
           arguments: settings.arguments as FotoArguments,
+        ),
+      AppRoutes.analiseServico => AnaliseServicoScreen(
+          analiseServicoBloc: injector.getIt.get<AnaliseServicoBloc>(),
+          arguments: settings.arguments as AnaliseServicoArguments,
         ),
     };
 

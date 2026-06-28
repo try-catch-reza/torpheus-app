@@ -13,6 +13,7 @@ class ServicoWebCard extends StatelessWidget {
     required this.onReabrir,
     required this.onAbrirFotos,
     required this.onCancelar,
+    required this.onAnalisarServico,
     required this.servico,
   });
 
@@ -21,6 +22,7 @@ class ServicoWebCard extends StatelessWidget {
   final ValueChanged<ServicoModel>? onReabrir;
   final ValueChanged<ServicoModel>? onAbrirFotos;
   final ValueChanged<ServicoModel>? onCancelar;
+  final ValueChanged<ServicoModel>? onAnalisarServico;
   final ServicoModel servico;
 
   @override
@@ -38,6 +40,7 @@ class ServicoWebCard extends StatelessWidget {
             onReabrir: onReabrir,
             onAbrirFotos: onAbrirFotos,
             onCancelar: onCancelar,
+            onAnalisarServico: onAnalisarServico,
             servico: servico,
           ),
         ],

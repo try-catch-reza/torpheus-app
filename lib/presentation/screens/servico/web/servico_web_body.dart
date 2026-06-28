@@ -86,6 +86,11 @@ class ServicoWebBody extends StatelessWidget {
                 servico: servico,
               );
             },
+            onAnalisarServico: (servico) {
+              context.read<ServicoBloc>().add(
+                    ServicoSelecionarItem(servico: servico),
+                  );
+            },
             onCancelar: (servico) {
               ConfirmDialog.show(
                 context,

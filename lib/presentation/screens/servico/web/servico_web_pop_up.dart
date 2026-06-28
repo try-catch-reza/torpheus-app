@@ -11,6 +11,7 @@ class ServicoWebPopUp extends StatelessWidget {
     required this.onReabrir,
     required this.onAbrirFotos,
     required this.onCancelar,
+    required this.onAnalisarServico,
     required this.servico,
   });
 
@@ -19,6 +20,7 @@ class ServicoWebPopUp extends StatelessWidget {
   final ValueChanged<ServicoModel>? onReabrir;
   final ValueChanged<ServicoModel>? onAbrirFotos;
   final ValueChanged<ServicoModel>? onCancelar;
+  final ValueChanged<ServicoModel>? onAnalisarServico;
 
   final ServicoModel servico;
 
@@ -44,6 +46,8 @@ class ServicoWebPopUp extends StatelessWidget {
           onAbrirFotos?.call(servico);
         } else if (value == 'cancelar') {
           onCancelar?.call(servico);
+        } else if (value == 'analise') {
+          onAnalisarServico?.call(servico);
         }
       },
       itemBuilder: (_) {
@@ -58,6 +62,24 @@ class ServicoWebPopUp extends StatelessWidget {
             servico.statusServico != StatusServico.cancelado;
 
         return [
+          const PopupMenuItem(
+            value: 'analise',
+            height: 40,
+            child: Row(
+              children: [
+                Icon(Icons.analytics_outlined, size: 16, color: Color(0xFF344054)),
+                SizedBox(width: 10),
+                Text(
+                  'Análise',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF344054),
+                  ),
+                ),
+              ],
+            ),
+          ),
           if (isEditar)
             const PopupMenuItem(
               value: 'edit',

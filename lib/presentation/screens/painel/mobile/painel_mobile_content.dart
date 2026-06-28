@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:torpheus/core/constants/color_constants.dart';
 import 'package:torpheus/presentation/screens/painel/bloc/painel_bloc.dart';
 import 'package:torpheus/presentation/screens/painel/mobile/painel_mobile_body.dart';
 import 'package:torpheus/presentation/screens/painel/mobile/painel_mobile_drawer.dart';
@@ -30,17 +29,6 @@ class PainelMobileContent extends StatelessWidget {
       ),
       appBar: AppBar(
         title: const Text('Painel Geral'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FloatingActionButton(
-              elevation: 0.0,
-              onPressed: () {},
-              backgroundColor: ColorConstants.chambray,
-              child: const Icon(Icons.add, color: Colors.white),
-            ),
-          )
-        ],
       ),
       body: BlocBuilder<PainelBloc, PainelState>(
         builder: (context, state) {

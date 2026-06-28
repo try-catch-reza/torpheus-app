@@ -5,7 +5,7 @@ class EapiSchema {
 
   String adicionarPermissao(String id) => '$_apiUtils/v1/roles/$id';
 
-    String adicionarServico(String id) => '$_apiUtils/v1/serviceorder/$id/items';
+  String adicionarServico(String id) => '$_apiUtils/v1/serviceorder/$id/items';
 
   String get abrirOS => '$_apiUtils/v1/serviceorder';
 
@@ -70,4 +70,12 @@ class EapiSchema {
   String updateStatusServico(String id, String itemId) {
     return '$_apiUtils/v1/serviceorder/$id/items/$itemId/status';
   }
+
+  String registrarWorkLog(String ordemServicoId, String servicoId) {
+    return '$_apiUtils/v1/serviceorder/$ordemServicoId/items/$servicoId/work-logs';
+  }
+
+  String get reports => '$_apiUtils/v1/serviceorder/reports';
+
+  String get periodo => '$_apiUtils/v1/serviceorder/reports/timeline';
 }

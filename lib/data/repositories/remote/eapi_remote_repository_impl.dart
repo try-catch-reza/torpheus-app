@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:torpheus/core/constants/enum/granularidade.dart';
 import 'package:torpheus/core/constants/enum/status_ordem.dart';
 import 'package:torpheus/core/constants/enum/status_servico.dart';
 import 'package:torpheus/data/models/auth_model.dart';
@@ -9,6 +9,8 @@ import 'package:torpheus/data/models/auth_response_model.dart';
 import 'package:torpheus/data/models/cliente_model.dart';
 import 'package:torpheus/data/models/endereco_model.dart';
 import 'package:torpheus/data/models/funcionario_model.dart';
+import 'package:torpheus/data/models/indicador_ordem_servico_model.dart';
+import 'package:torpheus/data/models/indicador_ordem_servico_periodo_model.dart';
 import 'package:torpheus/data/models/ordem_servico_model.dart';
 import 'package:torpheus/data/models/perfis_model.dart';
 import 'package:torpheus/data/models/servico_model.dart';
@@ -764,6 +766,96 @@ class EapiRemoteRepositoryImpl extends BaseRemoteDataSource
       response: (response) {
         if (response.statusCode == 200) {
           return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<void> registrarWorkLog({
+    required String ordemServicoId,
+    required String servicoId,
+    required int durationMinutes,
+    required DateTime performedAt,
+    String? note,
+  }) async {
+    const titleMessage = 'Não foi possível registrar o trabalho';
+
+    await post(
+      path: _schema.registrarWorkLog(ordemServicoId, servicoId),
+      body: {
+        'durationMinutes': durationMinutes,
+        'performedAt': performedAt.toIso8601String(),
+        'note': note,
+      },
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          return;
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<IndicadorOrdemServicoModel> getIndicadoresOrdensServico({
+    required DateTime startDate,
+    required DateTime endDate,
+  }) async {
+    const titleMessage = 'Não foi possível carregar os indicadores';
+
+    return await get(
+      path: _schema.reports,
+      queryParameters: {
+        'StartDate': startDate.toUtc().toIso8601String(),
+        'EndDate': endDate.toUtc().toIso8601String(),
+      },
+      titleMessage: titleMessage,
+      response: (response) {
+        if (response.statusCode == 200) {
+          return IndicadorOrdemServicoModel.fromJson(response.data);
+        } else {
+          throw HttpRequestException(
+            titleMessage: titleMessage,
+            infoMessage: 'Resposta inesperada do servidor.',
+            response: response,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Future<IndicadorOrdemServicoPeriodoModel> getIndicadoresOrdensServicoPeriodo({
+    required DateTime startDate,
+    required DateTime endDate,
+    required Granularidade granularidade,
+  }) async {
+    const titleMessage = 'Não foi possível carregar os indicadores por período';
+
+    return await get(
+      path: _schema.periodo,
+      titleMessage: titleMessage,
+      queryParameters: {
+        'StartDate': startDate.toUtc().toIso8601String(),
+        'EndDate': endDate.toUtc().toIso8601String(),
+        'Granularity': granularidade.value.toString(),
+      },
+      response: (response) {
+        if (response.statusCode == 200) {
+          return IndicadorOrdemServicoPeriodoModel.fromJson(response.data);
         } else {
           throw HttpRequestException(
             titleMessage: titleMessage,

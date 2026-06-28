@@ -4,6 +4,7 @@ import 'package:torpheus/data/models/funcionario_model.dart';
 import 'package:torpheus/data/models/servico_model.dart';
 import 'package:torpheus/presentation/components/dialog/dialog_confirm.dart';
 import 'package:torpheus/presentation/components/lista_vazia_custom.dart';
+import 'package:torpheus/presentation/screens/analise_servico/analise_servico_screen.dart';
 import 'package:torpheus/presentation/screens/foto/foto_screen.dart';
 import 'package:torpheus/presentation/screens/servico/bloc/servico_bloc.dart';
 import 'package:torpheus/presentation/screens/servico/mobile/servico_mobile_adicionar.dart';
@@ -96,6 +97,15 @@ class ServicoMobileBody extends StatelessWidget {
                       );
                 },
                 onCancelar: () {},
+              );
+            },
+            onAnalisarServico: (value) {
+              Navigator.of(context).pushNamed(
+                AppRoutes.analiseServico.route,
+                arguments: AnaliseServicoArguments(
+                  ordemServicoId: state.ordemServico?.id ?? '',
+                  servicoId: value.id ?? '',
+                ),
               );
             },
           )
