@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:torpheus/presentation/screens/analise_servico/bloc/analise_servico_bloc.dart';
+import 'package:torpheus/presentation/screens/servico/bloc/servico_bloc.dart';
 
 import '../../../../core/constants/color_constants.dart';
 
 class AnaliseServicoWebHeader extends StatelessWidget {
-  const AnaliseServicoWebHeader({super.key});
+  const AnaliseServicoWebHeader({super.key, required this.state});
+
+  final AnaliseServicoState state;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,11 @@ class AnaliseServicoWebHeader extends StatelessWidget {
               size: 24,
               color: ColorConstants.chambray,
             ),
-            onPressed: () {},
+            onPressed: () {
+              context.read<ServicoBloc>().add(
+                    ServicoLoad(ordemServicoId: state.ordemServico?.id ?? ''),
+                  );
+            },
           ),
           const Column(
             crossAxisAlignment: CrossAxisAlignment.start,

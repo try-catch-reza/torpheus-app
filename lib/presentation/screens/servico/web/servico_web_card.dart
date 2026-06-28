@@ -15,6 +15,7 @@ class ServicoWebCard extends StatelessWidget {
     required this.onCancelar,
     required this.onAnalisarServico,
     required this.servico,
+    required this.hasPodeGerenciarFotos,
   });
 
   final ValueChanged<ServicoModel>? onConcluir;
@@ -24,6 +25,7 @@ class ServicoWebCard extends StatelessWidget {
   final ValueChanged<ServicoModel>? onCancelar;
   final ValueChanged<ServicoModel>? onAnalisarServico;
   final ServicoModel servico;
+  final bool hasPodeGerenciarFotos;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class ServicoWebCard extends StatelessWidget {
           ServicoWebStatus(servico: servico),
           const SizedBox(width: 8),
           ServicoWebPopUp(
+            hasPodeGerenciarFotos: hasPodeGerenciarFotos,
             onConcluir: onConcluir,
             onUpdate: onUpdate,
             onReabrir: onReabrir,

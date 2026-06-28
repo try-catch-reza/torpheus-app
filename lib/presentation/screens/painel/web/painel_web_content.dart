@@ -17,7 +17,7 @@ class PainelWebContent extends StatelessWidget {
           }
 
           if (state is PainelLoaded) {
-            return const PainelWebBody();
+            return PainelWebBody(state: state);
           }
 
           if (state is PainelFail) {

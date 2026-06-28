@@ -13,6 +13,7 @@ class ServicoWebPopUp extends StatelessWidget {
     required this.onCancelar,
     required this.onAnalisarServico,
     required this.servico,
+    required this.hasPodeGerenciarFotos,
   });
 
   final ValueChanged<ServicoModel>? onConcluir;
@@ -23,6 +24,7 @@ class ServicoWebPopUp extends StatelessWidget {
   final ValueChanged<ServicoModel>? onAnalisarServico;
 
   final ServicoModel servico;
+  final bool hasPodeGerenciarFotos;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/core/constants/color_constants.dart';
-import 'package:torpheus/data/models/funcionario_model.dart';
 import 'package:torpheus/presentation/components/app_dropdown_field.dart';
 import 'package:torpheus/presentation/components/app_text_field.dart';
 import 'package:torpheus/presentation/screens/analise_servico/bloc/analise_servico_bloc.dart';
@@ -12,12 +12,14 @@ class AnaliseServicoWebRegistrarHora extends StatelessWidget {
     required this.minutoController,
     required this.notaController,
     required this.state,
+    required this.formKey,
   });
 
   final TextEditingController horaController;
   final TextEditingController minutoController;
   final TextEditingController notaController;
   final AnaliseServicoState state;
+  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context) {
@@ -28,394 +30,226 @@ class AnaliseServicoWebRegistrarHora extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: const Color(0xFFE8ECF0)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _Header(),
-          SizedBox(height: 20),
-          _FormSection(funcionario: state.funcionario),
-          SizedBox(height: 16),
-          _Divider(),
-          SizedBox(height: 16),
-          _TabelaLancamentos(),
-        ],
-      ),
-    );
-  }
-}
-
-// ── Header ────────────────────────────────────────────────────────────────────
-
-class _Header extends StatelessWidget {
-  const _Header();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(
-      children: [
-        Icon(Icons.access_time_rounded, size: 18, color: Color(0xFF6B7A99)),
-        SizedBox(width: 8),
-        Text(
-          'Horas de trabalho',
-          style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF1B2A4A)),
-        ),
-      ],
-    );
-  }
-}
-
-// ── Formulário ────────────────────────────────────────────────────────────────
-
-class _FormSection extends StatelessWidget {
-  const _FormSection({required this.funcionario});
-
-  final FuncionarioModel? funcionario;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
+      child: Form(
+        key: formKey,
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Mecânico
-            Expanded(
-              flex: 4,
-              child: _FormField(
-                label: 'Funcionário',
-                child: Container(
-                  height: 42,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xFFE8ECF0)),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Expanded(
-                    child: Text(
-                      funcionario?.nome ?? '',
-                      style: const TextStyle(
-                          fontSize: 13, color: Color(0xFF1B2A4A)),
-                      overflow: TextOverflow.ellipsis,
+            const SizedBox(height: 16),
+            Text(
+              'Registrar hora',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: ColorConstants.chambray,
+              ),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              'Registre as horas gastas na execução do serviço.',
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.grey.shade500,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const SizedBox(height: 16),
+            AppDropdownField(
+              label: 'Funcionários',
+              items: state.funcionarios.map((funcionario) {
+                return DropdownMenuItem(
+                  value: funcionario,
+                  child: Text(funcionario.nome ?? ''),
+                );
+              }).toList(),
+              onChanged: (value) {
+                context.read<AnaliseServicoBloc>().add(
+                      AnaliseServicoSetFuncionario(funcionario: value!),
+                    );
+              },
+            ),
+            const SizedBox(height: 16),
+            _DatePickerBox(
+              onTap: () => _selecionarData(context),
+              label: 'Data',
+              valor: _formatarData(state.data),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    height: 40,
+                    child: AppTextField(
+                      keyboardType: TextInputType.number,
+                      label: 'Horas',
+                      controller: horaController,
                     ),
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            // Data
-            Expanded(
-              flex: 3,
-              child: _FormField(
-                label: 'DATA',
-                child: _InputBox(
-                  hint: 'dd/mm/aaaa',
-                  trailing: Icons.calendar_today_outlined,
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    ':',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
                 ),
-              ),
+                Expanded(
+                  child: SizedBox(
+                    height: 40,
+                    child: AppTextField(
+                      label: 'Minutos',
+                      controller: minutoController,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(width: 12),
-            // Horas
-            Expanded(
-              flex: 2,
-              child: _FormField(label: 'HORAS', child: _InputBox(hint: '0')),
+            const SizedBox(height: 16),
+            AppTextField(
+              controller: notaController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Campo obrigatório';
+                }
+                return null;
+              },
+              label: 'Oque foi feito',
+              maxLines: 5,
             ),
-            const SizedBox(width: 12),
-            // Min
-            Expanded(
-              flex: 2,
-              child: _FormField(label: 'MIN', child: _InputBox(hint: '0')),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                const Spacer(),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () => _onPressed(context),
+                  label: const Text('Registrar hora'),
+                  icon: const Icon(
+                    Icons.check,
+                    size: 24,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-        const SizedBox(height: 12),
-        // Textarea
-        _FormField(
-          label: 'O QUE FOI FEITO',
-          child: Container(
-            height: 80,
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFFE8ECF0)),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                'Descreva o trabalho realizado neste período...',
-                style: TextStyle(fontSize: 13, color: Color(0xFFB0BAD0)),
-              ),
+      ),
+    );
+  }
+
+  String _formatarData(DateTime? data) {
+    if (data == null) return 'dd/mm/aaaa';
+    return '${data.day.toString().padLeft(2, '0')}/${data.month.toString().padLeft(2, '0')}/${data.year}';
+  }
+
+  void _onPressed(BuildContext context) {
+    if (formKey.currentState?.validate() ?? false) {
+      final bloc = context.read<AnaliseServicoBloc>();
+      final horas = int.tryParse(horaController.text) ?? 0;
+      final minutos = int.tryParse(minutoController.text) ?? 0;
+      final nota = notaController.text;
+
+      bloc.add(
+        AnaliseServicoRegistrarHora(
+          hora: horas.toString(),
+          minuto: minutos.toString(),
+          nota: nota,
+        ),
+      );
+    }
+  }
+
+  Future<void> _selecionarData(BuildContext context) async {
+    final bloc = context.read<AnaliseServicoBloc>();
+
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2100),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Color(0xFF1B2A4A),
+              onPrimary: Colors.white,
+              surface: Colors.white,
+              onSurface: Color(0xFF1B2A4A),
             ),
           ),
-        ),
-        const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'Informe horas e/ou minutos',
-              style: TextStyle(fontSize: 12, color: Color(0xFF6B7A99)),
-            ),
-            ElevatedButton.icon(
-              onPressed: null, // desabilitado enquanto sem dados
-              icon: const Icon(Icons.add, size: 16),
-              label: const Text('Registrar horas'),
-              style: ElevatedButton.styleFrom(
-                disabledBackgroundColor: const Color(0xFFE8ECF0),
-                disabledForegroundColor: const Color(0xFF6B7A99),
-                textStyle:
-                    const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-              ),
-            ),
-          ],
-        ),
-      ],
+          child: child!,
+        );
+      },
     );
+
+    if (picked == null) return;
+
+    bloc.add(AnaliseServicoSetData(data: picked));
   }
 }
 
-class _FormField extends StatelessWidget {
+class _DatePickerBox extends StatelessWidget {
   final String label;
-  final Widget child;
+  final String valor;
+  final VoidCallback onTap;
 
-  const _FormField({required this.label, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF6B7A99),
-            letterSpacing: 0.6,
-          ),
-        ),
-        const SizedBox(height: 6),
-        child,
-      ],
-    );
-  }
-}
-
-class _InputBox extends StatelessWidget {
-  final String hint;
-  final IconData? trailing;
-
-  const _InputBox({required this.hint, this.trailing});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 42,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFE8ECF0)),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              hint,
-              style: const TextStyle(fontSize: 13, color: Color(0xFFB0BAD0)),
-            ),
-          ),
-          if (trailing != null)
-            Icon(trailing, size: 16, color: const Color(0xFF6B7A99)),
-        ],
-      ),
-    );
-  }
-}
-
-// ── Divider ───────────────────────────────────────────────────────────────────
-
-class _Divider extends StatelessWidget {
-  const _Divider();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Divider(height: 1, thickness: 1, color: Color(0xFFEEF0F3));
-  }
-}
-
-// ── Tabela de lançamentos ─────────────────────────────────────────────────────
-
-class _TabelaLancamentos extends StatelessWidget {
-  const _TabelaLancamentos();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        _TabelaHeader(),
-        SizedBox(height: 12),
-        _Divider(),
-        SizedBox(height: 12),
-        _TabelaRow(
-          mecanico: 'Lucas Ferreira',
-          data: '24/04 08:30',
-          duracao: '25min',
-          oQueFoiFeito:
-              'Inspeção visual completa, teste de freio em bancada e análise do óleo.',
-        ),
-        SizedBox(height: 12),
-        _Divider(),
-        SizedBox(height: 12),
-        _TabelaTotal(total: '25min', estimado: 'Estimado: 30min'),
-      ],
-    );
-  }
-}
-
-class _TabelaHeader extends StatelessWidget {
-  const _TabelaHeader();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(
-      children: [
-        Expanded(flex: 2, child: _ColLabel('MECÂNICO')),
-        Expanded(flex: 2, child: _ColLabel('DATA')),
-        Expanded(flex: 2, child: _ColLabel('DURAÇÃO')),
-        Expanded(flex: 5, child: _ColLabel('O QUE FOI FEITO')),
-      ],
-    );
-  }
-}
-
-class _ColLabel extends StatelessWidget {
-  final String text;
-
-  const _ColLabel(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-        color: Color(0xFF6B7A99),
-        letterSpacing: 0.6,
-      ),
-    );
-  }
-}
-
-class _TabelaRow extends StatelessWidget {
-  final String mecanico;
-  final String data;
-  final String duracao;
-  final String oQueFoiFeito;
-
-  const _TabelaRow({
-    required this.mecanico,
-    required this.data,
-    required this.duracao,
-    required this.oQueFoiFeito,
+  const _DatePickerBox({
+    required this.label,
+    required this.valor,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 2,
-          child: Text(
-            mecanico,
-            style: const TextStyle(
-              fontSize: 13,
-              color: Color(0xFF2E90FA),
-              fontWeight: FontWeight.w500,
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: const Color(0xFFE8ECF0),
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '$label  ',
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: ColorConstants.chromaphobicBlack,
+                letterSpacing: 0.4,
+              ),
             ),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            data,
-            style: const TextStyle(fontSize: 13, color: Color(0xFF1B2A4A)),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            duracao,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF1B2A4A),
+            const Icon(
+              Icons.calendar_today_outlined,
+              size: 14,
+              color: Color(
+                0xFF1B2A4A,
+              ),
             ),
-          ),
-        ),
-        Expanded(
-          flex: 5,
-          child: Text(
-            oQueFoiFeito,
-            style: const TextStyle(fontSize: 13, color: Color(0xFF1B2A4A)),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _TabelaTotal extends StatelessWidget {
-  final String total;
-  final String estimado;
-
-  const _TabelaTotal({required this.total, required this.estimado});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Expanded(flex: 2, child: SizedBox()),
-        const Expanded(
-          flex: 2,
-          child: Text(
-            'TOTAL ACUMULADO',
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF6B7A99),
-              letterSpacing: 0.6,
+            const SizedBox(width: 6),
+            Text(
+              valor,
+              style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF1B2A4A),
+              ),
             ),
-          ),
+          ],
         ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            total,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF1B2A4A),
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 5,
-          child: Text(
-            estimado,
-            style: const TextStyle(fontSize: 13, color: Color(0xFF6B7A99)),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

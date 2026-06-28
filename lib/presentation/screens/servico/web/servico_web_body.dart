@@ -38,75 +38,79 @@ class ServicoWebBody extends StatelessWidget {
         children: [
           ServicoWebHeader(state: state),
           ServicoWebTitle(ordemServico: state.ordemServico),
-          ServicoWebList(
-            statusOrdem: state.ordemServico?.statusOrdem,
-            servicos: state.ordemServico?.servicos?.reversed.toList() ?? [],
-            onPressed: () => _onShowDialogAdicionar(context),
-            onConcluir: (servico) {
-              ConfirmDialog.show(
-                context,
-                titulo: 'Concluir serviço',
-                mensagem: 'Tem certeza que deseja concluir esse serviço?',
-                onConfirmar: () {
-                  context.read<ServicoBloc>().add(
-                        ServicoTrocarStatus(
-                          servicoId: servico.id ?? '',
-                          status: StatusServico.completado,
-                        ),
-                      );
-                },
-                onCancelar: () {},
-              );
-            },
-            onUpdate: (servico) {
-              _onShowDialogUpdate(context, servico);
-            },
-            onReabrir: (servico) {
-              ConfirmDialog.show(
-                context,
-                titulo: 'Reabrir serviço',
-                mensagem: 'Tem certeza que deseja reabrir esse serviço?',
-                onConfirmar: () {
-                  context.read<ServicoBloc>().add(
-                        ServicoTrocarStatus(
-                          servicoId: servico.id ?? '',
-                          status: StatusServico.emProgresso,
-                        ),
-                      );
-                },
-                onCancelar: () {},
-              );
-            },
-            onAbrirFotos: (servico) {
-              FotoWebContent.show(
-                context,
-                servicoBloc: context.read<ServicoBloc>(),
-                fotoBloc: getIt.get<FotoBloc>(),
-                ordemServicoId: state.ordemServico?.id ?? '',
-                servico: servico,
-              );
-            },
-            onAnalisarServico: (servico) {
-              context.read<ServicoBloc>().add(
-                    ServicoSelecionarItem(servico: servico),
-                  );
-            },
-            onCancelar: (servico) {
-              ConfirmDialog.show(
-                context,
-                titulo: 'Cancelar serviço',
-                mensagem: 'Tem certeza que deseja cancelar esse serviço?',
-                onConfirmar: () {
-                  context.read<ServicoBloc>().add(
-                        ServicoTrocarStatus(
-                          servicoId: servico.id ?? '',
-                          status: StatusServico.cancelado,
-                        ),
-                      );
-                },
-                onCancelar: () {},
-              );
-            },
+          Expanded(
+            child: ServicoWebList(
+              hasPodeGerenciarFotos: state.hasPodeGerenciarFoto,
+              hasPodeAdicionarServico: state.hasPodeAdicionarServico,
+              statusOrdem: state.ordemServico?.statusOrdem,
+              servicos: state.ordemServico?.servicos?.reversed.toList() ?? [],
+              onPressed: () => _onShowDialogAdicionar(context),
+              onConcluir: (servico) {
+                ConfirmDialog.show(
+                  context,
+                  titulo: 'Concluir serviço',
+                  mensagem: 'Tem certeza que deseja concluir esse serviço?',
+                  onConfirmar: () {
+                    context.read<ServicoBloc>().add(
+                          ServicoTrocarStatus(
+                            servicoId: servico.id ?? '',
+                            status: StatusServico.completado,
+                          ),
+                        );
+                  },
+                  onCancelar: () {},
+                );
+              },
+              onUpdate: (servico) {
+                _onShowDialogUpdate(context, servico);
+              },
+              onReabrir: (servico) {
+                ConfirmDialog.show(
+                  context,
+                  titulo: 'Reabrir serviço',
+                  mensagem: 'Tem certeza que deseja reabrir esse serviço?',
+                  onConfirmar: () {
+                    context.read<ServicoBloc>().add(
+                          ServicoTrocarStatus(
+                            servicoId: servico.id ?? '',
+                            status: StatusServico.emProgresso,
+                          ),
+                        );
+                  },
+                  onCancelar: () {},
+                );
+              },
+              onAbrirFotos: (servico) {
+                FotoWebContent.show(
+                  context,
+                  servicoBloc: context.read<ServicoBloc>(),
+                  fotoBloc: getIt.get<FotoBloc>(),
+                  ordemServicoId: state.ordemServico?.id ?? '',
+                  servico: servico,
+                );
+              },
+              onAnalisarServico: (servico) {
+                context.read<ServicoBloc>().add(
+                      ServicoSelecionarItem(servico: servico),
+                    );
+              },
+              onCancelar: (servico) {
+                ConfirmDialog.show(
+                  context,
+                  titulo: 'Cancelar serviço',
+                  mensagem: 'Tem certeza que deseja cancelar esse serviço?',
+                  onConfirmar: () {
+                    context.read<ServicoBloc>().add(
+                          ServicoTrocarStatus(
+                            servicoId: servico.id ?? '',
+                            status: StatusServico.cancelado,
+                          ),
+                        );
+                  },
+                  onCancelar: () {},
+                );
+              },
+            ),
           ),
         ],
       ),

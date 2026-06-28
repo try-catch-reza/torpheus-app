@@ -17,6 +17,8 @@ class ServicoWebList extends StatelessWidget {
     required this.onCancelar,
     required this.onAnalisarServico,
     required this.statusOrdem,
+    required this.hasPodeAdicionarServico,
+    required this.hasPodeGerenciarFotos,
   });
 
   final List<ServicoModel> servicos;
@@ -28,6 +30,8 @@ class ServicoWebList extends StatelessWidget {
   final ValueChanged<ServicoModel>? onCancelar;
   final ValueChanged<ServicoModel>? onAnalisarServico;
   final StatusOrdem? statusOrdem;
+  final bool hasPodeAdicionarServico;
+  final bool hasPodeGerenciarFotos;
 
   @override
   Widget build(BuildContext context) {
@@ -41,34 +45,38 @@ class ServicoWebList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ServicoWebTitleList(
-            onPressed: onPressed,
-            quantServicos: servicos.length,
-            statusOrdem: statusOrdem,
+          Visibility(
+            visible: hasPodeAdicionarServico,
+            child: ServicoWebTitleList(
+              onPressed: onPressed,
+              quantServicos: servicos.length,
+              statusOrdem: statusOrdem,
+            ),
           ),
           const Divider(height: 1, thickness: 1, color: Color(0xFFEEF0F3)),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: servicos.length,
-            separatorBuilder: (_, __) => const Divider(
-              height: 1,
-              thickness: 1,
-              color: Color(0xFFEEF0F3),
-            ),
-            itemBuilder: (context, index) {
-              final servico = servicos[index];
+          Expanded(
+            child: ListView.separated(
+              itemCount: servicos.length,
+              separatorBuilder: (_, __) => const Divider(
+                height: 1,
+                thickness: 1,
+                color: Color(0xFFEEF0F3),
+              ),
+              itemBuilder: (context, index) {
+                final servico = servicos[index];
 
-              return ServicoWebCard(
-                onConcluir: onConcluir,
-                onUpdate: onUpdate,
-                onReabrir: onReabrir,
-                onAbrirFotos: onAbrirFotos,
-                onCancelar: onCancelar,
-                onAnalisarServico: onAnalisarServico,
-                servico: servico,
-              );
-            },
+                return ServicoWebCard(
+                  hasPodeGerenciarFotos: hasPodeGerenciarFotos,
+                  onConcluir: onConcluir,
+                  onUpdate: onUpdate,
+                  onReabrir: onReabrir,
+                  onAbrirFotos: onAbrirFotos,
+                  onCancelar: onCancelar,
+                  onAnalisarServico: onAnalisarServico,
+                  servico: servico,
+                );
+              },
+            ),
           ),
         ],
       ),
