@@ -57,7 +57,48 @@ class ServicoWebHeader extends StatelessWidget {
           ),
           const Spacer(),
           Visibility(
-            visible: state.ordemServico?.statusOrdem != StatusOrdem.completado,
+            visible:
+                state.ordemServico?.statusOrdem != StatusOrdem.completado &&
+                    state.ordemServico?.statusOrdem != StatusOrdem.cancelado,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                ConfirmDialog.show(
+                  context,
+                  titulo: 'Cancelar ordem de serviço',
+                  mensagem:
+                      'Tem certeza que deseja cancelar a ordem de serviço? '
+                      'Essa ação não poderá ser desfeita.',
+                  onConfirmar: () {
+                    context.read<ServicoBloc>().add(
+                          const ServicoTrocarStatusOS(
+                            status: StatusOrdem.cancelado,
+                          ),
+                        );
+                  },
+                );
+              },
+              label: const Text('Cancelar'),
+              icon: const Icon(Icons.clear),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                textStyle: const TextStyle(
+                  fontSize: 13,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 18,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Visibility(
+            visible:
+                state.ordemServico?.statusOrdem != StatusOrdem.completado &&
+                    state.ordemServico?.statusOrdem != StatusOrdem.cancelado,
             child: ElevatedButton.icon(
               onPressed: () {
                 ConfirmDialog.show(

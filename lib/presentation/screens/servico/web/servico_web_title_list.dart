@@ -31,7 +31,8 @@ class ServicoWebTitleList extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: statusOrdem != StatusOrdem.completado,
+            visible: statusOrdem != StatusOrdem.completado &&
+                statusOrdem != StatusOrdem.cancelado,
             child: OutlinedButton.icon(
               onPressed: onPressed,
               icon: const Icon(Icons.add, size: 16, color: Colors.white),

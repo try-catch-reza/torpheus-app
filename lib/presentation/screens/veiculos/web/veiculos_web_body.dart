@@ -381,6 +381,11 @@ class VeiculosWebBody extends StatelessWidget {
   void _onShowDialogCadastrarVeiculo(BuildContext context) {
     final bloc = context.read<VeiculosBloc>();
 
+    placaController.clear();
+    anoController.clear();
+    motorController.clear();
+    modeloController.clear();
+
     showDialog(
       context: context,
       barrierDismissible: false,

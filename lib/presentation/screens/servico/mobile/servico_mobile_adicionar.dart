@@ -31,7 +31,8 @@ class ServicoMobileAdicionar extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: statusOrdem != StatusOrdem.completado,
+            visible: statusOrdem != StatusOrdem.completado &&
+                statusOrdem != StatusOrdem.cancelado,
             child: ElevatedButton.icon(
               onPressed: onPressed,
               label: const Text('Adicionar serviço'),

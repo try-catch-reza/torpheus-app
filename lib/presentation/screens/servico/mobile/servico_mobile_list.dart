@@ -142,8 +142,10 @@ class ServicoMobileList extends StatelessWidget {
                 subtitle: Text(
                   servico.funcionarioNome ?? 'Nenhum funcionário atribuído',
                 ),
-                trailing: const Icon(Icons.chevron_right,
-                    color: ColorConstants.steel),
+                trailing: const Icon(
+                  Icons.chevron_right,
+                  color: ColorConstants.steel,
+                ),
               ),
             ),
           );

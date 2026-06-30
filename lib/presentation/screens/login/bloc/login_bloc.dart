@@ -86,8 +86,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       final nome = JwtDecoder.getNome(authResponse.acessToken ?? '');
 
-      final roleId = JwtDecoder.getRoleId(authResponse.acessToken ?? '');
-
       await Future.wait([
         _preferencesLocalRepository.saveAccessToken(
           authResponse.acessToken ?? '',

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torpheus/presentation/screens/analise_servico/bloc/analise_servico_bloc.dart';
 import 'package:torpheus/presentation/screens/analise_servico/web/analise_servico_web_body.dart';
 
-import '../../../components/dialog/dialog_mobile_padrao.dart';
+import '../../../components/dialog/dialog_web_padrao.dart';
 
 class AnaliseServicoWebContent extends StatefulWidget {
   const AnaliseServicoWebContent({super.key});
@@ -72,7 +72,7 @@ class _AnaliseServicoWebContentState extends State<AnaliseServicoWebContent> {
     }
 
     if (state is AnaliseServicoFail) {
-      DialogMobilePadrao.errorDialog(
+      DialogWebPadrao.errorDialog(
         context: context,
         message: state.message,
         onPress: () {

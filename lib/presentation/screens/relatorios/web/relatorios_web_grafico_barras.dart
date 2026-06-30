@@ -10,10 +10,12 @@ class RelatoriosWebGraficoBarras extends StatefulWidget {
   final RelatoriosState state;
 
   @override
-  State<RelatoriosWebGraficoBarras> createState() => _RelatoriosWebGraficoBarrasState();
+  State<RelatoriosWebGraficoBarras> createState() =>
+      _RelatoriosWebGraficoBarrasState();
 }
 
-class _RelatoriosWebGraficoBarrasState extends State<RelatoriosWebGraficoBarras> {
+class _RelatoriosWebGraficoBarrasState
+    extends State<RelatoriosWebGraficoBarras> {
   int? _touchedIndex;
 
   List<BaldesModel> get _baldes => widget.state.indicadorPeriodo?.baldes ?? [];
@@ -38,7 +40,7 @@ class _RelatoriosWebGraficoBarrasState extends State<RelatoriosWebGraficoBarras>
       final concluidas = (balde.completos ?? 0).toDouble();
       final emAndamento = (balde.emProgresso ?? 0).toDouble();
       final emAberto = (balde.totalAbertos ?? 0).toDouble();
-      final canceladas = (balde.cancelados ?? 0).toDouble();
+      // final canceladas = (balde.cancelados ?? 0).toDouble();
       final isTouched = _touchedIndex == i;
       final hasValue = total > 0;
 
@@ -52,14 +54,20 @@ class _RelatoriosWebGraficoBarrasState extends State<RelatoriosWebGraficoBarras>
             color: Colors.transparent,
             rodStackItems: hasValue
                 ? [
-              BarChartRodStackItem(0, concluidas, const Color(0xFF12B76A)),
-              BarChartRodStackItem(concluidas, concluidas + emAndamento, const Color(0xFF2E90FA)),
-              BarChartRodStackItem(concluidas + emAndamento, concluidas + emAndamento + emAberto, const Color(0xFF6B7A99)),
-              BarChartRodStackItem(concluidas + emAndamento + emAberto, total, const Color(0xFFF97066)),
-            ]
+                    BarChartRodStackItem(
+                        0, concluidas, const Color(0xFF12B76A)),
+                    BarChartRodStackItem(concluidas, concluidas + emAndamento,
+                        const Color(0xFF2E90FA)),
+                    BarChartRodStackItem(
+                        concluidas + emAndamento,
+                        concluidas + emAndamento + emAberto,
+                        const Color(0xFF6B7A99)),
+                    BarChartRodStackItem(concluidas + emAndamento + emAberto,
+                        total, const Color(0xFFF97066)),
+                  ]
                 : [
-              BarChartRodStackItem(0, 0.15, const Color(0xFFE8ECF0)),
-            ],
+                    BarChartRodStackItem(0, 0.15, const Color(0xFFE8ECF0)),
+                  ],
           ),
         ],
       );
@@ -90,10 +98,12 @@ class _RelatoriosWebGraficoBarrasState extends State<RelatoriosWebGraficoBarras>
                 ),
               ),
               const Spacer(),
-              if (widget.state.indicador?.dataInicio != null && widget.state.indicador?.dataFim != null)
+              if (widget.state.indicador?.dataInicio != null &&
+                  widget.state.indicador?.dataFim != null)
                 Text(
                   '${_formatarData(widget.state.indicador?.dataInicio)} — ${_formatarData(widget.state.indicador?.dataFim)}',
-                  style: const TextStyle(fontSize: 12, color: Color(0xFF6B7A99)),
+                  style:
+                      const TextStyle(fontSize: 12, color: Color(0xFF6B7A99)),
                 ),
             ],
           ),
@@ -104,10 +114,10 @@ class _RelatoriosWebGraficoBarrasState extends State<RelatoriosWebGraficoBarras>
           const Wrap(
             spacing: 16,
             children: [
-              _LegendaItem(label: 'Concluídas',   color: Color(0xFF12B76A)),
+              _LegendaItem(label: 'Concluídas', color: Color(0xFF12B76A)),
               _LegendaItem(label: 'Em andamento', color: Color(0xFF2E90FA)),
-              _LegendaItem(label: 'Em aberto',    color: Color(0xFF6B7A99)),
-              _LegendaItem(label: 'Canceladas',   color: Color(0xFFF97066)),
+              _LegendaItem(label: 'Em aberto', color: Color(0xFF6B7A99)),
+              _LegendaItem(label: 'Canceladas', color: Color(0xFFF97066)),
             ],
           ),
 
@@ -118,137 +128,149 @@ class _RelatoriosWebGraficoBarrasState extends State<RelatoriosWebGraficoBarras>
             height: 180,
             child: _baldes.isEmpty
                 ? const Center(
-              child: Text(
-                'Sem dados no período',
-                style: TextStyle(fontSize: 13, color: Color(0xFF6B7A99)),
-              ),
-            )
+                    child: Text(
+                      'Sem dados no período',
+                      style: TextStyle(fontSize: 13, color: Color(0xFF6B7A99)),
+                    ),
+                  )
                 : BarChart(
-              BarChartData(
-                alignment: BarChartAlignment.spaceAround,
-                maxY: _maxY,
-                minY: 0,
-                groupsSpace: 4,
-                barTouchData: BarTouchData(
-                  touchCallback: (event, response) {
-                    setState(() {
-                      if (!event.isInterestedForInteractions ||
-                          response == null ||
-                          response.spot == null) {
-                        _touchedIndex = null;
-                      } else {
-                        _touchedIndex =
-                            response.spot!.touchedBarGroupIndex;
-                      }
-                    });
-                  },
-                  touchTooltipData: BarTouchTooltipData(
-                    getTooltipColor: (_) => const Color(0xFF1B2A4A),
-                    tooltipRoundedRadius: 8,
-                    tooltipPadding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 8),
-                    getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                      final balde = _baldes[groupIndex];
-                      if ((balde.total ?? 0) == 0) return null;
+                    BarChartData(
+                      alignment: BarChartAlignment.spaceAround,
+                      maxY: _maxY,
+                      minY: 0,
+                      groupsSpace: 4,
+                      barTouchData: BarTouchData(
+                        touchCallback: (event, response) {
+                          setState(() {
+                            if (!event.isInterestedForInteractions ||
+                                response == null ||
+                                response.spot == null) {
+                              _touchedIndex = null;
+                            } else {
+                              _touchedIndex =
+                                  response.spot!.touchedBarGroupIndex;
+                            }
+                          });
+                        },
+                        touchTooltipData: BarTouchTooltipData(
+                          getTooltipColor: (_) => const Color(0xFF1B2A4A),
+                          tooltipRoundedRadius: 8,
+                          tooltipPadding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                            final balde = _baldes[groupIndex];
+                            if ((balde.total ?? 0) == 0) return null;
 
-                      return BarTooltipItem(
-                        '',
-                        const TextStyle(),
-                        children: [
-                          TextSpan(
-                            text: '${balde.total} OS  ',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 13,
-                            ),
+                            return BarTooltipItem(
+                              '',
+                              const TextStyle(),
+                              children: [
+                                TextSpan(
+                                  text: '${balde.total} OS  ',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: _formatarData(balde.data),
+                                  style: const TextStyle(
+                                    color: Color(0xFFB0C4DE),
+                                    fontSize: 11,
+                                  ),
+                                ),
+                                if ((balde.completos ?? 0) > 0)
+                                  TextSpan(
+                                    text: '\n✓ ${balde.completos} concluídas',
+                                    style: const TextStyle(
+                                        color: Color(0xFF6CE9A6), fontSize: 11),
+                                  ),
+                                if ((balde.emProgresso ?? 0) > 0)
+                                  TextSpan(
+                                    text:
+                                        '\n◉ ${balde.emProgresso} em andamento',
+                                    style: const TextStyle(
+                                        color: Color(0xFF84CAFF), fontSize: 11),
+                                  ),
+                                if ((balde.totalAbertos ?? 0) > 0)
+                                  TextSpan(
+                                    text: '\n○ ${balde.totalAbertos} em aberto',
+                                    style: const TextStyle(
+                                        color: Color(0xFFD0D5DD), fontSize: 11),
+                                  ),
+                                if ((balde.cancelados ?? 0) > 0)
+                                  TextSpan(
+                                    text: '\n✕ ${balde.cancelados} canceladas',
+                                    style: const TextStyle(
+                                        color: Color(0xFFFDA29B), fontSize: 11),
+                                  ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                      titlesData: FlTitlesData(
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 28,
+                            interval: 1,
+                            getTitlesWidget: (value, meta) {
+                              if (value == 0 || value == meta.max) {
+                                return const SizedBox.shrink();
+                              }
+                              return Text(
+                                value.toInt().toString(),
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  color: Color(0xFF6B7A99),
+                                ),
+                              );
+                            },
                           ),
-                          TextSpan(
-                            text: _formatarData(balde.data),
-                            style: const TextStyle(
-                              color: Color(0xFFB0C4DE),
-                              fontSize: 11,
-                            ),
+                        ),
+                        rightTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false)),
+                        topTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false)),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 28,
+                            getTitlesWidget: (value, meta) {
+                              final i = value.toInt();
+                              if (i < 0 || i >= _baldes.length) {
+                                return const SizedBox.shrink();
+                              }
+                              if (i % 5 != 0) return const SizedBox.shrink();
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 6),
+                                child: Text(
+                                  _formatarData(_baldes[i].data),
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                    color: Color(0xFF6B7A99),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                          if ((balde.completos ?? 0) > 0)
-                            TextSpan(
-                              text: '\n✓ ${balde.completos} concluídas',
-                              style: const TextStyle(color: Color(0xFF6CE9A6), fontSize: 11),
-                            ),
-                          if ((balde.emProgresso ?? 0) > 0)
-                            TextSpan(
-                              text: '\n◉ ${balde.emProgresso} em andamento',
-                              style: const TextStyle(color: Color(0xFF84CAFF), fontSize: 11),
-                            ),
-                          if ((balde.totalAbertos ?? 0) > 0)
-                            TextSpan(
-                              text: '\n○ ${balde.totalAbertos} em aberto',
-                              style: const TextStyle(color: Color(0xFFD0D5DD), fontSize: 11),
-                            ),
-                          if ((balde.cancelados ?? 0) > 0)
-                            TextSpan(
-                              text: '\n✕ ${balde.cancelados} canceladas',
-                              style: const TextStyle(color: Color(0xFFFDA29B), fontSize: 11),
-                            ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-                titlesData: FlTitlesData(
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      reservedSize: 28,
-                      interval: 1,
-                      getTitlesWidget: (value, meta) {
-                        if (value == 0 || value == meta.max) {
-                          return const SizedBox.shrink();
-                        }
-                        return Text(
-                          value.toInt().toString(),
-                          style: const TextStyle(
-                            fontSize: 10,
-                            color: Color(0xFF6B7A99),
-                          ),
-                        );
-                      },
+                        ),
+                      ),
+                      gridData: FlGridData(
+                        show: true,
+                        drawVerticalLine: false,
+                        horizontalInterval: 1,
+                        getDrawingHorizontalLine: (_) => const FlLine(
+                          color: Color(0xFFF2F4F7),
+                          strokeWidth: 1,
+                        ),
+                      ),
+                      borderData: FlBorderData(show: false),
+                      barGroups: _barGroups,
                     ),
                   ),
-                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      reservedSize: 28,
-                      getTitlesWidget: (value, meta) {
-                        final i = value.toInt();
-                        if (i < 0 || i >= _baldes.length) return const SizedBox.shrink();
-                        if (i % 5 != 0) return const SizedBox.shrink();
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 6),
-                          child: Text(
-                            _formatarData(_baldes[i].data),
-                            style: const TextStyle(fontSize: 10, color: Color(0xFF6B7A99)),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                gridData: FlGridData(
-                  show: true,
-                  drawVerticalLine: false,
-                  horizontalInterval: 1,
-                  getDrawingHorizontalLine: (_) => const FlLine(
-                    color: Color(0xFFF2F4F7),
-                    strokeWidth: 1,
-                  ),
-                ),
-                borderData: FlBorderData(show: false),
-                barGroups: _barGroups,
-              ),
-            ),
           ),
         ],
       ),
@@ -273,7 +295,8 @@ class _LegendaItem extends StatelessWidget {
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 5),
-        Text(label, style: const TextStyle(fontSize: 11, color: Color(0xFF6B7A99))),
+        Text(label,
+            style: const TextStyle(fontSize: 11, color: Color(0xFF6B7A99))),
       ],
     );
   }

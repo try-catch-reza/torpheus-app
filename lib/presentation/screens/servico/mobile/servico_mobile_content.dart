@@ -51,7 +51,8 @@ class _ServicoMobileContentState extends State<ServicoMobileContent> {
       bottomNavigationBar: BlocBuilder<ServicoBloc, ServicoState>(
         builder: (context, state) {
           return Visibility(
-            visible: state.ordemServico?.statusOrdem != StatusOrdem.completado,
+            visible: state.ordemServico?.statusOrdem != StatusOrdem.completado &&
+                state.ordemServico?.statusOrdem != StatusOrdem.cancelado,
             child: Visibility(
               visible: state.hasPodeFinalizarOS,
               child: AppButtonBottomNavigation(

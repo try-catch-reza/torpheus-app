@@ -55,7 +55,7 @@ class FuncionarioModel extends Equatable {
       id: json['id'] as String?,
       userId: json['userId'] as String?,
       nome: json['name'] as String?,
-      documento: json['document'] as String?,
+      documento: json['documentNumber'] as String?,
       telefone: json['phone'] as String?,
       funcao: Funcao.fromValue(json['function']),
       isActive: json['isActive'] as bool?,

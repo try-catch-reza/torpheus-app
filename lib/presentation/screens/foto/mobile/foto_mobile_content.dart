@@ -83,6 +83,8 @@ class FotoMobileContent extends StatelessWidget {
           backgroundColor: Colors.green,
         ),
       );
+
+      Navigator.of(context).pop();
     }
   }
 }

@@ -69,7 +69,11 @@ class ServicoWebPopUp extends StatelessWidget {
             height: 40,
             child: Row(
               children: [
-                Icon(Icons.analytics_outlined, size: 16, color: Color(0xFF344054)),
+                Icon(
+                  Icons.analytics_outlined,
+                  size: 16,
+                  color: Color(0xFF344054),
+                ),
                 SizedBox(width: 10),
                 Text(
                   'Análise',

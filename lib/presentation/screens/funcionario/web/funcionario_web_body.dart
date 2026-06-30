@@ -52,16 +52,21 @@ class FuncionarioWebBody extends StatelessWidget {
             buttonText: 'Cadastrar funcionário',
             onPressed: () => _onShowDialogCadastrarFuncionario(context),
           ),
-          SearchCustom(controller: controller),
-          if (state.funcionarios.isEmpty)
+          SearchCustom(
+            controller: controller,
+            onChanged: (value) {
+              context.read<FuncionarioBloc>().add(FuncionarioSearch(value));
+            },
+          ),
+          if (state.funcionariosFiltered.isEmpty)
             const ListaVaziaCustom(
               message: 'Nenhum funcionário encontrado.',
               subMessage: 'Cadastre um novo funcionário',
             ),
-          if (state.funcionarios.isNotEmpty)
+          if (state.funcionariosFiltered.isNotEmpty)
             Expanded(
               child: FuncionarioWebTable(
-                funcionarios: state.funcionarios,
+                funcionarios: state.funcionariosFiltered,
                 onTap: state.hasEditarFuncionario
                     ? (value) => _onShowDialogUpdateFuncionario(context, value)
                     : null,

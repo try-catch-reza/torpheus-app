@@ -5,6 +5,8 @@ import 'package:torpheus/presentation/components/app_dropdown_field.dart';
 import 'package:torpheus/presentation/components/app_text_field.dart';
 import 'package:torpheus/presentation/screens/analise_servico/bloc/analise_servico_bloc.dart';
 
+import '../../../../core/constants/enum/status_servico.dart';
+
 class AnaliseServicoWebRegistrarHora extends StatelessWidget {
   const AnaliseServicoWebRegistrarHora({
     super.key,
@@ -119,23 +121,28 @@ class AnaliseServicoWebRegistrarHora extends StatelessWidget {
               maxLines: 5,
             ),
             const SizedBox(height: 16),
-            Row(
-              children: [
-                const Spacer(),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+            Visibility(
+              visible:
+                  state.servico?.statusServico != StatusServico.completado &&
+                      state.servico?.statusServico != StatusServico.cancelado,
+              child: Row(
+                children: [
+                  const Spacer(),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    onPressed: () => _onPressed(context),
+                    label: const Text('Registrar hora'),
+                    icon: const Icon(
+                      Icons.check,
+                      size: 24,
                     ),
                   ),
-                  onPressed: () => _onPressed(context),
-                  label: const Text('Registrar hora'),
-                  icon: const Icon(
-                    Icons.check,
-                    size: 24,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

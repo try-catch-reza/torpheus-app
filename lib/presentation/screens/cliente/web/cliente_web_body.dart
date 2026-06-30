@@ -34,16 +34,21 @@ class ClienteWebBody extends StatelessWidget {
               context.read<ClienteBloc>().add(const ClienteCadastrar());
             },
           ),
-          SearchCustom(controller: searchController),
-          if (state.clientes.isEmpty)
+          SearchCustom(
+            controller: searchController,
+            onChanged: (value) {
+              context.read<ClienteBloc>().add(ClienteSearch(value));
+            },
+          ),
+          if (state.clientesFiltered.isEmpty)
             const ListaVaziaCustom(
               message: 'Nenhum cliente encontrado ',
               subMessage: 'Cadastre um novo cliente',
             ),
-          if (state.clientes.isNotEmpty)
+          if (state.clientesFiltered.isNotEmpty)
             Expanded(
               child: ClienteWebTable(
-                clientes: state.clientes,
+                clientes: state.clientesFiltered,
                 onTap: (value) => ClienteWeblDialog.show(
                   context,
                   value,

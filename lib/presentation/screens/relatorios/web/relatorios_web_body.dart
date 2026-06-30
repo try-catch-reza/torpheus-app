@@ -21,7 +21,7 @@ class _RelatoriosWebBodyState extends State<RelatoriosWebBody> {
     return Scaffold(
       backgroundColor: const Color(0xFFF4F6FA),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(44),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

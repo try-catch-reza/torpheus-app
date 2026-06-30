@@ -93,11 +93,12 @@ class _ServicoWebContentState extends State<ServicoWebContent> {
     if (state is ServicoConcluido) {
       DialogWebPadrao.successDialog(
         context: context,
-        message: 'Serviço foi concluído com sucesso!',
+        message: 'Operação concluída com sucesso!',
         onPress: () {
           context.read<ServicoBloc>().add(
                 ServicoLoad(ordemServicoId: state.ordemServico?.id ?? ''),
               );
+          Navigator.of(context).pop();
         },
       );
     }
