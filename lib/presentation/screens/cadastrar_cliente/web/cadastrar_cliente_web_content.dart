@@ -105,7 +105,10 @@ class _CadastrarClienteWebContentState
         context: context,
         message: 'Cliente cadastrado com sucesso!',
         onPress: () {
-          context.read<ClienteBloc>().add(const ClientesLoad());
+
+          context.read<CadastrarClienteBloc>().add(
+                const CadastrarClienteLoad(isEdit: false, clienteId: ''),
+              );
         },
       );
     }

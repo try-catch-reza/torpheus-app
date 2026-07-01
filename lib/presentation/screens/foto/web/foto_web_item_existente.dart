@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/color_constants.dart';
-import '../../../../core/constants/enum/status_servico.dart';
 import '../../../../data/models/foto_model.dart';
 import '../../../../data/models/servico_model.dart';
 import '../../../../domain/repositories/preferenfeces/preferences_local_repository.dart';
 import '../../../../injector.dart';
-import '../bloc/foto_bloc.dart';
 
 class FotoWebItemExistente extends StatelessWidget {
   const FotoWebItemExistente({
@@ -52,24 +49,6 @@ class FotoWebItemExistente extends StatelessWidget {
                   ),
                 ),
         ),
-        if (servico.statusServico != StatusServico.completado)
-          Positioned(
-            top: 4,
-            right: 4,
-            child: GestureDetector(
-              onTap: () =>
-                  context.read<FotoBloc>().add(FotoRemoverFotoExistente(foto)),
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.black54,
-                  shape: BoxShape.circle,
-                ),
-                padding: const EdgeInsets.all(4),
-                child:
-                    const Icon(Icons.close, color: Colors.white, size: 16),
-              ),
-            ),
-          ),
         if (foto.url != null)
           Positioned.fill(
             child: Material(

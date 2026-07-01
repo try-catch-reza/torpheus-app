@@ -1,9 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../bloc/foto_bloc.dart';
 
 class FotoMobileItemNova extends StatelessWidget {
   const FotoMobileItemNova({
@@ -40,23 +37,6 @@ class FotoMobileItemNova extends StatelessWidget {
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
               ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 4,
-          right: 4,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FotoBloc>().add(FotoRemoverFotoNova(index));
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.black54,
-                shape: BoxShape.circle,
-              ),
-              padding: const EdgeInsets.all(4),
-              child: const Icon(Icons.close, color: Colors.white, size: 16),
             ),
           ),
         ),

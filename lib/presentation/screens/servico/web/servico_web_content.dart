@@ -98,7 +98,6 @@ class _ServicoWebContentState extends State<ServicoWebContent> {
           context.read<ServicoBloc>().add(
                 ServicoLoad(ordemServicoId: state.ordemServico?.id ?? ''),
               );
-          Navigator.of(context).pop();
         },
       );
     }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/constants/color_constants.dart';
-import '../bloc/foto_bloc.dart';
 
 class FotoWebItemNova extends StatelessWidget {
   const FotoWebItemNova({
@@ -51,22 +49,6 @@ class FotoWebItemNova extends StatelessWidget {
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
               ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 4,
-          right: 4,
-          child: GestureDetector(
-            onTap: () =>
-                context.read<FotoBloc>().add(FotoRemoverFotoWeb(index)),
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.black54,
-                shape: BoxShape.circle,
-              ),
-              padding: const EdgeInsets.all(4),
-              child: const Icon(Icons.close, color: Colors.white, size: 16),
             ),
           ),
         ),
